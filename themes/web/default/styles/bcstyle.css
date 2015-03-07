@@ -1,0 +1,51 @@
+.userpanel_bg{
+    background: #43464b;
+    width: 270px;
+    border-bottom: 1px solid #a2a5aa;
+    padding: 12px;
+}
+
+.headavatar{
+    width: 79px;
+    padding-left: 15px;
+}
+
+.headavatar img{
+    height: 55px;
+    border: 2px white solid;
+    border-radius: 50px;
+}
+
+a.username{
+    color: white;
+    font-size:15px;
+    font-weight: bold;
+    position: relative;
+    bottom: 5px;
+    padding-bottom: 6px;
+}
+
+a.usercab{
+    color: white;
+    position: relative;
+    bottom: 2px;
+}
+
+input[type="submit"].exit_button{
+    position: relative;
+    bottom: 2px;
+    border-radius: 0;
+    background: none;
+    border: 0px;
+    font-weight: normal;
+    font-size: 14px;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+input[type="submit"].exit_button:hover {
+    text-decoration: underline;
+}

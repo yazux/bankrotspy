@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 07 2015 г., 22:10
+-- Время создания: Мар 08 2015 г., 03:16
 -- Версия сервера: 5.6.15-log
 -- Версия PHP: 5.5.6
 
@@ -56,20 +56,6 @@ CREATE TABLE IF NOT EXISTS `ds_comm` (
   `numedit` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
-
---
--- Дамп данных таблицы `ds_comm`
---
-
-INSERT INTO `ds_comm` (`id`, `mid`, `module`, `text`, `username`, `userid`, `cache`, `time`, `useredit`, `editid`, `lastedit`, `numedit`) VALUES
-(1, 2, 'articles', 'Хороша статья)', 'web_demon', 1, '', 1377030153, '', 0, 0, 0),
-(2, 2, 'articles', 'Мякоть плотная, оранжевая, вкус хороший, кисло-сладкий, дегустационная оценка 4 балла. Химический состав: сухих веществ 14%, сахаров 8,3%, титруемых кислот 2%, содержание калия 380 мг/100г. Косточка отделяется отлично, довольно крупная, ее доля по отношению к массе плода может доходить до 16% (в среднем 11-13%), что является главным недостатком сорта.', 'web_demon', 1, '', 1378214725, '', 0, 0, 0),
-(6, 1, 'articles', '[pr=Тестовая презентация]\r\n\r\nНа OS Linux часто ADB (Android Device Bridge) отказывается работать и выдает ошибку "no permissions"\r\nОдно из решений - запускать вашу IDE или adb от имени root, но это не правильно и опасно.\r\n\r\nБезопаснее будет изменить права на бинарный файл adb. Для этого перейдите в папку установки android-sdk, platform-tools, и выполните команды:\r\n[code bash]\r\n    su\r\n    chown root:your_group adb\r\n    chmod 4550 adb\r\n[/code]\r\n\r\n[sl]\r\n\r\nГде your_group - ваша группа (обычно совпадает с именем пользователя)\r\nТеперь если выполнить:\r\n[code bash] \r\n   ls -l\r\n[/code]\r\n\r\n[/pr]', 'web_demon', 1, 0xed535d6f8320147ddfaf20ecb913b5351b5affca8240950cb846709d59f6df074ded5ce29abd6e292f7ce49c7bcf39e4329ad1774549e9e86391515c09f58ab866ceed71c35c8791f393967b7c00eb370766949ea8010bae675c96b8ae40d79556338783905a599962f48d7994aaed3c450d681159816e674ec47bf9e6c373ecbea0516461304ccf5b2a4d923e64d2a02f09c8b0a1553658403d1342d9361e1bc65fda01462ba8052b2f2dcfc539681828bae719e1cd5389d634bab14a22a7ae9220abbe5cb4aaef561c677fdf31efe068cf3ed100e0e904e3f01cabf68889e67741fc83afe79d013107b1ca26a715a0dbdd8eccc81f224ae2889cde71a9681a462ddf16b7515b68d4ee6ad84541489e07dc465f19c965cc1f9f, 1415821379, 'web_demon', 1, 1415822130, 2),
-(7, 6, 'articles', 'eet4t', 'demon2', 4, '', 1421007941, '', 0, 0, 0),
-(8, 6, 'articles', 'fvdv', 'demon2', 4, '', 1421083786, '', 0, 0, 0),
-(9, 9, 'articles', 'wefwefw', 'demon2', 4, '', 1421259417, '', 0, 0, 0),
-(10, 1, 'articles', 'web_demon, sdfsdfsdf', 'demon2', 4, '', 1421323369, '', 0, 0, 0),
-(11, 1, 'articles', 'wefwe', 'demon2', 4, '', 1421332616, '', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -142,14 +128,7 @@ CREATE TABLE IF NOT EXISTS `ds_guests` (
   KEY `ip` (`ip`),
   KEY `module` (`module`),
   KEY `action` (`action`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=379 ;
-
---
--- Дамп данных таблицы `ds_guests`
---
-
-INSERT INTO `ds_guests` (`id`, `primid`, `ip`, `ua`, `lastdate`, `module`, `action`) VALUES
-(378, '710f8929984e8e725dc8f09787bc5b20', 2130706433, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1425751767, 'index', 'index');
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=380 ;
 
 -- --------------------------------------------------------
 
@@ -173,14 +152,10 @@ CREATE TABLE IF NOT EXISTS `ds_menu` (
 --
 
 INSERT INTO `ds_menu` (`id`, `sort`, `name`, `link`, `one_counter`, `two_counter`, `three_counter`) VALUES
-(16, 1, 'Авторские статьи', '<<home_link>>/articles', 'unread_articles', 'unread_art_comms', 'onmoder_articles'),
-(17, 2, 'Полезые коды', '<<home_link>>/', '', '', ''),
-(18, 3, 'Файлы', '<<home_link>>/', '', '', ''),
-(19, 4, 'Фотоальбомы', '<<home_link>>/albums', '', '', ''),
-(20, 5, 'Форум', '<<home_link>>/forum', 'unread_forum_topics', '', ''),
-(21, 6, 'Уголок писателя', '<<home_link>>/', '', '', ''),
-(22, 7, 'Дневники', '<<home_link>>/', '', '', ''),
-(23, 8, 'Старый форум (Архив)', '<<home_link>>/', '', '', '');
+(16, 1, 'Новости', '<<home_link>>/news', '', '', ''),
+(17, 2, 'Техподдержка', '<<home_link>>/support', '', '', ''),
+(18, 3, 'Помощь', '<<home_link>>/help', '', '', ''),
+(19, 4, 'Аукционый робот', '<<home_link>>/', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -201,26 +176,6 @@ CREATE TABLE IF NOT EXISTS `ds_post_files` (
   PRIMARY KEY (`id`),
   KEY `module` (`module`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
-
---
--- Дамп данных таблицы `ds_post_files`
---
-
-INSERT INTO `ds_post_files` (`id`, `attach`, `atmod`, `module`, `post`, `time`, `name`, `userload`, `count`) VALUES
-(1, 0, 0, 'articles', 2, 1381875408, 'adventure_time_by_aiydrind4x1sbi.png', 1, 6),
-(4, 0, 0, 'articles', 1, 1415134755, 'marceline-marceline-35405822-1800-1024.jpg.png', 1, 9),
-(13, 125, 0, 'forum', 47, 1421867246, 'urlout.php.jpg', 4, 0),
-(11, 126, 0, 'forum', 17, 1421442935, 'urlout.php.jpg', 1, 0),
-(12, 135, 0, 'forum', 38, 1421673907, 'urlout.php.jpg', 1, 0),
-(14, 125, 0, 'forum', 47, 1421867264, '1.jpg', 4, 0),
-(15, 140, 0, 'forum', 49, 1421867302, 'urlout.php.jpg', 1, 0),
-(16, 128, 0, 'forum', 53, 1421868571, '5224926.jpg', 4, 1),
-(17, 130, 0, 'forum', 57, 1421869282, 'art-демоныdfvfd-песочница-419938.png', 4, 0),
-(18, 142, 0, 'forum', 55, 1421869313, 'remasn_2.png', 1, 1),
-(19, 144, 0, 'forum', 58, 1421869456, 'remasn_2.png', 1, 0),
-(20, 191, 0, 'forum', 61, 1421869845, 'Без имени-1.png', 1, 0),
-(21, 193, 0, 'forum', 62, 1421876960, 'fav.png', 1, 2),
-(22, 205, 0, 'forum', 74, 1422218047, 'urlout.php.jpg', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -266,7 +221,7 @@ INSERT INTO `ds_settings` (`key`, `val`) VALUES
 ('module', 'index'),
 ('action', 'index'),
 ('reg', '1'),
-('last_clean', '1425747759'),
+('last_clean', '1425769634'),
 ('counters', '<a href="http://mobtop.ru/in/668"><img src="http://mobtop.ru/668.gif" border="0" alt="MobTop - top mobile rating" /></a>'),
 ('antiflood', 'a:5:{s:4:"mode";i:4;s:3:"day";i:10;s:5:"night";i:30;s:7:"dayfrom";i:10;s:5:"dayto";i:22;}'),
 ('onlinetime', '300'),
@@ -592,11 +547,7 @@ CREATE TABLE IF NOT EXISTS `ds_users` (
 --
 
 INSERT INTO `ds_users` (`id`, `login`, `password`, `sex`, `mail`, `rights`, `info`, `settings`, `time`, `lastvisit`, `comm_plus`, `comm_minus`, `ip`, `ua`, `lang`, `module`, `action`, `lastpost`, `avtime`) VALUES
-(1, 'web_demon', '55d92f2a38b79d70096a35f4bb91a726', 'm', 'web_demon@annimon.com', 100, 'a:8:{s:4:"name";s:14:"Алексей";s:4:"from";s:16:"Беларусь";s:5:"phone";s:5:"с902";s:4:"site";s:20:"http://wikimobile.su";s:3:"icq";s:9:"578263699";s:9:"interests";s:36:"Программирование PHP";s:5:"about";a:2:{i:0;s:304:"[b]Добрый и пуФФыстый[/b], нет, это не про меня. Я маньяк, убийца, злобная тварь, ненавижу всех, и готовлю план по захвату Земли. ХА-хА-Ха!!!\r\n[youtube]http://www.youtube.com/watch?v=8SbUC-UaAxE[/youtube]";i:1;s:0:"";}s:3:"age";s:9:"5.12.1991";}', 'a:1:{s:10:"themecolor";s:6:"0BA1B8";}', 1336254925, 1422558208, 0, 0, 2130706433, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', '', 'forum', 'viewtopic', 1422550153, 0),
-(4, 'demon2', '55d92f2a38b79d70096a35f4bb91a726', 'm', 'demon@mail.ru', 0, '', 'a:1:{s:10:"themecolor";s:6:"B85116";}', 1339536239, 1422220693, 0, 0, 2130706433, 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safar', '', 'articles', 'index', 1422218164, 0),
-(5, 'web_demon2', '5f15df8b285c1b59672e3cb1d950f60a', 'm', 'alex.leraje@gmail.com', 0, '', '', 1376139922, 1376140078, 0, 0, 634678068, 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safar', '', 'exit', 'index', 0, 0),
-(6, 'test', 'fb469d7ef430b0baf0cab6c436e70375', 'm', 'web_demon@mail.ru', 100, '', '', 1413282942, 1413669883, 0, 0, 634719309, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0', '', 'exit', 'index', 1413283164, 0),
-(7, 'test2', '2f7b52aacfbf6f44e13d27656ecb1f59', 'm', 'xamgore@ya.ru', 0, '', '', 1417536198, 1417536297, 0, 0, 2991386835, 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 YaBr', '', 'mail', 'write', 0, 0);
+(1, 'web_demon', '55d92f2a38b79d70096a35f4bb91a726', 'm', 'web_demon@annimon.com', 100, 'a:8:{s:4:"name";s:14:"Алексей";s:4:"from";s:16:"Беларусь";s:5:"phone";s:5:"с902";s:4:"site";s:20:"http://wikimobile.su";s:3:"icq";s:9:"578263699";s:9:"interests";s:36:"Программирование PHP";s:5:"about";a:2:{i:0;s:304:"[b]Добрый и пуФФыстый[/b], нет, это не про меня. Я маньяк, убийца, злобная тварь, ненавижу всех, и готовлю план по захвату Земли. ХА-хА-Ха!!!\r\n[youtube]http://www.youtube.com/watch?v=8SbUC-UaAxE[/youtube]";i:1;s:0:"";}s:3:"age";s:9:"5.12.1991";}', 'a:1:{s:10:"themecolor";s:6:"0BA1B8";}', 1336254925, 1425769646, 0, 0, 2130706433, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', '', 'user', 'profile', 1422550153, 0);
 
 -- --------------------------------------------------------
 
@@ -617,13 +568,6 @@ CREATE TABLE IF NOT EXISTS `ds_users_inactive` (
   `lang` varchar(3) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
-
---
--- Дамп данных таблицы `ds_users_inactive`
---
-
-INSERT INTO `ds_users_inactive` (`id`, `login`, `password`, `key`, `mail`, `sex`, `time`, `ip`, `ua`, `lang`) VALUES
-(8, 'demon3', '0d8d5cd06832b29560745fe4e1b941cf', 'd681210344c2889604cd98b11fe7410a', 'web_demon@anncimon.com', 'm', 1343559179, 2130706433, 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safar', 'ru');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

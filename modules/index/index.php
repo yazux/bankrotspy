@@ -10,12 +10,12 @@ $res = core::$db->query('SELECT * FROM  `ds_rights` ');
 
   $rights_arr[100]['frm_view_trash'] = 1;
   
-  echo '<b>admin:</b><br/>';
-  echo(serialize($rights_arr[100]));
+  //echo '<b>admin:</b><br/>';
+  //echo(serialize($rights_arr[100]));
   
-  echo '<br/><br/>'; 
+  //echo '<br/><br/>';
   
-  echo '<b>user:</b><br/>';
-  echo(serialize($rights_arr[0]));   
+  //echo '<b>user:</b><br/>';
+  //echo(serialize($rights_arr[0]));
 temp::display('index.index');
 engine_fin();

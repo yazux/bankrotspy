@@ -303,8 +303,7 @@ class core
     
     if ($user_id and $user_pass)
     {
-      $query = 'SELECT * FROM  `ds_users` WHERE `id` = "'.$user_id.'" and `password` = "'.self::$db->res($user_pass).'" LIMIT 1;';  
-      $query .= 'SELECT COUNT(*) FROM `ds_mail` WHERE `to_id`="'.$user_id.'" AND `read`!="1" AND `del_to`!="1";';  
+      $query = 'SELECT * FROM  `ds_users` WHERE `id` = "'.$user_id.'" and `password` = "'.self::$db->res($user_pass).'" LIMIT 1;';
         
       self::$db->multi_query($query);
       
@@ -325,11 +324,6 @@ class core
         self::$last_post = $data['lastpost'];
         self::$user_md_pass = $data['password'];
         self::$avtime = $data['avtime'];
-        
-        //Обрабатываем почту
-        core::$db->next_result();
-        $result = core::$db->store_result()->fetch_row();
-        core::$new_mail = $result[0];
         
         //записываем данные юзера в базу
         self::$db->query('UPDATE `ds_users` SET

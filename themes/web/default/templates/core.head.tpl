@@ -8,6 +8,7 @@
     <script type="text/javascript" src="<?=$themepath?>/js/jquery-latest.js"></script>
     <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/allstyle.css"/>
     <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/style.css"/>
+    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/bcstyle.css"/>
     <link rel="stylesheet" href="<?=$themepath?>/styles/fontello.css" type="text/css">
     <link rel="stylesheet" href="<?=$themepath?>/styles/customicons.css" type="text/css">
 
@@ -45,11 +46,50 @@
                     <div class="prehead">
                        <table>
                            <tr>
-                               <td style="width:1%;"><img src="<?=$themepath?>/images/logo.png"/></td>
+                               <td style="width:1%;"><a href="<?=core::$home?>"><img class="logo" src="<?=$themepath?>/images/logo.png"/></a></td>
                                <td style="width:100%;"> </td>
                            </tr>
                        </table>
                     </div>
+                </td>
+                <td class="userpanel_bg" rowspan="2">
+                    <?if($user_id):?>
+                    <table class="userarea">
+                        <tr>
+                            <td class="headavatar">
+                                <?if($head_avatar):?>
+                                <a href="<?=$home?>/user/profile"><img src="<?=$home?><?=$head_avatar?>"/></a>
+                                <?else:?>
+                                <a href="<?=$home?>/user/profile"><img src="<?=$themepath?>/images/defava.png"/></a>
+                                <?endif?>
+                            </td>
+                            <td>
+                                <a class="username" href="<?=$home?>/user/profile"><?=core::$user_name?></a><br/>
+                                <a class="usercab" href="<?=$home?>/user/cab"><?=lang('private_cab')?></a><br/>
+
+                                <form class="exitbut" method="POST" action="<?=$home?>/exit">
+                                    <input type="hidden" name="act" value="do"/>
+                                    <? temp::formid() /* ЭТА ФУНКЦИЯ ОБЯЗАТЕЛЬНА ДЛЯ ВСЕХ ФОРМ!!! */?>
+                                    <input class="exit_button" type="submit" value = "Выход"/>
+                                </form>
+                        </tr>
+                    </table>
+                    <?else:?>
+                    <table class="userarea">
+                        <tr>
+                            <td class="headavatar">
+                                <img src="<?=$themepath?>/images/defava.png"/>
+                            </td>
+                            <td>
+                                <a class="username" href="<?=$home?>/login"><?=lang('login')?></a><br/>
+                                <a class="usercab" href="<?=$home?>/login"><?=lang('forgot_pass')?></a><br/>
+                                <a class="usercab" href="<?=$home?>/user/register"><?=lang('register')?></a><br/>
+                            </td>
+
+                        </tr>
+                    </table>
+                    <?endif?>
+
                 </td>
             </tr>
             <tr>
@@ -57,19 +97,31 @@
                     <div class="headmenu">
                         <table class="topbutton">
                             <tr>
-                                <td><a href="<?=$home?>/articles">Статьи</a></td>
-                                <td><a href="<?=$home?>/forum">Форум</a></td>
-                                <td><a href="<?=$home?>">Файлы</a></td>
-                                <td><a href="<?=$home?>/albums">Альбомы</a></td>
-                                <td><a href="<?=$home?>/albums">Полезные коды</a></td>
-                                <td><a href="<?=$home?>/albums">Уголок писателя</a></td>
+                                <td><a href="<?=$home?>">Главная</a></td>
+                                <?if($rmenu):?>
+                                <?foreach($rmenu as $rmenu):?>
+
+                                            <td><a href='<?=$rmenu['link']?>'><?=$rmenu['name']?></a></td>
+
+                                            <?if($rmenu['one_cnt'] AND core::$user_id):?>
+                                            <?if(counts::get($rmenu['one_cnt'])):?>
+                                            <a class="cnt_one" href='<?=$home?><?=counts::link($rmenu['one_cnt'])?>'>+<?=counts::get($rmenu['one_cnt'])?></a>
+                                            <?endif?>
+                                            <?endif?>
+                                            <?if($rmenu['two_cnt'] AND core::$user_id):?>
+                                            <?if(counts::get($rmenu['two_cnt'])):?>
+                                            <a class="cnt_two" href='<?=$home?><?=counts::link($rmenu['two_cnt'])?>'>+<?=counts::get($rmenu['two_cnt'])?></a>
+                                            <?endif?>
+                                            <?endif?>
+                                </td>
+
+
+                                <?endforeach?>
+                                <?endif?>
+
                                 <?if(core::$rights == 100):?>
                                     <td><a href="<?=$home?>/control"><?=lang('link_control_panel')?></a></td>
                                 <?endif?>
-                                <td class="online"><a
-                                            title="<?=lang('users_onl_text')?> (<?=$onl_users?>/<?=$onl_guests?>)"
-                                            href="<?=$home?>/user/online"> <i class="icon-user-1"></i><?=$onl_all?></a>
-                                </td>
                             </tr>
                         </table>
                     </div>

@@ -19,17 +19,20 @@ class counts
 
   public static function query()
   {
-    core::$db->multi_query(self::$sql);
-    $i = 0;
-    while (core::$db->more_results())
+    if(self::$sql)
     {
-      core::$db->next_result();
-      $res = core::$db->store_result()->fetch_row();
-      self::$out[self::$marks[$i]] = $res[0];
-      $i++;
-    }
+      core::$db->multi_query(self::$sql);
+      $i = 0;
+      while(core::$db->more_results())
+      {
+        core::$db->next_result();
+        $res = core::$db->store_result()->fetch_row();
+        self::$out[self::$marks[$i]] = $res[0];
+        $i++;
+      }
 
-    self::$query_flag = 1;
+      self::$query_flag = 1;
+    }
     return true;
   }
 
