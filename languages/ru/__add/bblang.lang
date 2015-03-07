@@ -1,0 +1,18 @@
+lang_link             = Ссылка
+lang_bold             = Полужирный
+lang_it               = Наклонный
+lang_und              = Подчёркнутый
+lang_str              = Перечёркнутый
+lang_quote            = Цитата
+lang_sp               = Спойлер
+lang_code             = Исходный код
+lang_t_col            = Цвет текста
+lang_back             = Цвет фона
+lang_video            = Видео YouTube
+lang_left             = По левому краю
+lang_cent             = По центру
+lang_right            = По правому краю
+lang_line             = Разделительная линия
+lang_math             = Код LaTeX
+
+

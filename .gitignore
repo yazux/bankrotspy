@@ -1,0 +1,11 @@
+/.idea
+/data/att_img
+/data/att_post
+/data/usercache
+/data/cache
+/data/cache/
+/images/avatars
+/images/photos
+/deploy/logs
+/deploy/deploy.config.php
+/dscore/includes/db.php

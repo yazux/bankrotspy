@@ -1,0 +1,2 @@
+<div style="height:90px;width:120px"><img style="height:90px;width:120px" src="http://i.ytimg.com/vi/{$link}/default.jpg" /></div>
+<div style="height:90px;width:120px;margin-top: -93px;"><a href="{$home}/url/youtube?link={$link}"><img style="height:90px;width:120px;" src="{$home}/images/engine/youtube_play_button.png" /></a></div>

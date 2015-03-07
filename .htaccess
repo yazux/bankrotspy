@@ -1,0 +1,34 @@
+AddDefaultCharset UTF-8
+Options -Indexes
+
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST} ^www.dsengine\.com$ [NC]
+RewriteRule ^(.*)$ http://dsengine.com/$1 [R=301,L]
+
+RewriteCond %{REQUEST_METHOD} ^TRACE
+RewriteCond %{HTTP:range} !(^bytes=[^,]+(,[^,]+){0,4}$|^$)
+RewriteRule .* - [F]
+
+## forum subforum rewrite ##
+RewriteRule ^forum/subforum([0-9]{1,11})$ ?core_mod=forum&core_act=subforum&id=$1 [QSA]
+
+## forum topic rewrite ##
+RewriteRule ^forum/topic([0-9]{1,11})/page([0-9]{1,11})$ ?core_mod=forum&core_act=viewtopic&id=$1&page=$2 [QSA]
+RewriteRule ^forum/topic([0-9]{1,11})$ ?core_mod=forum&core_act=viewtopic&id=$1 [QSA]
+
+## articles rewrite ##
+RewriteRule ^articles/post([0-9]{1,11})/page([0-9]{1,11})$ ?core_mod=articles&core_act=view&id=$1&page=$2 [QSA]
+RewriteRule ^articles/post([0-9]{1,11})$ ?core_mod=articles&core_act=view&id=$1 [QSA]
+RewriteRule ^articles/tag([0-9]{1,11})/page([0-9]{1,11})$ ?core_mod=articles&core_act=tag&id=$1&page=$2 [QSA]
+RewriteRule ^articles/tag([0-9]{1,11})$ ?core_mod=articles&core_act=tag&id=$1 [QSA]
+
+## core rewrite ##
+RewriteRule ^([a-z0-9]{1,})$ ?core_mod=$1&core_act=index [QSA]
+RewriteRule ^([a-z0-9]{1,})/([a-z0-9]{1,})$ ?core_mod=$1&core_act=$2 [QSA]
+
+## fileload rewrite ##
+RewriteRule ^load/file([0-9]{1,11})/(.+?)$ ?core_mod=load&core_act=index&idfile=$1&fileload=$2 [QSA]
+
+
+

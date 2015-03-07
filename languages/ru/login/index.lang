@@ -1,0 +1,15 @@
+autorization   = Авторизация
+save           = Продолжить
+nick           = Никнейм:
+pass           = Пароль:
+capcha         = Код с картинки:
+empty_nick     = Нет ника!
+empty_pass     = Нет пароля!
+nick_wrong_len = Никнейм имеет недопустимую длину!
+nick_wrong     = Никнейм содержит недопустимые символы!
+pass_wrong_len = Пароль имеет недопустимую длину!
+auth_err       = Логин или пароль введены неправильно!
+remember       = Запомнить меня
+forg_pass      = Забыли пароль?
+login_info     = У вас нет аккаунта на aNNiMON.com?
+register       = Регистрация
