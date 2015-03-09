@@ -49,7 +49,7 @@
             <div class="right_panel_conf">
                 <div class="menu_rt">Меню:</div>
                 <div class="elmenu"><a href="<?=$home?>/user/register"><?=lang('register')?></a></div>
-                <div class="elmenu"><a href="<?=$home?>/user/forgpass"><?=lang('forg_pass')?></a></div>
+                <div class="elmenu"><a href="<?=$home?>/user/recpassword"><?=lang('forg_pass')?></a></div>
                 <div class="down_rmenu"> </div>
             </div>
         </td>

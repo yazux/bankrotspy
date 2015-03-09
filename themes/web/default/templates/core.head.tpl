@@ -82,7 +82,7 @@
                             </td>
                             <td>
                                 <a class="username" href="<?=$home?>/login"><?=lang('login')?></a><br/>
-                                <a class="usercab" href="<?=$home?>/login"><?=lang('forgot_pass')?></a><br/>
+                                <a class="usercab" href="<?=$home?>/user/recpassword"><?=lang('forgot_pass')?></a><br/>
                                 <a class="usercab" href="<?=$home?>/user/register"><?=lang('register')?></a><br/>
                             </td>
 

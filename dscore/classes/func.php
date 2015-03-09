@@ -28,7 +28,7 @@ class func
 
   static function notify($header, $notify, $link, $buttontext = '')
   {
-    if(core::$typetheme == 'web')
+    if(core::$typetheme == 'web' AND core::$user_id)
     {
       uscache::rem('mess_head', $header);
       uscache::rem('mess_body', $notify);
