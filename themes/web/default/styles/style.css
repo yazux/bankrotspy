@@ -1,6 +1,6 @@
 a {
     text-decoration: none;
-    color: #1a80b5;
+    color: #d27600;
 }
 
 table {
@@ -100,7 +100,7 @@ img.logo{
 }
 
 td.main {
-    padding: 15px 5px 10px 5px;
+    padding: 15px 20px 10px 5px;
     word-wrap: break-word;
     max-width: 100px;
     background: #eeeeee;
@@ -246,7 +246,7 @@ td .av_rights {
     color: #262626;
     margin: 8px 18px 8px 18px;
     border: 1px #c7c7c7 solid;
-    box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 0.1)
+    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1)
 }
 
 .simple_mess {
@@ -283,8 +283,9 @@ img.albim {
 }
 
 .conthead, .conthead_forms {
-    padding: 8px 8px 8px 8px;
-    border-bottom: #E4E4E4 solid 1px;
+    padding: 10px 10px 10px 17px;
+    border-bottom: #c7c7c7 solid 1px;
+    background: #F9F8F8;
 }
 
 .conthead_forms {
@@ -419,6 +420,7 @@ a.contmenu_l {
 .contfin, .contfin_forms, .contfintext {
     padding: 0px 8px 0px 8px;
     font-size: 14px;
+    background: #F9F8F8;
 }
 
 .contfin_forms, .contfintext {
@@ -548,14 +550,14 @@ table.tags_pan td a:hover {
 }
 
 input[type="submit"], a.urlbutton, a.urlbutton_stat, .butt_like_area, input[type="submit"].button_noright, input[type="submit"].button_noleft {
-    padding: 7px 16px 7px 16px;
-    background: #36B3DD;
+    padding: 9px 19px 9px 19px;
+    background: #ff9b24;
     color: white;
     font-weight: bold;
     font-size: 13px;
     border: 0;
-    border-right: rgba(148, 148, 148, 0.6) 2px solid;
-    border-bottom: rgba(148, 148, 148, 0.6) 2px solid;
+    border-right: rgba(253, 255, 253, 0.32) 2px solid;
+    border-bottom: rgba(253, 255, 253, 0.32) 2px solid;
     border-radius: 6px;
     margin: 8px 0px 8px 0px;
 }
@@ -583,32 +585,12 @@ a.urlbutton_stat {
     margin-left: 30px;
 }
 
-.butt_like_area {
-}
-
-a.forum_button {
-    padding: 2px 10px 2px 10px;
-    background: #ffffff url(../images/bback.png) bottom repeat-x;
-    color: #404040;
-    font-size: 13px;
-    border: 1px solid #a8a8a8;
-    border-radius: 10px;
-    line-height: 26px;
-    margin: 1px;
-}
-
-a.forum_button:hover {
-    color: #404040;
-    cursor: pointer;
-    border: 1px solid #868686;
-    text-decoration: none;
-}
-
 input[type="submit"]:hover, a.urlbutton:hover, a.urlbutton_stat:hover {
     cursor: pointer;
-    background: #49bee5;
+    background: #feab2e;
     box-shadow: none;
-    border-right: rgba(148, 148, 148, 0.44) 2px solid;
+    border-right: rgba(253, 255, 253, 0.49) 2px solid;
+    border-bottom: rgba(253, 255, 253, 0.49) 2px solid;
     text-decoration: none;
 }
 
@@ -618,13 +600,13 @@ input[type="submit"].button_noright:hover {
 
 input[type="text"], select, input[type="password"], input[type="file"], select {
     border: 1px solid #a8a8a8;
-    background: url(../images/input_text.png) repeat-x #fff;
+    background: url(../images/input_text.png) repeat-x #F9F8F8;
     vertical-align: middle;
     margin: 4px 0px 5px 0px;
     width: 250px;
     font-size: 14px;
     padding: 6px 9px 7px 9px;
-    border-radius: 6px;
+    border-radius: 2px;
     display: inline-block;
     height: 18px;
 }

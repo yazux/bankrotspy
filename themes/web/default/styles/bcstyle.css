@@ -5,6 +5,27 @@
     padding: 12px;
 }
 
+.right_back_menu{
+    width: 255px;
+    vertical-align: top;
+    padding: 8px 0px 8px 0px;
+}
+
+.right_panel_conf{
+    background: white;
+    border: 1px #c7c7c7 solid;
+    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1)
+}
+
+.menu_rt{
+    height: 16px;
+    background: #F9F8F8;
+    color: #717171;
+    padding: 12px 10px 12px 15px;
+    font-weight: bold;
+    border-bottom: 1px #c7c7c7 solid;
+}
+
 .headavatar{
     width: 79px;
     padding-left: 15px;
@@ -48,4 +69,21 @@ input[type="submit"].exit_button{
 
 input[type="submit"].exit_button:hover {
     text-decoration: underline;
+}
+
+.elmenu a{
+    display: block;
+    padding: 8px 10px 8px 15px;
+    color: #717171;
+    border-bottom: 1px #c7c7c7 solid;
+}
+
+.elmenu a:hover{
+    text-decoration: none;
+    background: #fdfdfd;
+}
+
+.down_rmenu{
+    height: 15px;
+    background: #f9f8f8;
 }

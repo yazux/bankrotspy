@@ -1,15 +1,6 @@
-<div class="content">
-  <div class="conthead">
-    <h2><?=lang('registration')?></h2>
-  </div>
-
-    <table class="contbutton">
-      <tr>
-        <td class="first"><a href="<?=$home?>/login"><?=lang('autorization')?></a></td>
-        <td class="contbfin">&nbsp;</td>
-      </tr>
-    </table>
-</div>
+<table>
+    <tr>
+        <td>
 
   <?if ($error):?>
     <div class="error">
@@ -22,7 +13,10 @@
 <form action="?act=save" method="post">
 <? temp::formid() /* ЭТА ФУНКЦИЯ ОБЯЗАТЕЛЬНА ДЛЯ ВСЕХ ФОРМ!!! */?>
 <div class="content">
-  <div class="conthead_forms">
+    <div class="conthead">
+        <h2><?=lang('registration')?></h2>
+    </div>
+  <div class="contbody_forms">
     <b><?=lang('nick')?></b><br/>
     <span class="under"><?=lang('nick_und')?></span><br/>
     <input type="text" name="nick" value="<?=$nick?>" />
@@ -58,3 +52,15 @@
     <input type="submit" value="<?=lang('save')?>" />
   </div>
 </form>
+
+
+    </td>
+    <td class="right_back_menu">
+        <div class="right_panel_conf">
+            <div class="menu_rt">Меню:</div>
+            <div class="elmenu"><a href="<?=$home?>/login"><?=lang('autorization')?></a></div>
+            <div class="down_rmenu"> </div>
+        </div>
+    </td>
+  </tr>
+</table>

@@ -1,16 +1,6 @@
-<div class="content">
-  <div class="conthead">
-    <h2><?=lang('autorization')?></h2>
-  </div>
-
-    <table class="contbutton">
-      <tr>
-        <td class="first"><a href="<?=$home?>/user/register"><?=lang('register')?></a></td>
-        <td class="first"><a href="<?=$home?>/user/forgpass"><?=lang('forg_pass')?></a></td>
-        <td class="contbfin">&nbsp;</td>
-      </tr>
-    </table>
-</div>
+<table>
+    <tr>
+        <td>
 
   <?if ($error):?>
     <div class="error">
@@ -23,7 +13,10 @@
 <form action="?act=save" method="post">
 <? temp::formid() /* ЭТА ФУНКЦИЯ ОБЯЗАТЕЛЬНА ДЛЯ ВСЕХ ФОРМ!!! */?>
 <div class="content">
-  <div class="conthead_forms">
+  <div class="conthead">
+        <h2><?=lang('autorization')?></h2>
+  </div>
+  <div class="contbody_forms">
      <b><?=lang('nick')?></b><br/>
      <input type="text" name="nick" value="<?=$nick?>" />
   </div>
@@ -50,3 +43,15 @@
   </div>
 </div>
 </form>
+
+        </td>
+        <td class="right_back_menu">
+            <div class="right_panel_conf">
+                <div class="menu_rt">Меню:</div>
+                <div class="elmenu"><a href="<?=$home?>/user/register"><?=lang('register')?></a></div>
+                <div class="elmenu"><a href="<?=$home?>/user/forgpass"><?=lang('forg_pass')?></a></div>
+                <div class="down_rmenu"> </div>
+            </div>
+        </td>
+    </tr>
+</table>

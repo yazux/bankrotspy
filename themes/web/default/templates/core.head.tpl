@@ -7,8 +7,8 @@
     <meta name="description" content="<?=$description?>"/>
     <script type="text/javascript" src="<?=$themepath?>/js/jquery-latest.js"></script>
     <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/allstyle.css"/>
-    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/style.css"/>
-    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/bcstyle.css"/>
+    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/style.css?id=1"/>
+    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/bcstyle.css?id=1"/>
     <link rel="stylesheet" href="<?=$themepath?>/styles/fontello.css" type="text/css">
     <link rel="stylesheet" href="<?=$themepath?>/styles/customicons.css" type="text/css">
 
