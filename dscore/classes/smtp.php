@@ -3,7 +3,7 @@
 class smtp
 {
   private static $from_mail =  'analytic-spy@mail.ru';
-  private static $from_mailer =  'RatioCinator'; 
+  private static $from_mailer =  'Bankrot-Spy';
   
   private static function get_header($from_name, $from_mail, $to_name, $to_mail, $subject, $html = 0)
   {
