@@ -1,0 +1,7 @@
+del_item = Удаление
+delete_st = Удаление пункта меню
+del_text = Удалить пункт меню?
+delete_act = Удалить
+cancel = Отмена
+continue = Продолжить
+new_item_deleted = Пункт меню был удален!

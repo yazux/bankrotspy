@@ -1,0 +1,15 @@
+site_menu = Меню сайта
+new_item = Новый пункт
+no_name = Нет названия
+no_link = Нет ссылки
+new_item_added = Пункт меню был добавлен!
+continue = Продолжить
+link_name = Название:
+pruf_link = Ссылка:
+link_sort = Добавить после:
+one_cnt = Основной счетчик:
+two_cnt = Дополнительный счетчик:
+add_form = Добавить
+no_count = Без счетчика
+in_beginning = В начале
+two_moder_cnt = Дополнительный (модераторский) счетчик

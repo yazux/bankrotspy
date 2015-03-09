@@ -2,7 +2,7 @@ function engine_mess(mess)
 {
   $('#alltopmess').text(mess);
   $('#alltopmess').fadeIn(400);
-  $('#alltopmess').delay(2000).fadeOut(700);
+  $('#alltopmess').delay(4000).fadeOut(700);
 }
 
 //Ужимаем картинки по ширине

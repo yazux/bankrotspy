@@ -522,7 +522,7 @@ textarea {
     margin-left: -8px;
     margin-right: -8px;
     border: 1px solid #868686;
-    background: #fff url(../images/input_text.png) repeat-x;
+    background: url(../images/input_text.png) repeat-x #F9F8F8;
 }
 
 div.texta {
@@ -852,6 +852,7 @@ hr {
     border-radius: 5px 5px 5px 5px;
     box-shadow: 0 0 14px rgba(0, 0, 0, 0.5);
     display: none;
+    z-index: 999;
 }
 
 a.newcounter_front {
@@ -872,10 +873,6 @@ span.status {
 
 span.onmoder{
     color: red;
-}
-
-.icon-theme:before{
-    color: #1a80b5 !important;
 }
 
 .art_moder_button{

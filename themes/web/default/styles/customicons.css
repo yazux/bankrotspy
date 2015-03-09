@@ -1,0 +1,22 @@
+[class^="icon-"]:before, [class*=" icon-"]:before {
+    color: #838488;
+}
+
+a [class^="icon-"]:hover:before,a [class*=" icon-"]:hover:before {
+    color: #66676b;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    @font-face {
+        font-family: 'fontello';
+        src: url('../font/fontello.svg?88050260#fontello') format('svg');
+    }
+}
+
+.icon-globe-bigmenu:before { content: '\e801'; } /* '' */
+.icon-globe-bigmenu:before{
+    font-size: 28px;
+}
+
+.icon-edit:before { content: '\e802'; } /* '' */
+.icon-delete:before { content: '\e803'; } /* '' */
