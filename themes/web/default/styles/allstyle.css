@@ -4,7 +4,7 @@
 }
 
 body, td, textarea, input, select {
-font: 14px Arial,Verdana,sans-serif;           
+font: 14px Arial,Verdana,sans-serif;
 }
 
 @font-face{
@@ -20,7 +20,8 @@ outline: 0;
 }
 
 body, td, textarea, input, select {
-font: 14px 'PT Sans',Arial,Verdana,sans-serif;           
+font: 14px 'PT Sans',Arial,Verdana,sans-serif;
+line-height: 20px;
 }
 
 table{

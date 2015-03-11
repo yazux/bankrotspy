@@ -16,7 +16,7 @@
                 <div class="menu_rt_index">Новости площадок:</div>
                 <div class="news_back" id="bs_news_container">
 
-                    <div cclass="news_text" id="bs_news_text">
+                    <div class="news_text" id="bs_news_text">
 
 
                     </div>
@@ -38,11 +38,16 @@
         var set_block_h = $('#bs_set_container').height();
         var button_cont_h = $('#bs_news_button_cont').height();
         var block_h = set_block_h-button_cont_h;
-        $('#bs_news_text').css({'height' : block_h});
-        $('#bs_news_text').css({'overflow' : 'hidden'});
-        $('#bs_news_container').css({'height' : set_block_h});
+        $('#bs_news_text').css({height: block_h});
+        $('#bs_news_text').css({overflow: 'hidden'});
+        $('#bs_news_container').css({height: set_block_h});
     }
-    bs_set_block_height();
+
+    $(document).ready(function(){
+        bs_set_block_height();
+    });
+
+
 
 </script>
 
