@@ -53,6 +53,7 @@ img.logo{
 .allhead {
     box-shadow: 0px 3px 3px 1px rgba(0, 0, 0, 0.12);
     position: relative;
+    padding: 0;
 }
 
 
@@ -63,6 +64,9 @@ img.logo{
 .headmenu {
     height: 30px;
     border-top: #d2d2d2 1px solid;
+}
+
+.und_head_cont{
     border-bottom: 1px #c3c3c3 solid;
 }
 

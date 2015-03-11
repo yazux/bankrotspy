@@ -7,7 +7,7 @@
     <meta name="description" content="<?=$description?>"/>
     <script type="text/javascript" src="<?=$themepath?>/js/jquery-latest.js"></script>
     <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/allstyle.css?id=4"/>
-    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/style.css?id=4"/>
+    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/style.css?id=5"/>
     <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/bcstyle.css?id=4"/>
     <link rel="stylesheet" href="<?=$themepath?>/styles/fontello.css?id=4" type="text/css">
     <link rel="stylesheet" href="<?=$themepath?>/styles/customicons.css?id=4" type="text/css">
@@ -93,7 +93,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td class="und_head_cont">
                     <div class="headmenu">
                         <table class="topbutton">
                             <tr>
