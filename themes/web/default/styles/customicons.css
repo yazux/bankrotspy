@@ -18,5 +18,9 @@ a [class^="icon-"]:hover:before,a [class*=" icon-"]:hover:before {
     font-size: 28px;
 }
 
+.icon-star:before {
+    font-size: 12px;
+}
+
 .icon-edit:before { content: '\e802'; } /* '' */
 .icon-delete:before { content: '\e803'; } /* '' */
