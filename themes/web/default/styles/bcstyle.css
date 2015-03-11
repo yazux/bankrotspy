@@ -11,10 +11,33 @@
     padding: 8px 0px 8px 0px;
 }
 
+.right_back_menu_index, .right_back_menu_index_set{
+    height: 100px;
+    vertical-align: top;
+    padding: 8px 0px 8px 0px;
+}
+
+.right_back_menu_index_set{
+    width: 100%;
+    padding-right: 20px;
+    padding-left: 18px;
+}
+
+.news_back{
+    padding: 8px 10px 0px 15px;
+    color: #717171;
+    border-bottom: 1px #c7c7c7 solid;
+}
+
 .right_panel_conf{
+    min-width: 415px;
     background: white;
     border: 1px #c7c7c7 solid;
     box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1)
+}
+
+.news_text{
+    overflow: hidden;
 }
 
 .menu_rt{
@@ -22,6 +45,14 @@
     background: #F9F8F8;
     color: #717171;
     padding: 12px 10px 12px 15px;
+    font-weight: bold;
+    border-bottom: 1px #c7c7c7 solid;
+}
+
+.menu_rt_index{
+    background: #F9F8F8;
+    color: #717171;
+    padding: 8px 10px 6px 15px;
     font-weight: bold;
     border-bottom: 1px #c7c7c7 solid;
 }
@@ -86,4 +117,39 @@ input[type="submit"].exit_button:hover {
 .down_rmenu{
     height: 15px;
     background: #f9f8f8;
+}
+
+
+a.urlbutton_index{
+    padding: 6px 13px 6px 13px;
+    background: #ff9b24;
+    color: white;
+    font-weight: bold;
+    font-size: 13px;
+    border: 0;
+    border-right: rgba(253, 255, 253, 0.32) 2px solid;
+    border-bottom: rgba(253, 255, 253, 0.32) 2px solid;
+    border-radius: 6px;
+    margin: 8px 0px 8px 0px;
+    display: inline-block;
+}
+
+.button_no_top{
+    margin-top: 4px !important;
+}
+
+a.urlbutton_index:hover{
+    cursor: pointer;
+    background: #feab2e;
+    box-shadow: none;
+    border-right: rgba(253, 255, 253, 0.49) 2px solid;
+    border-bottom: rgba(253, 255, 253, 0.49) 2px solid;
+    text-decoration: none;
+}
+
+.grback {
+    background: url("../images/gr_back.png") repeat-x scroll center bottom transparent;
+    height: 30px;
+    margin-top: -30px;
+    position: relative;
 }
