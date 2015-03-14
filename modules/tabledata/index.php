@@ -14,6 +14,8 @@ while($data = $res->fetch_array())
   $loc['begindate'] = $tabledata->begindate($data['start_time']);
   $loc['closedate'] = $tabledata->closedate($data['end_time']);
   $loc['beforedate'] = $tabledata->beforedate($data['start_time'], $data['end_time']);
+  $loc['beginprice'] = $tabledata->beginprice($data['price']);
+  $loc['nowprice'] = $tabledata->nowprice($data['now_price']);
   $out[] = $loc;
 }
 
