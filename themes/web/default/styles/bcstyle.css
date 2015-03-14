@@ -274,3 +274,19 @@ td.firstt{
 .main_tlink a{
     font-size: 13px;
 }
+
+.cnt_round
+{
+   display: inline-block;
+    background: red;
+    height: 14px;
+    min-width: 14px;
+    line-height: 14px;
+    border-radius: 10px;
+
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 1px 2px 1px 0px;
+
+}

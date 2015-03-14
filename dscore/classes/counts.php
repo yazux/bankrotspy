@@ -19,6 +19,7 @@ class counts
 
   public static function query()
   {
+    //Нужно переделать. multi_query не воспринимает один запрос как таковой.
     if(self::$sql)
     {
       core::$db->multi_query(self::$sql);

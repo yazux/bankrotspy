@@ -6,11 +6,11 @@
     <meta name="keywords" content="<?=$keywords?>"/>
     <meta name="description" content="<?=$description?>"/>
     <script type="text/javascript" src="<?=$themepath?>/js/jquery-latest.js"></script>
-    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/allstyle.css?id=7"/>
-    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/style.css?id=7"/>
-    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/bcstyle.css?id=7"/>
-    <link rel="stylesheet" href="<?=$themepath?>/styles/fontello.css?id=7" type="text/css">
-    <link rel="stylesheet" href="<?=$themepath?>/styles/customicons.css?id=7" type="text/css">
+    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/allstyle.css?id=8"/>
+    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/style.css?id=8"/>
+    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/bcstyle.css?id=8"/>
+    <link rel="stylesheet" href="<?=$themepath?>/styles/fontello.css?id=8" type="text/css">
+    <link rel="stylesheet" href="<?=$themepath?>/styles/customicons.css?id=8" type="text/css">
 
     <script type="text/javascript" src="<?=$themepath?>/js/device.min.js"></script>
     <script type="text/javascript" src="<?=$themepath?>/js/some.js"></script>
@@ -101,11 +101,12 @@
                                 <?if($rmenu):?>
                                 <?foreach($rmenu as $rmenu):?>
 
-                                            <td><a href='<?=$rmenu['link']?>'><?=$rmenu['name']?></a></td>
+                                   <td>
+                                       <a href='<?=$rmenu['link']?>'><?=$rmenu['name']?>
 
                                             <?if($rmenu['one_cnt'] AND core::$user_id):?>
                                             <?if(counts::get($rmenu['one_cnt'])):?>
-                                            <a class="cnt_one" href='<?=$home?><?=counts::link($rmenu['one_cnt'])?>'>+<?=counts::get($rmenu['one_cnt'])?></a>
+                                            <span class="cnt_round">+<?=counts::get($rmenu['one_cnt'])?></span>
                                             <?endif?>
                                             <?endif?>
                                             <?if($rmenu['two_cnt'] AND core::$user_id):?>
@@ -113,6 +114,9 @@
                                             <a class="cnt_two" href='<?=$home?><?=counts::link($rmenu['two_cnt'])?>'>+<?=counts::get($rmenu['two_cnt'])?></a>
                                             <?endif?>
                                             <?endif?>
+
+                                       </a>
+                                   </td>
                                 </td>
 
 

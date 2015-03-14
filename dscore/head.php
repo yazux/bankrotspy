@@ -56,6 +56,14 @@ if(core::$user_id)
   temp::assign('head_avatar', $avatar);
 }
 
+//Счетчики
+counts::cnew('trash_query' ,'SELECT COUNT(*) FROM `ds_support`;',  ''); // Потом убрать. multi_query не воспринимает один запрос как таковой.
+//Техподержка
+if(CAN('tech_support', 0))
+  counts::cnew('unread_support','SELECT COUNT(*) FROM `ds_support` WHERE `read` = "0" AND `closed` = "0"','/support');
+elseif(core::$user_id)
+  counts::cnew('unread_support','SELECT COUNT(*) FROM `ds_support` WHERE `read` = "1" AND `usread` = "0" AND `userid` = "'.core::$user_id.'"','/support');
+
 //Смотрим, если ли сообщения
 if(uscache::ex('mess_head'))
 {
