@@ -11,7 +11,8 @@ while($data = $res->fetch_array())
 
   $loc['name'] = $tabledata->name($data['name'], 40, $data['id']);
   $loc['type'] = $tabledata->type($data['type']);
-
+  $loc['begindate'] = $tabledata->begindate($data['start_time']);
+  $loc['closedate'] = $tabledata->closedate($data['end_time']);
   $out[] = $loc;
 }
 
