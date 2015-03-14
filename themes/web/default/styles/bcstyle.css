@@ -310,7 +310,7 @@ margin: 16px 0 16px 0;
     padding: 4px 4px 4px 7px;
 }
 
-.data_table tr:hover{
+.data_table tr.data_line:hover{
     background: #fcfcfc;
     cursor: pointer;
 }

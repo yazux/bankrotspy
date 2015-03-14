@@ -21,8 +21,17 @@ class column_name
 
   public function process()
   {
+    $name = $this->name;
+    $now_lenght = mb_strlen($name);
+
+    if($now_lenght > $this->lenght)
+    {
+      $name = mb_substr($this->name, 0, $this->lenght);
+      $name = $name.'...';
+    }
+
     return array(
-      'col' => mb_substr($this->name, 0, $this->lenght),
+      'col' => $name,
       'attr' => $this->attr,
       'class' => 'link_content'
     );

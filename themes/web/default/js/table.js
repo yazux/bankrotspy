@@ -8,7 +8,7 @@ function answer_load(data)
         //Заголовок таблицы
         var head_table = '';
         $.each(obj.columns, function(key, val) {
-            head_table += '<th>' + val + '</th>';
+            head_table += '<th width="1%">' + val + '</th>';
         });
 
         //данные таблицы
@@ -17,15 +17,22 @@ function answer_load(data)
             body_table += '<tr class="data_line">';
 
             $.each(this, function() {
+              //Атрибут
               var attr = '';
               if(this.attr)
                 attr = 'attr="' + this.attr + '"';
 
+              //Класс, если есть
               var class_holder = '';
               if(this.class)
                 class_holder = 'class="' + this.class + '"';
 
-              body_table += '<td ' + attr + class_holder +' >' + this.col + '</td>';
+              //Стиль, если есть
+              var style_holder = '';
+              if(this.style)
+                style_holder = 'style="' + this.style + '"';
+
+              body_table += '<td ' + attr + class_holder + style_holder +' >' + this.col + '</td>';
             });
 
             body_table += '</tr>';

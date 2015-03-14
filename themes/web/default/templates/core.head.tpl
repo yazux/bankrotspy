@@ -5,16 +5,19 @@
     <title><?=$title?></title>
     <meta name="keywords" content="<?=$keywords?>"/>
     <meta name="description" content="<?=$description?>"/>
+
+    <? $now_id = 9; ?>
+
     <script type="text/javascript" src="<?=$themepath?>/js/jquery-latest.js"></script>
-    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/allstyle.css?id=8"/>
-    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/style.css?id=8"/>
-    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/bcstyle.css?id=8"/>
-    <link rel="stylesheet" href="<?=$themepath?>/styles/fontello.css?id=8" type="text/css">
-    <link rel="stylesheet" href="<?=$themepath?>/styles/customicons.css?id=8" type="text/css">
+    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/allstyle.css?id=<?=$now_id?>"/>
+    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/style.css?id=<?=$now_id?>"/>
+    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/bcstyle.css?id=<?=$now_id?>"/>
+    <link rel="stylesheet" href="<?=$themepath?>/styles/fontello.css?id=<?=$now_id?>" type="text/css">
+    <link rel="stylesheet" href="<?=$themepath?>/styles/customicons.css?id=<?=$now_id?>" type="text/css">
 
     <script type="text/javascript" src="<?=$themepath?>/js/device.min.js"></script>
-    <script type="text/javascript" src="<?=$themepath?>/js/some.js"></script>
-    <script type="text/javascript" src="<?=$themepath?>/js/table.js"></script>
+    <script type="text/javascript" src="<?=$themepath?>/js/some.js<?=$now_id?>"></script>
+    <script type="text/javascript" src="<?=$themepath?>/js/table.js?id=<?=$now_id?>"></script>
 
     <link rel="shortcut icon" href="<?=$themepath?>/images/favicon.ico"/>
     <link rel="apple-touch-icon" href="<?=$themepath?>/images/apple-touch-icon.png"/>
