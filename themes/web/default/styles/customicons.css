@@ -21,11 +21,13 @@ a [class^="icon-"]:hover:before,a [class*=" icon-"]:hover:before {
 .icon-globe-table:before { content: '\e801'; } /* '' */
 .icon-globe-table:before{
     font-size: 11px;
+    text-decoration: none;
 }
 
 .icon-share:before{
     font-size: 11px;
     padding-right: 4px;
+    text-decoration: none;
 }
 
 .icon-star:before {
