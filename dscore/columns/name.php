@@ -31,7 +31,7 @@ class column_name
     }
 
     return array(
-      'col' => '<a target="_blank" class="namelink" href="'.core::$home.'/card/'.$this->attr.'">'.$name.'</a>'
+      'col' => '<a target="_blank" class="namelink" href="'.core::$home.'/card/'.$this->attr.'"><i class="icon-share"></i>'.$name.'</a>'
     );
   }
 }

@@ -22,7 +22,7 @@ class column_platform
   public function process()
   {
     return array(
-      'col' => '<a target="_blank" href="'.$this->url.'">'.$this->platforms[$this->pid].'</a>',
+      'col' => '<a target="_blank" href="'.$this->url.'"><i class="icon-globe-table"></i>'.$this->platforms[$this->pid].'</a>',
       'style' => 'text-align:center;'
     );
   }
