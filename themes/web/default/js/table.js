@@ -17,22 +17,13 @@ function answer_load(data)
             body_table += '<tr class="data_line">';
 
             $.each(this, function() {
-              //Атрибут
-              var attr = '';
-              if(this.attr)
-                attr = 'attr="' + this.attr + '"';
-
-              //Класс, если есть
-              var class_holder = '';
-              if(this.class)
-                class_holder = 'class="' + this.class + '"';
 
               //Стиль, если есть
               var style_holder = '';
               if(this.style)
                 style_holder = 'style="' + this.style + '"';
 
-              body_table += '<td ' + attr + class_holder + style_holder +' >' + this.col + '</td>';
+              body_table += '<td ' + style_holder +' >' + this.col + '</td>';
             });
 
             body_table += '</tr>';

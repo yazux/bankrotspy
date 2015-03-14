@@ -304,6 +304,7 @@ margin: 16px 0 16px 0;
 }
 
 .data_table tr td{
+    color: #4d4d4d;
     border: 1px solid #e1e1e1;
     font-weight: normal;
     font-size: 13px;
@@ -311,6 +312,10 @@ margin: 16px 0 16px 0;
 }
 
 .data_table tr.data_line:hover{
-    background: #fcfcfc;
-    cursor: pointer;
+    background: #f8f8f8;
+}
+
+.namelink{
+    color:black;
+    text-decoration:underline
 }

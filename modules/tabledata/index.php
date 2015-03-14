@@ -9,6 +9,7 @@ while($data = $res->fetch_array())
 {
   $loc = array();
 
+  $loc['number'] = $tabledata->number($data['code'], $data['id']);
   $loc['name'] = $tabledata->name($data['name'], 40, $data['id']);
   $loc['type'] = $tabledata->type($data['type']);
   $loc['begindate'] = $tabledata->begindate($data['start_time']);
@@ -16,6 +17,7 @@ while($data = $res->fetch_array())
   $loc['beforedate'] = $tabledata->beforedate($data['start_time'], $data['end_time']);
   $loc['beginprice'] = $tabledata->beginprice($data['price']);
   $loc['nowprice'] = $tabledata->nowprice($data['now_price']);
+  $loc['platform'] = $tabledata->platform($data['platform_id'], $data['auct_link']);
   $out[] = $loc;
 }
 

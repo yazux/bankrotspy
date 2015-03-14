@@ -85,10 +85,10 @@
 </div>
 
 <script type="text/javascript">
-    $(document).on('click', '.data_table tr.data_line', function(){
-        var rerirect_to = $(this).find('.link_content').attr('attr');
-        window.open('<?=$home?>/card/' + rerirect_to);
-    });
+    //$(document).on('click', '.data_table tr.data_line', function(){
+    //    var rerirect_to = $(this).find('.link_content').attr('attr');
+    //    window.open('<?=$home?>/card/' + rerirect_to);
+    //});
 
 
     $(document).on('click', '.table_tab td span', function(){

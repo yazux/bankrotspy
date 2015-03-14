@@ -31,9 +31,7 @@ class column_name
     }
 
     return array(
-      'col' => $name,
-      'attr' => $this->attr,
-      'class' => 'link_content'
+      'col' => '<a target="_blank" class="namelink" href="'.core::$home.'/card/'.$this->attr.'">'.$name.'</a>'
     );
   }
 }
