@@ -14,6 +14,7 @@
 
     <script type="text/javascript" src="<?=$themepath?>/js/device.min.js"></script>
     <script type="text/javascript" src="<?=$themepath?>/js/some.js"></script>
+    <script type="text/javascript" src="<?=$themepath?>/js/table.js"></script>
 
     <link rel="shortcut icon" href="<?=$themepath?>/images/favicon.ico"/>
     <link rel="apple-touch-icon" href="<?=$themepath?>/images/apple-touch-icon.png"/>

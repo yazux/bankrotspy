@@ -69,13 +69,28 @@
 </div>
 
 <div class="content bs_index_table">
-    <div class="contbody">
-        <br/><br/><br/><br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/>
+    <div class="contbody" style="padding: 0px">
+
+
+
+    <table class="data_table" >
+
+    </table>
+
+        <script type="text/javascript">
+            load_table();
+        </script>
+
     </div>
 </div>
 
 <script type="text/javascript">
+    $(document).on('click', '.data_table tr.data_line', function(){
+        var rerirect_to = $(this).find('.link_content').attr('attr');
+        window.open('<?=$home?>/card/' + rerirect_to);
+    });
+
+
     $(document).on('click', '.table_tab td span', function(){
         $('.table_tab td span').removeClass("active_tab");
         $(this).addClass("active_tab");
