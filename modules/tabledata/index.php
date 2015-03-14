@@ -10,6 +10,7 @@ while($data = $res->fetch_array())
   $loc = array();
 
   $loc['name'] = $tabledata->name($data['name'], 40, $data['id']);
+  $loc['type'] = $tabledata->type($data['type']);
 
   $out[] = $loc;
 }
