@@ -554,7 +554,7 @@ table.tags_pan td a:hover {
 }
 
 input[type="submit"], a.urlbutton, a.urlbutton_stat, .butt_like_area, input[type="submit"].button_noright, input[type="submit"].button_noleft {
-    padding: 9px 19px 9px 19px;
+    padding: 6px 13px 6px 13px;
     background: #ff9b24;
     color: white;
     font-weight: bold;

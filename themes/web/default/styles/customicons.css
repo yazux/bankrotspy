@@ -24,3 +24,51 @@ a [class^="icon-"]:hover:before,a [class*=" icon-"]:hover:before {
 
 .icon-edit:before { content: '\e802'; } /* '' */
 .icon-delete:before { content: '\e803'; } /* '' */
+
+.icon-globe:before,
+a .icon-globe:hover:before,
+.icon-bold:before,
+a .icon-bold:hover:before,
+.icon-italic:before,
+a .icon-italic:hover:before,
+.icon-underline:before,
+a .icon-underline:hover:before,
+.icon-strike:before,
+a .icon-strike:hover:before,
+.icon-comment:before,
+a .icon-comment:hover:before,
+.icon-plus-circled:before,
+a .icon-plus-circled:hover:before,
+.icon-code:before,
+a .icon-code:hover:before,
+.icon-pi-outline:before,
+a .icon-pi-outline:hover:before,
+.icon-brush:before,
+a .icon-brush:hover:before,
+.icon-tint:before,
+a .icon-tint:hover:before,
+.icon-youtube-play:before,
+a .icon-youtube-play:hover:before,
+.icon-align-center:before,
+a .icon-align-center:hover:before,
+.icon-align-right:before,
+a .icon-align-right:hover:before
+{
+    color: #3e3e3e;
+    text-shadow: 1px 1px 0 #d7d7d7;
+}
+
+.icon-bold:before,
+.icon-underline:before,
+.icon-strike:before,
+.icon-brush:before,
+.icon-comment:before,
+.icon-italic:before
+{
+    font-size: 13px;
+}
+
+.icon-tint:before{
+    position: relative;
+    bottom: -1px;
+}

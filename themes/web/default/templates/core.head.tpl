@@ -6,11 +6,11 @@
     <meta name="keywords" content="<?=$keywords?>"/>
     <meta name="description" content="<?=$description?>"/>
     <script type="text/javascript" src="<?=$themepath?>/js/jquery-latest.js"></script>
-    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/allstyle.css?id=6"/>
-    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/style.css?id=6"/>
-    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/bcstyle.css?id=6"/>
-    <link rel="stylesheet" href="<?=$themepath?>/styles/fontello.css?id=6" type="text/css">
-    <link rel="stylesheet" href="<?=$themepath?>/styles/customicons.css?id=6" type="text/css">
+    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/allstyle.css?id=7"/>
+    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/style.css?id=7"/>
+    <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/bcstyle.css?id=7"/>
+    <link rel="stylesheet" href="<?=$themepath?>/styles/fontello.css?id=7" type="text/css">
+    <link rel="stylesheet" href="<?=$themepath?>/styles/customicons.css?id=7" type="text/css">
 
     <script type="text/javascript" src="<?=$themepath?>/js/device.min.js"></script>
     <script type="text/javascript" src="<?=$themepath?>/js/some.js"></script>

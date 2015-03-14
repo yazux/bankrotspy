@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 13 2015 г., 23:50
+-- Время создания: Мар 14 2015 г., 18:41
 -- Версия сервера: 5.6.15-log
 -- Версия PHP: 5.5.6
 
@@ -55,7 +55,17 @@ CREATE TABLE IF NOT EXISTS `ds_comm` (
   `lastedit` int(11) unsigned NOT NULL,
   `numedit` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+
+--
+-- Дамп данных таблицы `ds_comm`
+--
+
+INSERT INTO `ds_comm` (`id`, `mid`, `module`, `text`, `username`, `userid`, `cache`, `time`, `useredit`, `editid`, `lastedit`, `numedit`) VALUES
+(12, 3, 'support', 'ывыва', 'web_demon', 1, '', 1426340572, '', 0, 0, 0),
+(13, 2, 'support', 'ыва', 'web_demon', 1, '', 1426340580, '', 0, 0, 0),
+(14, 2, 'support', 'фывфыв', 'web_demon', 1, '', 1426343375, '', 0, 0, 0),
+(15, 4, 'support', 'ываываывафа', 'web_demon', 1, '', 1426343557, '', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -128,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `ds_guests` (
   KEY `ip` (`ip`),
   KEY `module` (`module`),
   KEY `action` (`action`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=387 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=391 ;
 
 -- --------------------------------------------------------
 
@@ -969,17 +979,7 @@ CREATE TABLE IF NOT EXISTS `ds_recpassword` (
   `userid` int(11) NOT NULL,
   `num` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
-
---
--- Дамп данных таблицы `ds_recpassword`
---
-
-INSERT INTO `ds_recpassword` (`id`, `userid`, `num`) VALUES
-(1, 1, '9f208034ed8ee941bb72a06830c4f4bf'),
-(2, 1, 'dcaa62cf31f3d0dbc02bac3f7d1a2f3a'),
-(3, 1, '287bfa0d3a9c3fdc3cc2baa41d74b29b'),
-(4, 1, 'b29b659e729d6930125eb6b8bbcba662');
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -999,8 +999,8 @@ CREATE TABLE IF NOT EXISTS `ds_rights` (
 --
 
 INSERT INTO `ds_rights` (`id`, `rights`, `descr`) VALUES
-(0, 'a:9:{s:16:"frm_create_topic";i:1;s:15:"frm_create_mess";i:1;s:20:"frm_delete_self_mess";i:1;s:18:"frm_edit_self_mess";i:1;s:14:"comm_self_edit";i:1;s:16:"comm_self_delete";i:1;s:11:"create_comm";i:1;s:17:"stats_cr_draftmod";i:1;s:18:"add_stats_moderate";i:1;}', 'user'),
-(100, 'a:38:{s:9:"edit_user";i:1;s:10:"edit_group";i:1;s:8:"del_user";i:1;s:11:"edit_smiles";i:1;s:10:"edit_album";i:1;s:12:"delete_album";i:1;s:10:"edit_photo";i:1;s:12:"delete_photo";i:1;s:12:"stats_create";i:1;s:10:"stats_edit";i:1;s:12:"stats_delete";i:1;s:9:"comm_edit";i:1;s:11:"comm_delete";i:1;s:18:"frm_create_section";i:1;s:16:"frm_edit_section";i:1;s:18:"frm_delete_section";i:1;s:16:"frm_create_topic";i:1;s:15:"frm_create_mess";i:1;s:13:"frm_edit_mess";i:1;s:15:"frm_delete_mess";i:1;s:9:"ban_users";i:1;s:20:"frm_delete_self_mess";i:1;s:18:"frm_edit_self_mess";i:1;s:14:"comm_self_edit";i:1;s:16:"comm_self_delete";i:1;s:11:"create_comm";i:1;s:14:"stats_moderate";i:1;s:14:"frm_del_topics";i:1;s:18:"add_stats_moderate";i:1;s:16:"frm_rename_topic";i:1;s:21:"frm_write_close_topic";i:1;s:19:"frm_can_close_topic";i:1;s:18:"frm_can_open_topic";i:1;s:13:"frm_fix_topic";i:1;s:15:"frm_unfix_topic";i:1;s:17:"frm_move_to_trash";i:1;s:19:"frm_move_from_trash";i:1;s:14:"frm_view_trash";i:1;}', 'admin');
+(0, 'a:3:{s:14:"comm_self_edit";i:1;s:16:"comm_self_delete";i:1;s:11:"create_comm";i:1;}', 'user'),
+(100, 'a:13:{s:9:"edit_user";i:1;s:8:"del_user";i:1;s:11:"edit_smiles";i:1;s:12:"stats_create";i:1;s:10:"stats_edit";i:1;s:12:"stats_delete";i:1;s:9:"comm_edit";i:1;s:11:"comm_delete";i:1;s:9:"ban_users";i:1;s:14:"comm_self_edit";i:1;s:16:"comm_self_delete";i:1;s:11:"create_comm";i:1;s:12:"tech_support";i:1;}', 'admin');
 
 -- --------------------------------------------------------
 
@@ -1025,7 +1025,7 @@ INSERT INTO `ds_settings` (`key`, `val`) VALUES
 ('module', 'index'),
 ('action', 'index'),
 ('reg', '1'),
-('last_clean', '1426265286'),
+('last_clean', '1426335797'),
 ('counters', '<a href="http://mobtop.ru/in/668"><img src="http://mobtop.ru/668.gif" border="0" alt="MobTop - top mobile rating" /></a>'),
 ('antiflood', 'a:5:{s:4:"mode";i:4;s:3:"day";i:10;s:5:"night";i:30;s:7:"dayfrom";i:10;s:5:"dayto";i:22;}'),
 ('onlinetime', '300'),
@@ -1316,6 +1316,36 @@ INSERT INTO `ds_smiles` (`id`, `refid`, `type`, `pattern`, `image`, `adm`) VALUE
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `ds_support`
+--
+
+CREATE TABLE IF NOT EXISTS `ds_support` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `text` text NOT NULL,
+  `cache` blob NOT NULL,
+  `userid` int(11) NOT NULL,
+  `autor` text NOT NULL,
+  `time` int(11) NOT NULL,
+  `newtime` int(11) NOT NULL,
+  `read` tinyint(2) NOT NULL,
+  `usread` tinyint(2) NOT NULL,
+  `closed` tinyint(2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Дамп данных таблицы `ds_support`
+--
+
+INSERT INTO `ds_support` (`id`, `text`, `cache`, `userid`, `autor`, `time`, `newtime`, `read`, `usread`, `closed`) VALUES
+(2, 'dcsdcdf', '', 8, 'web_demon2', 1426284817, 1426343375, 1, 1, 0),
+(3, 'ascasc', '', 8, 'web_demon2', 1426337038, 1426342460, 1, 1, 1),
+(4, 'ascasc', '', 8, 'web_demon2', 1426343425, 1426343864, 1, 1, 1),
+(5, 'Всем привет, сегодня я разберу исходник из темы "Исправление исходников" и, кроме непосредственно исправления, постараюсь дать исчерпывающие комментарии почему я делаю эти исправления именно так. Кроме того, я приведу в качестве решения свою версию кода. Итак, изначальный исходник (настоятельно рекомендую ознакомиться, чтобы быть в теме):', '', 8, 'web_demon2', 1426343820, 1426343820, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `ds_users`
 --
 
@@ -1344,14 +1374,15 @@ CREATE TABLE IF NOT EXISTS `ds_users` (
   KEY `module` (`module`),
   KEY `action` (`action`),
   KEY `login` (`login`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Дамп данных таблицы `ds_users`
 --
 
 INSERT INTO `ds_users` (`id`, `login`, `password`, `sex`, `mail`, `rights`, `info`, `settings`, `time`, `lastvisit`, `comm_plus`, `comm_minus`, `ip`, `ua`, `lang`, `module`, `action`, `lastpost`, `avtime`) VALUES
-(1, 'web_demon', '7ba24bdd88b79e33af7d9125a9948761', 'm', 'demon.of.net@gmail.com', 100, 'a:8:{s:4:"name";s:14:"Алексей";s:4:"from";s:16:"Беларусь";s:5:"phone";s:5:"с902";s:4:"site";s:20:"http://wikimobile.su";s:3:"icq";s:9:"578263699";s:9:"interests";s:36:"Программирование PHP";s:5:"about";a:2:{i:0;s:304:"[b]Добрый и пуФФыстый[/b], нет, это не про меня. Я маньяк, убийца, злобная тварь, ненавижу всех, и готовлю план по захвату Земли. ХА-хА-Ха!!!\r\n[youtube]http://www.youtube.com/watch?v=8SbUC-UaAxE[/youtube]";i:1;s:0:"";}s:3:"age";s:9:"5.12.1991";}', 'a:1:{s:10:"themecolor";s:6:"0BA1B8";}', 1336254925, 1426265310, 0, 0, 2130706433, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', '', 'index', 'index', 1422550153, 0);
+(1, 'web_demon', '7ba24bdd88b79e33af7d9125a9948761', 'm', 'demon.of.net@gmail.com', 100, 'a:8:{s:4:"name";s:14:"Алексей";s:4:"from";s:16:"Беларусь";s:5:"phone";s:5:"с902";s:4:"site";s:20:"http://wikimobile.su";s:3:"icq";s:9:"578263699";s:9:"interests";s:36:"Программирование PHP";s:5:"about";a:2:{i:0;s:304:"[b]Добрый и пуФФыстый[/b], нет, это не про меня. Я маньяк, убийца, злобная тварь, ненавижу всех, и готовлю план по захвату Земли. ХА-хА-Ха!!!\r\n[youtube]http://www.youtube.com/watch?v=8SbUC-UaAxE[/youtube]";i:1;s:0:"";}s:3:"age";s:9:"5.12.1991";}', 'a:1:{s:10:"themecolor";s:6:"0BA1B8";}', 1336254925, 1426344047, 0, 0, 2130706433, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', '', 'support', 'view', 1426343557, 0),
+(8, 'web_demon2', '7ba24bdd88b79e33af7d9125a9948761', 'm', 'alex.leraje@gmail.com', 0, '', '', 1426283038, 1426343822, 0, 0, 2130706433, 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safar', '', 'support', 'index', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1371,7 +1402,7 @@ CREATE TABLE IF NOT EXISTS `ds_users_inactive` (
   `ua` text NOT NULL,
   `lang` varchar(3) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

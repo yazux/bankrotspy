@@ -1,6 +1,6 @@
 <table>
     <tr>
-        <td>
+        <td valign="top">
 
 <?if ($error):?>
 <div class="error">

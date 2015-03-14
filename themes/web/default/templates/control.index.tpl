@@ -1,6 +1,6 @@
 <table>
     <tr>
-        <td>
+        <td valign="top">
 
 <form name="mess" action="<?=$home?>/control" method="post">
 <? temp::formid() /* ЭТА ФУНКЦИЯ ОБЯЗАТЕЛЬНА ДЛЯ ВСЕХ ФОРМ!!! */?>
