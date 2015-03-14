@@ -16,7 +16,7 @@ class column_name
 
   public function name()
   {
-    return '';
+    return 'Лот';
   }
 
   public function process()
