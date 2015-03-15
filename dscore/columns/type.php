@@ -15,7 +15,9 @@ class column_type
 
   public function name()
   {
-    return 'Тип';
+    return array(
+      'name' => 'Тип'
+    );
   }
 
   public function process()

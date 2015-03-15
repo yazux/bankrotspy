@@ -16,13 +16,15 @@ class column_platform
 
   public function name()
   {
-    return 'Площадка';
+    return array(
+      'name' => 'Площадка'
+    );
   }
 
   public function process()
   {
     return array(
-      'col' => '<a target="_blank" href="'.$this->url.'"><i class="icon-globe-table"></i>'.$this->platforms[$this->pid].'</a>',
+      'col' => '<a style="color:green;" target="_blank" href="'.$this->url.'"><i class="icon-globe-table"></i>'.$this->platforms[$this->pid].'</a>',
       'style' => 'text-align:center;'
     );
   }

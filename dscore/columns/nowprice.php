@@ -12,7 +12,9 @@ class column_nowprice
 
   public function name()
   {
-    return 'Текущая цена, руб.';
+    return array(
+      'name' => 'Текущая цена, руб.'
+    );
   }
 
   public function process()

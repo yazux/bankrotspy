@@ -34,6 +34,30 @@ a [class^="icon-"]:hover:before,a [class*=" icon-"]:hover:before {
     font-size: 12px;
 }
 
+.icon-star-1 {
+    font-size: 12px;
+}
+.icon-star-empty:before{
+    font-size: 14px;
+    padding-right: 2px;
+}
+
+.icon-star-empty:hover:before{
+    color: #FF9B24;
+    cursor: pointer;
+}
+
+.icon-star-clicked:before{
+    font-size: 14px;
+    content: '\e815';
+    color: #FF9B24;
+    padding-right: 2px;
+}
+.icon-star-clicked:hover:before{
+    color: rgba(255, 155, 36, 0.76);
+    cursor: pointer;
+}
+
 .icon-edit:before { content: '\e802'; } /* '' */
 .icon-delete:before { content: '\e803'; } /* '' */
 

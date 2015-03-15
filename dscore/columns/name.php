@@ -16,7 +16,10 @@ class column_name
 
   public function name()
   {
-    return 'Лот';
+    return array(
+      'name' => 'Лот',
+      'style' => 'max-width: 200px;'
+    );
   }
 
   public function process()
@@ -31,7 +34,8 @@ class column_name
     }
 
     return array(
-      'col' => '<a target="_blank" class="namelink" href="'.core::$home.'/card/'.$this->attr.'"><i class="icon-share"></i>'.$name.'</a>'
+      'col' => '<a target="_blank" class="namelink" href="'.core::$home.'/card/'.$this->attr.'"><i class="icon-share"></i>'.$name.'</a>',
+      'style' => 'max-width: 200px;'
     );
   }
 }

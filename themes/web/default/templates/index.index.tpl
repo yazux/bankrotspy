@@ -77,14 +77,19 @@
 
     </table>
 
-        <script type="text/javascript">
-            load_table();
-        </script>
 
     </div>
 </div>
 
 <script type="text/javascript">
+    var engine_formid = <?=core::$formid?>;
+
+    load_table();
+
+    $(document).on('click', '.data_table .icon_to_click', function(){
+        listen_to_favorite(this);
+    });
+
     //$(document).on('click', '.data_table tr.data_line', function(){
     //    var rerirect_to = $(this).find('.link_content').attr('attr');
     //    window.open('<?=$home?>/card/' + rerirect_to);

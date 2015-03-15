@@ -12,7 +12,9 @@ class column_beginprice
 
   public function name()
   {
-    return 'Начальная цена, руб.';
+    return array(
+      'name' => 'Начальная цена, руб.'
+    );
   }
 
   public function process()

@@ -14,7 +14,9 @@ class column_number
 
   public function name()
   {
-    return 'Номер лота';
+    return array(
+      'name' => 'Номер лота'
+    );
   }
 
   public function process()

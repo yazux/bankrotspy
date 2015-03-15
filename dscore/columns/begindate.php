@@ -12,7 +12,9 @@ class column_begindate
 
   public function name()
   {
-    return 'Дата начала';
+    return array(
+      'name' => 'Дата начала'
+    );
   }
 
   public function process()

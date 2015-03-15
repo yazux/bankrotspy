@@ -12,7 +12,9 @@ class column_closedate
 
   public function name()
   {
-    return 'Дата окончания';
+    return array(
+      'name' => 'Дата окончания'
+    );
   }
 
   public function process()
