@@ -52,23 +52,7 @@ function create_head_mess(mess)
 
 }
 
-function answer_favorite_deteted(data)
-{
-  if(data == 'ok')
-    create_head_mess('Лот был удален из изранного!');
-  else
-    create_head_mess('Ошибка! Только для зарегистрированных пользователей!');
-}
-
-function answer_favorite_added(data)
-{
-  if(data == 'ok')
-    create_head_mess('Лот был добавлен в избранное!');
-  else
-    create_head_mess('Ошибка! Только для зарегистрированных пользователей!');
-}
-
-function action_favorite(lot, action)
+function action_favorite(lot, action, item)
 {
   if(action == 1)
   {
@@ -80,7 +64,17 @@ function action_favorite(lot, action)
          actionid: action,
          formid: engine_formid
       },
-      answer_favorite_deteted
+      function(data)
+      {
+        if(data == 'ok')
+          create_head_mess('Лот был удален из изранного!');
+        else
+        {
+          create_head_mess('Ошибка! Только для зарегистрированных пользователей!');
+          $(item).find('i').attr('class', 'icon-star-clicked');
+          $(item).find('i').attr('title', 'Удалить лот из избранного');
+        }
+      }
     );
   }
   else
@@ -93,7 +87,17 @@ function action_favorite(lot, action)
         actionid: action,
         formid: engine_formid
       },
-      answer_favorite_added
+      function(data)
+      {
+        if(data == 'ok')
+          create_head_mess('Лот был добавлен в избранное!');
+        else
+        {
+          create_head_mess('Ошибка! Только для зарегистрированных пользователей!');
+          $(item).find('i').attr('class', 'icon-star-empty');
+          $(item).find('i').attr('title', 'Добавить лот в избранное');
+        }
+      }
     );
   }
 }
@@ -108,14 +112,14 @@ function listen_to_favorite(item)
     //Кнопка уже нажата
     $(item).find('i').attr('class', 'icon-star-empty');
     $(item).find('i').attr('title', 'Добавить лот в избранное');
-    action_favorite(item_id, 1);
+    action_favorite(item_id, 1, item);
   }
   else
   {
     //Кнопка не нажата
     $(item).find('i').attr('class', 'icon-star-clicked');
     $(item).find('i').attr('title', 'Удалить лот из избранного');
-    action_favorite(item_id, 0);
+    action_favorite(item_id, 0, item);
   }
 }
 
