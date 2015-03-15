@@ -23,6 +23,12 @@
 
 <script type="text/javascript">
 
+    //Эти 3 строки ничего страшного не делают
+    //Нужно просто для системы защиты
+    $(document).ready(function() {
+        setInterval('connection_keeper()',30000);
+    });
+
     function set_normal_height()
     {
         if(device.mobile() == false)

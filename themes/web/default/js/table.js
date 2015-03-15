@@ -124,6 +124,20 @@ function listen_to_favorite(item)
 }
 
 
+function connection_keeper()
+{
+  $.post(
+    "/connectionkeeper",
+    {
+      formid: engine_formid
+    },
+    function(data)
+    {
+      //ничего не делаем, только сохраняем подключение
+    }
+  );
+}
+
 function load_table()
 {
   $.post(
