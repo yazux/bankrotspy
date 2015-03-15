@@ -1,3 +1,32 @@
+//СНова костыль для осла, ну сколько можно!
+JSON.stringify = JSON.stringify || function (obj) {
+
+  var t = typeof (obj);
+  if (t != "object" || obj === null) {
+
+    // simple data type
+    if (t == "string") obj = '"'+obj+'"';
+    return String(obj);
+
+  }
+  else {
+    // recurse array or object
+    var n, v, json = [], arr = (obj && obj.constructor == Array);
+
+    for (n in obj) {
+      v = obj[n]; t = typeof(v);
+
+      if (t == "string") v = '"'+v+'"';
+      else if (t == "object" && v !== null) v = JSON.stringify(v);
+
+      json.push((arr ? "" : '"' + n + '":') + String(v));
+    }
+
+    return (arr ? "[" : "{") + String(json) + (arr ? "]" : "}");
+  }
+};
+
+//Работа с данными
 
 function answer_load(data)
 {
@@ -138,15 +167,43 @@ function connection_keeper()
   );
 }
 
+
+
+function save_settings_and_load()
+{
+  load_table();
+
+  var json_set = JSON.stringify(engine_settings);
+
+  $.post(
+    "/tabledata/savesettings",
+    {
+      jsettings: json_set,
+      formid: engine_formid
+    },
+
+    function(data)
+    {
+      //ничего не делаем
+    }
+  );
+}
+
 function load_table()
 {
+  //Активная категория
+  $('.table_tab td span').removeClass("active_tab");
+  $('#bs_tab_' + engine_settings.category).addClass("active_tab");
+
   $.post(
     "/tabledata",
     {
       somevar: 'tvybunwedowhduw2397ey9hd8ybhb83wecugwvevct',
-      formid: engine_formid
+      formid: engine_formid,
+      category: engine_settings.category
     },
     answer_load
   );
+
 }
 

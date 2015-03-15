@@ -1,6 +1,6 @@
 <?php
 defined('DS_ENGINE') or die('web_demon laughs');
-engine_head();
+
 
 $res = core::$db->query('SELECT * FROM  `ds_rights` ');
   while($data = $res->fetch_array())
@@ -9,7 +9,8 @@ $res = core::$db->query('SELECT * FROM  `ds_rights` ');
   }
 
   $rights_arr[100]['tech_support'] = 1;
-  
+
+
   //echo '<b>admin:</b><br/>';
   //echo(serialize($rights_arr[100]));
   
@@ -17,5 +18,14 @@ $res = core::$db->query('SELECT * FROM  `ds_rights` ');
   
   //echo '<b>user:</b><br/>';
   //echo(serialize($rights_arr[0]));
+
+  $set_table_array = array(
+    'category' => 1
+  );
+
+
+
+engine_head();
+temp::assign('table_set', json_encode($set_table_array));
 temp::display('index.index');
 engine_fin();

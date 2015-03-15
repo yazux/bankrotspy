@@ -52,18 +52,19 @@
 <div class="table_menu">
     <table class="table_tab">
         <tr>
-            <td><span id="bs_tab_1" class="active_tab" href="<?=$home?>">Авто</span></td>
-            <td><span id="bs_tab_2" href="<?=$home?>">Деб. задолженность</span></td>
-            <td><span id="bs_tab_3" href="<?=$home?>">Зем. участки</span></td>
-            <td><span id="bs_tab_4" href="<?=$home?>">Сельхоз. имущество</span></td>
-            <td><span id="bs_tab_5" href="<?=$home?>">Недвиж. жилая</span></td>
-            <td><span id="bs_tab_6" href="<?=$home?>">Недвиж. коммер.</span></td>
-            <td><span id="bs_tab_7" href="<?=$home?>">Спецтехника</span></td>
-            <td><span id="bs_tab_8" href="<?=$home?>">Обор. Инст. Мат.</span></td>
-            <td><span id="bs_tab_9" href="<?=$home?>">Ценные бумаги</span></td>
-            <td><span id="bs_tab_10" href="<?=$home?>">Прочее</span></td>
+            <td><span attr="1" id="bs_tab_1" >Авто</span></td>
+            <td><span attr="2" id="bs_tab_2" >Деб. задолженность</span></td>
+            <td><span attr="3" id="bs_tab_3" >Зем. участки</span></td>
+            <td><span attr="4" id="bs_tab_4" >Сельхоз. имущество</span></td>
+            <td><span attr="5" id="bs_tab_5" >Недвиж. жилая</span></td>
+            <td><span attr="6" id="bs_tab_6" >Недвиж. коммер.</span></td>
+            <td><span attr="7" id="bs_tab_7" >Спецтехника</span></td>
+            <td><span attr="8" id="bs_tab_8" >Обор. Инст. Мат.</span></td>
+            <td><span attr="9" id="bs_tab_9" >Ценные бумаги</span></td>
+            <td><span attr="0" id="bs_tab_0" >Прочее</span></td>
 
-            <td class="no_tab_right"><span id="bs_tab_11" href="<?=$home?>"><i class="icon-star"></i>Избранное</span></td>
+            <td class="no_tab_right"><span attr="-1" id="bs_tab_-1" href="<?=$home?>"><i class="icon-star"></i>Избранное</span></td>
+
         </tr>
     </table>
 </div>
@@ -71,6 +72,7 @@
 <div class="content bs_index_table">
     <div class="contbody" style="padding: 0px">
 
+    <div id="table_set" style="display: none"><?=$table_set?></div>
 
 
     <table class="data_table" >
@@ -83,6 +85,7 @@
 
 <script type="text/javascript">
     var engine_formid = <?=core::$formid?>;
+    var engine_settings = jQuery.parseJSON($('#table_set').text());
 
     load_table();
 
@@ -97,8 +100,8 @@
 
 
     $(document).on('click', '.table_tab td span', function(){
-        $('.table_tab td span').removeClass("active_tab");
-        $(this).addClass("active_tab");
+        engine_settings.category = $(this).attr('attr');
+        save_settings_and_load();
     });
 </script>
 
