@@ -859,6 +859,26 @@ hr {
     z-index: 999;
 }
 
+.loadmess {
+    text-align: center;
+    position: fixed;
+    width: 200px;
+    max-width: 120px;
+    padding: 5px;
+    left: 50%;
+    margin-left: -10%;
+    top: 0px;
+    background: #faf4d4;
+    border: 1px solid #d0ad34;
+    color: #3a3a3a;
+    font-weight: bold;
+    border-radius: 0px 0px 3px 3px;
+    box-shadow: 0 0 14px rgba(130, 130, 130, 0.50);
+    display: none;
+    z-index: 999;
+    border-top: 0px;
+}
+
 a.newcounter_front {
     color: red;
     font-weight: bold;

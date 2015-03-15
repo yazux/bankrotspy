@@ -86,6 +86,7 @@
 <script type="text/javascript">
     var engine_formid = <?=core::$formid?>;
     var engine_settings = jQuery.parseJSON($('#table_set').text());
+    var engine_global_loader = 0;
 
     load_table();
 

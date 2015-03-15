@@ -6,7 +6,7 @@
     <meta name="keywords" content="<?=$keywords?>"/>
     <meta name="description" content="<?=$description?>"/>
 
-    <? $now_id = 18; ?>
+    <? $now_id = 19; ?>
 
     <script type="text/javascript" src="<?=$themepath?>/js/jquery-latest.js"></script>
     <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/allstyle.css?id=<?=$now_id?>"/>
@@ -36,6 +36,7 @@
             </div>
         </div>
 
+<div class="loadmess" id="loadmess"> </div>
 
 <div class="alltopmess" id="alltopmess"> </div>
 <?if($usc_mess_body):?>

@@ -27,6 +27,30 @@ JSON.stringify = JSON.stringify || function (obj) {
 };
 
 //Работа с данными
+function begin_loader()
+{
+  if(engine_global_loader)
+  {
+    var mess = '<i class="icon-spin5"></i> Загрузка...';
+
+    $("#loadmess").clearQueue();
+    $("#loadmess").stop();
+
+    $('#loadmess').html(mess);
+    $('#loadmess').fadeIn(300);
+  }
+  else
+    engine_global_loader = 1;
+}
+
+function end_loader()
+{
+  //$("#loadmess").clearQueue();
+  //$("#loadmess").stop();
+  //$('#loadmess').fadeIn(0);
+
+  $('#loadmess').fadeOut(700);
+}
 
 function answer_load(data)
 {
@@ -67,6 +91,11 @@ function answer_load(data)
 
         var all_data = '<tr>' + head_table + '</tr>' + '' + body_table;
         $('.data_table').html(all_data);
+        end_loader();
+    }
+    else
+    {
+      end_loader();
     }
 }
 
@@ -192,6 +221,7 @@ function save_settings_and_load()
 function load_table()
 {
   //Активная категория
+  begin_loader();
   $('.table_tab td span').removeClass("active_tab");
   $('#bs_tab_' + engine_settings.category).addClass("active_tab");
 
