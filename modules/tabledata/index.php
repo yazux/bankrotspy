@@ -1,6 +1,10 @@
 <?php
 defined('DS_ENGINE') or die('web_demon laughs');
 
+//Ключ, скорее для виду, сесcия доставит гораздо больше проблем =)
+$somevar = 'tvybunwedowhduw2397ey9hd8ybhb83wecugwvevct';
+if($somevar != POST('somevar'))
+  exit('Glory Sithis!');
 
 $res = core::$db->query('SELECT
   `ds_maindata`.*,
