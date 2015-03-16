@@ -98,6 +98,7 @@ function begin_loader()
 
     $("#loadmess").clearQueue();
     $("#loadmess").stop();
+    $('#loadmess').fadeOut(1);
 
     $('#loadmess').html(mess);
     $('#loadmess').fadeIn(300);
@@ -160,6 +161,27 @@ function answer_load(data)
         var all_data = '<tr>' + head_table + '</tr>' + '' + body_table;
         $('.data_table').html(all_data);
 
+        var start_int = ((engine_settings.page * engine_settings.kmess) - engine_settings.kmess)+1;
+        var fin_int = (start_int + engine_settings.kmess - 1);
+        if(fin_int > obj.count)
+          fin_int = obj.count;
+        var bar_info = 'Показаны результаты: '+ start_int +'-'+ fin_int +' из ' + obj.count;
+
+        if(obj.count > 1)
+        {
+          //Верхняя панелька
+          $('.top_nav_info').text(bar_info);
+          $('.top_nav_info').fadeIn(0);
+
+          //Нижняя панелька
+          $('.bottomp_nav_info').text(bar_info);
+          $('.bottomp_nav_info').fadeIn(0);
+        }
+        else
+        {
+          $('.top_nav_info').fadeOut(0);
+          $('.bottomp_nav_info').fadeOut(0);
+        }
 
         build_page_navigation(engine_settings.page, obj.count, engine_settings.kmess);
 

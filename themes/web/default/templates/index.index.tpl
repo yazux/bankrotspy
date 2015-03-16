@@ -73,13 +73,15 @@
 <div class="content bs_index_table">
     <div class="contbody" style="padding: 0px">
 
-    <div id="table_set" style="display: none"><?=$table_set?></div>
+        <div id="table_set" style="display: none"><?=$table_set?></div>
 
+        <div class="top_nav_info"></div>
 
-    <table class="data_table" >
+        <table class="data_table" >
 
-    </table>
+        </table>
 
+        <div class="bottomp_nav_info"></div>
 
     </div>
 </div>
