@@ -319,3 +319,34 @@ margin: 16px 0 16px 0;
     color:black;
     text-decoration:underline
 }
+
+#floatTip {
+    position: absolute;
+    width: 193px;
+    display: none;
+    top:-250px;
+    z-index:9999;
+    margin-left:-90px;
+    font-size: 9pt;
+    color: #333;
+}
+
+#TipContainer{
+    border: 1px solid #9c9c9c;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(77, 77, 77, 0.50);
+    background: white;
+    padding: 5px;
+}
+
+#TipContainer::before, #TipContainer::after {
+    content: '';
+    position: absolute;
+    left: 82px; bottom: -19px;
+    border: 10px solid transparent;
+    border-top: 10px solid #9c9c9c;
+}
+#TipContainer::after {
+    border-top: 10px solid white;
+    bottom: -18px;
+}

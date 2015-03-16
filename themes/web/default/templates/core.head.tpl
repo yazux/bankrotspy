@@ -6,7 +6,7 @@
     <meta name="keywords" content="<?=$keywords?>"/>
     <meta name="description" content="<?=$description?>"/>
 
-    <? $now_id = 19; ?>
+    <? $now_id = 20; ?>
 
     <script type="text/javascript" src="<?=$themepath?>/js/jquery-latest.js"></script>
     <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/allstyle.css?id=<?=$now_id?>"/>
@@ -18,6 +18,7 @@
     <script type="text/javascript" src="<?=$themepath?>/js/device.min.js"></script>
     <script type="text/javascript" src="<?=$themepath?>/js/some.js<?=$now_id?>"></script>
     <script type="text/javascript" src="<?=$themepath?>/js/table.js?id=<?=$now_id?>"></script>
+    <script type='text/javascript' src='<?=$themepath?>/js/toolpit.js?id=<?=$now_id?>'></script>
 
     <link rel="shortcut icon" href="<?=$themepath?>/images/favicon.ico"/>
     <link rel="apple-touch-icon" href="<?=$themepath?>/images/apple-touch-icon.png"/>
@@ -34,6 +35,10 @@
                     <img style="height: 50px" src="<?=$themepath?>/images/load_small.gif"/>
                 </div>
             </div>
+        </div>
+
+        <div id="floatTip">
+            <div id="TipContainer"></div>
         </div>
 
 <div class="loadmess" id="loadmess"> </div>

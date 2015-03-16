@@ -22,9 +22,16 @@ class column_type
 
   public function process()
   {
+    $custom_names = array(
+      1 => 'ОА',
+      2 => 'ПП'
+    );
+
+
     return array(
-      'col' => $this->types[$this->type],
-      'style' => 'text-align:center;'
+      'col' => (isset($custom_names[$this->type]) ? $custom_names[$this->type] : $this->types[$this->type]) ,
+      'style' => 'text-align:center;',
+      'addition' => 'onmouseover="toolTip(\''.$this->types[$this->type].'\')" onmouseout="toolTip()"'
     );
   }
 

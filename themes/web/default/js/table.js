@@ -78,12 +78,17 @@ function answer_load(data)
 
             $.each(this, function() {
 
+              //Дополнительно (скрипты например)
+              var addition_holder = '';
+              if(this.addition)
+                addition_holder = ' ' + this.addition + ' ';
+
               //Стиль, если есть
               var style_holder = '';
               if(this.style)
                 style_holder = 'style="' + this.style + '"';
 
-              body_table += '<td ' + style_holder +' >' + this.col + '</td>';
+              body_table += '<td ' + style_holder + addition_holder +' >' + this.col + '</td>';
             });
 
             body_table += '</tr>';
