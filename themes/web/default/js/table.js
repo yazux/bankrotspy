@@ -78,8 +78,15 @@ function build_page_navigation(page, total, kmess)
       outdata += '<span class="navpg"  onclick="load_table_page(' + numpages + ')">' + numpages + '</span>';
   }
 
-  outdata = '<div class="navig bs_index_table">' + outdata + '</div>';
-  $('#navigation_container').html(outdata);
+  if(numpages > 1)
+  {
+    outdata = '<div class="navig bs_index_table">' + outdata + '</div>';
+    $('#navigation_container').html(outdata);
+  }
+  else
+  {
+    $('#navigation_container').html(' ');
+  }
 }
 
 //Работа с данными
