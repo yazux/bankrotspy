@@ -16,11 +16,23 @@ if($kmess > 40)
   $kmess = 40;
 $start =  $now_page ? $now_page * $kmess - $kmess : 0;
 
+//Условия для WHERE
+$conditions = array();
 if($category == '-1')
-  $fav_sql = '`ds_maindata_favorive`.`user_id` = "'.core::$user_id.'" ';
-else
-  $fav_sql = '`ds_maindata_favorive`.`user_id` = "'.core::$user_id.'" OR `ds_maindata_favorive`.`user_id` IS NULL';
+  $conditions['fav_sql'] = '`ds_maindata_favorive`.`user_id` = "'.core::$user_id.'" ';
 
+//Дополнительные условия для LEFT JOIN
+$join_conditions = array();
+$join_conditions['fav_sql'] = '`ds_maindata_favorive`.`user_id` = "'.core::$user_id.'"';
+
+//Компилим условия
+$where_cond = '';
+if($conditions)
+  $where_cond = ' WHERE '.implode(' ', $conditions);
+
+$join_cond = '';
+if($join_conditions)
+  $join_cond = ' AND '.implode(' ', $join_conditions);
 
 //Счетчик
 $count = core::$db->query('SELECT
@@ -28,10 +40,9 @@ $count = core::$db->query('SELECT
   FROM
   `ds_maindata`
   LEFT JOIN
-  `ds_maindata_favorive` ON `ds_maindata`.`id` = `ds_maindata_favorive`.`item`
-  WHERE
+  `ds_maindata_favorive` ON `ds_maindata`.`id` = `ds_maindata_favorive`.`item` '.$join_cond.'
 
-  '.$fav_sql.'
+  '.$where_cond.'
 
   ORDER BY `ds_maindata`.`id`
   ;')->count();
@@ -43,10 +54,9 @@ $res = core::$db->query('SELECT
   FROM
   `ds_maindata`
   LEFT JOIN
-  `ds_maindata_favorive` ON `ds_maindata`.`id` = `ds_maindata_favorive`.`item`
-  WHERE
+  `ds_maindata_favorive` ON `ds_maindata`.`id` = `ds_maindata_favorive`.`item` '.$join_cond.'
 
-  '.$fav_sql.'
+  '.$where_cond.'
 
   ORDER BY `ds_maindata`.`id`
 
