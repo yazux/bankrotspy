@@ -6,8 +6,15 @@ $somevar = 'tvybunwedowhduw2397ey9hd8ybhb83wecugwvevct';
 if($somevar != POST('somevar'))
   exit('Glory Sithis!');
 
-$category = POST('category');
+$category = intval(POST('category'));
 
+$now_page = abs(intval(POST('page')));
+if(!$now_page)
+  $now_page = 1;
+$kmess = abs(intval(POST('kmess')));
+if($kmess > 40)
+  $kmess = 40;
+$start =  $now_page ? $now_page * $kmess - $kmess : 0;
 
 if($category == '-1')
   $fav_sql = '`ds_maindata_favorive`.`user_id` = "'.core::$user_id.'" ';
@@ -15,6 +22,21 @@ else
   $fav_sql = '`ds_maindata_favorive`.`user_id` = "'.core::$user_id.'" OR `ds_maindata_favorive`.`user_id` IS NULL';
 
 
+//Счетчик
+$count = core::$db->query('SELECT
+  COUNT(*)
+  FROM
+  `ds_maindata`
+  LEFT JOIN
+  `ds_maindata_favorive` ON `ds_maindata`.`id` = `ds_maindata_favorive`.`item`
+  WHERE
+
+  '.$fav_sql.'
+
+  ORDER BY `ds_maindata`.`id`
+  ;')->count();
+
+//Основной запрос
 $res = core::$db->query('SELECT
   `ds_maindata`.*,
   `ds_maindata_favorive`.`item`
@@ -28,7 +50,10 @@ $res = core::$db->query('SELECT
 
   ORDER BY `ds_maindata`.`id`
 
-  LIMIT 20 ;');
+  LIMIT '.$start.', '.$kmess.' ;');
+
+
+
 $tabledata = new tabledata();
 if($res->num_rows)
 {
@@ -51,7 +76,8 @@ if($res->num_rows)
 
   $outdata = array(
     'columns' => $tabledata->get_names(),
-    'maindata' => $out
+    'maindata' => $out,
+    'count' => $count
   );
 
 }
@@ -62,7 +88,8 @@ else
       'name' => (($category == '-1' AND !core::$user_id) ? 'Добавление в избранное доступно только зарегистрированным пользователям!' : 'Ничего не найдено!'),
       'style' => 'background:white;border:0px;padding: 40px 0;font-size: 14px;'
     )),
-    'maindata' => ''
+    'maindata' => '',
+    'count' => $count
   );
 }
 

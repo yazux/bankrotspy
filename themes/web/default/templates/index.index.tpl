@@ -1,6 +1,7 @@
 <table>
     <tr>
         <td class="right_back_menu_index_set">
+            <span id="on_load_new_page"></span>
             <div class="right_panel_conf">
                 <div class="menu_rt_index">Настройка:</div>
                 <div class="news_back" id="bs_set_container">
@@ -49,7 +50,7 @@
 
 </script>
 
-<div class="table_menu">
+<div class="table_menu" >
     <table class="table_tab">
         <tr>
             <td><span attr="1" id="bs_tab_1" >Авто</span></td>
@@ -83,6 +84,8 @@
     </div>
 </div>
 
+<div id="navigation_container"></div>
+
 <script type="text/javascript">
     var engine_formid = <?=core::$formid?>;
     var engine_settings = jQuery.parseJSON($('#table_set').text());
@@ -94,14 +97,9 @@
         listen_to_favorite(this);
     });
 
-    //$(document).on('click', '.data_table tr.data_line', function(){
-    //    var rerirect_to = $(this).find('.link_content').attr('attr');
-    //    window.open('<?=$home?>/card/' + rerirect_to);
-    //});
-
-
     $(document).on('click', '.table_tab td span', function(){
         engine_settings.category = $(this).attr('attr');
+        engine_settings.page = 1;
         save_settings_and_load();
     });
 </script>

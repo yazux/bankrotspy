@@ -26,6 +26,62 @@ JSON.stringify = JSON.stringify || function (obj) {
   }
 };
 
+function load_table_page(page)
+{
+  engine_settings.page = page;
+  location.hash='on_load_new_page';
+  load_table();
+}
+
+//Постраничная навигация
+function build_page_navigation(page, total, kmess)
+{
+  var outdata = '';
+  var numpages = Math.ceil(total/kmess);
+  var previos_page = page-1;
+  var next_page = page+1;
+
+  if(page == 1)
+  {
+    if(numpages > 2)
+      outdata += '<span class="navpgin">1</span>';
+    outdata += '<span class="navpgin">« Позже</span>';
+  }
+  else
+  {
+    if(numpages > 2)
+      outdata += '<span class="navpg" onclick="load_table_page(1)">1</span>';
+    outdata += '<span class="navpg" onclick="load_table_page(' + previos_page + ')">« Позже</span>';
+  }
+
+  outdata += '<form method="get" style="display:inline" action="">';
+  outdata += '<select class="navselect" name="page" onchange="load_table_page(this.value)">';
+
+  var i;
+  for (i=1; i<=numpages; i++)
+  {
+    outdata += '<option value="' + i + '" ' + (i == page ? 'selected="selected"' : '' ) + ' >' + i + '</option>';
+  }
+
+  outdata += '</select></form>';
+
+  if(page == numpages)
+  {
+    outdata += '<span class="navpgin">Раньше »</span>';
+    if(numpages > 2)
+      outdata += '<span class="navpgin">' + numpages + '</span>';
+  }
+  else
+  {
+    outdata += '<span class="navpg" onclick="load_table_page(' + next_page + ')">Раньше »</span>';
+    if(numpages > 2)
+      outdata += '<span class="navpg"  onclick="load_table_page(' + numpages + ')">' + numpages + '</span>';
+  }
+
+  outdata = '<div class="navig bs_index_table">' + outdata + '</div>';
+  $('#navigation_container').html(outdata);
+}
+
 //Работа с данными
 function begin_loader()
 {
@@ -96,6 +152,10 @@ function answer_load(data)
 
         var all_data = '<tr>' + head_table + '</tr>' + '' + body_table;
         $('.data_table').html(all_data);
+
+
+        build_page_navigation(engine_settings.page, obj.count, engine_settings.kmess);
+
         end_loader();
     }
     else
@@ -235,7 +295,9 @@ function load_table()
     {
       somevar: 'tvybunwedowhduw2397ey9hd8ybhb83wecugwvevct',
       formid: engine_formid,
-      category: engine_settings.category
+      category: engine_settings.category,
+      page: engine_settings.page,
+      kmess: engine_settings.kmess
     },
     answer_load
   );

@@ -32,11 +32,11 @@ document.onmousemove = moveTip;
         $("#floatTip").stop();
         $('#floatTip').fadeOut(0);
 
-        $('#floatTip').fadeIn(300);
+        $('#floatTip').fadeIn(100);
 		  } else { 
 
 			//floatTipStyle.display = "none";
-        $('#floatTip').fadeOut(300);
+        $('#floatTip').fadeOut(100);
 		  }
 
       var height = $("#floatTip").height();
