@@ -29,7 +29,7 @@ JSON.stringify = JSON.stringify || function (obj) {
 function load_table_page(page)
 {
   engine_settings.page = page;
-  location.hash='on_load_new_page';
+  $('html, body').animate({scrollTop: $('#on_load_new_page').offset().top}, 10);
   load_table();
 }
 
