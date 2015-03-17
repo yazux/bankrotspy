@@ -24,7 +24,7 @@
 }
 
 .news_back{
-    padding: 8px 10px 0px 15px;
+    padding: 8px 10px 0px 8px;
     color: #717171;
     border-bottom: 1px #c7c7c7 solid;
 }
@@ -138,10 +138,6 @@ a.urlbutton_index{
     display: inline-block;
 }
 
-.button_no_top{
-    margin-top: 4px !important;
-}
-
 a.urlbutton_index:hover{
     cursor: pointer;
     background: #feab2e;
@@ -154,8 +150,10 @@ a.urlbutton_index:hover{
 .grback {
     background: url("../images/gr_back.png") repeat-x scroll center bottom transparent;
     height: 30px;
-    margin-top: -30px;
+    margin-top: -32px;
     position: relative;
+    border-bottom: 1px solid #e9e9e9;
+    margin-bottom: 2px;
 }
 
 .bs_index_table{
@@ -349,4 +347,28 @@ margin: 16px 0 16px 0;
 #TipContainer::after {
     border-top: 10px solid white;
     bottom: -18px;
+}
+
+.news_back table td {
+   border-right: 1px solid #e9e9e9;
+   width: 1%;
+}
+
+.news_back_hr{
+    border: 0;
+    border-top: 1px solid #e9e9e9;
+    text-align: center;
+    height: 0;
+    margin: 8px 0 2px 0;
+}
+
+.button_no_top_index{
+    margin-top: 4px !important;
+    padding: 3px 9px 3px 9px !important;
+    text-align: center;
+    min-width: 70px;
+}
+
+.news_button_cont, .set_button_cont{
+    text-align: right;
 }

@@ -6,8 +6,23 @@
                 <div class="menu_rt_index">Настройка:</div>
                 <div class="news_back" id="bs_set_container">
 
-                    <br/><br/><br/><br/><br/><br/><br/>
-
+                    <table>
+                        <tr>
+                           <td>
+                               &nbsp;<br/><br/><br/><br/><br/><br/>
+                           </td>
+                           <td>
+                               &nbsp;<br/><br/><br/><br/><br/><br/>
+                           </td>
+                           <td style="border-right: 0">
+                               &nbsp;<br/><br/><br/><br/><br/><br/>
+                           </td>
+                        </tr>
+                    </table>
+                     <hr class="news_back_hr" />
+                    <div class="set_button_cont">
+                       <a href="" class="urlbutton_index button_no_top_index">Искать</a> &nbsp; <a href="" class="urlbutton_index button_no_top_index">Очистить</a>
+                    </div>
                 </div>
 
             </div>
@@ -23,7 +38,7 @@
                     </div>
                     <div class="grback"></div>
                     <div class="news_button_cont" id="bs_news_button_cont">
-                      <a href="" class="urlbutton_index button_no_top">Показать все</a>
+                      <a href="" class="urlbutton_index button_no_top_index">Показать все</a>
                     </div>
                 </div>
 
