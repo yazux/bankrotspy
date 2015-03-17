@@ -30,6 +30,12 @@ a [class^="icon-"]:hover:before,a [class*=" icon-"]:hover:before {
     text-decoration: none;
 }
 
+.icon-hammer:before{
+    font-size: 11px;
+    padding-right: 2px;
+    text-decoration: none;
+}
+
 .icon-star:before {
     font-size: 12px;
 }

@@ -22,7 +22,7 @@ class column_number
   public function process()
   {
     return array(
-      'col' => '<a target="_blank" class="namelink" href="'.core::$home.'/card/'.$this->attr.'">'.$this->number.'</a>',
+      'col' => '<a target="_blank" class="namelink" href="'.core::$home.'/card/'.$this->attr.'"><i class="icon-hammer"></i>'.$this->number.'</a>',
       'style' => 'text-align:center;'
     );
   }
