@@ -119,15 +119,9 @@
                                             <span class="cnt_round">+<?=counts::get($rmenu['one_cnt'])?></span>
                                             <?endif?>
                                             <?endif?>
-                                            <?if($rmenu['two_cnt'] AND core::$user_id):?>
-                                            <?if(counts::get($rmenu['two_cnt'])):?>
-                                            <a class="cnt_two" href='<?=$home?><?=counts::link($rmenu['two_cnt'])?>'>+<?=counts::get($rmenu['two_cnt'])?></a>
-                                            <?endif?>
-                                            <?endif?>
 
                                        </a>
                                    </td>
-                                </td>
 
 
                                 <?endforeach?>
