@@ -6,7 +6,7 @@
     <meta name="keywords" content="<?=$keywords?>"/>
     <meta name="description" content="<?=$description?>"/>
 
-    <? $now_id = 26; ?>
+    <? $now_id = 27; ?>
 
     <script type="text/javascript" src="<?=$themepath?>/js/jquery-latest.js"></script>
     <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/allstyle.css?id=<?=$now_id?>"/>
@@ -135,7 +135,7 @@
                     </div>
                 </td>
             </tr>
-        </table>
+        </table>$sth->bindParam(':id');
 
 
         <div class="mainall"></div>

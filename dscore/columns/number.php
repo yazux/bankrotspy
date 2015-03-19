@@ -23,7 +23,7 @@ class column_number
   {
     return array(
       'col' => '<a target="_blank" class="namelink" href="'.core::$home.'/card/'.$this->attr.'"><i class="icon-hammer"></i>'.$this->number.'</a>',
-      'style' => 'text-align:center;'
+      'style' => 'text-align:center;white-space:nowrap;'
     );
   }
 }

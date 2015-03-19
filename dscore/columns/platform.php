@@ -25,7 +25,7 @@ class column_platform
   {
     return array(
       'col' => '<a style="color:green;" target="_blank" href="'.$this->url.'"><i class="icon-globe-table"></i>'.$this->platforms[$this->pid].'</a>',
-      'style' => 'text-align:center;'
+      'style' => 'text-align:center;white-space:nowrap;'
     );
   }
 

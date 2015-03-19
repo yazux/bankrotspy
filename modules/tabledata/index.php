@@ -74,6 +74,7 @@ if($res->num_rows)
     $loc['number'] = $tabledata->number($data['code'], $data['id']);
     $loc['name'] = $tabledata->name($data['name'], 40, $data['id']);
     $loc['type'] = $tabledata->type($data['type']);
+    $loc['place'] = $tabledata->place($data['place']);
     $loc['begindate'] = $tabledata->begindate($data['start_time']);
     $loc['closedate'] = $tabledata->closedate($data['end_time']);
     $loc['beforedate'] = $tabledata->beforedate($data['start_time'], $data['end_time']);
