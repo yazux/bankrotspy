@@ -135,7 +135,7 @@
                     </div>
                 </td>
             </tr>
-        </table>$sth->bindParam(':id');
+        </table>
 
 
         <div class="mainall"></div>
