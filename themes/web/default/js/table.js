@@ -167,7 +167,7 @@ function answer_load(data)
           fin_int = obj.count;
         var bar_info = 'Показаны результаты: '+ start_int +'-'+ fin_int +' из ' + obj.count;
 
-        if(obj.count > 1)
+        if(obj.count > 0)
         {
           //Верхняя панелька
           $('.top_nav_info').text(bar_info);
@@ -326,10 +326,45 @@ function load_table()
       formid: engine_formid,
       category: engine_settings.category,
       page: engine_settings.page,
-      kmess: engine_settings.kmess
+      kmess: engine_settings.kmess,
+      svalue: engine_settings.svalue
     },
     answer_load
   );
 
 }
 
+function error_set_view(data)
+{
+  alert(data);
+}
+
+function search_listener()
+{
+  var error = 0;
+
+  var svalue = $('[name="svalname"]').val();
+  if(svalue.length < 2)
+  {
+    error = 1;
+    error_set_view('Длина строки должна быть больше 2-х символов!');
+  }
+  else
+    engine_settings.svalue = svalue;
+
+
+  if(!error)
+    save_settings_and_load();
+}
+
+
+function clean_set_listener()
+{
+  engine_settings.svalue = '';
+  $('[name="svalname"]').val('');
+
+  //Cбрасываем страницу
+  engine_settings.page = 1;
+
+  save_settings_and_load();
+}

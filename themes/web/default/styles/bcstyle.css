@@ -124,7 +124,7 @@ input[type="submit"].exit_button:hover {
 }
 
 
-a.urlbutton_index{
+.urlbutton_index{
     padding: 6px 13px 6px 13px;
     background: #ff9b24;
     color: white;
@@ -138,7 +138,7 @@ a.urlbutton_index{
     display: inline-block;
 }
 
-a.urlbutton_index:hover{
+.urlbutton_index:hover{
     cursor: pointer;
     background: #feab2e;
     box-shadow: none;

@@ -21,7 +21,7 @@
                         <tr>
                            <td valign="top">
                                <i class="icon-search"></i> Поиск по названию:<br/>
-                               <input type="text" name="name"/>
+                               <input type="text" name="svalname"/>
 
                                <hr/>
 
@@ -34,26 +34,26 @@
                                <i class="icon-calendar"></i> Дата подачи:<br/>
                                <table class="nomarginnews">
                                    <tr>
-                                       <td style="width: 28px;">С: </td><td><input type="text" name="name"/></td>
+                                       <td style="width: 28px;">С: </td><td><input type="text" name=""/></td>
                                    </tr>
                                    <tr>
-                                       <td>По: </td><td><input type="text" name="name"/></td>
+                                       <td>По: </td><td><input type="text" name=""/></td>
                                    </tr>
                                </table>
 
                                <hr/>
                                <span style="font-size: 13px">Или дней до торгов:</span>
-                               <input style="width: 20px;" type="text" name="name"/>
+                               <input style="width: 20px;" type="text" name=""/>
 
                            </td>
                            <td valign="top" style="border-right: 0">
                                <i class="icon-rouble"></i> Цена лота:<br/>
                                <table class="nomarginnews">
                                    <tr>
-                                       <td style="width: 28px;">С: </td><td><input type="text" name="name"/></td>
+                                       <td style="width: 28px;">С: </td><td><input type="text" name=""/></td>
                                    </tr>
                                    <tr>
-                                       <td>По: </td><td><input type="text" name="name"/></td>
+                                       <td>По: </td><td><input type="text" name=""/></td>
                                    </tr>
                                </table>
 
@@ -67,7 +67,7 @@
                     </table>
                      <hr class="news_back_hr" />
                     <div class="set_button_cont">
-                       <a href="" class="urlbutton_index button_no_top_index">Искать</a> &nbsp; <a href="" class="urlbutton_index button_no_top_index">Очистить</a>
+                       <span id="search_in_table" class="urlbutton_index button_no_top_index">Искать</span> &nbsp; <span id="clear_set_table" class="urlbutton_index button_no_top_index">Очистить</span>
                     </div>
                 </div>
 
@@ -158,6 +158,14 @@
 
     $(document).on('click', '.data_table .icon_to_click', function(){
         listen_to_favorite(this);
+    });
+
+    $(document).on('click', '#search_in_table', function(){
+        search_listener();
+    });
+
+    $(document).on('click', '#clear_set_table', function(){
+        clean_set_listener();
     });
 
     $(document).on('click', '.table_tab td span', function(){

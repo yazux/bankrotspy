@@ -8,6 +8,11 @@ if($somevar != POST('somevar'))
 
 $category = intval(POST('category'));
 
+$svalue = POST('svalue');
+if(mb_strlen($svalue) < 2)
+  $svalue = '';
+
+//Постраничная навигация
 $now_page = abs(intval(POST('page')));
 if(!$now_page)
   $now_page = 1;
@@ -25,14 +30,38 @@ if($category == '-1')
 $join_conditions = array();
 $join_conditions['fav_sql'] = '`ds_maindata_favorive`.`user_id` = "'.core::$user_id.'"';
 
+
+//Условия для выборки
+$selects = array();
+
+$order_conditions = array();
+
+if($svalue)
+{
+  $selects['search'] = ' MATCH (`ds_maindata`.`name`, `ds_maindata`.`description`) AGAINST ("' . core::$db->res($svalue) . '" IN BOOLEAN MODE) as `rel` ';
+  $conditions['search'] = ' MATCH (`ds_maindata`.`name`, `ds_maindata`.`description`) AGAINST ("' . core::$db->res($svalue) . '" IN BOOLEAN MODE) ';
+  $order_conditions['search'] = '`rel` DESC ';
+}
+
 //Компилим условия
 $where_cond = '';
 if($conditions)
-  $where_cond = ' WHERE '.implode(' ', $conditions);
+  $where_cond = ' WHERE '.implode(' AND ', $conditions);
 
 $join_cond = '';
 if($join_conditions)
-  $join_cond = ' AND '.implode(' ', $join_conditions);
+  $join_cond = ' AND '.implode(' AND ', $join_conditions);
+
+$select_cond = '';
+if($selects)
+  $select_cond = ' , '.implode(' , ', $selects);
+
+$order_cond = '`ds_maindata`.`id` ASC';
+if($order_conditions)
+  $order_cond = ' ORDER BY '.implode(' , ', $order_conditions).' , `ds_maindata`.`id` ASC ';
+else
+  $order_cond = ' ORDER BY `ds_maindata`.`id` ASC ';
+
 
 //Счетчик
 $count = core::$db->query('SELECT
@@ -51,6 +80,7 @@ $count = core::$db->query('SELECT
 $res = core::$db->query('SELECT
   `ds_maindata`.*,
   `ds_maindata_favorive`.`item`
+  ' . $select_cond . '
   FROM
   `ds_maindata`
   LEFT JOIN
@@ -58,11 +88,15 @@ $res = core::$db->query('SELECT
 
   '.$where_cond.'
 
-  ORDER BY `ds_maindata`.`id`
+  ' . $order_cond . '
 
   LIMIT '.$start.', '.$kmess.' ;');
 
 
+if($svalue)
+{
+  $item_arr = explode(' ', $svalue);
+}
 
 $tabledata = new tabledata();
 if($res->num_rows)
@@ -72,7 +106,7 @@ if($res->num_rows)
     $loc = array();
 
     $loc['number'] = $tabledata->number($data['code'], $data['id']);
-    $loc['name'] = $tabledata->name($data['name'], 40, $data['id']);
+    $loc['name'] = $tabledata->name($data['name'], 40, $data['id'],  $item_arr);
     $loc['type'] = $tabledata->type($data['type']);
     $loc['place'] = $tabledata->place($data['place']);
     $loc['begindate'] = $tabledata->begindate($data['start_time']);
