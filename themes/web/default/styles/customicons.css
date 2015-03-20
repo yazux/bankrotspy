@@ -24,6 +24,12 @@ a [class^="icon-"]:hover:before,a [class*=" icon-"]:hover:before {
     text-decoration: none;
 }
 
+.icon-globe-set:before{
+    content: '\e801';
+    font-size: 14px;
+    color: #838488;
+}
+
 .icon-share:before{
     font-size: 11px;
     padding-right: 4px;
@@ -38,6 +44,11 @@ a [class^="icon-"]:hover:before,a [class*=" icon-"]:hover:before {
 
 .icon-star:before {
     font-size: 12px;
+}
+
+.icon-hammer-set:before{
+    content: '\e817';
+    font-size: 14px;
 }
 
 .icon-star-1 {

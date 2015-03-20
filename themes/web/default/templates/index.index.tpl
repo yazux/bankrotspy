@@ -8,14 +8,49 @@
 
                     <table>
                         <tr>
-                           <td>
-                               &nbsp;<br/><br/><br/><br/><br/><br/><br/>
+                           <td valign="top">
+                               <i class="icon-search"></i> Поиск по названию:<br/>
+                               <input type="text" name="name"/>
+
+                               <hr/>
+
+                               <i class="icon-hammer-set"></i> Тип торгов:<br/>
+                               <label><input type="checkbox" name="type_auct"/> Аукцион</label><br/>
+                               <label><input type="checkbox" name="type_pb"/> Публичное предложение</label><br/>
+
                            </td>
-                           <td>
-                               &nbsp;<br/><br/><br/><br/><br/><br/><br/>
+                           <td valign="top">
+                               <i class="icon-calendar"></i> Дата подачи:<br/>
+                               <table class="nomarginnews">
+                                   <tr>
+                                       <td style="width: 28px;">С: </td><td><input type="text" name="name"/></td>
+                                   </tr>
+                                   <tr>
+                                       <td>По: </td><td><input type="text" name="name"/></td>
+                                   </tr>
+                               </table>
+
+                               <hr/>
+                               <span style="font-size: 13px">Или дней до торгов:</span>
+                               <input style="width: 20px;" type="text" name="name"/>
+
                            </td>
-                           <td style="border-right: 0">
-                               &nbsp;<br/><br/><br/><br/><br/><br/><br/>
+                           <td valign="top" style="border-right: 0">
+                               <i class="icon-rouble"></i> Цена лота:<br/>
+                               <table class="nomarginnews">
+                                   <tr>
+                                       <td style="width: 28px;">С: </td><td><input type="text" name="name"/></td>
+                                   </tr>
+                                   <tr>
+                                       <td>По: </td><td><input type="text" name="name"/></td>
+                                   </tr>
+                               </table>
+
+                               <hr/>
+
+                               <label><input type="radio" name="type_auct"/> Начальная цена</label><br/>
+                               <label><input type="radio" name="type_pb"/> Текущая цена</label><br/>
+
                            </td>
                         </tr>
                     </table>
