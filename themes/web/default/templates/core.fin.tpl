@@ -8,16 +8,17 @@
 <div class="prebottom">
     <table>
         <tr>
-            <td style="width: 100%;padding-top: 6px;">
-
+            <td style="width: 100%;padding-top: 10px;padding-left: 13px;">
+              <span style="color: #bababa">BANKROT-SPY.RU <?=date("Y")?>г.</span>
             </td>
-            <td style="min-width: 210px;padding-top: 6px;">
-
+            <td style="min-width: 210px;padding-top: 10px;text-align: right;padding-right: 8px;">
+                <span style="color: #888888"><?=round((microtime(true) - rem::get('microtime'))*1000, 0)?>ms, sql:<?=$sql_count?></span>
             </td>
         </tr>
     </table>
 </div>
-<div class="bottom">&nbsp; <span style="color: #888888"><?=round((microtime(true) - rem::get('microtime'))*1000, 0)?>ms | sql:<?=$sql_count?></span>
+<div class="bottom">
+    Информация на данном сайте предоставляется "КАК ЕСТЬ" и предназначена только для ознакомительных целей без каких-либо гарантий и передачи прав. Любое использование информации в иных целях запрещено и производится на ваш страх и риск. Все права защищены.
 </div>
 
 

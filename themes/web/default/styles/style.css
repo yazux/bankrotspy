@@ -119,7 +119,10 @@ td.main {
 }
 
 .bottom {
-    height: 35px;
+    color: #868686;
+    padding: 1px 8px;
+    font-size: 12px;
+    text-align: center;
     border-top: #262626 solid 2px;
     background: #232323;
 }
