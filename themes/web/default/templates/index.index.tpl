@@ -5,7 +5,18 @@
             <div class="right_panel_conf">
                 <div class="menu_rt_index">Настройка:</div>
                 <div class="news_back" id="bs_set_container">
+                    <table>
+                        <tr>
+                            <td valign="top">
+                                <i class="icon-address"></i> <b>Регионы:</b> выбрано 3 из 80 <span class="change_block_set"><i class="icon-edit-orange"></i>Изменить</span>
+                            </td>
+                            <td valign="top">
+                                <i class="icon-globe-set"></i> <b>Площадки:</b> выбрано 3 из 40 <span class="change_block_set"><i class="icon-edit-orange"></i>Изменить</span>
+                            </td>
+                        </tr>
+                    </table>
 
+                    <hr class="super_hr"/>
                     <table>
                         <tr>
                            <td valign="top">

@@ -30,6 +30,11 @@ a [class^="icon-"]:hover:before,a [class*=" icon-"]:hover:before {
     color: #838488;
 }
 
+.icon-edit-orange:before{
+    content: '\e802';
+    color: #dd8b00;
+}
+
 .icon-share:before{
     font-size: 11px;
     padding-right: 4px;
