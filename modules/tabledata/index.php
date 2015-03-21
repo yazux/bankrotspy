@@ -39,18 +39,21 @@ $start =  $now_page ? $now_page * $kmess - $kmess : 0;
 
 //Условия для WHERE
 $conditions = array();
-if($category == '-1')
-  $conditions['fav_sql'] = '`ds_maindata_favorive`.`user_id` = "'.core::$user_id.'" ';
 
 //Дополнительные условия для LEFT JOIN
 $join_conditions = array();
 $join_conditions['fav_sql'] = '`ds_maindata_favorive`.`user_id` = "'.core::$user_id.'"';
 
-
 //Условия для выборки
 $selects = array();
 
+//Условия для сортировки
 $order_conditions = array();
+
+if($category == '-1')
+  $conditions['fav_sql'] = '`ds_maindata_favorive`.`user_id` = "'.core::$user_id.'" ';
+elseif($category >= 0)
+  $conditions['category'] = ' `ds_maindata`.`cat_id` = "'.$category.'" ';
 
 if($svalue)
 {

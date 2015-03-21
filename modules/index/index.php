@@ -27,11 +27,18 @@ $res = core::$db->query('SELECT * FROM  `ds_rights` ');
 //Типы предложений в таблице
 $types = array();
 $types_def = array();
-$res = core::$db->query('SELECT * FROM  `ds_maindata_type` ;');
+$res = core::$db->query('SELECT * FROM `ds_maindata_type` ;');
 while($data = $res->fetch_array())
 {
   $types_def[$data['id']] = 1;
   $types[$data['id']] = text::st($data['type_name']);
+}
+
+$categories = array();
+$res = core::$db->query('SELECT * FROM `ds_maindata_category` ORDER BY `id` ASC;');
+while($data = $res->fetch_array())
+{
+  $categories[$data['id']] = text::st($data['name']);
 }
 
   $set_table_array = array(
@@ -49,5 +56,6 @@ temp::assign('table_default_set', json_encode($set_table_array));
 temp::assign('table_set', json_encode($set_table_array));
 temp::HTMassign('types_set', $types);
 temp::HTMassign('types_def', $types_def);
+temp::HTMassign('categories', $categories);
 temp::display('index.index');
 engine_fin();

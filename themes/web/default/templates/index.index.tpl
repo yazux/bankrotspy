@@ -115,17 +115,12 @@
     <table class="table_tab">
         <tr>
             <td><span attr="-2" id="bs_tab_-2" >Все</span></td>
-            <td><span attr="1" id="bs_tab_1" >Авто</span></td>
-            <td><span attr="2" id="bs_tab_2" >Деб. задолженность</span></td>
-            <td><span attr="3" id="bs_tab_3" >Зем. участки</span></td>
-            <td><span attr="4" id="bs_tab_4" >Сельхоз. имущество</span></td>
-            <td><span attr="5" id="bs_tab_5" >Недвиж. жилая</span></td>
-            <td><span attr="6" id="bs_tab_6" >Недвиж. коммер.</span></td>
-            <td><span attr="7" id="bs_tab_7" >Спецтехника</span></td>
-            <td><span attr="8" id="bs_tab_8" >Обор. Инст. Мат.</span></td>
-            <td><span attr="9" id="bs_tab_9" >Ценные бумаги</span></td>
-            <td><span attr="0" id="bs_tab_0" >Прочее</span></td>
 
+            <?foreach($categories as $ckey=>$cvalue): ?>
+                <td><span attr="<?=$ckey?>" id="bs_tab_<?=$ckey?>" ><?=$cvalue?></span></td>
+            <?endforeach?>
+
+            <td><span attr="0" id="bs_tab_0" >Прочее</span></td>
             <td class="no_tab_right"><span attr="-1" id="bs_tab_-1" href="<?=$home?>"><i class="icon-star"></i>Избранное</span></td>
 
         </tr>
