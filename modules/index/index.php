@@ -20,7 +20,7 @@ $res = core::$db->query('SELECT * FROM  `ds_rights` ');
   //echo(serialize($rights_arr[0]));
 
   $set_table_array = array(
-    'category' => 1,
+    'category' => -2,
     'page' => 1,
     'kmess' => 20,
     'svalue' => ''

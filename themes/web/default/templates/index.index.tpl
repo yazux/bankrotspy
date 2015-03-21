@@ -114,6 +114,7 @@
 <div class="table_menu" >
     <table class="table_tab">
         <tr>
+            <td><span attr="-2" id="bs_tab_-2" >Все</span></td>
             <td><span attr="1" id="bs_tab_1" >Авто</span></td>
             <td><span attr="2" id="bs_tab_2" >Деб. задолженность</span></td>
             <td><span attr="3" id="bs_tab_3" >Зем. участки</span></td>
