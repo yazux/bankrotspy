@@ -6,20 +6,20 @@
     <meta name="keywords" content="<?=$keywords?>"/>
     <meta name="description" content="<?=$description?>"/>
 
-    <? $now_id = 33; ?>
+    <? $now_id = 34; ?>
 
-    <script type="text/javascript" src="<?=$themepath?>/js/jquery-latest.js"></script>
+    <script type="text/javascript" src="<?=$themepath?>/js/jquery-latest.js?id=<?=$now_id?>"></script>
     <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/allstyle.css?id=<?=$now_id?>"/>
     <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/style.css?id=<?=$now_id?>"/>
     <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/bcstyle.css?id=<?=$now_id?>"/>
     <link rel="stylesheet" href="<?=$themepath?>/styles/fontello.css?id=<?=$now_id?>" type="text/css">
     <link rel="stylesheet" href="<?=$themepath?>/styles/customicons.css?id=<?=$now_id?>" type="text/css">
 
-    <script type = "text/javascript" src="<?=$themepath?>/js/jquery.jdpicker.js"></script>
-    <link rel="stylesheet" href="<?=$themepath?>/styles/jdpicker.css" type="text/css" />
+    <script type = "text/javascript" src="<?=$themepath?>/js/jquery.jdpicker.js?id=<?=$now_id?>"></script>
+    <link rel="stylesheet" href="<?=$themepath?>/styles/jdpicker.css?id=<?=$now_id?>" type="text/css" />
 
     <script type="text/javascript" src="<?=$themepath?>/js/device.min.js"></script>
-    <script type="text/javascript" src="<?=$themepath?>/js/some.js<?=$now_id?>"></script>
+    <script type="text/javascript" src="<?=$themepath?>/js/some.js?id=<?=$now_id?>"></script>
     <script type="text/javascript" src="<?=$themepath?>/js/table.js?id=<?=$now_id?>"></script>
     <script type='text/javascript' src='<?=$themepath?>/js/toolpit.js?id=<?=$now_id?>'></script>
 
