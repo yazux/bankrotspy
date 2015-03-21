@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="<?=$themepath?>/styles/fontello.css?id=<?=$now_id?>" type="text/css">
     <link rel="stylesheet" href="<?=$themepath?>/styles/customicons.css?id=<?=$now_id?>" type="text/css">
 
+    <script type = "text/javascript" src="<?=$themepath?>/js/jquery.jdpicker.js"></script>
+    <link rel="stylesheet" href="<?=$themepath?>/styles/jdpicker.css" type="text/css" />
+
     <script type="text/javascript" src="<?=$themepath?>/js/device.min.js"></script>
     <script type="text/javascript" src="<?=$themepath?>/js/some.js<?=$now_id?>"></script>
     <script type="text/javascript" src="<?=$themepath?>/js/table.js?id=<?=$now_id?>"></script>

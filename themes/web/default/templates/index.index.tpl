@@ -34,10 +34,10 @@
                                <i class="icon-calendar"></i> Дата подачи:<br/>
                                <table class="nomarginnews">
                                    <tr>
-                                       <td style="width: 28px;">С: </td><td><input type="text" name=""/></td>
+                                       <td style="width: 28px;">С: </td><td><input type="text" name="begin_set_date"/></td>
                                    </tr>
                                    <tr>
-                                       <td>По: </td><td><input type="text" name=""/></td>
+                                       <td>По: </td><td><input type="text" name="end_set_date"/></td>
                                    </tr>
                                </table>
 
@@ -175,6 +175,17 @@
         engine_settings.category = $(this).attr('attr');
         engine_settings.page = 1;
         save_settings_and_load();
+    });
+
+    $(document).ready(function(){
+        $('[name="begin_set_date"]').jdPicker({
+            month_names: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+            date_format: "dd.mm.YYYY"
+        });
+        $('[name="end_set_date"]').jdPicker({
+            month_names: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+            date_format: "dd.mm.YYYY"
+        });
     });
 </script>
 
