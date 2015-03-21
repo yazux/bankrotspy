@@ -106,7 +106,7 @@ if($res->num_rows)
     $loc = array();
 
     $loc['number'] = $tabledata->number($data['code'], $data['id']);
-    $loc['name'] = $tabledata->name($data['name'], 40, $data['id'],  $item_arr);
+    $loc['name'] = $tabledata->name($data['name'], 40, $data['id'],  $item_arr, $data['description']);
     $loc['type'] = $tabledata->type($data['type']);
     $loc['place'] = $tabledata->place($data['place']);
     $loc['begindate'] = $tabledata->begindate($data['start_time']);
