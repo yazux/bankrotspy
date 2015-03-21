@@ -33,8 +33,10 @@ class column_beforedate
       else
         $days = 'торги окончены';
     }
+    else
+      $days = round($days,0);
 
-    return array(//
+    return array(
       'col' => $days,
       'style' => 'text-align:center;'
     );
