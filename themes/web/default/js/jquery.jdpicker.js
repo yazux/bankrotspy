@@ -42,9 +42,9 @@ function jdPicker(el, opts) {
   this.hide();
 };
 jdPicker.DEFAULT_OPTS = {
-  month_names: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+  month_names: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
   short_month_names: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-  short_day_names: ["S", "M", "T", "W", "T", "F", "S"],
+  short_day_names: ["Вс.", "Пон.", "Вт.", "Ср.", "Чт.", "Пт.", "Суб."],
   error_out_of_range: "Selected date is out of range",
   selectable_days: [0, 1, 2, 3, 4, 5, 6],
   non_selectable: [],
@@ -55,7 +55,7 @@ jdPicker.DEFAULT_OPTS = {
   week_label: "",
   date_min: "",
   date_max: "",
-  date_format: "YYYY/mm/dd"
+  date_format: "dd.mm.YYYY"
 };
 jdPicker.prototype = {
   build: function() {

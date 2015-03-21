@@ -329,6 +329,19 @@ function compile_arr_set(obj)
   return string;
 }
 
+function date_to_int(date)
+{
+  if(date)
+  {
+    var date_sourse = date + '';
+    var myDate = date_sourse.split('.');
+    var newDate = myDate[1] + "/" + myDate[0] + "/" + myDate[2];
+    return (new Date(newDate).getTime())/1000;
+  }
+  else
+    return '';
+}
+
 function load_table()
 {
   //Активная категория
@@ -345,7 +358,9 @@ function load_table()
       page: engine_settings.page,
       kmess: engine_settings.kmess,
       svalue: engine_settings.svalue,
-      types: compile_arr_set(engine_settings.types)
+      types: compile_arr_set(engine_settings.types),
+      begin_date: '-' + date_to_int(engine_settings.begin_date),
+      end_date: '-' + date_to_int(engine_settings.end_date)
     },
     answer_load
   );
@@ -383,6 +398,24 @@ function search_listener()
   });
   engine_settings.types = new_types;
 
+  //Дата начала конца торгов
+  var begin_d = $('[name="begin_set_date"]').val();
+  var end_d = $('[name="end_set_date"]').val();
+  var begin_int_d = date_to_int(begin_d);
+  var end_int_d = date_to_int(end_d);
+
+  if(begin_int_d && end_int_d)
+  {
+    if(end_int_d < begin_int_d)
+    {
+      error = 1;
+      error_set_view('Дата окончания не должна быть меньше даты начала!');
+    }
+  }
+  engine_settings.begin_date = begin_d;
+  engine_settings.end_date = end_d;
+
+
   if(choosen < 1)
   {
     error = 1;
@@ -404,6 +437,12 @@ function clean_set_listener()
     $('[name="type_auct_' + key + '"]').prop('checked', true);
   });
   engine_settings.types = default_settings.types;
+
+  engine_settings.begin_date = '';
+  engine_settings.end_date = '';
+  $('[name="begin_set_date"]').val('');
+  $('[name="end_set_date"]').val('');
+
 
   //Cбрасываем страницу
   engine_settings.page = 1;

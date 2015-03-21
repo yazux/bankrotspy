@@ -8,6 +8,19 @@ if($somevar != POST('somevar'))
 
 $category = intval(POST('category'));
 
+$begin_date = abs(intval(POST('begin_date')));
+$end_date = abs(intval(POST('end_date')));
+if($end_date AND $begin_date)
+{
+  if($end_date < $begin_date)
+  {
+    $end_date = '';
+    $begin_date = '';
+  }
+}
+if($end_date)
+  $end_date = $end_date + ((24*3600)-1); //Добавляем без секунду сутки, чтоб было включительно
+
 $types = POST('types');
 $types = check_types($types);
 
@@ -46,10 +59,17 @@ if($svalue)
   $order_conditions['search'] = '`rel` DESC ';
 }
 
+//Фильтрация потипам
 if($types)
 {
   $conditions['types'] = ' `type` IN ('.implode(', ', $types).') ';
 }
+
+if($begin_date)
+  $conditions['starttime'] = ' `ds_maindata`.`start_time` > "'.$begin_date.'" ';
+
+if($end_date)
+  $conditions['endtime'] = ' `ds_maindata`.`start_time` < "'.$end_date.'" ';
 
 //Компилим условия
 $where_cond = '';

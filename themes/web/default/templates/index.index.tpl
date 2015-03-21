@@ -178,14 +178,8 @@
     });
 
     $(document).ready(function(){
-        $('[name="begin_set_date"]').jdPicker({
-            month_names: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
-            date_format: "dd.mm.YYYY"
-        });
-        $('[name="end_set_date"]').jdPicker({
-            month_names: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
-            date_format: "dd.mm.YYYY"
-        });
+        $('[name="begin_set_date"]').jdPicker();
+        $('[name="end_set_date"]').jdPicker();
     });
 </script>
 

@@ -39,7 +39,9 @@ while($data = $res->fetch_array())
     'page' => 1,
     'kmess' => 20,
     'svalue' => '',
-    'types' => $types_def
+    'types' => $types_def,
+    'begin_date' => '',
+    'end_date' => ''
   );
 
 engine_head();
