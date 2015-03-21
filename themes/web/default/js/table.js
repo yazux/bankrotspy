@@ -118,6 +118,7 @@ function end_loader()
 
 function answer_load(data)
 {
+  //alert(data);
     if(data)
     {
         var obj = jQuery.parseJSON(data);
@@ -312,6 +313,22 @@ function save_settings_and_load()
   );
 }
 
+function compile_arr_set(obj)
+{
+  var string = '';
+  var i =0;
+  $.each(obj, function(key, val) {
+    if(val = 1)
+    {
+      if(i != 0)
+        string += '|';
+      string += key;
+      i++;
+    }
+  });
+  return string;
+}
+
 function load_table()
 {
   //Активная категория
@@ -327,7 +344,8 @@ function load_table()
       category: engine_settings.category,
       page: engine_settings.page,
       kmess: engine_settings.kmess,
-      svalue: engine_settings.svalue
+      svalue: engine_settings.svalue,
+      types: compile_arr_set(engine_settings.types)
     },
     answer_load
   );
@@ -343,8 +361,9 @@ function search_listener()
 {
   var error = 0;
 
+  //Поиск
   var svalue = $('[name="svalname"]').val();
-  if(svalue.length < 2)
+  if(svalue.length > 0 && svalue.length < 2)
   {
     error = 1;
     error_set_view('Длина строки должна быть больше 2-х символов!');
@@ -352,6 +371,23 @@ function search_listener()
   else
     engine_settings.svalue = svalue;
 
+  //Типы
+  var new_types = {};
+  var choosen = 0;
+  $.each(default_settings.types, function(key, val) {
+    if($('[name="type_auct_' + key + '"]').prop('checked'))
+    {
+      new_types[key] = 1;
+      choosen++;
+    }
+  });
+  engine_settings.types = new_types;
+
+  if(choosen < 1)
+  {
+    error = 1;
+    error_set_view('Отметьте хотя бы один тип торгов!');
+  }
 
   if(!error)
     save_settings_and_load();
@@ -362,6 +398,12 @@ function clean_set_listener()
 {
   engine_settings.svalue = '';
   $('[name="svalname"]').val('');
+
+  var new_types = {};
+  $.each(default_settings.types, function(key, val) {
+    $('[name="type_auct_' + key + '"]').prop('checked', true);
+  });
+  engine_settings.types = default_settings.types;
 
   //Cбрасываем страницу
   engine_settings.page = 1;

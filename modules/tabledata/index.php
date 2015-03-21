@@ -8,6 +8,9 @@ if($somevar != POST('somevar'))
 
 $category = intval(POST('category'));
 
+$types = POST('types');
+$types = check_types($types);
+
 $svalue = POST('svalue');
 if(mb_strlen($svalue) < 2)
   $svalue = '';
@@ -41,6 +44,11 @@ if($svalue)
   $selects['search'] = ' MATCH (`ds_maindata`.`name`, `ds_maindata`.`description`) AGAINST ("' . core::$db->res($svalue) . '" IN BOOLEAN MODE) as `rel` ';
   $conditions['search'] = ' MATCH (`ds_maindata`.`name`, `ds_maindata`.`description`) AGAINST ("' . core::$db->res($svalue) . '" IN BOOLEAN MODE) ';
   $order_conditions['search'] = '`rel` DESC ';
+}
+
+if($types)
+{
+  $conditions['types'] = ' `type` IN ('.implode(', ', $types).') ';
 }
 
 //Компилим условия
@@ -136,6 +144,45 @@ else
     'maindata' => '',
     'count' => $count
   );
+}
+
+function check_types($types)
+{
+  $in_types = get_types();
+  $arr = explode('|', $types);
+  $out = array();
+  foreach($arr AS $val)
+  {
+    if(isset($in_types[$val]))
+      $out[] = $val;
+  }
+  if(!$out)
+    return get_types(true);
+  else
+    return $out;
+}
+
+function get_types($only_keys = false)
+{
+  $types = array();
+  $out = array();
+  if(!rem::exists('maintable_types'))
+  {
+    $res = core::$db->query('SELECT * FROM  `ds_maindata_type` ;');
+    while($data = $res->fetch_array())
+    {
+      $out[] = $data['id'];
+      $types[$data['id']] = text::st($data['type_name']);
+    }
+    rem::remember('maintable_types', serialize($types));
+  }
+  else
+    $types = unserialize(rem::get('maintable_types'));
+
+  if($only_keys)
+    return $out;
+  else
+    return $types;
 }
 
 echo json_encode($outdata);

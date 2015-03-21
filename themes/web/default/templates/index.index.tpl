@@ -26,9 +26,9 @@
                                <hr/>
 
                                <i class="icon-hammer-set"></i> Тип торгов:<br/>
-                               <label><input type="checkbox" name="type_auct"/> Аукцион</label><br/>
-                               <label><input type="checkbox" name="type_pb"/> Публичное предложение</label><br/>
-
+                               <?foreach($types_set as $tkey=>$tvalue): ?>
+                                  <label><input type="checkbox" <?if($types_def[$tkey] == 1):?> checked="checked" <?endif?> name="type_auct_<?=$tkey?>"/><?=$tvalue?></label><br/>
+                               <?endforeach?>
                            </td>
                            <td valign="top">
                                <i class="icon-calendar"></i> Дата подачи:<br/>
@@ -135,6 +135,7 @@
 <div class="content bs_index_table">
     <div class="contbody" style="padding: 0px">
 
+        <div id="table_default_set" style="display: none"><?=$table_default_set?></div>
         <div id="table_set" style="display: none"><?=$table_set?></div>
 
         <div class="top_nav_info"></div>
@@ -153,6 +154,7 @@
 <script type="text/javascript">
     var engine_formid = <?=core::$formid?>;
     var engine_settings = jQuery.parseJSON($('#table_set').text());
+    var default_settings = jQuery.parseJSON($('#table_default_set').text());
     var engine_global_loader = 0;
 
     load_table();

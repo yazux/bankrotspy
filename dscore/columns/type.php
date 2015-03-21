@@ -42,7 +42,7 @@ class column_type
       $res = core::$db->query('SELECT * FROM  `ds_maindata_type` ;');
       while($data = $res->fetch_array())
       {
-        $this->types[$data['id']] = $data['type_name'];
+        $this->types[$data['id']] = text::st($data['type_name']);
       }
       rem::remember('maintable_types', serialize($this->types));
     }

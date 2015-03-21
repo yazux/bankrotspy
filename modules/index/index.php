@@ -1,7 +1,9 @@
 <?php
 defined('DS_ENGINE') or die('web_demon laughs');
 
-
+/////////////////////////////////////////////////////////////
+//  Это мусор для прав
+//////////////////////////////////////////////////////////////
 $res = core::$db->query('SELECT * FROM  `ds_rights` ');
   while($data = $res->fetch_array())
   {
@@ -19,16 +21,31 @@ $res = core::$db->query('SELECT * FROM  `ds_rights` ');
   //echo '<b>user:</b><br/>';
   //echo(serialize($rights_arr[0]));
 
+
+////////////////////////////////////////////////////////////
+
+//Типы предложений в таблице
+$types = array();
+$types_def = array();
+$res = core::$db->query('SELECT * FROM  `ds_maindata_type` ;');
+while($data = $res->fetch_array())
+{
+  $types_def[$data['id']] = 1;
+  $types[$data['id']] = text::st($data['type_name']);
+}
+
   $set_table_array = array(
     'category' => -2,
     'page' => 1,
     'kmess' => 20,
-    'svalue' => ''
+    'svalue' => '',
+    'types' => $types_def
   );
 
-
-
 engine_head();
+temp::assign('table_default_set', json_encode($set_table_array));
 temp::assign('table_set', json_encode($set_table_array));
+temp::HTMassign('types_set', $types);
+temp::HTMassign('types_def', $types_def);
 temp::display('index.index');
 engine_fin();
