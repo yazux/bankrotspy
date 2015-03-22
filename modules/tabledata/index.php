@@ -197,6 +197,8 @@ if($res->num_rows)
     $loc['beginprice'] = $tabledata->beginprice($data['price']);
     $loc['nowprice'] = $tabledata->nowprice($data['now_price']);
     $loc['marketprice'] = $tabledata->marketprice($data['market_price']);
+    $loc['profitrub'] = $tabledata->profitrub($data['profit_rub']);
+    $loc['profitproc'] = $tabledata->profitproc($data['profit_proc']);
     $loc['platform'] = $tabledata->platform($data['platform_id'], $data['auct_link']);
     $loc['favorite'] = $tabledata->favorite($data['id'], $data['item']);
     $out[] = $loc;
