@@ -359,8 +359,9 @@ function load_table()
       kmess: engine_settings.kmess,
       svalue: engine_settings.svalue,
       types: compile_arr_set(engine_settings.types),
-      begin_date: '-' + date_to_int(engine_settings.begin_date),
-      end_date: '-' + date_to_int(engine_settings.end_date)
+      begin_date: date_to_int(engine_settings.begin_date),
+      end_date: date_to_int(engine_settings.end_date),
+      altint: engine_settings.altint
     },
     answer_load
   );
@@ -415,6 +416,15 @@ function search_listener()
   engine_settings.begin_date = begin_d;
   engine_settings.end_date = end_d;
 
+  //Дней до торгов
+  var altint = $('[name="altintconf"]').val();
+  engine_settings.altint = altint;
+
+  if((begin_d || end_d) && altint)
+  {
+    error = 1;
+    error_set_view('Нельзя одновременно использовать "Дату подачи" и функцию "Дней до торгов"!');
+  }
 
   if(choosen < 1)
   {
@@ -423,7 +433,10 @@ function search_listener()
   }
 
   if(!error)
+  {
+    engine_settings.page = 1;
     save_settings_and_load();
+  }
 }
 
 
@@ -443,6 +456,8 @@ function clean_set_listener()
   $('[name="begin_set_date"]').val('');
   $('[name="end_set_date"]').val('');
 
+  $('[name="altintconf"]').val('');
+  engine_settings.altint = '';
 
   //Cбрасываем страницу
   engine_settings.page = 1;

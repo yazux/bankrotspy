@@ -48,7 +48,8 @@ while($data = $res->fetch_array())
     'svalue' => '',
     'types' => $types_def,
     'begin_date' => '',
-    'end_date' => ''
+    'end_date' => '',
+    'altint' => ''
   );
 
 engine_head();

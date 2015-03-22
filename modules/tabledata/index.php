@@ -8,6 +8,14 @@ if($somevar != POST('somevar'))
 
 $category = intval(POST('category'));
 
+$altint = POST('altint');
+if($altint)
+{
+  $alt_arr = explode('-', $altint);
+  $first_alt = isset($alt_arr[0]) ? abs(intval($alt_arr[0])) : '' ;
+  $second_alt = isset($alt_arr[1]) ? abs(intval($alt_arr[1])) : '' ;
+}
+
 $begin_date = abs(intval(POST('begin_date')));
 $end_date = abs(intval(POST('end_date')));
 if($end_date AND $begin_date)
@@ -68,11 +76,27 @@ if($types)
   $conditions['types'] = ' `type` IN ('.implode(', ', $types).') ';
 }
 
-if($begin_date)
-  $conditions['starttime'] = ' `ds_maindata`.`start_time` > "'.$begin_date.'" ';
+if(!$first_alt AND !$second_alt)
+{
+  if($begin_date)
+    $conditions['starttime'] = ' `ds_maindata`.`start_time` > "' . $begin_date . '" ';
 
-if($end_date)
-  $conditions['endtime'] = ' `ds_maindata`.`start_time` < "'.$end_date.'" ';
+  if($end_date)
+    $conditions['endtime'] = ' `ds_maindata`.`start_time` < "' . $end_date . '" ';
+}
+if(!$begin_date AND !$end_date)
+{
+  if($first_alt AND $second_alt)
+  {
+    $conditions['starttime'] = ' `ds_maindata`.`start_time` > "' . (time() + ($first_alt*24*3600)) . '" ';
+    $conditions['endtime'] = ' `ds_maindata`.`start_time` < "' . ((time() + ($second_alt*24*3600))+((3600*24)-1)) . '" ';
+  }
+  elseif($first_alt)
+  {
+    $conditions['starttime'] = ' `ds_maindata`.`start_time` > "' . (time() + ($first_alt*24*3600)) . '" ';
+    $conditions['endtime'] = ' `ds_maindata`.`start_time` < "' . ((time() + ($first_alt*24*3600))+((3600*24)-1)) . '" ';
+  }
+}
 
 //Компилим условия
 $where_cond = '';

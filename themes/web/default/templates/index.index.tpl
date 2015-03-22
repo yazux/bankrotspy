@@ -34,17 +34,16 @@
                                <i class="icon-calendar"></i> Дата подачи:<br/>
                                <table class="nomarginnews">
                                    <tr>
-                                       <td style="width: 28px;">С: </td><td><input type="text" name="begin_set_date"/></td>
+                                       <td style="width: 28px;">С: </td><td style="white-space: nowrap;"><input type="text" name="begin_set_date"/></td>
                                    </tr>
                                    <tr>
-                                       <td>По: </td><td><input type="text" name="end_set_date"/></td>
+                                       <td>По: </td><td style="white-space: nowrap;" ><input type="text" name="end_set_date"/></td>
                                    </tr>
                                </table>
 
                                <hr/>
-                               <span style="font-size: 13px">Или дней до торгов:</span>
-                               <input style="width: 20px;" type="text" name=""/>
-
+                               <span style="font-size: 13px">Или дней до торгов*:</span>
+                               <input style="width: 37px;" onmouseover="toolTip('Число или интервал,<br/> например: 2-5<hr/>Нельзя одновременно использовать Дату подачи и эту функцию.')" onmouseout="toolTip()" type="text" name="altintconf"/><br/>
                            </td>
                            <td valign="top" style="border-right: 0">
                                <i class="icon-rouble"></i> Цена лота:<br/>
