@@ -377,6 +377,9 @@ margin: 16px 0 16px 0;
     font-size: 13px;
 }
 
+.news_back table td input[type="radio"]{
+    margin: 1px 3px 1px 3px;
+}
 
 .news_back table td label:hover, .news_back table td input[type="checkbox"]:hover{
     cursor: pointer;

@@ -56,11 +56,11 @@
                                    </tr>
                                </table>
 
-                               <hr/>
+                               <hr style="margin: 3px"/>
 
                                <label><input type="radio" <?if($type_price == 1):?>checked="checked"<?endif?> name="type_price" value="1"/> Начальная цена</label><br/>
                                <label><input type="radio" <?if($type_price == 2):?>checked="checked"<?endif?> name="type_price" value="2"/> Текущая цена</label><br/>
-
+                               <label onmouseover="toolTip('Рыночная цена является оценочной и присутствует не у всех лотов.')" onmouseout="toolTip()"><input  type="radio" <?if($type_price == 3):?>checked="checked"<?endif?> name="type_price" value="3"/> Рыночная цена</label><br/>
                            </td>
                         </tr>
                     </table>

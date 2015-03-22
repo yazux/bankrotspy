@@ -13,6 +13,8 @@ $type_price = abs(intval(POST('type_price')));
 {
   if($type_price == 2)
     $price_search = 'now_price';
+  elseif($type_price == 3)
+    $price_search = 'market_price';
 }
 
 $price_start = abs(intval(POST('price_start')));
