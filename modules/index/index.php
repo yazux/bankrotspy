@@ -49,7 +49,10 @@ while($data = $res->fetch_array())
     'types' => $types_def,
     'begin_date' => '',
     'end_date' => '',
-    'altint' => ''
+    'altint' => '',
+    'price_start' => '',
+    'price_end' => '',
+    'type_price' => 1
   );
 
 engine_head();
@@ -58,5 +61,6 @@ temp::assign('table_set', json_encode($set_table_array));
 temp::HTMassign('types_set', $types);
 temp::HTMassign('types_def', $types_def);
 temp::HTMassign('categories', $categories);
+temp::assign('type_price', $set_table_array['type_price']);
 temp::display('index.index');
 engine_fin();

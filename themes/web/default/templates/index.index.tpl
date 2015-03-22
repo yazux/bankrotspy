@@ -49,17 +49,17 @@
                                <i class="icon-rouble"></i> Цена лота:<br/>
                                <table class="nomarginnews">
                                    <tr>
-                                       <td style="width: 28px;">С: </td><td><input type="text" name=""/></td>
+                                       <td style="width: 28px;">С: </td><td><input type="text" name="price_start"/></td>
                                    </tr>
                                    <tr>
-                                       <td>По: </td><td><input type="text" name=""/></td>
+                                       <td>По: </td><td><input type="text" name="price_end"/></td>
                                    </tr>
                                </table>
 
                                <hr/>
 
-                               <label><input type="radio" name="type_auct"/> Начальная цена</label><br/>
-                               <label><input type="radio" name="type_pb"/> Текущая цена</label><br/>
+                               <label><input type="radio" <?if($type_price == 1):?>checked="checked"<?endif?> name="type_price" value="1"/> Начальная цена</label><br/>
+                               <label><input type="radio" <?if($type_price == 2):?>checked="checked"<?endif?> name="type_price" value="2"/> Текущая цена</label><br/>
 
                            </td>
                         </tr>

@@ -38,8 +38,8 @@ function build_page_navigation(page, total, kmess)
 {
   var outdata = '';
   var numpages = Math.ceil(total/kmess);
-  var previos_page = page-1;
-  var next_page = page+1;
+  var previos_page = parseInt(page)-1;
+  var next_page = parseInt(page)+1;
 
   if(page == 1)
   {
@@ -361,7 +361,10 @@ function load_table()
       types: compile_arr_set(engine_settings.types),
       begin_date: date_to_int(engine_settings.begin_date),
       end_date: date_to_int(engine_settings.end_date),
-      altint: engine_settings.altint
+      altint: engine_settings.altint,
+      price_start: engine_settings.price_start,
+      price_end: engine_settings.price_end,
+      type_price: engine_settings.type_price
     },
     answer_load
   );
@@ -426,6 +429,24 @@ function search_listener()
     error_set_view('Нельзя одновременно использовать "Дату подачи" и функцию "Дней до торгов"!');
   }
 
+  //Минимальная и максимальная цены
+  var price_start = parseInt($('[name="price_start"]').val());
+  var price_end = parseInt($('[name="price_end"]').val());
+  engine_settings.price_start = price_start;
+  engine_settings.price_end = price_end;
+
+  if(price_start && price_end)
+  {
+    if(price_end < price_start)
+    {
+      error = 1;
+      error_set_view('Конечная цена не может быть меньше начальной!');
+    }
+  }
+
+  //По какой цене искать
+  engine_settings.type_price = $('[name="type_price"]:checked').val();
+
   if(choosen < 1)
   {
     error = 1;
@@ -458,6 +479,14 @@ function clean_set_listener()
 
   $('[name="altintconf"]').val('');
   engine_settings.altint = '';
+
+  $('[name="price_start"]').val('');
+  $('[name="price_end"]').val('');
+  engine_settings.price_start = '';
+  engine_settings.price_end = '';
+
+  $("input[name=type_price][value='" + default_settings.type_price + "']").prop("checked",true);
+  engine_settings.type_price = default_settings.type_price;
 
   //Cбрасываем страницу
   engine_settings.page = 1;

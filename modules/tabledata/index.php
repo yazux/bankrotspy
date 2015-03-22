@@ -8,6 +8,25 @@ if($somevar != POST('somevar'))
 
 $category = intval(POST('category'));
 
+$price_search = 'price';
+$type_price = abs(intval(POST('type_price')));
+{
+  if($type_price == 2)
+    $price_search = 'now_price';
+}
+
+$price_start = abs(intval(POST('price_start')));
+$price_end = abs(intval(POST('price_end')));
+
+if($price_start AND $price_end)
+{
+  if($price_start > $price_end)
+  {
+    $price_start = '';
+    $price_end  = '';
+  }
+}
+
 $altint = POST('altint');
 if($altint)
 {
@@ -97,6 +116,12 @@ if(!$begin_date AND !$end_date)
     $conditions['endtime'] = ' `ds_maindata`.`start_time` < "' . ((time() + ($first_alt*24*3600))+((3600*24)-1)) . '" ';
   }
 }
+
+if($price_start)
+  $conditions['price_start'] = ' `ds_maindata`.`'.$price_search.'` > "' . $price_start . '" ';
+
+if($price_end)
+  $conditions['price_end'] = ' `ds_maindata`.`'.$price_search.'` < "' . $price_end . '" ';
 
 //Компилим условия
 $where_cond = '';
