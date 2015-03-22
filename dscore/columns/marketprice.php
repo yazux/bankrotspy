@@ -38,7 +38,7 @@ class column_marketprice
         }
         $i++;
       }
-      $out_price = strrev($out_price) . ',00'; //нули временно
+      $out_price = strrev($out_price);
     }
     else
       $out_price = '-';

@@ -36,7 +36,7 @@ class column_beginprice
       }
       $i++;
     }
-    $out_price = strrev($out_price).',00'; //нули временно
+    $out_price = strrev($out_price);
 
     return array(
       'col' => $out_price,
