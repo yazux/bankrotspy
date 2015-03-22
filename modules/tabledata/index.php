@@ -194,6 +194,7 @@ if($res->num_rows)
     $loc['beforedate'] = $tabledata->beforedate($data['start_time'], $data['end_time']);
     $loc['beginprice'] = $tabledata->beginprice($data['price']);
     $loc['nowprice'] = $tabledata->nowprice($data['now_price']);
+    $loc['marketprice'] = $tabledata->marketprice($data['market_price']);
     $loc['platform'] = $tabledata->platform($data['platform_id'], $data['auct_link']);
     $loc['favorite'] = $tabledata->favorite($data['id'], $data['item']);
     $out[] = $loc;

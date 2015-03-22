@@ -20,7 +20,7 @@ class column_closedate
   public function process()
   {
     return array(//
-      'col' => date('j',$this->time) . ' ' . ds_time($this->time, '%B2 %Y, %H:%M'),
+      'col' => date('d',$this->time) . '.' . ds_time($this->time, '%m.%Y, %H:%M'),
       'style' => 'text-align:center;'
     );
   }
