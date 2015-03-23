@@ -129,6 +129,7 @@ function ftp_is_dir($ftp_stream, $dir){
     return false;
 }
 
+file_put_contents('logs/post.txt', serialize($_POST['payload']));
 
 if (isset($_POST['payload']))
     upload_payload($_POST['payload']);

@@ -205,6 +205,17 @@ function create_head_mess(mess)
 
 }
 
+function create_head_mess_html(mess)
+{
+  $("#alltopmess").clearQueue();
+  $("#alltopmess").stop();
+
+  $('#alltopmess').html(mess);
+  $('#alltopmess').fadeIn(400);
+  $('#alltopmess').delay(4000).fadeOut(700);
+
+}
+
 function action_favorite(lot, action, item)
 {
   if(action == 1)
@@ -371,22 +382,15 @@ function load_table()
 
 }
 
-function error_set_view(data)
-{
-  alert(data);
-}
-
 function search_listener()
 {
   var error = 0;
+  var str_err = '';
 
   //Поиск
   var svalue = $('[name="svalname"]').val();
   if(svalue.length > 0 && svalue.length < 2)
-  {
-    error = 1;
-    error_set_view('Длина строки должна быть больше 2-х символов!');
-  }
+    str_err += 'Длина строки должна быть больше 2-х символов!' + '<br/>';
   else
     engine_settings.svalue = svalue;
 
@@ -411,10 +415,7 @@ function search_listener()
   if(begin_int_d && end_int_d)
   {
     if(end_int_d < begin_int_d)
-    {
-      error = 1;
-      error_set_view('Дата окончания не должна быть меньше даты начала!');
-    }
+      str_err += 'Дата окончания не должна быть меньше даты начала!'+ '<br/>';
   }
   engine_settings.begin_date = begin_d;
   engine_settings.end_date = end_d;
@@ -424,10 +425,7 @@ function search_listener()
   engine_settings.altint = altint;
 
   if((begin_d || end_d) && altint)
-  {
-    error = 1;
-    error_set_view('Нельзя одновременно использовать "Дату подачи" и функцию "Дней до торгов"!');
-  }
+    str_err += 'Нельзя одновременно использовать "Дату подачи" и функцию "Дней до торгов"!' + '<br/>';
 
   //Минимальная и максимальная цены
   var price_start = parseInt($('[name="price_start"]').val());
@@ -438,26 +436,22 @@ function search_listener()
   if(price_start && price_end)
   {
     if(price_end < price_start)
-    {
-      error = 1;
-      error_set_view('Конечная цена не может быть меньше начальной!');
-    }
+      str_err += 'Конечная цена не может быть меньше начальной!'+ '<br/>';
   }
 
   //По какой цене искать
   engine_settings.type_price = $('[name="type_price"]:checked').val();
 
   if(choosen < 1)
-  {
-    error = 1;
-    error_set_view('Отметьте хотя бы один тип торгов!');
-  }
+    str_err += 'Отметьте хотя бы один тип торгов!'+ '<br/>';
 
-  if(!error)
+  if(!str_err)
   {
     engine_settings.page = 1;
     save_settings_and_load();
   }
+  else
+    create_head_mess_html(str_err);
 }
 
 
