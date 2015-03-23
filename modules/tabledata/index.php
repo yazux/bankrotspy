@@ -125,6 +125,9 @@ if($price_start)
 if($price_end)
   $conditions['price_end'] = ' `ds_maindata`.`'.$price_search.'` < "' . $price_end . '" ';
 
+if($type_price == 3)
+  $conditions['price_end_third'] = ' `ds_maindata`.`'.$price_search.'` > "0" ';
+
 //Компилим условия
 $where_cond = '';
 if($conditions)
