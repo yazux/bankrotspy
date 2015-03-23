@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+body{
+    min-width: 1140px;
+}
+
 body, td, textarea, input, select {
 font: 14px Arial,Verdana,sans-serif;
 }

@@ -15,7 +15,7 @@ class column_beforedate
   public function name()
   {
     return array(
-      'name' => 'Дней до начала торгов'
+      'name' => 'Дней до торгов'
     );
   }
 
