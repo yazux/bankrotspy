@@ -107,15 +107,17 @@ if(!$first_alt AND !$second_alt)
 }
 if(!$begin_date AND !$end_date)
 {
+  $nowtime = strtotime(date('Y').'-'.date('n').'-'.date('j'));
+
   if($first_alt AND $second_alt)
   {
-    $conditions['starttime'] = ' `ds_maindata`.`start_time` > "' . (time() + ($first_alt*24*3600)) . '" ';
-    $conditions['endtime'] = ' `ds_maindata`.`start_time` < "' . ((time() + ($second_alt*24*3600))+((3600*24)-1)) . '" ';
+    $conditions['starttime'] = ' `ds_maindata`.`start_time` > "' . ($nowtime + ($first_alt*24*3600)) . '" ';
+    $conditions['endtime'] = ' `ds_maindata`.`start_time` < "' . (($nowtime + ($second_alt*24*3600))+((3600*24)-1)) . '" ';
   }
   elseif($first_alt)
   {
-    $conditions['starttime'] = ' `ds_maindata`.`start_time` > "' . (time() + ($first_alt*24*3600)) . '" ';
-    $conditions['endtime'] = ' `ds_maindata`.`start_time` < "' . ((time() + ($first_alt*24*3600))+((3600*24)-1)) . '" ';
+    $conditions['starttime'] = ' `ds_maindata`.`start_time` > "' . ($nowtime + ($first_alt*24*3600)) . '" ';
+    $conditions['endtime'] = ' `ds_maindata`.`start_time` < "' . (($nowtime + ($first_alt*24*3600))+((3600*24)-1)) . '" ';
   }
 }
 
