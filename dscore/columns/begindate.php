@@ -10,6 +10,13 @@ class column_begindate
     $this->time = isset($params[0]) ? $params[0] : '';
   }
 
+  public function before_load()
+  {
+    return array(
+      'sortcolumn' => ' `ds_maindata`.`start_time` '
+    );
+  }
+
   public function name()
   {
     return array(

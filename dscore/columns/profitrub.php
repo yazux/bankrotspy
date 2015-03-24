@@ -10,6 +10,13 @@ class column_profitrub
     $this->price = isset($params[0]) ? $params[0] : '';
   }
 
+  public function before_load()
+  {
+    return array(
+      'sortcolumn' => ' `ds_maindata`.`profit_rub` '
+    );
+  }
+
   public function name()
   {
     return array(

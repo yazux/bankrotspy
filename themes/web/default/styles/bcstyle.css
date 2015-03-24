@@ -292,7 +292,7 @@ td.firstt{
 margin: 16px 0 16px 0;
 }
 
-.data_table tr th{
+.data_table tr th, .data_table tr th.sort_down, .data_table tr th.sort_up{
     background-color: #ebebeb;
     border: 1px solid #d1d1d1;
     font-weight: normal;
@@ -310,13 +310,13 @@ margin: 16px 0 16px 0;
 }
 
 .data_table tr th.sort_down{
-    background: url(../images/table/desc.png);
+    background-image: url(../images/table/desc.png);
     background-repeat: no-repeat;
     background-position: center right;
 }
 
-.tablesorter tr th.sort_up{
-    background: url(../images/table/asc.png);
+.data_table tr th.sort_up{
+    background-image: url(../images/table/asc.png);
     background-repeat: no-repeat;
     background-position: center right;
 }

@@ -9,8 +9,13 @@ class column_type
   function __construct($params)
   {
     $this->type = isset($params[0]) ? $params[0] : '';
+  }
 
-    $this->get_types();
+  public function before_load()
+  {
+    return array(
+      'sortcolumn' => ' `ds_maindata`.`type` '
+    );
   }
 
   public function name()
@@ -22,6 +27,8 @@ class column_type
 
   public function process()
   {
+    $this->get_types();
+
     $custom_names = array(
       1 => 'ОА',
       2 => 'ПП'

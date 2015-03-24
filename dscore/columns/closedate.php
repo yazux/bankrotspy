@@ -10,6 +10,13 @@ class column_closedate
     $this->time = isset($params[0]) ? $params[0] : '';
   }
 
+  public function before_load()
+  {
+    return array(
+      'sortcolumn' => ' `ds_maindata`.`end_time` '
+    );
+  }
+
   public function name()
   {
     return array(

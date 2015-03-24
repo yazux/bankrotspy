@@ -9,8 +9,13 @@ class column_place
   function __construct($params)
   {
     $this->type = isset($params[0]) ? $params[0] : '';
+  }
 
-    $this->get_places();
+  public function before_load()
+  {
+    return array(
+      'sortcolumn' => ' `ds_maindata`.`place` '
+    );
   }
 
   public function name()
@@ -22,6 +27,7 @@ class column_place
 
   public function process()
   {
+    $this->get_places();
 
     return array(
       'col' => $this->places[$this->type] ,

@@ -8,6 +8,10 @@ if($somevar != POST('somevar'))
 
 $category = intval(POST('category'));
 
+$sortcolumn = POST('sortcolumn');
+$sorttype = intval(abs(POST('sorttype')));
+$tabledata = new tabledata($sortcolumn, $sorttype);
+
 $price_search = 'price';
 $type_price = abs(intval(POST('type_price')));
 {
@@ -78,6 +82,10 @@ $selects = array();
 
 //Условия для сортировки
 $order_conditions = array();
+
+$sort = $tabledata->get_sort_order();
+if($sort)
+  $order_conditions['sort'] = $sort;
 
 if($category == '-1')
   $conditions['fav_sql'] = '`ds_maindata_favorive`.`user_id` = "'.core::$user_id.'" ';
@@ -188,7 +196,6 @@ if($svalue)
   $item_arr = explode(' ', $svalue);
 }
 
-$tabledata = new tabledata();
 if($res->num_rows)
 {
   while($data = $res->fetch_array())

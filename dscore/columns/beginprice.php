@@ -10,6 +10,13 @@ class column_beginprice
     $this->price = isset($params[0]) ? $params[0] : '';
   }
 
+  public function before_load()
+  {
+    return array(
+      'sortcolumn' => ' `ds_maindata`.`price` '
+    );
+  }
+
   public function name()
   {
     return array(

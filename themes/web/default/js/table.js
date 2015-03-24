@@ -26,6 +26,34 @@ JSON.stringify = JSON.stringify || function (obj) {
   }
 };
 
+function columns_sort_listener(item)
+{
+  engine_settings.sortcolumn = $(item).attr('colattr');
+
+  var sorttype = 0;
+  var nowloaded = $(item).attr('class');
+
+  if(!nowloaded)
+  {
+    sorttype = 1;
+    $(item).attr('class', 'sort_down');
+  }
+  if(nowloaded == 'sort_down')
+  {
+    sorttype = 2;
+    $(item).attr('class', 'sort_up');
+  }
+  if(nowloaded == 'sort_up')
+  {
+    sorttype = 0;
+    $(item).removeAttr('class');
+  }
+
+  engine_settings.sorttype = sorttype;
+
+  save_settings_and_load();
+}
+
 function load_table_page(page)
 {
   engine_settings.page = page;
@@ -132,7 +160,16 @@ function answer_load(data)
             if(this.style)
                 style_holder = 'style="' + this.style + '"';
 
-            head_table += '<th ' + style_holder + ' >' + this.name + '</th>';
+            var class_sort = '';
+            if(this.sorttype && engine_settings.sortcolumn == this.classname)
+            {
+              if(this.sorttype == 1)
+                class_sort = ' class="sort_down" ';
+              if(this.sorttype == 2)
+                class_sort = ' class="sort_up" ';
+            }
+
+            head_table += '<th ' + class_sort + ' colattr="' + this.classname + '" ' + style_holder + ' >' + this.name + '</th>';
 
         });
 
@@ -375,7 +412,9 @@ function load_table()
       altint: engine_settings.altint,
       price_start: engine_settings.price_start,
       price_end: engine_settings.price_end,
-      type_price: engine_settings.type_price
+      type_price: engine_settings.type_price,
+      sortcolumn: engine_settings.sortcolumn,
+      sorttype: engine_settings.sorttype
     },
     answer_load
   );

@@ -52,7 +52,9 @@ while($data = $res->fetch_array())
     'altint' => '',
     'price_start' => '',
     'price_end' => '',
-    'type_price' => 1
+    'type_price' => 1,
+    'sortcolumn' => '',
+    'sorttype' => ''
   );
 
 engine_head();

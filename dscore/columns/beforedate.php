@@ -12,6 +12,13 @@ class column_beforedate
     $this->endtime = isset($params[1]) ? $params[1] : '';
   }
 
+  public function before_load()
+  {
+    return array(
+      'sortcolumn' => ' `ds_maindata`.`start_time` '
+    );
+  }
+
   public function name()
   {
     return array(

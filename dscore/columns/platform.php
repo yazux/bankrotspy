@@ -10,8 +10,13 @@ class column_platform
   {
     $this->pid = isset($params[0]) ? $params[0] : '';
     $this->url = isset($params[1]) ? $params[1] : '';
+  }
 
-    $this->get_platforms();
+  public function before_load()
+  {
+    return array(
+      'sortcolumn' => ' `ds_maindata`.`platform_id` '
+    );
   }
 
   public function name()
@@ -23,6 +28,8 @@ class column_platform
 
   public function process()
   {
+    $this->get_platforms();
+
     return array(
       'col' => '<a style="color:green;" target="_blank" href="'.$this->url.'"><i class="icon-globe-table"></i>'.$this->platforms[$this->pid].'</a>',
       'style' => 'text-align:center;white-space:nowrap;'

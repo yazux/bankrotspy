@@ -19,6 +19,13 @@ class column_name
     $this->descr = isset($params[4]) ? $params[4] : array();
   }
 
+  public function before_load()
+  {
+    return array(
+      'sortcolumn' => ' `ds_maindata`.`name` '
+    );
+  }
+
   public function name()
   {
     return array(
