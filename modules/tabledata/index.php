@@ -177,12 +177,17 @@ $count = core::$db->query('SELECT
 //Основной запрос
 $res = core::$db->query('SELECT
   `ds_maindata`.*,
-  `ds_maindata_favorive`.`item`
+  `ds_maindata_favorive`.`item`,
+  `ds_maindata_regions`.`name` AS `regionname`
   ' . $select_cond . '
   FROM
   `ds_maindata`
   LEFT JOIN
   `ds_maindata_favorive` ON `ds_maindata`.`id` = `ds_maindata_favorive`.`item` '.$join_cond.'
+  LEFT JOIN
+  `ds_maindata_regions` ON `ds_maindata`.`place` = `ds_maindata_regions`.`number`
+  LEFT JOIN
+  `ds_maindata_platforms` ON `ds_maindata`.`platform_id` = `ds_maindata_platforms`.`id`
 
   '.$where_cond.'
 

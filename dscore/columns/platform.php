@@ -15,7 +15,7 @@ class column_platform
   public function before_load()
   {
     return array(
-      'sortcolumn' => ' `ds_maindata`.`platform_id` '
+      'sortcolumn' => ' `ds_maindata_platforms`.`platform_url` '
     );
   }
 
