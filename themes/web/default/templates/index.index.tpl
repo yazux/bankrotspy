@@ -8,7 +8,7 @@
                     <table>
                         <tr>
                             <td valign="top">
-                                <i class="icon-address"></i> <b>Регионы:</b> выбрано 3 из 80 <span class="change_block_set"><i class="icon-edit-orange"></i>Изменить</span>
+                                <i class="icon-address"></i> <b>Регионы:</b> выбрано <span id="total_places_set"><?=count($places)?></span> из <?=count($places_def)?> <span id="region_set" class="change_block_set"><i class="icon-edit-orange"></i>Изменить</span>
                             </td>
                             <td valign="top" style="border-right: 0">
                                 <i class="icon-globe-set"></i> <b>Площадки:</b> выбрано 3 из 40 <span class="change_block_set"><i class="icon-edit-orange"></i>Изменить</span>
@@ -149,7 +149,7 @@
     var engine_formid = <?=core::$formid?>;
     var engine_settings = jQuery.parseJSON($('#table_set').text());
     var default_settings = jQuery.parseJSON($('#table_default_set').text());
-    var engine_global_loader = 0;
+    var engine_global_loader = 0; //Показывать ли в первый раз оповещение о загрузке таблицы
 
     load_table();
 
@@ -179,7 +179,47 @@
         $('[name="begin_set_date"]').jdPicker();
         $('[name="end_set_date"]').jdPicker();
     });
+
+
 </script>
 
+<div id="popup_overlay_region" class="popup_overlay">
+    <div class="popup_table">
+        <div class="close_modal_img"><span id="icon_close_butt"><i class="icon-cancel-circled"></i></span></div>
+        <div class="main_pop_head">
+          Выбор регионов
+        </div>
+        <div class="main_pop_body">
+          <span class="action_span" id="region_mark_all"><i class="icon-ok"></i> Отметить все</span><br/>
+          <span class="action_span" id="region_delete_all"><i class="icon-cancel"></i> Снять все</span>
+        </div>
+        <div class="main_pop_body">
+            <table id="place_table" width="100%">
+            <?$i = 1;?>
 
+            <?foreach($places as $pkey=>$pvalue): ?>
+                <?if($i % 2):?><tr><?endif?>
+                    <td width="50%">
+                       <label><input type="checkbox" <?if($places_def[$pkey] == 1):?> checked="checked" <?endif?> name="place_number_<?=$pkey?>"/><b><?=$pkey?></b> <?=$pvalue?></label><br/>
+                    </td>
+                    <?if($i % 2):?>
+                    <?$last_tr = 0;?>
+                    <?else:?>
+                    <?$last_tr = 1;?>
+                </tr>
+                <?endif?>
+                <?$i++;?>
+            <?endforeach?>
+
+            <?if(!$last_tr):?>
+            <td>&nbsp;</td></tr>
+            <?endif?>
+
+            </table>
+        </div>
+        <div class="main_pop_bottom">
+            <span id="region_popup_close" class="urlbutton_index">Сохранить</span>
+        </div>
+    </div>
+</div>
 

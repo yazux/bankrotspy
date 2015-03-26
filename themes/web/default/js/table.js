@@ -414,7 +414,8 @@ function load_table()
       price_end: engine_settings.price_end,
       type_price: engine_settings.type_price,
       sortcolumn: engine_settings.sortcolumn,
-      sorttype: engine_settings.sorttype
+      sorttype: engine_settings.sorttype,
+      places: compile_arr_set(engine_settings.places)
     },
     answer_load
   );
@@ -478,6 +479,17 @@ function search_listener()
       str_err += 'Конечная цена не может быть меньше начальной!'+ '<br/>';
   }
 
+  //РЕгионы
+  var choosen_regions = 0;
+  $.each(default_settings.places, function(key, val) {
+    if($('[name="place_number_' + key + '"]').prop('checked'))
+    {
+      choosen_regions++;
+    }
+  });
+  if(choosen_regions < 1)
+    str_err += 'Не выбрано не одного региона!'+ '<br/>';
+
   //По какой цене искать
   engine_settings.type_price = $('[name="type_price"]:checked').val();
 
@@ -521,8 +533,60 @@ function clean_set_listener()
   $("input[name=type_price][value='" + default_settings.type_price + "']").prop("checked",true);
   engine_settings.type_price = default_settings.type_price;
 
+  $('#place_table input[type="checkbox"]').prop('checked', true);
+  engine_settings.places = default_settings.places;
+  place_set_listener();
+
   //Cбрасываем страницу
   engine_settings.page = 1;
 
   save_settings_and_load();
 }
+
+function place_set_listener()
+{
+  //Регионы
+  var new_places = {};
+  var choosen = 0;
+  $.each(default_settings.places, function(key, val) {
+    if($('[name="place_number_' + key + '"]').prop('checked'))
+    {
+      new_places[key] = 1;
+      choosen++;
+    }
+  });
+  $('#total_places_set').text(choosen);
+  engine_settings.places = new_places;
+}
+
+$(document).ready(function(){
+    $(document).on('click', '#icon_close_butt', function(){
+        $('.popup_overlay').fadeOut(200);
+    });
+
+  $('.popup_overlay').click(function(event) {
+    if ((event || window.event).target == this) {
+      $('.popup_overlay').fadeOut(200);
+    }
+  });
+
+  //Редактирование регионов
+  place_set_listener();
+  $(document).on('click', '#region_popup_close', function(){
+    $('#popup_overlay_region').fadeOut(200);
+  });
+  $(document).on('click', '#region_set', function(){
+    $('#popup_overlay_region').fadeIn(200);
+  });
+  $(document).on('click', '#place_table tr td label', function(){
+    place_set_listener();
+  });
+  $(document).on('click', '#region_mark_all', function(){
+    $('#place_table input[type="checkbox"]').prop('checked', true);
+    place_set_listener();
+  });
+  $(document).on('click', '#region_delete_all', function(){
+    $('#place_table input[type="checkbox"]').prop('checked', false);
+    place_set_listener();
+  });
+});

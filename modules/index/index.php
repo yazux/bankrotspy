@@ -24,6 +24,16 @@ $res = core::$db->query('SELECT * FROM  `ds_rights` ');
 
 ////////////////////////////////////////////////////////////
 
+//Список регионов
+$places_def = array();
+$places = array();
+$res = core::$db->query('SELECT * FROM  `ds_maindata_regions` ORDER BY `number` ASC;');
+while($data = $res->fetch_array())
+{
+  $places_def[$data['number']] = 1;
+  $places[$data['number']] = $data['name'];
+}
+
 //Типы предложений в таблице
 $types = array();
 $types_def = array();
@@ -54,7 +64,8 @@ while($data = $res->fetch_array())
     'price_end' => '',
     'type_price' => 1,
     'sortcolumn' => '',
-    'sorttype' => ''
+    'sorttype' => '',
+    'places' => $places_def
   );
 
 engine_head();
@@ -63,6 +74,9 @@ temp::assign('table_set', json_encode($set_table_array));
 temp::HTMassign('types_set', $types);
 temp::HTMassign('types_def', $types_def);
 temp::HTMassign('categories', $categories);
+temp::HTMassign('places', $places);
+temp::HTMassign('places_def', $places_def);
+
 temp::assign('type_price', $set_table_array['type_price']);
 temp::display('index.index');
 engine_fin();

@@ -57,6 +57,9 @@ if($end_date)
 $types = POST('types');
 $types = check_types($types);
 
+$places = POST('places');
+$places = check_places($places);
+
 $svalue = POST('svalue');
 if(mb_strlen($svalue) < 2)
   $svalue = '';
@@ -83,6 +86,7 @@ $selects = array();
 //Условия для сортировки
 $order_conditions = array();
 
+//Ностройки сортировки
 $sort = $tabledata->get_sort_order();
 if($sort)
   $order_conditions['sort'] = $sort;
@@ -101,9 +105,11 @@ if($svalue)
 
 //Фильтрация потипам
 if($types)
-{
   $conditions['types'] = ' `type` IN ('.implode(', ', $types).') ';
-}
+
+//Фильтрация по регионам
+if(count(get_places(true)) != count($places) AND $places)
+  $conditions['places'] = ' `ds_maindata`.`place` IN ('.implode(', ', $places).') ';
 
 if(!$first_alt AND !$second_alt)
 {
@@ -243,6 +249,51 @@ else
   );
 }
 
+
+
+function check_places($places)
+{
+  $in_places = get_places();
+  $arr = explode('|', $places);
+  $out = array();
+  foreach($arr AS $val)
+  {
+    if(isset($in_places[$val]))
+      $out[] = $val;
+  }
+  if(!$out)
+    return get_places(true);
+  else
+    return $out;
+}
+
+function get_places($only_keys = false)
+{
+  $places = array();
+  $out = array();
+  if(!rem::exists('maintable_places'))
+  {
+    $res = core::$db->query('SELECT * FROM  `ds_maindata_regions` ;');
+    while($data = $res->fetch_array())
+    {
+      $out[] = $data['number'];
+      $places[$data['number']] = $data['name'];
+    }
+    rem::remember('maintable_places', serialize($places));
+    rem::remember('maintable_places_out', serialize($out));
+  }
+  else
+  {
+    $places = unserialize(rem::get('maintable_places'));
+    $out = unserialize(rem::get('maintable_places_out'));
+  }
+
+  if($only_keys)
+    return $out;
+  else
+    return $places;
+}
+
 function check_types($types)
 {
   $in_types = get_types();
@@ -272,9 +323,13 @@ function get_types($only_keys = false)
       $types[$data['id']] = text::st($data['type_name']);
     }
     rem::remember('maintable_types', serialize($types));
+    rem::remember('maintable_types_out', serialize($out));
   }
   else
+  {
     $types = unserialize(rem::get('maintable_types'));
+    $out = unserialize(rem::get('maintable_types_out'));
+  }
 
   if($only_keys)
     return $out;

@@ -444,3 +444,14 @@ margin: 16px 0 16px 0;
     text-decoration: underline;
     cursor: pointer;
 }
+
+.action_span
+{
+    color: #dd8b00;
+}
+
+.action_span:hover
+{
+    text-decoration: underline;
+    cursor: pointer;
+}

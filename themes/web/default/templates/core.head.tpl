@@ -6,7 +6,7 @@
     <meta name="keywords" content="<?=$keywords?>"/>
     <meta name="description" content="<?=$description?>"/>
 
-    <? $now_id = 42; ?>
+    <? $now_id = 43; ?>
 
     <script type="text/javascript" src="<?=$themepath?>/js/jquery-latest.js?id=<?=$now_id?>"></script>
     <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/allstyle.css?id=<?=$now_id?>"/>
@@ -32,7 +32,7 @@
 <div class="all_shadow">
     <div class="body">
 
-        <div id="popup_load_overlay" class="popup__overlay">
+        <div id="popup_load_overlay" class="popup_overlay">
             <div class="popup_table" id="place-form">
                 <div style="text-align:center;">
                     <img style="height: 50px" src="<?=$themepath?>/images/load_small.gif"/>

@@ -35,6 +35,10 @@ a [class^="icon-"]:hover:before,a [class*=" icon-"]:hover:before {
     color: #dd8b00;
 }
 
+.action_span .icon-ok:before, .action_span .icon-cancel:before{
+    color: #dd8b00;
+}
+
 .icon-share:before{
     font-size: 11px;
     padding-right: 4px;
@@ -78,6 +82,17 @@ a [class^="icon-"]:hover:before,a [class*=" icon-"]:hover:before {
 .icon-star-clicked:hover:before{
     color: rgba(255, 155, 36, 0.76);
     cursor: pointer;
+}
+
+.icon-cancel-circled:before {
+    color: #ff7359;
+    font-size: 20px;
+    border-radius: 19px;
+    padding: 0;
+}
+
+.icon-cancel-circled:hover:before {
+    color: red;
 }
 
 .icon-edit:before { content: '\e802'; } /* '' */
