@@ -193,8 +193,33 @@
           <span class="action_span" id="region_mark_all"><i class="icon-ok"></i> Отметить все</span><br/>
           <span class="action_span" id="region_delete_all"><i class="icon-cancel"></i> Снять все</span>
         </div>
-        <div class="main_pop_body">
-            <table id="place_table" width="100%">
+        <div class="main_pop_body" id="place_table">
+            <table width="100%">
+                <?$i = 1;?>
+
+                <?foreach($bold_places as $pkey=>$pvalue): ?>
+                <?if($i % 2):?><tr><?endif?>
+                    <td width="50%">
+                        <label><input type="checkbox" <?if($places_def[$pkey] == 1):?> checked="checked" <?endif?> name="place_number_<?=$pkey?>"/><b><?=$pkey?></b> <span style="font-weight: bold;"><?=$pvalue?></span></label><br/>
+                    </td>
+                    <?if($i % 2):?>
+                    <?$last_tr = 0;?>
+                    <?else:?>
+                    <?$last_tr = 1;?>
+                </tr>
+                <?endif?>
+                <?$i++;?>
+                <?endforeach?>
+
+                <?if(!$last_tr):?>
+                <td>&nbsp;</td></tr>
+                <?endif?>
+
+            </table>
+
+            <hr class="reg_delimiter" />
+
+            <table width="100%">
             <?$i = 1;?>
 
             <?foreach($places as $pkey=>$pvalue): ?>

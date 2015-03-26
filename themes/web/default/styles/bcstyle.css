@@ -455,3 +455,14 @@ margin: 16px 0 16px 0;
     text-decoration: underline;
     cursor: pointer;
 }
+
+.reg_delimiter{
+    border: 0;
+    border-top: 1px solid #e9e9e9;
+    height: 0;
+    margin: 4px 0 4px 0;
+}
+
+.main_pop_body b{
+    color: #8f8f8f;
+}
