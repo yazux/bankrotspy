@@ -415,7 +415,8 @@ function load_table()
       type_price: engine_settings.type_price,
       sortcolumn: engine_settings.sortcolumn,
       sorttype: engine_settings.sorttype,
-      places: compile_arr_set(engine_settings.places)
+      places: compile_arr_set(engine_settings.places),
+      platforms: compile_arr_set(engine_settings.platforms)
     },
     answer_load
   );
@@ -479,7 +480,7 @@ function search_listener()
       str_err += 'Конечная цена не может быть меньше начальной!'+ '<br/>';
   }
 
-  //РЕгионы
+  //Регионы
   var choosen_regions = 0;
   $.each(default_settings.places, function(key, val) {
     if($('[name="place_number_' + key + '"]').prop('checked'))
@@ -489,6 +490,17 @@ function search_listener()
   });
   if(choosen_regions < 1)
     str_err += 'Не выбрано не одного региона!'+ '<br/>';
+
+  //Платформы
+  var choosen_platforms = 0;
+  $.each(default_settings.platforms, function(key, val) {
+    if($('[name="platform_number_' + key + '"]').prop('checked'))
+    {
+      choosen_platforms++;
+    }
+  });
+  if(choosen_platforms < 1)
+    str_err += 'Не выбрано не одной платформы!'+ '<br/>';
 
   //По какой цене искать
   engine_settings.type_price = $('[name="type_price"]:checked').val();
@@ -537,10 +549,30 @@ function clean_set_listener()
   engine_settings.places = default_settings.places;
   place_set_listener();
 
+  $('#platform_table input[type="checkbox"]').prop('checked', true);
+  engine_settings.platforms = default_settings.platforms;
+  platform_set_listener();
+
   //Cбрасываем страницу
   engine_settings.page = 1;
 
   save_settings_and_load();
+}
+
+function platform_set_listener()
+{
+  //Платформы
+  var new_platforms = {};
+  var choosen = 0;
+  $.each(default_settings.platforms, function(key, val) {
+    if($('[name="platform_number_' + key + '"]').prop('checked'))
+    {
+      new_platforms[key] = 1;
+      choosen++;
+    }
+  });
+  $('#total_platforms_set').text(choosen);
+  engine_settings.platforms = new_platforms;
 }
 
 function place_set_listener()
@@ -568,6 +600,25 @@ $(document).ready(function(){
     if ((event || window.event).target == this) {
       $('.popup_overlay').fadeOut(200);
     }
+  });
+
+  //Редактирование площадок
+  $(document).on('click', '#platform_popup_close', function(){
+    $('#popup_overlay_platform').fadeOut(200);
+  });
+  $(document).on('click', '#platform_set', function(){
+    $('#popup_overlay_platform').fadeIn(200);
+  });
+  $(document).on('click', '#platform_table tr td label', function(){
+    platform_set_listener();
+  });
+  $(document).on('click', '#platform_mark_all', function(){
+    $('#platform_table input[type="checkbox"]').prop('checked', true);
+    platform_set_listener();
+  });
+  $(document).on('click', '#platform_delete_all', function(){
+    $('#platform_table input[type="checkbox"]').prop('checked', false);
+    platform_set_listener();
   });
 
   //Редактирование регионов

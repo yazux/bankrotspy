@@ -11,7 +11,7 @@
                                 <i class="icon-address"></i> <b>Регионы:</b> выбрано <span id="total_places_set"><?=count($places)?></span> из <?=count($places_def)?> <span id="region_set" class="change_block_set"><i class="icon-edit-orange"></i>Изменить</span>
                             </td>
                             <td valign="top" style="border-right: 0">
-                                <i class="icon-globe-set"></i> <b>Площадки:</b> выбрано 3 из 40 <span class="change_block_set"><i class="icon-edit-orange"></i>Изменить</span>
+                                <i class="icon-globe-set"></i> <b>Площадки:</b> выбрано <span id="total_platforms_set"><?=count($platforms)?></span> из <?=count($platforms_def)?> <span id="platform_set" class="change_block_set"><i class="icon-edit-orange"></i>Изменить</span>
                             </td>
                         </tr>
                     </table>
@@ -248,3 +248,44 @@
     </div>
 </div>
 
+<div id="popup_overlay_platform" class="popup_overlay">
+    <div class="popup_table">
+        <div class="close_modal_img"><span id="icon_close_butt"><i class="icon-cancel-circled"></i></span></div>
+        <div class="main_pop_head">
+            Выбор площадок
+        </div>
+        <div class="main_pop_body">
+            <span class="action_span" id="platform_mark_all"><i class="icon-ok"></i> Отметить все</span><br/>
+            <span class="action_span" id="platform_delete_all"><i class="icon-cancel"></i> Снять все</span>
+        </div>
+        <div class="main_pop_body" id="platform_table">
+
+            <table width="100%">
+                <?$i = 1;?>
+
+                <?foreach($platforms as $pkey=>$pvalue): ?>
+                <?if($i % 2):?><tr><?endif?>
+                    <td width="50%">
+                        <label><input type="checkbox" <?if($places_def[$pkey] == 1):?> checked="checked" <?endif?> name="platform_number_<?=$pkey?>"/><i class="icon-globe-table"></i><?=$pvalue?></label><br/>
+                    </td>
+                    <?if($i % 2):?>
+                    <?$last_tr = 0;?>
+                    <?else:?>
+                    <?$last_tr = 1;?>
+                </tr>
+                <?endif?>
+                <?$i++;?>
+                <?endforeach?>
+
+                <?if(!$last_tr):?>
+                <td>&nbsp;</td></tr>
+                <?endif?>
+
+            </table>
+
+        </div>
+        <div class="main_pop_bottom">
+            <span id="platform_popup_close" class="urlbutton_index">Сохранить</span>
+        </div>
+    </div>
+</div>

@@ -24,10 +24,19 @@ $res = core::$db->query('SELECT * FROM  `ds_rights` ');
 
 ////////////////////////////////////////////////////////////
 
-$bold_regions_set = array(77, 78);
-$bold_places = array();
+$platforms = array();
+$platforms_def = array();
+$res = core::$db->query('SELECT * FROM `ds_maindata_platforms` ;');
+while($data = $res->fetch_array())
+{
+  $platforms_def[$data['id']] = 1;
+  $platforms[$data['id']] = $data['platform_url'];
+}
 
 //Список регионов
+$bold_regions_set = array(77, 78);
+$bold_places = array();
+//Достаем регионы
 $places_def = array();
 $places = array();
 $res = core::$db->query('SELECT * FROM  `ds_maindata_regions` ORDER BY `number` ASC;');
@@ -56,6 +65,7 @@ while($data = $res->fetch_array())
   $categories[$data['id']] = text::st($data['name']);
 }
 
+  //Настройки по умолчанию
   $set_table_array = array(
     'category' => -2,
     'page' => 1,
@@ -70,7 +80,8 @@ while($data = $res->fetch_array())
     'type_price' => 1,
     'sortcolumn' => '',
     'sorttype' => '',
-    'places' => $places_def
+    'places' => $places_def,
+    'platforms' => $places_def,
   );
 
 engine_head();
@@ -82,6 +93,9 @@ temp::HTMassign('categories', $categories);
 temp::HTMassign('places', $places);
 temp::HTMassign('bold_places', $bold_places);
 temp::HTMassign('places_def', $places_def);
+
+temp::HTMassign('platforms', $platforms);
+temp::HTMassign('platforms_def', $platforms_def);
 
 temp::assign('type_price', $set_table_array['type_price']);
 temp::display('index.index');

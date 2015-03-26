@@ -60,6 +60,9 @@ $types = check_types($types);
 $places = POST('places');
 $places = check_places($places);
 
+$platforms = POST('platforms');
+$platforms = check_platforms($platforms);
+
 $svalue = POST('svalue');
 if(mb_strlen($svalue) < 2)
   $svalue = '';
@@ -103,13 +106,17 @@ if($svalue)
   $order_conditions['search'] = '`rel` DESC ';
 }
 
-//Фильтрация потипам
+//Фильтрация по типам
 if($types)
   $conditions['types'] = ' `type` IN ('.implode(', ', $types).') ';
 
 //Фильтрация по регионам
 if(count(get_places(true)) != count($places) AND $places)
   $conditions['places'] = ' `ds_maindata`.`place` IN ('.implode(', ', $places).') ';
+
+//Фильтрация по платформам
+if(count(get_platforms(true)) != count($platforms) AND $platforms)
+  $conditions['platforms'] = ' `ds_maindata`.`platform_id` IN ('.implode(', ', $platforms).') ';
 
 if(!$first_alt AND !$second_alt)
 {
@@ -249,7 +256,48 @@ else
   );
 }
 
+function check_platforms($platforms)
+{
+  $in_platforms = get_platforms();
+  $arr = explode('|', $platforms);
+  $out = array();
+  foreach($arr AS $val)
+  {
+    if(isset($in_platforms[$val]))
+      $out[] = $val;
+  }
+  if(!$out)
+    return get_platforms(true);
+  else
+    return $out;
+}
 
+function get_platforms($only_keys = false)
+{
+  $platforms = array();
+  $out = array();
+  if(!rem::exists('maintable_platforms'))
+  {
+    $res = core::$db->query('SELECT * FROM `ds_maindata_platforms` ;');
+    while($data = $res->fetch_array())
+    {
+      $out[] = $data['id'];
+      $platforms[$data['id']] = $data['platform_url'];
+    }
+    rem::remember('maintable_platforms', serialize($platforms));
+    rem::remember('maintable_platforms_out', serialize($out));
+  }
+  else
+  {
+    $platforms = unserialize(rem::get('maintable_platforms'));
+    $out = unserialize(rem::get('maintable_platforms_out'));
+  }
+
+  if($only_keys)
+    return $out;
+  else
+    return $platforms;
+}
 
 function check_places($places)
 {
