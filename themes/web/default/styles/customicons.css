@@ -73,6 +73,11 @@ a [class^="icon-"]:hover:before,a [class*=" icon-"]:hover:before {
     cursor: pointer;
 }
 
+.icon-comment-1:before, .icon-comment-1:hover:before{
+    font-size: 12px;
+    color: #FF9B24 !important;
+}
+
 .icon-star-clicked:before{
     font-size: 14px;
     content: '\e815';
@@ -93,6 +98,17 @@ a [class^="icon-"]:hover:before,a [class*=" icon-"]:hover:before {
 
 .icon-cancel-circled:hover:before {
     color: red;
+}
+
+.icon-quote-right:before, .icon-forward:before{
+    font-size: 13px;
+    padding: 4px 0;
+}
+
+.pslink [class^="icon-quote-right"]:hover:before,
+.pslink [class^="icon-forward"]:hover:before {
+    cursor: pointer;
+    color: #66676b;
 }
 
 .icon-edit:before { content: '\e802'; } /* '' */

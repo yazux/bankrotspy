@@ -21,7 +21,7 @@
                <?=$com['time']?>
             </td>
             <?if(comm::can_answer($com['id_user'], $com['rights_num'])):?>
-            <td class="cont_act"><span title="<?=lang('answer_comm')?>" onclick="insertnick('<?=$com['from_login']?>')" class="pslink"><i class="icon-forward-1"></i></span></td>
+            <td class="cont_act"><span title="<?=lang('answer_comm')?>" onclick="insertnick('<?=$com['from_login']?>')" class="pslink"><i class="icon-forward"></i></span></td>
             <td class="cont_act"><span title="<?=lang('quote_comm')?>" onclick="insertquote('<?=$com['from_login']?>', '<?=$com['to_quote']?>')" class="pslink"><i class="icon-quote-right"></i></span></td>
             <?endif?>
             <?if(!$comm_prev):?>

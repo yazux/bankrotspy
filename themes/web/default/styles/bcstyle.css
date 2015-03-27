@@ -466,3 +466,20 @@ margin: 16px 0 16px 0;
 .main_pop_body b{
     color: #8f8f8f;
 }
+
+.news_cont h2{
+    display: inline-block;
+    margin: 6px 7px 6px -1px;
+}
+.news_cont a h2:hover{
+text-decoration: underline;
+}
+.news_cont hr{
+    margin: 8px 7px 8px -1px;
+}
+
+.contfin_forms_delimiter{
+    border-bottom: 1px solid #E4E4E4;
+    height: 20px;
+    background: #f6f6f6;
+}

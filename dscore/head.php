@@ -57,12 +57,14 @@ if(core::$user_id)
 }
 
 //Счетчики
-counts::cnew('trash_query' ,'SELECT COUNT(*) FROM `ds_support`;',  ''); // Потом убрать. multi_query не воспринимает один запрос как таковой.
 //Техподержка
 if(CAN('tech_support', 0))
-  counts::cnew('unread_support','SELECT COUNT(*) FROM `ds_support` WHERE `read` = "0" AND `closed` = "0"','/support');
+  counts::cnew('unread_support','SELECT COUNT(*) FROM `ds_support` WHERE `read` = "0" AND `closed` = "0" ;','/support');
 elseif(core::$user_id)
-  counts::cnew('unread_support','SELECT COUNT(*) FROM `ds_support` WHERE `read` = "1" AND `usread` = "0" AND `userid` = "'.core::$user_id.'"','/support');
+  counts::cnew('unread_support','SELECT COUNT(*) FROM `ds_support` WHERE `read` = "1" AND `usread` = "0" AND `userid` = "'.core::$user_id.'" ;','/support');
+//Новости
+counts::cnew('unread_news' ,'SELECT COUNT(*) FROM `ds_news` LEFT JOIN `ds_news_rdm` ON `ds_news`.`id` = `ds_news_rdm`.`artid` AND `ds_news_rdm`.`userid` = "' . core::$user_id . '" WHERE `ds_news_rdm`.`userid` IS NULL AND `ds_news`.`time` > "'.(time() - (3 * 24 * 3600)).'";',  '/news');
+//counts::cnew('unread_art_comms' ,'SELECT COUNT(*) FROM `ds_article` LEFT JOIN `ds_art_comm_rdm` ON `ds_article`.`id` = `ds_art_comm_rdm`.`modid` AND `ds_art_comm_rdm`.`userid` = "' . core::$user_id . '" WHERE (`ds_art_comm_rdm`.`userid` IS NULL OR `ds_art_comm_rdm`.`rdmtime` < `ds_article`.`comtime`) AND `ds_article`.`type` = "0" AND `ds_article`.`comtime` > "'.(time() - (3 * 24 * 3600)).'";', '/articles/newcomm');
 
 //Смотрим, если ли сообщения
 if(uscache::ex('mess_head'))

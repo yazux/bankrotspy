@@ -67,7 +67,7 @@
                         <? temp::formid() /* ЭТА ФУНКЦИЯ ОБЯЗАТЕЛЬНА ДЛЯ ВСЕХ ФОРМ!!! */?>
                         <div class="contbody_forms">
                             <?=func::tagspanel('messarea');?>
-                            <div class="texta"><textarea id="messarea" name="mess" rows="5"></textarea></div>
+                            <div class="texta"><textarea id="messarea" name="msg" rows="5"></textarea></div>
                         </div>
 
                         <div class="contfintext">

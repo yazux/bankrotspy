@@ -24,7 +24,7 @@ if($res->num_rows)
   {
     if(core::$user_id AND CAN('create_comm', 0) AND !$rs['closed'])
     {   
-      $post = POST('mess');
+      $post = POST('msg');
       $error = comm::check_post($post);
         
       if(!$error)

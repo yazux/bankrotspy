@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content" style="width: 70%; margin: 0 auto; margin-top: 30px;">
   <div class="conthead">
        <table>
           <tr>
