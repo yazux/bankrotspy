@@ -147,6 +147,15 @@ a .icon-align-right:hover:before
 }
 
 
+.icon-cancel-1:before {
+    font-size: 11px;
+    color: #cbcbcb;
+}
+
+.icon-cancel-1:hover:before {
+    color: #dd8b00;
+}
+
 /* Анимация иконки icon-spin5 */
 
 .icon-spin5:before {

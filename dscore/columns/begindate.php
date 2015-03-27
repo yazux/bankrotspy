@@ -28,7 +28,7 @@ class column_begindate
   {
     return array(//
       'col' => date('d',$this->time) . '.' . ds_time($this->time, '%m.%Y, %H:%M'),
-      'style' => 'text-align:center;'
+      'style' => 'text-align:center;font-size: 12px;'
     );
   }
 }

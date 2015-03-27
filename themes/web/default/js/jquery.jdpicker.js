@@ -63,7 +63,7 @@ jdPicker.prototype = {
 	this.wrapp = this.input.wrap('<div class="jdpicker_w">');
 
 	if(this.input.context.type!="hidden"){
-		var clearer = $('<span class="date_clearer">&times;</span>');
+		var clearer = $('<span class="date_clearer" title="Очистить поле"><i class="icon-cancel-1"></i></span>');
 		clearer.click(this.bindToObj(function(){this.input.val(""); this.selectDate();}));
 		this.input.after(clearer);
 	}

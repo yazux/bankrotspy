@@ -30,8 +30,7 @@
 }
 
 .jdpicker_w .date_clearer{
-	color: #a00;
-	padding-left:3px;
+	padding-left:0;
 	cursor:pointer;
 	font-weight:bold;
 	font-family:sans-serif
@@ -169,16 +168,18 @@
 }
 .jdpicker_w .date_selector td.selectable_day, .jdpicker_w .date_selector tr.selectable_week td {
     cursor: pointer;
-	background:url('../images/jdpicker/bg_selectable.png');
+	background: #f6f6f6;
+    width: 14%;
 	border:1px solid #aaa;
 	color:#333;
     padding: 0;
 }
 .jdpicker_w .date_selector td.selected, .jdpicker_w .date_selector tr.selected  td{
-	background: url('../images/jdpicker/bg_selected.png');
+	background: #ffa200;
+    color: white;
 	font-weight: bold;
 }
 .jdpicker_w .date_selector tr.selectable_week.hover td, .jdpicker_w .date_selector td.selectable_day.hover {
-	background: url('../images/jdpicker/bg_hover.png');
+    background: #ffb325;
 	color: white;
 }
