@@ -113,6 +113,9 @@ a [class^="icon-"]:hover:before,a [class*=" icon-"]:hover:before {
 
 .icon-edit:before { content: '\e802'; } /* '' */
 .icon-delete:before { content: '\e803'; } /* '' */
+.icon-delete:hover:before{
+    cursor: pointer;
+}
 
 .icon-globe:before,
 a .icon-globe:hover:before,

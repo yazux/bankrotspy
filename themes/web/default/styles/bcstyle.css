@@ -483,3 +483,11 @@ text-decoration: underline;
     height: 20px;
     background: #f6f6f6;
 }
+
+.addtext{
+    display: block;
+    margin-left: 9px;
+    font-size: 13px;
+    line-height: 16px;
+
+}

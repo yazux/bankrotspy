@@ -1,0 +1,12 @@
+admin_control = Админпанель
+red_mainpage = Главная страница
+no_full_name = Нет полного названия!
+no_sr_name = Нет краткого названия!
+max_sr_name = Максимум 5 букв для краткого названия!
+no_id_name = Нет id группы!
+wr_id_name = Неправильный id группы!
+wr_id_ren = ID уже существует!
+no_rights = Не выбраны права группы!
+wrong_rights = Ошибка прав!
+mess_hesd = Создание группы
+mess_body = Группа прав была создана!

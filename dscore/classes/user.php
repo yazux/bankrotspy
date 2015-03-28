@@ -70,7 +70,7 @@ class user
   {
     if(!rem::exists('ds_rights_names'))
     {
-      $lang_rights = core::parse_lang('languages/' . core::$lang . '/__add/rights.lang');
+      $lang_rights = core::parse_lang('data/lang_rights/rights.lang');
       $rights_arr = array();
       foreach(core::$all_rights AS $key => $value)
       {

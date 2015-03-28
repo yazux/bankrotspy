@@ -5,7 +5,7 @@ new nav; //Постраничная навигация
 
 $total = core::$db->query('SELECT COUNT(*) FROM `ds_news` ;')->count();
 
-  $res = core::$db->query('SELECT `ds_news`.*, `ds_news_comm_rdm`.`rdmtime` FROM `ds_news` LEFT JOIN `ds_news_comm_rdm` ON `ds_news`.`id` = `ds_news_comm_rdm`.`modid` AND `ds_news_comm_rdm`.`userid` = "' . core::$user_id . '" ORDER BY `ds_news`.`id` DESC LIMIT 5;');
+  $res = core::$db->query('SELECT `ds_news`.*, `ds_news_comm_rdm`.`rdmtime` FROM `ds_news` LEFT JOIN `ds_news_comm_rdm` ON `ds_news`.`id` = `ds_news_comm_rdm`.`modid` AND `ds_news_comm_rdm`.`userid` = "' . core::$user_id . '" ORDER BY `ds_news`.`id` DESC LIMIT '.nav::$start.', '.nav::$kmess.';');
   $narr = array();
   
   $sql = ''; 
@@ -79,6 +79,9 @@ engine_head(lang('news'));
   if(CAN('news_create', 0))
       temp::assign('can_cr_news', 1);
 temp::HTMassign('narr', $narr);
+
+temp::HTMassign('navigation', nav::display($total, core::$home.'/news?'));
+
 temp::display('news.index');
 engine_fin();
 
