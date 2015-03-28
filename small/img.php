@@ -40,8 +40,11 @@ if(preg_match('/[^0-9a-z\-\_\.]+/',$image))
 }
 
 $smallext = getextension($image);
-$imgfile = cut_ext($image);
-$image='../data/att_post/'.$imgfile.'.dat';
+$imgfile = $image;
+if(file_exists('../data/att_post/'.cut_ext($imgfile).'.dat'))
+  $image='../data/att_post/'.cut_ext($imgfile).'.dat';
+else
+  $image='../data/att_art/'.$imgfile.'.dat';
 
 try
 {
@@ -79,9 +82,9 @@ try
 }
 catch (Exception $e)
 {
-  //echo $e->getMessage();
-  echo file_get_contents('../data/img_error.png');
-  exit();  
+  echo $e->getMessage();
+  //echo file_get_contents('../data/img_error.png');
+  //exit();
 }
 
 
