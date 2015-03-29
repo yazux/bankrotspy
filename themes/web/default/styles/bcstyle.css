@@ -491,3 +491,17 @@ text-decoration: underline;
     line-height: 16px;
 
 }
+
+.lottable tr td
+{
+    padding: 6px;
+}
+
+.icon_to_click_fav {
+    color: #ee9400;
+}
+
+.icon_to_click_fav:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

@@ -85,7 +85,15 @@ class temp
      }  
      return $file_cont;
   }
-  
+
+  private static function del_short_tags($m)
+  {
+    if($m[1])
+      return '<?php echo '.$m[2].'?>';
+    else
+      return '<?php '.$m[2].'?>';
+  }
+
   public static function display($file)
   {
     list(self::$file_error) = debug_backtrace();
@@ -109,7 +117,8 @@ class temp
                                             /* <? temp::include('file.tpl') ?>   */ 
     self::$file_eval = file_get_contents(self::$temp_path.self::$file);
     self::$file_eval =  preg_replace_callback('#\<\? temp\:\:include\(\'(.*?)\'\) \?\>#si', array('self', 'file_inc'),self::$file_eval);
-    
+    self::$file_eval = preg_replace_callback('/\<\?(\=)?(.*?)\?\>/si', array('self', 'del_short_tags'), self::$file_eval);
+
     eval('?>'.self::$file_eval.'<?');
     
     Error_Reporting(E_ALL & E_NOTICE);

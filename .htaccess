@@ -13,6 +13,9 @@ RewriteRule .* - [F]
 
 RewriteRule ^pages/([0-9]{1,11})$ ?core_mod=pages&core_act=index&id=$1 [QSA]
 RewriteRule ^pages/file([0-9]{1,11})/(.+?)$ pages/download?act=file&id=$1&namefile=$2 [QSA]
+
+
+RewriteRule ^card/([0-9]{1,11})$ ?core_mod=cards&core_act=index&id=$1 [QSA]
 ## forum subforum rewrite ##
 RewriteRule ^forum/subforum([0-9]{1,11})$ ?core_mod=forum&core_act=subforum&id=$1 [QSA]
 
