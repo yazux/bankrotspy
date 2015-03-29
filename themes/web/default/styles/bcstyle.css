@@ -505,3 +505,16 @@ text-decoration: underline;
     text-decoration: underline;
     cursor: pointer;
 }
+
+.show_span{
+    color: #8f8f92;
+    display: block;
+    border-top: 1px dotted #e8e8e8;
+    line-height: 13px;
+    padding-left: 2px;
+}
+.show_span:hover{
+     text-decoration: underline;
+     cursor: pointer;
+    color: #6b6b6e
+ }

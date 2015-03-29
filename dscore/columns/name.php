@@ -70,10 +70,12 @@ class column_name
     $name = $this->name;
     $now_lenght = mb_strlen($name);
 
+    $cutted = false;
     if($now_lenght > $this->lenght)
     {
       $name = mb_substr($this->name, 0, $this->lenght);
       $name = $name.'...';
+      $cutted = true;
     }
     $name = text::st($name);
 
@@ -121,8 +123,8 @@ class column_name
     }
 
     return array(
-      'col' => '<a target="_blank" class="namelink" href="'.core::$home.'/card/'.$this->attr.'"><i class="icon-share"></i>'.$name.'</a>'.(isset($addition)? $addition : '' ),
-      'style' => 'max-width: 200px;'
+      'col' => '<a target="_blank" class="namelink" href="'.core::$home.'/card/'.$this->attr.'"><i class="icon-share"></i><span id="min_name_'.$this->attr.'">'.$name.'</span><span style="display: none;" id="max_name_'.$this->attr.'">'.text::st($this->name).'</span></a>'.($cutted ? '<br/><span attr="'.$this->attr.'" class="show_span">Показать</span>' : '' ).(isset($addition)? $addition : '' ),
+      'style' => 'max-width: 300px;'
     );
   }
 }

@@ -575,6 +575,24 @@ function platform_set_listener()
   engine_settings.platforms = new_platforms;
 }
 
+function listen_namepop(item)
+{
+   var lotid = $(item).attr('attr');
+   var text_cont = $(item).text();
+   if(text_cont == 'Показать')
+   {
+     $(item).text('Скрыть');
+     $('#min_name_' + lotid).fadeOut(0);
+     $('#max_name_' + lotid).fadeIn(700);
+   }
+   else
+   {
+     $(item).text('Показать');
+     $('#max_name_' + lotid).fadeOut(0);
+     $('#min_name_' + lotid).fadeIn(700);
+   }
+}
+
 function place_set_listener()
 {
   //Регионы
@@ -592,6 +610,10 @@ function place_set_listener()
 }
 
 $(document).ready(function(){
+  $(document).on('click', '.show_span', function(){
+    listen_namepop(this);
+  });
+
     $(document).on('click', '#icon_close_butt', function(){
         $('.popup_overlay').fadeOut(200);
     });
