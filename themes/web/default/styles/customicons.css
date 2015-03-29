@@ -175,6 +175,18 @@ a .icon-align-right:hover:before
     color: #dd8b00;
 }
 
+.icon-user-male-bottom:before{
+    content: '\e822';
+    font-size: 12px;
+    position: relative;
+    top: -1px;
+    color: #dd8b00;
+}
+
+a .icon-user-male-bottom:hover:before{
+    color: #dd8b00;
+}
+
 /* Анимация иконки icon-spin5 */
 
 .icon-spin5:before {

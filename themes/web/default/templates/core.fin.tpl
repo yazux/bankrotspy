@@ -11,8 +11,10 @@
             <td style="width: 100%;padding-top: 10px;padding-left: 13px;">
               <span style="color: #bababa">BANKROT-SPY.RU <?=date("Y")?>г.</span>
             </td>
-            <td style="min-width: 210px;padding-top: 10px;text-align: right;padding-right: 8px;">
-                <span style="color: #888888"><?=round((microtime(true) - rem::get('microtime'))*1000, 0)?>ms, sql:<?=$sql_count?></span>
+            <td style="min-width: 210px;padding-top: 10px;text-align: right;padding-right: 17px;">
+                <!--<span style="color: #888888"><?=round((microtime(true) - rem::get('microtime'))*1000, 0)?>ms, sql:<?=$sql_count?></span>-->
+
+                <a class="user_onl_bottom" href="<?=$home?>/user/online"><i class="icon-user-male-bottom"></i> <?=$onl_all?></a>
             </td>
         </tr>
     </table>

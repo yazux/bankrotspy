@@ -19,15 +19,15 @@ while($data = $res->fetch_assoc())
   $out = array();  
   
   $out['id'] =  $data['id'];
-  $out['login'] = lang('guest');
+  $out['login'] = lang('guest_u');
   $out['usagent'] = $data['ua'];
-  $out['avatar'] = '';
+  $out['avatar'] = user::get_avatar(0, 0, 1);
   
   $arr[] = $out;  
   $i++;  
 }
 }
-engine_head(lang('u_online'));
+engine_head(lang('gues_onl'));
 temp::assign('total_in', $total);
 temp::HTMassign('out', $arr);
 temp::HTMassign('navigation', nav::display($total, core::$home.'/user/guests?'));
