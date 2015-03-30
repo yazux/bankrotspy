@@ -17,8 +17,8 @@
               <td>
                   <b><a href="<?=$home?>/pages/<?=$rmenu['id']?>"><?=$rmenu['name']?></a></b><br/>
               </td>
-                <td class="cont_act"><a title="<?=lang('edit_link')?>" href="<?=$home?>/pages/statedit?id=<?=$rmenu['id']?>"><i class="icon-edit"></i></a></td>
-                <td class="cont_act"><a title="<?=lang('del_link')?>" href="<?=$home?>/pages/statdel?id=<?=$rmenu['id']?>"><i class="icon-delete"></i></a></td>
+                <td class="cont_act"><a title="Редактировать страницу" href="<?=$home?>/pages/statedit?id=<?=$rmenu['id']?>"><i class="icon-edit"></i></a></td>
+                <td class="cont_act"><a title="Удалить страницу" href="<?=$home?>/pages/statdel?id=<?=$rmenu['id']?>"><i class="icon-delete"></i></a></td>
             </tr>
         </table>
     </div>
