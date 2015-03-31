@@ -61,32 +61,6 @@ if(core::$user_id)
     else
       $age = '';
     
-    $query = '';
-    // Контакты
-    $query .= 'SELECT COUNT(*) FROM `ds_mail_cont` WHERE cont_id="' . $id . '" AND user_id="' . core::$user_id . '";';
-    // Игнор
-    $query .= 'SELECT COUNT(*) FROM `ds_mail_ignor` WHERE cont_id="' . $id . '" AND user_id="' . core::$user_id . '";';
-    //Фотоальбомы
-    $query .= 'SELECT COUNT(*) FROM `ds_albums` WHERE `type` = "al" AND `userid` = "'.$id.'";';
-    //Фотоальбомы
-    $query .= 'SELECT COUNT(*) FROM `ds_albums` WHERE `type` = "ph" AND `userid` = "'.$id.'";';
-    core::$db->multi_query($query);
-    
-    $result = core::$db->store_result()->fetch_row();
-    $contacts = $result[0];
-    
-    core::$db->next_result();
-    $result = core::$db->store_result()->fetch_row();
-    $igns = $result[0];
-
-    core::$db->next_result();
-    $result = core::$db->store_result()->fetch_row();
-    $alb_count = $result[0];    
-    
-    core::$db->next_result();
-    $result = core::$db->store_result()->fetch_row();
-    $photo_count = $result[0];
-    
     
     // Права
     $eng_right = user::get_rights();
@@ -108,11 +82,7 @@ if(core::$user_id)
         temp::assign($key,$value);  
     }
 
-    temp::assign('alb_count',$alb_count);
-    temp::assign('photo_count',$photo_count);
     temp::assign('us_from','profile');
-    temp::assign('contacts',$contacts);
-    temp::assign('igns',$igns);
     temp::assign('name_prof', core::$user_id == $id ? lang('myprofile') : lang('anketa').' '.$data['login']);
     temp::assign('username',$data['login']);
     temp::assign('age',$age);
@@ -134,7 +104,7 @@ if(core::$user_id)
     if(CAN('ban_user', $data['rights']) and core::$user_id != $id)
       temp::assign('can_ban',1);
       
-    if($user_set['show_mail'])
+    if(isset($user_set['show_mail']) AND $user_set['show_mail'])
       temp::assign('mail',$data['mail']);
     temp::display('user.profile');
     engine_fin();    
