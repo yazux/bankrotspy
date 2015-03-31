@@ -28,12 +28,26 @@ $res = core::$db->query('SELECT * FROM  `ds_rights` ');
 
 $platforms = array();
 $platforms_def = array();
-$res = core::$db->query('SELECT * FROM `ds_maindata_platforms` ;');
+$res = core::$db->query('SELECT * FROM `ds_maindata_platforms` ORDER BY `platform_url` ASC;;');
 while($data = $res->fetch_array())
 {
   $platforms_def[$data['id']] = 1;
-  $platforms[$data['id']] = $data['platform_url'];
+  $platforms[] = array($data['id'], $data['platform_url']);
 }
+
+//Раскидываем по колонкам
+$half_platform = ceil(count($platforms)/2);
+$now_platforms = array();
+$i = 0;
+while($i <= $half_platform)
+{
+  if(isset($platforms[$i]))
+    $now_platforms[$platforms[$i][0]] = $platforms[$i][1];
+  if(isset($platforms[$i+$half_platform]))
+    $now_platforms[$platforms[$i+$half_platform][0]] = $platforms[$i+$half_platform][1];
+  $i++;
+}
+$platforms = $now_platforms;
 
 //Список регионов
 $bold_regions_set = array(77, 78, 50, 47);
