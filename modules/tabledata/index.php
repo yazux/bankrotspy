@@ -221,7 +221,7 @@ if($res->num_rows)
     $loc = array();
 
     //$loc['number'] = $tabledata->number($data['code'], $data['id']);
-    $loc['name'] = $tabledata->name($data['name'], 40, $data['id'],  $item_arr, $data['description']);
+    $loc['name'] = $tabledata->name($data['name'], 40, $data['id'], $item_arr, $data['description']);
     $loc['type'] = $tabledata->type($data['type']);
     $loc['place'] = $tabledata->place($data['place']);
     $loc['begindate'] = $tabledata->begindate($data['start_time']);
@@ -229,9 +229,12 @@ if($res->num_rows)
     $loc['beforedate'] = $tabledata->beforedate($data['start_time'], $data['end_time']);
     $loc['beginprice'] = $tabledata->beginprice($data['price']);
     $loc['nowprice'] = $tabledata->nowprice($data['now_price']);
-    $loc['marketprice'] = $tabledata->marketprice($data['market_price']);
-    $loc['profitrub'] = $tabledata->profitrub($data['profit_rub']);
-    $loc['profitproc'] = $tabledata->profitproc($data['profit_proc']);
+    if($category != 0)
+    {
+      $loc['marketprice'] = $tabledata->marketprice($data['market_price']);
+      $loc['profitrub'] = $tabledata->profitrub($data['profit_rub']);
+      $loc['profitproc'] = $tabledata->profitproc($data['profit_proc']);
+    }
     $loc['platform'] = $tabledata->platform($data['platform_id'], $data['auct_link']);
     $loc['favorite'] = $tabledata->favorite($data['id'], $data['item']);
     $out[] = $loc;
