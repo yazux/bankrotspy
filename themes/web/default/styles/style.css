@@ -620,7 +620,7 @@ input[type="text"], select, input[type="password"], input[type="file"], select {
 
 select {
     width: 260px;
-    padding: 6px 9px 7px 9px;
+    padding: 5px 9px 6px 9px;
     height: auto;
 }
 
