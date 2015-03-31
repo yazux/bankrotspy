@@ -12,11 +12,11 @@ class column_name
 
   function __construct($params)
   {
-    $this->name = isset($params[0]) ? $params[0] : '';
+    $this->name =isset($params[0]) ?  trim($params[0]) : '';
     $this->lenght = isset($params[1]) ? $params[1] : 0;
     $this->attr = isset($params[2]) ? $params[2] : '';
     $this->item_arr = isset($params[3]) ? $params[3] : array();
-    $this->descr = isset($params[4]) ? $params[4] : array();
+    $this->descr = isset($params[4]) ? trim($params[4]) : array();
   }
 
   public function before_load()
@@ -67,13 +67,24 @@ class column_name
 
   public function process()
   {
-    $name = $this->name;
+    if($this->name != $this->descr)
+    {
+      if(mb_substr_count($this->descr, $this->name))
+        $name = $this->descr;
+      else
+        $name = trim($this->name) . '. ' . $this->descr;
+    }
+    else
+      $name = $this->name;
+
+    $full_name = $name;
+
     $now_lenght = mb_strlen($name);
 
     $cutted = false;
     if($now_lenght > $this->lenght)
     {
-      $name = mb_substr($this->name, 0, $this->lenght);
+      $name = mb_substr($name, 0, $this->lenght);
       $name = $name.'...';
       $cutted = true;
     }
@@ -123,7 +134,7 @@ class column_name
     }
 
     return array(
-      'col' => '<a target="_blank" class="namelink" href="'.core::$home.'/card/'.$this->attr.'"><i class="icon-share"></i><span id="min_name_'.$this->attr.'">'.$name.'</span><span style="display: none;" id="max_name_'.$this->attr.'">'.text::st($this->name).'</span></a>'.($cutted ? '<br/><span attr="'.$this->attr.'" class="show_span">Показать</span>' : '' ).(isset($addition)? $addition : '' ),
+      'col' => '<a target="_blank" class="namelink" href="'.core::$home.'/card/'.$this->attr.'"><i class="icon-share"></i><span id="min_name_'.$this->attr.'">'.$name.'</span><span style="display: none;" id="max_name_'.$this->attr.'">'.text::st($full_name).'</span></a>'.($cutted ? '<br/><span attr="'.$this->attr.'" class="show_span">Показать</span>' : '' ).(isset($addition)? $addition : '' ),
       'style' => 'max-width: 300px;'
     );
   }
