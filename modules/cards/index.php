@@ -52,12 +52,25 @@ function out_price($price)
   return strrev($out_price);
 }
 
+$data['name'] = trim($data['name']);
+$data['description'] = trim($data['description']);
+
+if($data['name'] != $data['description'])
+{
+  if(mb_substr_count($data['description'], $data['name']))
+    $name = $data['description'];
+  else
+    $name = trim($data['name']) . '. ' . $data['description'];
+}
+else
+  $name = $data['name'];
+
 core::$page_description = mb_substr($data['name'], 0, 200);
 engine_head(lang('card_n').''.$id);
 
 temp::assign('lotname', $data['name']);
 temp::assign('id', $data['id']);
-temp::assign('lotdescr', $data['description']);
+temp::assign('lotdescr', $name);
 temp::assign('lotregion', $data['regionname']);
 temp::assign('lottype', $data['type_name']);
 temp::assign('lotstatus', $data['status_name']);
