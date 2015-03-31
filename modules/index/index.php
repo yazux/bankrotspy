@@ -36,12 +36,12 @@ while($data = $res->fetch_array())
 }
 
 //Список регионов
-$bold_regions_set = array(77, 78);
+$bold_regions_set = array(77, 78, 50, 47);
 $bold_places = array();
 //Достаем регионы
 $places_def = array();
 $places = array();
-$res = core::$db->query('SELECT * FROM  `ds_maindata_regions` ORDER BY `number` ASC;');
+$res = core::$db->query('SELECT * FROM  `ds_maindata_regions` ORDER BY `name` ASC;');
 while($data = $res->fetch_array())
 {
   $places_def[$data['number']] = 1;
@@ -50,6 +50,14 @@ while($data = $res->fetch_array())
   else
     $places[$data['number']] = $data['name'];
 }
+
+$new_bold_places = array();
+foreach ($bold_regions_set  AS $val)
+{
+  $new_bold_places[$val] = $bold_places[$val];
+}
+$bold_places = $new_bold_places;
+
 //Типы предложений в таблице
 $types = array();
 $types_def = array();

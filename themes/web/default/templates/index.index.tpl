@@ -200,7 +200,7 @@
                 <?foreach($bold_places as $pkey=>$pvalue): ?>
                 <?if($i % 2):?><tr><?endif?>
                     <td width="50%">
-                        <label><input type="checkbox" <?if($places_def[$pkey] == 1):?> checked="checked" <?endif?> name="place_number_<?=$pkey?>"/><b><?=$pkey?></b> <span style="font-weight: bold;"><?=$pvalue?></span></label><br/>
+                        <label><input type="checkbox" <?if($places_def[$pkey] == 1):?> checked="checked" <?endif?> name="place_number_<?=$pkey?>"/> <span style="font-weight: bold;"><?=$pvalue?></span></label><br/>
                     </td>
                     <?if($i % 2):?>
                     <?$last_tr = 0;?>
@@ -225,7 +225,7 @@
             <?foreach($places as $pkey=>$pvalue): ?>
                 <?if($i % 2):?><tr><?endif?>
                     <td width="50%">
-                       <label><input type="checkbox" <?if($places_def[$pkey] == 1):?> checked="checked" <?endif?> name="place_number_<?=$pkey?>"/><b><?=$pkey?></b> <?=$pvalue?></label><br/>
+                       <label><input type="checkbox" <?if($places_def[$pkey] == 1):?> checked="checked" <?endif?> name="place_number_<?=$pkey?>"/> <?=$pvalue?></label><br/>
                     </td>
                     <?if($i % 2):?>
                     <?$last_tr = 0;?>
