@@ -48,15 +48,29 @@ while($data = $res->fetch_array())
   if(in_array($data['number'], $bold_regions_set))
     $bold_places[$data['number']] = $data['name'];
   else
-    $places[$data['number']] = $data['name'];
+    $places[] = array($data['number'], $data['name']);
 }
 
+//Произвольная сортировка регионов вначале
 $new_bold_places = array();
 foreach ($bold_regions_set  AS $val)
-{
   $new_bold_places[$val] = $bold_places[$val];
-}
 $bold_places = $new_bold_places;
+
+//Раскидываем по колонкам
+$half = ceil(count($places)/2);
+$now_places = array();
+$i = 0;
+while($i <= $half)
+{
+  if(isset($places[$i]))
+    $now_places[$places[$i][0]] = $places[$i][1];
+  if(isset($places[$i+$half]))
+    $now_places[$places[$i+$half][0]] = $places[$i+$half][1];
+  $i++;
+}
+
+$places = $now_places;
 
 //Типы предложений в таблице
 $types = array();
