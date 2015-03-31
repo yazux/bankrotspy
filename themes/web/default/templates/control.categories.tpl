@@ -4,7 +4,7 @@
 
             <div class="content">
                 <div class="conthead">
-                    <h2><i class="icon-cog-alt"></i> Группы и доступ</h2>
+                    <h2><i class="icon-cog-alt"></i> Категории и ключевые слова</h2>
                 </div>
 
             <?if($rmenu):?>
@@ -13,16 +13,13 @@
             <div class="contbody_forms">
                 <table>
                     <tr>
-                        <td valign="top" style="width: 30px;padding: 4px 0 4px 0"><i class="icon-users"></i></td>
+                        <td valign="top" style="width: 30px;padding: 4px 0 4px 0"><i class="icon-tags"></i></td>
                         <td>
                             <b><?=$rmenu['name']?></b> (id: <?=$rmenu['id']?>)<br/>
                             <hr style="margin: 3px 6px 3px 8px"/>
-                            <span style="font-size: 13px;"><?=$rmenu['undtext']?></span>
+                            <span style="font-size: 13px;"><span style="color: #949498">Ключевые слова:</span> <?=$rmenu['undtext']?></span>
                         </td>
-                        <?if($rmenu['id'] != 0 AND $rmenu['id'] != 100):?>
-                        <td valign="top" class="cont_act"><a title="<?=lang('edit_link')?>" href="<?=$home?>/control/editgroup?id=<?=$rmenu['id']?>"><i class="icon-edit"></i></a></td>
-                        <td valign="top" class="cont_act"><a title="<?=lang('del_link')?>" onclick="sup(<?=$rmenu['id']?>)" ><i class="icon-delete"></i></a></td>
-                        <?endif?>
+                        <td valign="top" class="cont_act"><a title="<?=lang('edit_link')?>" href="<?=$home?>/control/editcategory?id=<?=$rmenu['id']?>"><i class="icon-edit"></i></a></td>
                     </tr>
                 </table>
 
@@ -33,8 +30,8 @@
             <div class="contbody_forms">Нет ни одного пункта меню.</div>
             <?endif?>
 
-                <div class="contfin">
-                    <a class="urlbutton" href="<?=$home?>/control/creategroup">Добавить группу</a>
+                <div class="contfin_forms">
+                  <br/>
                 </div>
             </div>
 

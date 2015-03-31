@@ -18,6 +18,11 @@ a [class^="icon-"]:hover:before,a [class*=" icon-"]:hover:before {
     font-size: 28px;
 }
 
+.icon-tags:before, .icon-users:before
+{
+    font-size: 18px;
+}
+
 .icon-globe-table:before { content: '\e801'; } /* '' */
 .icon-globe-table:before{
     font-size: 11px;
