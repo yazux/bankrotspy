@@ -10,7 +10,7 @@
             </div>
             <?endif?>
 
-            <form action="<?=$home?>/pages/add?att=<?=$att?>" method="post" enctype="multipart/form-data">
+            <form name="mess" action="<?=$home?>/pages/add?att=<?=$att?>" method="post" enctype="multipart/form-data">
                 <? temp::formid() /* ЭТА ФУНКЦИЯ ОБЯЗАТЕЛЬНА ДЛЯ ВСЕХ ФОРМ!!! */?>
                 <div class="content">
                     <div class="conthead"><h2><i class="icon-docs"></i> Новая страница</h2></div>

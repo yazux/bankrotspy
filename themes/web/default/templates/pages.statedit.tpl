@@ -10,7 +10,7 @@
             </div>
             <?endif?>
 
-            <form action="<?=$home?>/pages/statedit?id=<?=$id?>" method="post" enctype="multipart/form-data">
+            <form name="mess" action="<?=$home?>/pages/statedit?id=<?=$id?>" method="post" enctype="multipart/form-data">
                 <? temp::formid() /* ЭТА ФУНКЦИЯ ОБЯЗАТЕЛЬНА ДЛЯ ВСЕХ ФОРМ!!! */?>
 
                 <div class="content">
