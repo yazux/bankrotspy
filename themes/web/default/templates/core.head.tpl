@@ -115,7 +115,7 @@
                                 <?foreach($rmenu as $rmenu):?>
 
                                    <td>
-                                       <a href='<?=$rmenu['link']?>'><?=$rmenu['name']?>
+                                       <a <?if($rmenu['new_tab']):?>target="_blank"<?endif?> href='<?=$rmenu['link']?>'><?=$rmenu['name']?>
 
                                             <?if($rmenu['one_cnt'] AND core::$user_id):?>
                                             <?if(counts::get($rmenu['one_cnt'])):?>

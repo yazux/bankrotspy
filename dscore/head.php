@@ -40,6 +40,8 @@ while($data = $res->fetch_array())
   $loc['two_cnt'] = $data['two_counter'];
   $loc['three_counter'] = $data['three_counter'];
   $loc['link'] = str_replace('<<home_link>>', core::$home, $data['link']);
+  if(!mb_substr_count($data['link'], '<<home_link>>'))
+    $loc['new_tab'] = 1;
   $rmenu[] = $loc;
 }
 
