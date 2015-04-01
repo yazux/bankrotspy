@@ -104,7 +104,7 @@ if($id and core::$user_id)
          if(file_exists('images/avatars/'.$data['avtime'].'_'.$id.'.png'))
            unlink('images/avatars/'.$data['avtime'].'_'.$id.'.png');
           
-         func::notify(lang('anketa').' | '.lang('avatar') , lang('av_deleted'), core::$home.'/user/profile?id='.$id); 
+         func::notify(lang('anketa').' | '.lang('avatar') , lang('av_deleted'), core::$home.'/user/avedit?id='.$id);
       }  
 
       $avatar = user::get_avatar($id, $data['avtime']);
