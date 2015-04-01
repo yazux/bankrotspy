@@ -48,6 +48,9 @@
     <?=$capcha?><br/>
     <input type="text" name="vcode" size="4" value="" />
   </div>
+  <div class="contbody_forms">
+     Внимание! Продолжая регистрацию вы соглашаетесь с <a href="http://bankrot-spy.ru/url?out=http%3A%2F%2Fbankrot-spy.ru%2Foferta.pdf">Публичным договором оферты</a>.
+  </div>
   <div class="contfin_forms">
     <input type="submit" value="<?=lang('save')?>" />
   </div>
