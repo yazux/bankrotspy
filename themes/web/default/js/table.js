@@ -517,6 +517,28 @@ function search_listener()
     create_head_mess_html(str_err);
 }
 
+function restore_settings()
+{
+  $('[name="svalname"]').val(engine_settings.svalue);
+
+  $.each(default_settings.types, function(key, val) {
+    $('[name="type_auct_' + key + '"]').prop('checked', false);
+  });
+  $.each(engine_settings.types, function(key, val) {
+    $('[name="type_auct_' + key + '"]').prop('checked', true);
+  });
+
+  $('[name="begin_set_date"]').val(engine_settings.begin_date);
+  $('[name="end_set_date"]').val(engine_settings.end_date);
+
+  $('[name="altintconf"]').val(engine_settings.altint);
+
+  $('[name="price_start"]').val(engine_settings.price_start);
+  $('[name="price_end"]').val(engine_settings.price_end);
+
+  $("input[name=type_price][value='" + engine_settings.type_price + "']").prop("checked",true);
+}
+
 
 function clean_set_listener()
 {

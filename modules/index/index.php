@@ -103,37 +103,42 @@ while($data = $res->fetch_array())
   $categories[$data['id']] = text::st($data['name']);
 }
 
-  //Настройки по умолчанию
-  $set_table_array = array(
-    'category' => -2,
-    'page' => 1,
-    'kmess' => 20,
-    'svalue' => '',
-    'types' => $types_def,
-    'begin_date' => '',
-    'end_date' => '',
-    'altint' => '',
-    'price_start' => '',
-    'price_end' => '',
-    'type_price' => 1,
-    'sortcolumn' => '',
-    'sorttype' => '',
-    'places' => $places_def,
-    'platforms' => $places_def,
-  );
+
+//Настройки по умолчанию
+$set_table_array = defaultset::get(array($types_def, $places_def, $platforms_def));
+
+//Сохраненный поиск пользователя
+if(core::$user_id AND isset(core::$user_set['tabledata']) AND core::$user_set['tabledata'])
+{
+  $save_set = array();
+  $user_tset = json_decode(core::$user_set['tabledata'], 1);
+  //Проходимся еще раз, вдруг в таблице добавились новые настройки
+  foreach($set_table_array AS $key => $value)
+  {
+    if(isset($user_tset[$key]))
+      $save_set[$key] = $user_tset[$key];
+    else
+      $save_set[$key] = $value;
+  }
+  $places_used = $user_tset['places'];
+  $platforms_used = $user_tset['platforms'];
+}
 
 engine_head();
 temp::assign('table_default_set', json_encode($set_table_array));
-temp::assign('table_set', json_encode($set_table_array));
+temp::assign('table_set', (isset($save_set) ? json_encode($save_set) : json_encode($set_table_array)));
 temp::HTMassign('types_set', $types);
 temp::HTMassign('types_def', $types_def);
 temp::HTMassign('categories', $categories);
 temp::HTMassign('places', $places);
+temp::HTMassign('places_used', isset($places_used) ? $places_used : $places_def);
+
 temp::HTMassign('bold_places', $bold_places);
 temp::HTMassign('places_def', $places_def);
 
 temp::HTMassign('platforms', $platforms);
 temp::HTMassign('platforms_def', $platforms_def);
+temp::HTMassign('platforms_used', isset($platforms_used) ? $platforms_used : $platforms_def);
 
 temp::assign('type_price', $set_table_array['type_price']);
 temp::display('index.index');

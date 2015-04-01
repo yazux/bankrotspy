@@ -8,10 +8,10 @@
                     <table>
                         <tr>
                             <td valign="top">
-                                <i class="icon-address"></i> <b>Регионы:</b> выбрано <span id="total_places_set"><?=count($places)?></span> из <?=count($places_def)?> <span id="region_set" class="change_block_set"><i class="icon-edit-orange"></i>Изменить</span>
+                                <i class="icon-address"></i> <b>Регионы:</b> выбрано <span id="total_places_set"><?=count($places_used)?></span> из <?=count($places_def)?> <span id="region_set" class="change_block_set"><i class="icon-edit-orange"></i>Изменить</span>
                             </td>
                             <td valign="top" style="border-right: 0">
-                                <i class="icon-globe-set"></i> <b>Площадки:</b> выбрано <span id="total_platforms_set"><?=count($platforms)?></span> из <?=count($platforms_def)?> <span id="platform_set" class="change_block_set"><i class="icon-edit-orange"></i>Изменить</span>
+                                <i class="icon-globe-set"></i> <b>Площадки:</b> выбрано <span id="total_platforms_set"><?=count($platforms_used)?></span> из <?=count($platforms_def)?> <span id="platform_set" class="change_block_set"><i class="icon-edit-orange"></i>Изменить</span>
                             </td>
                         </tr>
                     </table>
@@ -151,7 +151,12 @@
     var default_settings = jQuery.parseJSON($('#table_default_set').text());
     var engine_global_loader = 0; //Показывать ли в первый раз оповещение о загрузке таблицы
 
+
     load_table();
+    $(document).ready(function()
+    {
+        restore_settings();
+    });
 
     $(document).on('click', '.data_table .icon_to_click', function(){
         listen_to_favorite(this);
@@ -200,7 +205,7 @@
                 <?foreach($bold_places as $pkey=>$pvalue): ?>
                 <?if($i % 2):?><tr><?endif?>
                     <td width="50%">
-                        <label><input type="checkbox" <?if($places_def[$pkey] == 1):?> checked="checked" <?endif?> name="place_number_<?=$pkey?>"/> <span style="font-weight: bold;"><?=$pvalue?></span></label><br/>
+                        <label><input type="checkbox" <?if($places_used[$pkey] == 1):?> checked="checked" <?endif?> name="place_number_<?=$pkey?>"/> <span style="font-weight: bold;"><?=$pvalue?></span></label><br/>
                     </td>
                     <?if($i % 2):?>
                     <?$last_tr = 0;?>
@@ -225,7 +230,7 @@
             <?foreach($places as $pkey=>$pvalue): ?>
                 <?if($i % 2):?><tr><?endif?>
                     <td width="50%">
-                       <label><input type="checkbox" <?if($places_def[$pkey] == 1):?> checked="checked" <?endif?> name="place_number_<?=$pkey?>"/> <?=$pvalue?></label><br/>
+                       <label><input type="checkbox" <?if($places_used[$pkey] == 1):?> checked="checked" <?endif?> name="place_number_<?=$pkey?>"/> <?=$pvalue?></label><br/>
                     </td>
                     <?if($i % 2):?>
                     <?$last_tr = 0;?>
@@ -266,7 +271,7 @@
                 <?foreach($platforms as $pkey=>$pvalue): ?>
                 <?if($i % 2):?><tr><?endif?>
                     <td width="50%">
-                        <label><input type="checkbox" <?if($places_def[$pkey] == 1):?> checked="checked" <?endif?> name="platform_number_<?=$pkey?>"/><i class="icon-globe-table"></i><?=$pvalue?></label><br/>
+                        <label><input type="checkbox" <?if($platforms_used[$pkey] == 1):?> checked="checked" <?endif?> name="platform_number_<?=$pkey?>"/><i class="icon-globe-table"></i><?=$pvalue?></label><br/>
                     </td>
                     <?if($i % 2):?>
                     <?$last_tr = 0;?>
