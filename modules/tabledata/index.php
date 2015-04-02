@@ -229,11 +229,15 @@ if($res->num_rows)
     $loc['beforedate'] = $tabledata->beforedate($data['start_time'], $data['end_time']);
     $loc['beginprice'] = $tabledata->beginprice($data['price']);
     $loc['nowprice'] = $tabledata->nowprice($data['now_price']);
-    if($category != 0)
+    if($category != 0 AND $category != 4 AND $category != 8 AND $category != 2)
     {
       $loc['marketprice'] = $tabledata->marketprice($data['market_price']);
       $loc['profitrub'] = $tabledata->profitrub($data['profit_rub']);
       $loc['profitproc'] = $tabledata->profitproc($data['profit_proc']);
+    }
+    elseif($category == 0 OR $category == 4 OR $category == 8)
+    {
+      $loc['pricediff'] = $tabledata->pricediff($data['price_dif']);
     }
     $loc['platform'] = $tabledata->platform($data['platform_id'], $data['auct_link']);
     $loc['favorite'] = $tabledata->favorite($data['id'], $data['item']);
