@@ -18,7 +18,6 @@ else
           `login`="'.core::$db->res($data['login']).'",
           `password`="'.$data['password'].'",
           `mail`="'.core::$db->res($data['mail']).'",
-          `sex`="'.$data['sex'].'",
           `rights`="0",
           `time`="'.$data['time'].'",
           `ip`="'.core::$db->res(core::$ipl).'",

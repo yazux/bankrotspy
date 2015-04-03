@@ -36,14 +36,6 @@
     <input type="text" name="mail" value="<?=$mail?>" />
   </div>
   <div class="contbody_forms">
-    <b><?=lang('sex')?></b><br/>
-        <select name="sex">
-          <option value="">--</option>
-          <option value="m" <?if($sex=='m'):?>selected="selected"<?endif?> ><?=lang('sex_m')?></option>
-          <option value="w" <?if($sex=='w'):?>selected="selected"<?endif?> ><?=lang('sex_w')?></option>
-        </select>
-  </div>
-  <div class="contbody_forms">
     <b><?=lang('capcha')?></b><br/>
     <?=$capcha?><br/>
     <input type="text" name="vcode" size="4" value="" />

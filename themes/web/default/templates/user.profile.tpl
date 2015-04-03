@@ -31,10 +31,6 @@
                             <td><?=$name ? $name : lang('none') ?></td>
                         </tr>
                         <tr>
-                            <td style="width: 120px;"><b><span class="user_mark"><?=lang('sex')?> </span></b><br/></td>
-                            <td><?=$sex?></td>
-                        </tr>
-                        <tr>
                             <td style="width: 120px;"><b><span class="user_mark"><?=lang('age')?></span></b><br/></td>
                             <td><?if($age):?><?=$age?> (<?=$zodiac?>)<?else:?><?=lang('none')?><?endif?></td>
                         </tr>

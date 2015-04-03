@@ -45,11 +45,11 @@ if(!core::$user_id)
     elseif(user::mail_exists($mail))
       $error[] = lang('mail_ex');
       
-    $sex = POST('sex');
-    if(!$sex)
-      $error[] = lang('miss_sex');
-    elseif($sex != 'm' and $sex != 'w')
-      $error[] = lang('err_sex');
+    //$sex = POST('sex');
+    //if(!$sex)
+    //  $error[] = lang('miss_sex');
+    //elseif($sex != 'm' and $sex != 'w')
+    //  $error[] = lang('err_sex');
   
     if(!func::capcha())
       $error[] = lang('miss_capcha');
@@ -89,7 +89,6 @@ if(!core::$user_id)
           `password`="'.md5(md5($pass)).'",
           `key`="'.core::$db->res($pass_mail).'",
           `mail`="'.core::$db->res($mail).'",
-          `sex`="'.$sex.'",
           `time`="'.time().'",
           `ip`="'.core::$db->res(core::$ipl).'",
           `ua`="'.core::$db->res(core::$ua).'",
@@ -106,7 +105,7 @@ if(!core::$user_id)
       temp::assign('pass',$pass);
       temp::assign('pass_rep',$pass_rep);
       temp::assign('mail',$mail);
-      temp::assign('sex',$sex);
+      //temp::assign('sex',$sex);
       temp::HTMassign('capcha',func::img_capcha());
       temp::display('user.register');
       engine_fin();
