@@ -16,6 +16,11 @@
     <div class="conthead">
         <h2><?=lang('registration')?></h2>
     </div>
+    <?if($text):?>
+    <div class="contbody_forms">
+        <?=$text?>
+    </div>
+    <?endif?>
   <div class="contbody_forms">
     <b><?=lang('nick')?></b><br/>
     <span class="under"><?=lang('nick_und')?></span><br/>
@@ -41,7 +46,7 @@
     <input type="text" name="vcode" size="4" value="" />
   </div>
   <div class="contbody_forms">
-     Внимание! Продолжая регистрацию вы соглашаетесь с <a href="http://bankrot-spy.ru/url?out=http%3A%2F%2Fbankrot-spy.ru%2Foferta.pdf">Публичным договором оферты</a>.
+     Внимание! Продолжая регистрацию вы соглашаетесь с <a href="<?=$home?>/oferta.pdf">Публичным договором оферты</a>.
   </div>
   <div class="contfin_forms">
     <input type="submit" value="<?=lang('save')?>" />

@@ -111,8 +111,15 @@ if(!core::$user_id)
       engine_fin();
     }
   }
+
+   $res = core::$db->query('SELECT * FROM  `ds_reg_page` WHERE `id` = "1";');
+   $data = $res->fetch_assoc();
+   text::add_cache($data['cache']);
+   $text =  text::out($data['text'], 0, $data['id']);
+
   engine_head(lang('register'));
   temp::HTMassign('capcha',func::img_capcha());
+  temp::HTMassign('text', $text);
   temp::display('user.register');
   engine_fin();
  }
