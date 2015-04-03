@@ -97,7 +97,7 @@ while($data = $res->fetch_array())
 }
 
 $categories = array();
-$res = core::$db->query('SELECT * FROM `ds_maindata_category` ORDER BY `id` ASC;');
+$res = core::$db->query('SELECT * FROM `ds_maindata_category` ORDER BY `usort` ASC;');
 while($data = $res->fetch_array())
 {
   $categories[$data['id']] = text::st($data['name']);

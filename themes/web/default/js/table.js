@@ -200,7 +200,7 @@ function answer_load(data)
         $('.data_table').html(all_data);
 
         var start_int = ((engine_settings.page * engine_settings.kmess) - engine_settings.kmess)+1;
-        var fin_int = (start_int + engine_settings.kmess - 1);
+        var fin_int = (start_int + parseInt(engine_settings.kmess) - 1);
         if(fin_int > obj.count)
           fin_int = obj.count;
         var bar_info = 'Показаны результаты: '+ start_int +'-'+ fin_int +' из ' + obj.count;

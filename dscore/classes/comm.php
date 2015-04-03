@@ -12,6 +12,7 @@ class comm
   public static $page;
   public static $lastview = 0;
   private static $lastview_used = false;
+  public static $sort;
 
   function __construct($module, $action, $mid)
   {
@@ -73,7 +74,12 @@ class comm
 
   static function view($start, $limit)
   {
-    $res = core::$db->query('SELECT `ds_comm`.*, `ds_users`.`lastvisit`, `ds_users`.`avtime`, `ds_users`.`sex`, `ds_users`.`rights` FROM `ds_comm` LEFT JOIN `ds_users` ON `ds_comm`.`userid` = `ds_users`.`id` WHERE `ds_comm`.`module`="'.self::$module.'" AND `ds_comm`.`mid` = "'.self::$mid.'" ORDER BY `ds_comm`.`time` ASC LIMIT '.$start.', '.$limit.';');  
+    if(!self::$sort)
+      $sort = 'ASC';
+    else
+      $sort = 'DESC';
+
+    $res = core::$db->query('SELECT `ds_comm`.*, `ds_users`.`lastvisit`, `ds_users`.`avtime`, `ds_users`.`sex`, `ds_users`.`rights` FROM `ds_comm` LEFT JOIN `ds_users` ON `ds_comm`.`userid` = `ds_users`.`id` WHERE `ds_comm`.`module`="'.self::$module.'" AND `ds_comm`.`mid` = "'.self::$mid.'" ORDER BY `ds_comm`.`time` '.$sort.' LIMIT '.$start.', '.$limit.';');
     
     $eng_right = user::get_rights();
     
