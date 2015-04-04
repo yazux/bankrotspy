@@ -366,7 +366,7 @@ function compile_arr_set(obj)
   var string = '';
   var i =0;
   $.each(obj, function(key, val) {
-    if(val = 1)
+    if(val == 1)
     {
       if(i != 0)
         string += '|';
@@ -416,7 +416,8 @@ function load_table()
       sortcolumn: engine_settings.sortcolumn,
       sorttype: engine_settings.sorttype,
       places: compile_arr_set(engine_settings.places),
-      platforms: compile_arr_set(engine_settings.platforms)
+      platforms: compile_arr_set(engine_settings.platforms),
+      status: compile_arr_set(engine_settings.status)
     },
     answer_load
   );
@@ -446,6 +447,20 @@ function search_listener()
     }
   });
   engine_settings.types = new_types;
+
+  //Статус торгов
+  var new_status = {};
+  var choosen_st = 0;
+  $.each(default_settings.status, function(key, val) {
+    if($('[name="status_auct_' + key + '"]').prop('checked'))
+    {
+      new_status[key] = 1;
+      choosen_st++;
+    }
+  });
+  engine_settings.status = new_status;
+  if(choosen_st < 1)
+    str_err += 'Выберите хотя бы один статус торгов!'+ '<br/>';
 
   //Дата начала конца торгов
   var begin_d = $('[name="begin_set_date"]').val();
@@ -528,6 +543,14 @@ function restore_settings()
     $('[name="type_auct_' + key + '"]').prop('checked', true);
   });
 
+  $.each(default_settings.status, function(key, val) {
+    $('[name="status_auct_' + key + '"]').prop('checked', false);
+  });
+  $.each(engine_settings.status, function(key, val) {
+    if(val==1)
+       $('[name="status_auct_' + key + '"]').prop('checked', true);
+  });
+
   $('[name="begin_set_date"]').val(engine_settings.begin_date);
   $('[name="end_set_date"]').val(engine_settings.end_date);
 
@@ -550,6 +573,16 @@ function clean_set_listener()
     $('[name="type_auct_' + key + '"]').prop('checked', true);
   });
   engine_settings.types = default_settings.types;
+
+  $.each(default_settings.status, function(key, val) {
+    $('[name="status_auct_' + key + '"]').prop('checked', false);
+  });
+  var new_status = {};
+  $.each(default_settings.status, function(key, val) {
+    if(val==1)
+      $('[name="status_auct_' + key + '"]').prop('checked', true);
+  });
+  engine_settings.status = default_settings.status;
 
   engine_settings.begin_date = '';
   engine_settings.end_date = '';

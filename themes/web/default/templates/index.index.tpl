@@ -24,11 +24,22 @@
                                <input type="text" name="svalname"/>
 
                                <hr/>
-
-                               <i class="icon-hammer-set"></i> Тип торгов:<br/>
-                               <?foreach($types_set as $tkey=>$tvalue): ?>
-                                  <label><input type="checkbox" <?if($types_def[$tkey] == 1):?> checked="checked" <?endif?> name="type_auct_<?=$tkey?>"/><?=$tvalue?></label><br/>
-                               <?endforeach?>
+                               <table>
+                                   <tr>
+                                     <td style="width: 50%;">
+                                         <i class="icon-hammer-set"></i> Тип торгов:<br/>
+                                         <?foreach($types_set as $tkey=>$tvalue): ?>
+                                         <label><input type="checkbox" <?if($types_def[$tkey] == 1):?> checked="checked" <?endif?> name="type_auct_<?=$tkey?>"/><?=$tvalue?></label><br/>
+                                         <?endforeach?>
+                                     </td>
+                                     <td style="border-right: 0;white-space: nowrap;width: 50%;">
+                                         <i class="icon-clock"></i> Статус:<br/>
+                                         <label><input type="checkbox" name="status_auct_1"/>Объявленные</label><br/>
+                                         <label><input type="checkbox" name="status_auct_2"/>Торгуется</label><br/>
+                                         <label><input type="checkbox" name="status_auct_3"/>Окончены</label><br/>
+                                     </td>
+                                   </tr>
+                               </table>
                            </td>
                            <td valign="top">
                                <i class="icon-calendar"></i> Дата подачи:<br/>

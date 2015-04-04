@@ -9,3 +9,4 @@
 /deploy/logs
 /deploy/deploy.config.php
 /dscore/includes/db.php
+/data/http_antiflood.dat

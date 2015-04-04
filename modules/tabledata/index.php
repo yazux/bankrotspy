@@ -63,6 +63,19 @@ $places = check_places($places);
 $platforms = POST('platforms');
 $platforms = check_platforms($platforms);
 
+$status_need_future = false;
+$status_need_now = false;
+$status_need_last = false;
+$status_item = explode('|', POST('status'));
+if(in_array(1, $status_item))
+  $status_need_future = 1;
+if(in_array(2, $status_item))
+  $status_need_now = 1;
+if(in_array(3, $status_item))
+  $status_need_last = 1;
+
+//echo POST('status').'|'.$status_need_future.'-'.$status_need_now.'-'.$status_need_last;
+
 $svalue = POST('svalue');
 if(mb_strlen($svalue) < 2)
   $svalue = '';
@@ -76,8 +89,11 @@ if($kmess > 40)
   $kmess = 40;
 $start =  $now_page ? $now_page * $kmess - $kmess : 0;
 
-//Условия для WHERE
+//Условия для WHERE (компилятся через AND)
 $conditions = array();
+
+//Условия для WHERE (компилятся через OR)
+$conditions_or = array();
 
 //Дополнительные условия для LEFT JOIN
 $join_conditions = array();
@@ -142,6 +158,24 @@ if(!$begin_date AND !$end_date)
   }
 }
 
+//Статусы
+if($status_need_future AND $status_need_now AND $status_need_last)
+{
+  //Ничего не делаем, облегчаем работу для базы, выводится все
+}
+else
+{
+  $before_close = array(3, 4, 5, 6, 7);
+  $edtime = strtotime(date('Y').'-'.date('n').'-'.date('j'));
+  if($status_need_future)
+    $conditions_or['status_start'] = ' `ds_maindata`.`start_time` > "' . $edtime . '" ';
+  if($status_need_now)
+    $conditions_or['status_now'] = ' ( `ds_maindata`.`status` NOT IN ('.implode(', ', $before_close).') AND ( `ds_maindata`.`start_time` <= "' . $edtime . '" AND `ds_maindata`.`end_time` >= "' . $edtime . '" ) ) ';
+  if($status_need_last)
+    $conditions_or['status_last'] = ' ( `ds_maindata`.`status` IN ('.implode(', ', $before_close).') OR `ds_maindata`.`end_time` < "' . $edtime . '") ';
+}
+
+
 if($price_start)
   $conditions['price_start'] = ' `ds_maindata`.`'.$price_search.'` > "' . $price_start . '" ';
 
@@ -156,8 +190,17 @@ if($price_start OR $price_end)
 
 //Компилим условия
 $where_cond = '';
-if($conditions)
-  $where_cond = ' WHERE '.implode(' AND ', $conditions);
+if($conditions OR $conditions_or)
+{
+  $where_and = '';
+  $where_or = '';
+  if($conditions)
+    $where_and = '('.implode(' AND ', $conditions).')';
+  if($conditions_or)
+    $where_or = '('.implode(' OR ', $conditions_or).')';
+
+  $where_cond = ' WHERE '.$where_and.' '.(($where_and AND $where_or) ? ' AND ' : '').' '.$where_or;
+}
 
 $join_cond = '';
 if($join_conditions)
@@ -191,7 +234,8 @@ $count = core::$db->query('SELECT
 $res = core::$db->query('SELECT
   `ds_maindata`.*,
   `ds_maindata_favorive`.`item`,
-  `ds_maindata_regions`.`name` AS `regionname`
+  `ds_maindata_regions`.`name` AS `regionname`,
+  `ds_maindata_status`.`status_name`
   ' . $select_cond . '
   FROM
   `ds_maindata`
@@ -201,6 +245,8 @@ $res = core::$db->query('SELECT
   `ds_maindata_regions` ON `ds_maindata`.`place` = `ds_maindata_regions`.`number`
   LEFT JOIN
   `ds_maindata_platforms` ON `ds_maindata`.`platform_id` = `ds_maindata_platforms`.`id`
+  LEFT JOIN
+  `ds_maindata_status` ON `ds_maindata`.`status` = `ds_maindata_status`.`id`
 
   '.$where_cond.'
 
@@ -226,7 +272,7 @@ if($res->num_rows)
     $loc['place'] = $tabledata->place($data['place']);
     $loc['begindate'] = $tabledata->begindate($data['start_time']);
     $loc['closedate'] = $tabledata->closedate($data['end_time']);
-    $loc['beforedate'] = $tabledata->beforedate($data['start_time'], $data['end_time']);
+    $loc['beforedate'] = $tabledata->beforedate($data['start_time'], $data['end_time'], $data['status_name']);
     $loc['beginprice'] = $tabledata->beginprice($data['price']);
     $loc['nowprice'] = $tabledata->nowprice($data['now_price']);
     if($category != 0 AND $category != 4 AND $category != 8 AND $category != 2)

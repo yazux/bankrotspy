@@ -10,7 +10,7 @@ defined('DS_ENGINE') or die('web_demon laughs');
 class ipinit {
 	  //$data = parse_ini_file('../files/cache/ipinit_set.dat');
     public $ip;    // IP адрес в LONG формате
-    public $flood_chk = 0;    // Включение - выключение функции IP антифлуда
+    public $flood_chk = 1;    // Включение - выключение функции IP антифлуда
     public $flood_interval = '120';    // Интервал времени в секундах
     public $flood_limit = '200';    // Число разрешенных запросов за интервал
     public $flood_file = 'http_antiflood.dat';    // Рабочий файл функции
