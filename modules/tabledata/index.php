@@ -165,7 +165,7 @@ if($status_need_future AND $status_need_now AND $status_need_last)
 }
 else
 {
-  $before_close = array(3, 4, 5, 6, 7);
+  $before_close = array(3, 4, 5, 6);
   $edtime = strtotime(date('Y').'-'.date('n').'-'.date('j'));
   if($status_need_future)
     $conditions_or['status_start'] = ' `ds_maindata`.`start_time` > "' . $edtime . '" ';
@@ -272,7 +272,7 @@ if($res->num_rows)
     $loc['place'] = $tabledata->place($data['place']);
     $loc['begindate'] = $tabledata->begindate($data['start_time']);
     $loc['closedate'] = $tabledata->closedate($data['end_time']);
-    $loc['beforedate'] = $tabledata->beforedate($data['start_time'], $data['end_time'], $data['status_name']);
+    $loc['beforedate'] = $tabledata->beforedate($data['start_time'], $data['end_time'], $data['status_name'], $data['status']);
     $loc['beginprice'] = $tabledata->beginprice($data['price']);
     $loc['nowprice'] = $tabledata->nowprice($data['now_price']);
     if($category != 0 AND $category != 4 AND $category != 8 AND $category != 2)

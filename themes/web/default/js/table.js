@@ -481,7 +481,7 @@ function search_listener()
   engine_settings.altint = altint;
 
   if((begin_d || end_d) && altint)
-    str_err += 'Нельзя одновременно использовать "Дату подачи" и функцию "Дней до торгов"!' + '<br/>';
+    str_err += 'Нельзя одновременно использовать "Дату подачи" и функцию "Дней до подачи заявок"!' + '<br/>';
 
   //Минимальная и максимальная цены
   var price_start = parseInt($('[name="price_start"]').val());

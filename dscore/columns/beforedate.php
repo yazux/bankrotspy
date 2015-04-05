@@ -6,12 +6,14 @@ class column_beforedate
   private $time;
   private $endtime;
   private $status;
+  private $intstatus;
 
   function __construct($params)
   {
     $this->time = isset($params[0]) ? $params[0] : '';
     $this->endtime = isset($params[1]) ? $params[1] : '';
     $this->status = isset($params[2]) ? $params[2] : '';
+    $this->intstatus = isset($params[3]) ? $params[3] : '';
   }
 
   public function before_load()
@@ -24,7 +26,7 @@ class column_beforedate
   public function name()
   {
     return array(
-      'name' => 'Дней до торгов'
+      'name' => 'Статус'
     );
   }
 
@@ -35,27 +37,28 @@ class column_beforedate
     $days = (($start_time - $nowtime + 3600)/3600/24);
     if($days <= 0)
     {
-      //$days = ($start_time - $nowtime) / 3600 / 24;
       $end_time = strtotime(date('Y', $this->endtime).'-'.date('n', $this->endtime).'-'.date('j', $this->endtime));
       if($nowtime <= $end_time)
       {
         //Определяем статус точнее
-        if($this->status)
+        $before_close = array(3, 4, 5, 6);
+        if(in_array($this->intstatus, $before_close))
         {
-          if($this->status == 'Оконченный')
-            $days = 'Торги окончены';
-          else
-            $days = text::st($this->status);
+          //Если пришел один из статусов окончания
+          $days = text::st($this->status);
         }
         else
-          $days = 'Торгуется';
+          $days = 'Приём заявок';
+
+        if($days == 'Оконченный')
+          $days = 'Торги окончены';
 
       }
       else
         $days = 'Торги окончены';
     }
     else
-      $days = round($days,0);
+      $days = round($days,0).' дня(-ей) до подачи заявок';
 
     return array(
       'col' => $days,

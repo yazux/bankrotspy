@@ -44,11 +44,11 @@
                             <td><?=$lotstatus?></td>
                         </tr>
                         <tr>
-                            <td style="width: 200px;"><b>Дата начала торгов:</b><br/></td>
+                            <td style="width: 200px;"><b>Дата начала подачи заявок:</b><br/></td>
                             <td><?=$lotstarttime?></td>
                         </tr>
                         <tr>
-                            <td style="width: 200px;"><b>Дата окончания торгов:</b><br/></td>
+                            <td style="width: 200px;"><b>Дата окончания подачи заявок:</b><br/></td>
                             <td><?=$lotendtime?></td>
                         </tr>
                     </table>

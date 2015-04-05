@@ -65,6 +65,37 @@ if($data['name'] != $data['description'])
 else
   $name = $data['name'];
 
+
+//Возимся со статусом основательно
+$nowtime = strtotime(date('Y').'-'.date('n').'-'.date('j'));
+$start_time = strtotime(date('Y', $data['start_time']).'-'.date('n', $data['start_time']).'-'.date('j', $data['start_time']));
+$real_status = (($start_time - $nowtime + 3600)/3600/24);
+if($real_status <= 0)
+{
+  $end_time = strtotime(date('Y', $data['end_time']).'-'.date('n', $data['end_time']).'-'.date('j', $data['end_time']));
+  if($nowtime <= $end_time)
+  {
+    //Определяем статус точнее
+    $before_close = array(3, 4, 5, 6);
+    if(in_array($data['status'], $before_close))
+    {
+      //Если пришел один из статусов окончания
+      $real_status = text::st($data['status_name']);
+    }
+    else
+      $real_status = 'Приём заявок';
+
+    if($real_status == 'Оконченный')
+      $real_status = 'Торги окончены';
+
+  }
+  else
+    $real_status = 'Торги окончены';
+}
+else
+  $real_status = round($days,0).' дня(-ей) до подачи заявок';
+
+//Выводим страничку
 core::$page_description = mb_substr($data['name'], 0, 200);
 engine_head(lang('card_n').''.$id);
 
@@ -73,7 +104,7 @@ temp::assign('id', $data['id']);
 temp::assign('lotdescr', $name);
 temp::assign('lotregion', $data['regionname']);
 temp::assign('lottype', $data['type_name']);
-temp::assign('lotstatus', $data['status_name']);
+temp::assign('lotstatus', $real_status);
 temp::assign('lotstarttime', ds_time($data['start_time']));
 temp::assign('lotendtime', ds_time($data['end_time']));
 temp::assign('lotprice', out_price($data['price']));

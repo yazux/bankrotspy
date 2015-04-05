@@ -35,7 +35,7 @@
                                      <td style="border-right: 0;white-space: nowrap;width: 50%;">
                                          <i class="icon-clock"></i> Статус:<br/>
                                          <label><input type="checkbox" name="status_auct_1"/>Объявленные</label><br/>
-                                         <label><input type="checkbox" name="status_auct_2"/>Торгуется</label><br/>
+                                         <label><input type="checkbox" name="status_auct_2"/>Приём заявок</label><br/>
                                          <label><input type="checkbox" name="status_auct_3"/>Окончены</label><br/>
                                      </td>
                                    </tr>
@@ -53,7 +53,7 @@
                                </table>
 
                                <hr/>
-                               <span style="font-size: 13px">Или дней до торгов*:</span>
+                               <span style="font-size: 13px">Или дней до подачи заявок*:</span>
                                <input style="width: 37px;" onmouseover="toolTip('Число или интервал,<br/> например: 2-5<hr/>Нельзя одновременно использовать Дату подачи и эту функцию.')" onmouseout="toolTip()" type="text" name="altintconf"/><br/>
                            </td>
                            <td valign="top" style="border-right: 0">
