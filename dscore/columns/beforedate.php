@@ -58,7 +58,8 @@ class column_beforedate
         $days = 'Торги окончены';
     }
     else
-      $days = round($days,0).' дня(-ей) до подачи заявок';
+      $days = round($days,0).' '.func::get_num_ending(round($days,0), array('день', 'дня', 'дней')).' до подачи заявок';
+
 
     return array(
       'col' => $days,

@@ -93,7 +93,7 @@ if($real_status <= 0)
     $real_status = 'Торги окончены';
 }
 else
-  $real_status = round($days,0).' дня(-ей) до подачи заявок';
+  $real_status = round($real_status,0).' '.func::get_num_ending(round($real_status,0), array('день', 'дня', 'дней')).' до подачи заявок';
 
 //Выводим страничку
 core::$page_description = mb_substr($data['name'], 0, 200);

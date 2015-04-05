@@ -7,6 +7,26 @@ class func
     return '<img width="100" height="50" src="' . core::$home . '/captcha.php?r=' . rand(1000, 9999) . '" alt="code" />';
   }
 
+  public static function get_num_ending($number, $endingArray)
+  {
+    $number = $number % 100;
+    if ($number>=11 && $number<=19) {
+      $ending=$endingArray[2];
+    }
+    else {
+      $i = $number % 10;
+      switch ($i)
+      {
+        case (1): $ending = $endingArray[0]; break;
+        case (2):
+        case (3):
+        case (4): $ending = $endingArray[1]; break;
+        default: $ending=$endingArray[2];
+      }
+    }
+    return $ending;
+  }
+
   static function capcha()
   {
     if(!empty($_SESSION['code']))
