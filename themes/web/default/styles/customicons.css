@@ -18,7 +18,7 @@ a [class^="icon-"]:hover:before,a [class*=" icon-"]:hover:before {
     font-size: 28px;
 }
 
-.icon-tags:before, .icon-users:before
+.icon-tags:before, .icon-users:before, .icon-list:before
 {
     font-size: 18px;
 }

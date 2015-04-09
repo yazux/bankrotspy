@@ -37,6 +37,7 @@ class core
   public static $all_rights = array();
   public static $page_keywords;
   public static $page_description;
+  public static $dest_time;
 
   private static $system_errors_langarr;
     
@@ -52,6 +53,8 @@ class core
     self::initiate_module();
     self::user();
     self::system_clean();
+
+    self::check_subsc();
   } 
 
   private static function ipinit()
@@ -324,6 +327,7 @@ class core
         self::$last_post = $data['lastpost'];
         self::$user_md_pass = $data['password'];
         self::$avtime = $data['avtime'];
+        self::$dest_time = $data['desttime'];
         
         //записываем данные юзера в базу
         self::$db->query('UPDATE `ds_users` SET
@@ -448,6 +452,23 @@ class core
       return $wap;
     else
       return $web;
+  }
+
+  private static function check_subsc()
+  {
+    if(core::$user_id AND (core::$rights == 10 OR core::$rights == 11))
+    {
+      if(core::$dest_time < time())
+      {
+        core::$db->query('UPDATE `ds_users` SET
+          `rights` = "0",
+          `desttime` = "0"
+           WHERE `id` = "'.core::$user_id.'";');
+
+        header('Location:'.core::$home.'/tariffs/subend');
+        exit();
+      }
+    }
   }
 }
 

@@ -10,9 +10,7 @@ $res = core::$db->query('SELECT * FROM  `ds_rights` ');
     $rights_arr[$data['id']] =  unserialize($data['rights']); 
   }
 
-  $rights_arr[100]['news_create'] = 1;
-  $rights_arr[100]['news_edit'] = 1;
-  $rights_arr[100]['news_delete'] = 1;
+  //$rights_arr[100]['premium_content'] = 1;
 
 
   //echo '<b>admin:</b><br/>';

@@ -37,6 +37,16 @@ class user
       return FALSE;
   }
 
+  public static function exists_id($id)
+  {
+    //Переписать на мульти_квери
+    $req = core::$db->query('SELECT * FROM `ds_users` WHERE `id` = "'.core::$db->res($id).'"');
+    if($req->num_rows)
+      return TRUE;
+    else
+      return FALSE;
+  }
+
   public static function get_avatar($user_id, $avtime, $type = 0)
   {
     if($type)

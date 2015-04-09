@@ -3,6 +3,8 @@
 {$mail_warn_del}
 
 ---------------
+{$mail_log} {$login}
+---------------
 
 {$mail_th_und} {$home}
 {$mail_ign}
