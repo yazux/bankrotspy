@@ -20,8 +20,8 @@
                   Доступ, мес: <?=$rmenu['longtime']?><br/>
                   <span style="font-size: 13px;color: #b1aea8;"><?=$rmenu['subtext']?></span>
               </td>
-                <td class="cont_act"><a title="<?=lang('edit_link')?>" href="<?=$home?>/control/tarifedit?id=<?=$rmenu['id']?>"><i class="icon-edit"></i></a></td>
-                <td class="cont_act"><a title="<?=lang('del_link')?>" href="<?=$home?>/control/tarifdel?id=<?=$rmenu['id']?>"><i class="icon-delete"></i></a></td>
+                <td class="cont_act"><a title="Редактировать" href="<?=$home?>/control/tarifedit?id=<?=$rmenu['id']?>"><i class="icon-edit"></i></a></td>
+                <td class="cont_act"><a title="Удалить" href="<?=$home?>/control/tarifdel?id=<?=$rmenu['id']?>"><i class="icon-delete"></i></a></td>
             </tr>
         </table>
     </div>

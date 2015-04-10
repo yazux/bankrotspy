@@ -4,7 +4,7 @@
 
             <div class="content">
                 <div class="conthead">
-                    <h2>Тарифы:</h2>
+                    <h2><i class="icon-key"></i>Тарифы</h2>
                 </div>
                 <div class="contbody_forms">
                    <?=$text?>
@@ -20,7 +20,7 @@
                 <table >
                     <tr>
                         <td valign="top" width="100%">
-                            <h2 class="tarhead"><?=$rmenu['name']?></h2>
+                            <h2 class="tarhead"><i class="icon-briefcase"></i> <?=$rmenu['name']?></h2>
                             <span class="costpt">Стоимость подписки: <?=$rmenu['price']?> руб.</span>
                             <span class="undertartext"><?=$rmenu['subtext']?></span>
                         </td>

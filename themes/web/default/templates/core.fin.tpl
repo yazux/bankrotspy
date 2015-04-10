@@ -9,7 +9,7 @@
     <table>
         <tr>
             <td style="width: 100%;padding-top: 10px;padding-left: 13px;">
-              <span style="color: #bababa">BANKROT-SPY.RU <?=date("Y")?>г.</span>
+              <span style="color: #bababa">BANKROT-SPY.RU <?=date("Y")?>г. | <a href="<?=$home?>/pages/7">Контакты</a></span>
             </td>
             <td style="min-width: 210px;padding-top: 10px;text-align: right;padding-right: 17px;">
                 <!--<span style="color: #888888"><?=round((microtime(true) - rem::get('microtime'))*1000, 0)?>ms, sql:<?=$sql_count?></span>-->
