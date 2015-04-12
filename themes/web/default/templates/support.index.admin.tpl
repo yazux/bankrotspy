@@ -73,7 +73,7 @@
                             <?foreach($narr2 as $narr2):?>
                             <tr class="linet">
                                 <td class="firstt"><?=$narr2['id']?></td>
-                                <td><center><span class="gray" style="font-size: 13px;"><?=$narr['date']?></span></center></td>
+                                <td><center><span class="gray" style="font-size: 13px;"><?=$narr2['date']?></span></center></td>
                                 <td style="padding-left: 3px;"><a class="main_tlink" href="<?=$home?>/support/view?id=<?=$narr2['id']?>"><?=$narr2['text']?></a></td>
                                 <td style="text-align: center;"> <span style="color:brown;">Закрыто</span> </td>
                             </tr>
