@@ -37,12 +37,7 @@
                 <?if($navigation):?><div class="navig"><?=$navigation?></div><?endif?>
         </td>
         <td class="right_back_menu">
-            <div class="right_panel_conf">
-                <div class="menu_rt">Меню</div>
-                <div class="elmenu"><a href="<?=$home?>/user/online">Пользователи онлайн</a></div>
-                <div class="elmenu"><a href="<?=$home?>">На главную</a></div>
-                <div class="down_rmenu"> </div>
-            </div>
+            <? temp::include('users.online.right.tpl') ?>
         </td>
     </tr>
 </table>

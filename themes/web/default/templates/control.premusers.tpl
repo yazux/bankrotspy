@@ -33,7 +33,7 @@
                 </div>
                 <?endforeach?>
                 <?else:?>
-                <div class="contbody_forms"><?=lang('no_users')?></div>
+                <div class="contbody_forms">Нет пользователей с подпиской!</div>
                 <?endif?>
                 <div class="contfin_forms" style="padding: 9px 20px">
                     Всего: <?=$total_in?>
