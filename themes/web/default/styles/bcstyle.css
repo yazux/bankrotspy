@@ -556,3 +556,7 @@ a.user_onl_bottom:hover{
 }
 
 /* ///////////////////////////// */
+
+.pays_t tr td{
+    padding: 2px;
+}

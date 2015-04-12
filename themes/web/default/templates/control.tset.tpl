@@ -28,13 +28,42 @@
     <?endforeach?>
 
     <?else:?>
-        <div class="contbody_forms">Нет ни одного пункта меню.</div>
+        <div class="contbody_forms">Нет ни одного тарифа.</div>
     <?endif?>
 
     <div class="contfin">
         <a class="urlbutton" href="<?=$home?>/control/newtarif">Новый тариф</a>
     </div>
 </div>
+
+
+            <form name="mess" action="<?=$home?>/control/tset" method="post">
+                <? temp::formid() /* ЭТА ФУНКЦИЯ ОБЯЗАТЕЛЬНА ДЛЯ ВСЕХ ФОРМ!!! */?>
+                <div style="margin-top: 29px;" class="content">
+                    <div class="conthead">
+                        <h2><i class="icon-cog-alt"></i> Настройки системы оплаты (ПСКБ)</h2>
+                    </div>
+                    <div class="contbody_forms">
+                        <b>Ключ системы оплаты:</b><br/>
+                        <input style="width: 460px" type="text" name="merchant_key" value="<?=$merchant_key?>" />
+                    </div>
+                    <div class="contbody_forms">
+                        <b>ID магазина:</b><br/>
+                        <input type="text" name="market_id" value="<?=$market_id?>" />
+                    </div>
+                    <div class="contbody_forms">
+                        <b>Префикс:</b> (4 буквы!)<br/>
+                        <input type="text" name="prefix" value="<?=$market_prefix?>" />
+                    </div>
+                    <div class="contbody_forms">
+                        <?=func::tagspanel('messarea');?>
+                        <div class="texta"><textarea id="messarea" name="mess" rows="4"><?=$text?></textarea></div>
+                    </div>
+                    <div class="contfin_forms">
+                        <input name="submit" type="submit" value="Сохранить" />
+                    </div>
+                </div>
+            </form>
 
         </td>
         <td class="right_back_menu">

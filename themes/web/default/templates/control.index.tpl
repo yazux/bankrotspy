@@ -24,6 +24,11 @@
         <b><?=lang('site_description')?></b><br/>
         <div class="texta"><textarea name="site_description" rows="5"><?=$site_description?></textarea></div>
     </div>
+    <div class="contbody_forms">
+        <b>Текст на странице регистрации:</b><br/>
+        <?=func::tagspanel('messarea');?>
+        <div class="texta"><textarea id="messarea" name="mess" rows="5"><?=$text?></textarea></div>
+    </div>
     <div class="contfin_forms">
         <input name="submit" type="submit" value="<?=lang('save')?>" />
     </div>
