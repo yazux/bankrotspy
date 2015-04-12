@@ -16,7 +16,7 @@ class column_name
     $this->lenght = isset($params[1]) ? $params[1] : 0;
     $this->attr = isset($params[2]) ? $params[2] : '';
     $this->item_arr = isset($params[3]) ? $params[3] : array();
-    $this->descr = isset($params[4]) ? trim($params[4]) : array();
+    $this->descr = isset($params[4]) ? trim($params[4]) : '';
   }
 
   public function before_load()
@@ -67,7 +67,9 @@ class column_name
 
   public function process()
   {
-    if($this->name != $this->descr)
+    if(!$this->name)
+      $name = $this->descr;
+    elseif($this->name != $this->descr)
     {
       if(mb_substr_count($this->descr, $this->name))
         $name = $this->descr;
