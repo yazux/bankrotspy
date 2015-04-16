@@ -1,6 +1,27 @@
 <?php
 defined('DS_ENGINE') or die('web_demon laughs');
 
+spl_autoload_register('autoload');
+function autoload($name)
+{
+  $rem = false;
+  if(!$rem)
+  {
+    include_once('../dscore/classes/rem.php');
+    $rem = true;
+  }
+
+  if(!rem::exists('load_class_'.$name))
+  {
+    $file = 'classes/' . $name . '.php';
+    if(file_exists($file))
+    {
+      include_once($file);
+      rem::remember('load_class_' . $name, 1);
+    }
+  }
+}
+
 function denied()
 {
   list($file_error) = debug_backtrace();

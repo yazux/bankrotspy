@@ -1,5 +1,6 @@
 <?php
-  
+defined('DS_ENGINE') or die('web_demon laughs');
+
 class smtp
 {
   private static $from_mail =  'analytic-spy@mail.ru';
