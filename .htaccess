@@ -29,6 +29,10 @@ RewriteRule ^articles/post([0-9]{1,11})$ ?core_mod=articles&core_act=view&id=$1 
 RewriteRule ^articles/tag([0-9]{1,11})/page([0-9]{1,11})$ ?core_mod=articles&core_act=tag&id=$1&page=$2 [QSA]
 RewriteRule ^articles/tag([0-9]{1,11})$ ?core_mod=articles&core_act=tag&id=$1 [QSA]
 
+RewriteRule ^api/([0-9\.]{1,})/$ api/index.php?apiversion=$1&core_mod=index&core_act=index [QSA]
+RewriteRule ^api/([0-9\.]{1,})/([a-z0-9]{1,})$ api/index.php?apiversion=$1&core_mod=$2&core_act=index [QSA]
+RewriteRule ^api/([0-9\.]{1,})/([a-z0-9]{1,})/([a-z0-9]{1,})$ api/index.php?apiversion=$1&core_mod=$2&core_act=$3 [QSA]
+
 ## core rewrite ##
 RewriteRule ^([a-z0-9]{1,})$ ?core_mod=$1&core_act=index [QSA]
 RewriteRule ^([a-z0-9]{1,})/([a-z0-9]{1,})$ ?core_mod=$1&core_act=$2 [QSA]
