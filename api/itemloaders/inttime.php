@@ -1,17 +1,17 @@
 <?php
 defined('DS_ENGINE') or die('web_demon laughs');
 
-class loader_category
+class loader_inttime
 {
-  private $name;
+  private $time;
 
   function __construct($params)
   {
-    $this->name = isset($params[0]) ?  trim($params[0]) : '';
+    $this->time = isset($params[0]) ?  trim($params[0]) : '';
   }
 
   public function process()
   {
-    return $this->name.' - test';
+    return strtotime($this->time);
   }
 }
