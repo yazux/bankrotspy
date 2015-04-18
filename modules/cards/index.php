@@ -55,7 +55,9 @@ function out_price($price)
 $data['name'] = trim($data['name']);
 $data['description'] = trim($data['description']);
 
-if($data['name'] != $data['description'])
+if(!$data['name'])
+  $name = $data['description'];
+elseif($data['name'] != $data['description'])
 {
   if(mb_substr_count($data['description'], $data['name']))
     $name = $data['description'];

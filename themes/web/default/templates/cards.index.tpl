@@ -30,7 +30,7 @@
                         </tr>
                         <tr>
                             <td style="width: 200px;"><b>Текущая цена:</b><br/></td>
-                            <td><i class="icon-rouble"></i> <?=$lotprice?></td>
+                            <td><i class="icon-rouble"></i> <?=$nowprice?></td>
                         </tr>
                     </table>
                     <hr/>

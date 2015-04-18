@@ -8,13 +8,22 @@ class core
   public static $action = 'index';       //Действие модуля
   public static $db;                     //MySQLi
   public static $home;
+  public static $apikey = 'sda45hvQE34caCBeSDergDFENerE';
 
   function __construct()
   {
+    self::check_key();
     self::system_set();
     self::data_connect();
     self::default_set();
     self::initiate_module();
+  }
+
+  private function check_key()
+  {
+    $key = trim(POST('apikey'));
+    if($key != self::$apikey)
+      self::error('Wrong apikey');
   }
 
   private static function system_set()

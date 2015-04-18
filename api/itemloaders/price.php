@@ -15,6 +15,13 @@ class loader_price
     $price = str_replace(' ', '', $this->price);
     $price = str_replace(',', '.', $price);
     $price = trim(str_replace('руб.', '', $price));
+    $price = trim($price);
+
+    if(mb_substr_count($price, '.') > 0)
+    {
+      $tprice = explode('.', $price);
+      $price = $tprice[0];
+    }
 
     return $price;
   }

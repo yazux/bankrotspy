@@ -9,7 +9,7 @@ class loader_pricedif
   function __construct($params)
   {
     $this->price = isset($params[0]) ?  trim($params[0]) : '';
-    $this->now_price = isset($params[0]) ?  trim($params[0]) : '';
+    $this->now_price = isset($params[1]) ?  trim($params[1]) : '';
   }
 
   public function process()

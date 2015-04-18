@@ -13,7 +13,7 @@ class loader_nospaces
   public function process()
   {
     $string = str_replace(' ', '', $this->string);
-
+    $string = str_replace("\t", '', $string);
     return $string;
   }
 }

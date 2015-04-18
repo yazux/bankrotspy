@@ -23,10 +23,26 @@ class loader_place
 
   private function replace_not_valid($data)
   {
+    //Регистрозависимая замена
+    $replace_reg_arr =  array(
+      'уд РД' => 'суд Республики Дагестан',
+      'уд РО' => 'суд Ростовской области'
+    );
+
     //В этот массив добавлять пару старое значение - новое значение
     $replace_arr = array(
-      'Московсской' => 'Московской'
+      'Московсской' => 'Московской',
+      'ХМАО-Югры' => 'Ханты-Мансийского автономного округа',
+      'города Москвы' => 'г. Москвы',
+      'Карелия' => 'Карелии',
+      'Волгоградской област' => 'Волгоградской области',
+      'Ресмпублике' => 'Республики',
+      'Москва' => 'Москвы',
+      'обл.' => 'Области',
+      'Волгоградская область' => 'Волгоградской области'
     );
+
+
 
     $new_replace_arr = array();
     foreach ($replace_arr AS $key=>$value)
@@ -34,6 +50,7 @@ class loader_place
       $new_replace_arr[mb_strtolower(trim($key))] = mb_strtolower(trim($value));
     }
 
+    $data = strtr($data, $replace_reg_arr);
     return strtr(mb_strtolower($data), $new_replace_arr);
   }
 
