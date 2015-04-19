@@ -2,7 +2,7 @@
 defined('DS_ENGINE') or die('web_demon laughs');
 
 //Исправить с локального файла на загрузку
-$data = file_get_contents('../data/utender.csv');
+$data = file_get_contents('../data/utender.ru-data-2015-04-18-21-29-10.csv');
 
 $data = iconv("windows-1251", "UTF-8", $data);
 $data = explode("\n", str_replace("\r\n", "\n", $data));

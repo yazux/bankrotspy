@@ -22,6 +22,9 @@ class core
   private function check_key()
   {
     $key = trim(POST('apikey'));
+    if(!$key)
+      $key = trim(GET('apikey'));
+
     if($key != self::$apikey)
       self::error('Wrong apikey');
   }
