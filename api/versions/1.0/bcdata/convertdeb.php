@@ -28,6 +28,8 @@ while($data = $res->fetch_array())
   }
 }
 
+echo '<br/><br/><hr/><br/><br/>';
+
 $res = core::$db->query('SELECT * FROM `ds_maindata` ;');
 while($data = $res->fetch_array())
 {

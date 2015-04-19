@@ -18,7 +18,11 @@ class loader_organizer
     $this->inn = isset($params[4]) ?  trim($params[4]) : '';
 
     $this->organizer = $this->good_quotes($this->organizer);
+    $this->contact_person = $this->good_quotes($this->contact_person);
     $this->manager = $this->good_quotes($this->manager);
+
+    if(!$this->organizer)
+      $this->organizer = $this->manager;
   }
 
   private function delete_inn($dname, $inn)
