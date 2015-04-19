@@ -2,6 +2,7 @@
 defined('DS_ENGINE') or die('web_demon laughs');
 
 $getdata = POST('itemdata');
+$getdata = iconv("windows-1251", "UTF-8", $getdata);
 
 if(!$getdata)
   exit('No item data');
