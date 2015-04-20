@@ -15,6 +15,10 @@ user_ip          = Ip:
 user_ua          = Ua:
 rules            = Правила сайта
 us_help          = Помощь по сайту
+now             = Сейчас:
+lang_on_anc     = На сайте
+lang_off_anc    = Офлайн
+uncknown_tarif  = Неизвестный тариф
 
 
 
