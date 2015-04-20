@@ -12,9 +12,27 @@ class loader_status
 
   private function replace_not_valid($data)
   {
+    //Первая попытка
     //В этот массив добавлять пару старое значение - новое значение
     $replace_arr = array(
       'Идет прием заявок' => 'Приём заявок'
+    );
+
+    $new_replace_arr = array();
+    foreach ($replace_arr AS $key=>$value)
+    {
+      $new_replace_arr[mb_strtolower(trim($key))] = mb_strtolower(trim($value));
+    }
+
+    return strtr(mb_strtolower($data), $new_replace_arr);
+  }
+
+  private function second_replace($data)
+  {
+    //Вторая попытка
+    //В этот массив добавлять пару старое значение - новое значение
+    $replace_arr = array(
+      'Окончен' => 'Оконченный'
     );
 
     $new_replace_arr = array();
@@ -48,11 +66,18 @@ class loader_status
       $status = array_search($temp_status, $allstatses);
     else
     {
-      //Добавляем статус автоматом если он не найден
-      core::$db->query('INSERT INTO `ds_maindata_status` SET
+      //Попытка номер два
+      $t_status = $this->second_replace($temp_status);
+      if(in_array($t_status, $allstatses))
+        $status = array_search($t_status, $allstatses);
+      else
+      {
+        //Добавляем статус автоматом если он не найден
+        core::$db->query('INSERT INTO `ds_maindata_status` SET
           `status_name` = "'.core::$db->res($this->status).'" ;');
 
-      $status = core::$db->insert_id;
+        $status = core::$db->insert_id;
+      }
     }
 
     return $status;
