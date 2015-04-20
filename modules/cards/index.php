@@ -106,13 +106,17 @@ $req = core::$db->query('SELECT * FROM `ds_maindata_organizers` WHERE `id` = "'.
 if($req->num_rows)
   $data_org = $req->fetch_assoc();
 
+$lotname = text::st($name);
+if(mb_substr_count($lotname, ' | '))
+  $lotname = '- '.str_replace(' | ', '<br/>- ', $lotname);
+
 //Выводим страничку
 core::$page_description = mb_substr($data['name'], 0, 200);
 engine_head(lang('card_n').''.$id);
 
 temp::assign('lotname', $data['name']);
 temp::assign('id', $data['id']);
-temp::assign('lotdescr', $name);
+temp::HTMassign('lotdescr', $lotname);
 temp::assign('lotregion', $data['regionname']);
 temp::assign('lottype', $data['type_name']);
 temp::assign('lotstatus', $real_status);

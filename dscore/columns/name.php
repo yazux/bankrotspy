@@ -65,6 +65,13 @@ class column_name
     return $found;
   }
 
+  private function replace_onbr($lotname)
+  {
+    if(mb_substr_count($lotname, ' | '))
+      $lotname = '- '.str_replace(' | ', '<br/>- ', $lotname);
+    return $lotname;
+  }
+
   public function process()
   {
     if(!$this->name)
@@ -136,7 +143,7 @@ class column_name
     }
 
     return array(
-      'col' => '<a target="_blank" class="namelink" href="'.core::$home.'/card/'.$this->attr.'"><i class="icon-share"></i><span id="min_name_'.$this->attr.'">'.$name.'</span><span style="display: none;" id="max_name_'.$this->attr.'">'.text::st($full_name).'</span></a>'.($cutted ? '<br/><span attr="'.$this->attr.'" class="show_span">Показать</span>' : '' ).(isset($addition)? $addition : '' ),
+      'col' => '<a target="_blank" class="namelink" href="'.core::$home.'/card/'.$this->attr.'"><i class="icon-share"></i><span id="min_name_'.$this->attr.'">'.$this->replace_onbr($name).'</span><span style="display: none;" id="max_name_'.$this->attr.'">'.$this->replace_onbr(text::st($full_name)).'</span></a>'.($cutted ? '<br/><span attr="'.$this->attr.'" class="show_span">Показать</span>' : '' ).(isset($addition)? $addition : '' ),
       'style' => 'max-width: 300px;'
     );
   }
