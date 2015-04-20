@@ -83,8 +83,9 @@ foreach($json_request['payments'] AS $key => $val)
           mail_temp::assign('summ', $tar_summ[$ord_arr[2]]);
           mail_temp::assign('userid', $ord_arr[1]);
           $mail_body = mail_temp::get('mail_buy_good');
-          smtp::mail('analytic-spy@i-tt.ru', ' ', lang('mail_head_good').' '.$order_id.' ('.core::$set['site_name_main'].')', $mail_body);
-          //smtp::mail('sales@i-tt.ru', ' ', lang('mail_head_good').' '.$order_id.' ('.core::$set['site_name_main'].')', $mail_body);
+
+          mail::send('analytic-spy@i-tt.ru', lang('mail_head_good').' '.$order_id.' ('.core::$set['site_name_main'].')', $mail_body);
+          //mail::send('sales@i-tt.ru', lang('mail_head_good').' '.$order_id.' ('.core::$set['site_name_main'].')', $mail_body);
 
 
           new mail_temp('./data/engine/');
@@ -94,7 +95,8 @@ foreach($json_request['payments'] AS $key => $val)
           mail_temp::assign('summ', $tar_summ[$ord_arr[2]]);
           mail_temp::assign('userid', $ord_arr[1]);
           $mail_body_user = mail_temp::get('mail_buy_user');
-          smtp::mail($data['mail'], ' ', 'Подписка активирована! ('.core::$set['site_name_main'].')', $mail_body_user);
+
+          mail::send($data['mail'], 'Подписка активирована! ('.core::$set['site_name_main'].')', $mail_body_user);
 
           $answer_arr['payments'][$key] = array('orderId' => $val['orderId'], 'action' => 'CONFIRM');
         }

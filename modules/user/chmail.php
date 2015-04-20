@@ -35,18 +35,8 @@ if(core::$user_id)
       mail_temp::assign('mail_chmail', lang('mail_chmail'));
       
       $mail_body = mail_temp::get('mail_chmail');  
-        
-      $subject = '=?utf-8?B?'.base64_encode(lang('mail_head')).'?=';
 
-      $adds = array();
-      $adds[] = 'Content-Type: text/plain; charset="utf-8"';
-      $adds[] = 'From: =?utf-8?B?'.base64_encode('Bankrot-Spy').'?= <mail@bankrot-spy.ru>';
-      $adds[] = 'Reply-To: =?utf-8?B?'.base64_encode('Bankrot-Spy').'?= <mail@bankrot-spy.ru>';
-      $adds[] = 'Subject: '.$subject;
-      $adds[] = 'Content-Type: text/plain; charset="utf-8"';
-      $adds = implode("\r\n", $adds);
-      
-      mail($mail, $subject, $mail_body, $adds);
+      mail::send($mail, lang('mail_head'), $mail_body);
       
       core::$db->query('DELETE FROM `ds_chmail` WHERE `user_id` = "'.core::$db->res(core::$user_id).'";');
       core::$db->query('INSERT INTO `ds_chmail` SET

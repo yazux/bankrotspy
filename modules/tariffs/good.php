@@ -33,7 +33,7 @@ if(count($ord_arr) == 4 AND $ord_arr[0] == core::$set['market_prefix'] AND user:
       mail_temp::assign('userid', $ord_arr[1]);
       mail_temp::assign('details', @$check['errorCode'].' / '.@$check['errorDescription'].' / '.$check['payment']['state']);
       $mail_body = mail_temp::get('mail_buy_err');
-      //smtp::mail('analytic-spy@i-tt.ru', ' ', lang('mail_head_err').' '.$order_id.' ('.core::$set['site_name_main'].')', $mail_body);
+      mail::send('analytic-spy@i-tt.ru', lang('mail_head_err').' '.$order_id.' ('.core::$set['site_name_main'].')', $mail_body);
     }
 
     engine_head(lang('tariffs'));

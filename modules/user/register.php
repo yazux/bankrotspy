@@ -75,18 +75,8 @@ if(!core::$user_id)
       mail_temp::assign('home', core::$home);
       mail_temp::assign('link', core::$home.'/user/rec?id='.$pass_mail);
       $mail_body = mail_temp::get('mail_temp');
-      
-      $subject = '=?utf-8?B?'.base64_encode(lang('mail_head')).'?=';
 
-      $adds = array();
-      $adds[] = 'Content-Type: text/plain; charset="utf-8"';
-      $adds[] = 'From: =?utf-8?B?'.base64_encode('Bankrot-Spy').'?= <mail@bankrot-spy.ru>';
-      $adds[] = 'Reply-To: =?utf-8?B?'.base64_encode('Bankrot-Spy').'?= <mail@bankrot-spy.ru>';
-      $adds[] = 'Subject: '.$subject;
-      $adds[] = 'Content-Type: text/plain; charset="utf-8"';
-      $adds = implode("\r\n", $adds);
-
-      mail($mail, $subject, $mail_body, $adds);
+      mail::send($mail, lang('mail_head'), $mail_body);
       
       core::$db->query('INSERT INTO `ds_users_inactive` SET
           `login`="'.core::$db->res($nick).'",

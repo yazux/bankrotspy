@@ -43,17 +43,7 @@ if(!core::$user_id)
       
       core::$db->query('INSERT INTO `ds_recpassword` SET `userid`="'.$data['id'].'", `num`="'.core::$db->res($pass_mail).'"; ');
 
-      $subject = '=?utf-8?B?'.base64_encode(lang('mail_head').' ('.lang('site_head').')').'?=';
-
-      $adds = array();
-      $adds[] = 'Content-Type: text/plain; charset="utf-8"';
-      $adds[] = 'From: =?utf-8?B?'.base64_encode('Bankrot-Spy').'?= <mail@bankrot-spy.ru>';
-      $adds[] = 'Reply-To: =?utf-8?B?'.base64_encode('Bankrot-Spy').'?= <mail@bankrot-spy.ru>';
-      $adds[] = 'Subject: '.$subject;
-      $adds[] = 'Content-Type: text/plain; charset="utf-8"';
-      $adds = implode("\r\n", $adds);
-
-      mail($mail, $subject, $mail_body, $adds);
+      mail::send($mail, lang('mail_head').' ('.lang('site_head').')', $mail_body);
 
       func::notify(lang('rec_pass'), lang('reg_succ'), core::$home);  
     }  
