@@ -97,6 +97,15 @@ if($real_status <= 0)
 else
   $real_status = round($real_status,0).' '.func::get_num_ending(round($real_status,0), array('день', 'дня', 'дней')).' до подачи заявок';
 
+
+$req = core::$db->query('SELECT * FROM `ds_maindata_debtors` WHERE `id` = "'.core::$db->res($data['debtor']).'"');
+if($req->num_rows)
+  $data_debt = $req->fetch_assoc();
+
+$req = core::$db->query('SELECT * FROM `ds_maindata_organizers` WHERE `id` = "'.core::$db->res($data['organizer']).'"');
+if($req->num_rows)
+  $data_org = $req->fetch_assoc();
+
 //Выводим страничку
 core::$page_description = mb_substr($data['name'], 0, 200);
 engine_head(lang('card_n').''.$id);
@@ -113,12 +122,26 @@ temp::assign('lotprice', out_price($data['price']));
 temp::assign('platform_url', $data['platform_url']);
 temp::assign('auct_link', $data['auct_link']);
 temp::assign('code_torg', $data['code']);
-temp::assign('debtor', $data['debtor']);
+
+if(isset($data_debt['dept_name']))
+{
+  temp::assign('debtor', $data_debt['dept_name']);
+  temp::assign('debtor_inn', $data_debt['inn']);
+  if($data_debt['debt_profile'] AND $data_debt['debt_profile'] != 'www1')
+    temp::assign('debtor_profile', $data_debt['debt_profile']);
+}
+
+if(isset($data_org['org_name']))
+{
+  temp::assign('organizer', $data_org['org_name']);
+  temp::assign('contact_person', $data_org['contact_person']);
+  temp::assign('manager', $data_org['manager']);
+  temp::assign('inn_orgname', $data_org['inn']);
+  if($data_org['org_profile'])
+    temp::assign('organizer_profile', $data_org['org_profile']);
+}
+
 temp::assign('case_number', $data['case_number']);
-temp::assign('organizer', $data['organizer']);
-temp::assign('contact_person', $data['contact_person']);
-temp::assign('contact_person', $data['contact_person']);
-temp::assign('manager', $data['manager']);
 temp::assign('nowprice', out_price($data['now_price']));
 temp::assign('lotnumber', $data['code']);
 temp::assign('lotfav', $in_favorite);

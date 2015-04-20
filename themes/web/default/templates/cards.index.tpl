@@ -56,19 +56,58 @@
                     <table class="lottable">
                         <tr>
                             <td style="width: 200px;"><b>Должник:</b><br/></td>
-                            <td><?=$debtor?>, дело № <?=$case_number?></td>
+                            <td>
+                                <?if($debtor):?>
+                                    <?if($debtor_profile):?>
+                                        <a target="_blank" href="<?=$debtor_profile?>"><i class="icon-globe-table"></i>
+                                            <?=$debtor?>
+                                        </a>
+                                    <?else:?>
+                                        <?=$debtor?>
+                                    <?endif?>
+                                <?else:?>
+                                    <span style="color:#95968d">нет</span>
+                                <?endif?>
+                            </td>
                         </tr>
                         <tr>
+                            <td style="width: 200px;"><b>Дело №:</b><br/></td>
+                            <td><?=$case_number?></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 200px;"><b>ИНН должника:</b><br/></td>
+                            <td><?if($debtor_inn):?><?=$debtor_inn?><?else:?><span style="color:#95968d">нет</span><?endif?></td>
+                        </tr>
+                    </table>
+                    <hr/>
+                    <table class="lottable">
+                        <tr>
                             <td style="width: 200px;"><b>Организатор торгов:</b><br/></td>
-                            <td><?=$organizer?></td>
+                            <td>
+                                <?if($organizer):?>
+                                    <?if($organizer_profile):?>
+                                        <a target="_blank" href="<?=$organizer?>"><i class="icon-globe-table"></i>
+                                        <?=$organizer?>
+                                        </a>
+                                    <?else:?>
+                                        <?=$organizer?>
+                                    <?endif?>
+                                <?else:?>
+                                    <span style="color:#95968d">нет</span>
+                                <?endif?>
+                            </td>
                         </tr>
                         <tr>
                             <td style="width: 200px;"><b>Контактное лицо организатора торгов:</b><br/></td>
-                            <td><?=$contact_person?></td>
+                            <td><?if($contact_person):?><?=$contact_person?><?else:?><span style="color:#95968d">нет</span><?endif?></td>
                         </tr>
                         <tr>
                             <td style="width: 200px;"><b>Арбитражный управляющий:</b><br/></td>
-                            <td><?=$manager?></td>
+                            <td><?if($manager):?><?=$manager?><?else:?><span style="color:#95968d">нет</span><?endif?></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 200px;"><b>ИНН организатора:</b><br/></td>
+                            <td><?if($inn_orgname):?><?=$inn_orgname?><?else:?><span style="color:#95968d">нет</span><?endif?></td>
                         </tr>
                     </table>
                     <hr/>
