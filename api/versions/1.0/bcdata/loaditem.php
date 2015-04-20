@@ -2,7 +2,6 @@
 defined('DS_ENGINE') or die('web_demon laughs');
 
 $getdata = POST('itemdata');
-$before_conv_data = $getdata;
 $getdata = iconv("windows-1251", "UTF-8", $getdata);
 
 if(!$getdata)
@@ -29,7 +28,4 @@ else
 {
   core::$db->query('INSERT INTO `ds_maindata_bad_data` SET `lkey` = "'.core::$db->res($id_lot).'", `data` = "'.core::$db->res($getdata).'", `errors` = "'.core::$db->res(loaditem::get_error()).'" ;');
   echo loaditem::get_error();
-
-  $old_file_data = file_get_contents('./logs/itemdata.log');
-  file_put_contents('./logs/itemdata.log', $old_file_data."\n".$before_conv_data.' - '. loaditem::get_error());
 }

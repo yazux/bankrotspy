@@ -1,9 +1,7 @@
 <?php
 defined('DS_ENGINE') or die('web_demon laughs');
 
-
 $getdata = POST('itemdata');
-$before_conv_data = $getdata;
 $getdata = iconv("windows-1251", "UTF-8", $getdata);
 
 if(!$getdata)
@@ -79,4 +77,7 @@ if(!$error)
 else
 {
   echo implode(', ', $error);
+
+  $old_file_data = file_get_contents('./logs/itemdata.log');
+  file_put_contents('./logs/itemdata.log', $old_file_data."\n".$getdata.' - '. loaditem::get_error());
 }
