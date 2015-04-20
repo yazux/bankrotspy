@@ -77,11 +77,15 @@ if(!core::$user_id)
       $mail_body = mail_temp::get('mail_temp');
       
       $subject = '=?utf-8?B?'.base64_encode(lang('mail_head')).'?=';
-      $adds = 'Content-Type: text/plain; charset="utf-8"';
-      $adds .= 'From: <'.''.'>';
-      $adds .= 'Subject: '.$subject;
-      $adds .= 'Content-Type: text/plain; charset="utf-8"';
-      
+
+      $adds = array();
+      $adds[] = 'Content-Type: text/plain; charset="utf-8"';
+      $adds[] = 'From: =?utf-8?B?'.base64_encode('Bankrot-Spy').'?= <mail@bankrot-spy.ru>';
+      $adds[] = 'Reply-To: =?utf-8?B?'.base64_encode('Bankrot-Spy').'?= <mail@bankrot-spy.ru>';
+      $adds[] = 'Subject: '.$subject;
+      $adds[] = 'Content-Type: text/plain; charset="utf-8"';
+      $adds = implode("\r\n", $adds);
+
       mail($mail, $subject, $mail_body, $adds);
       
       core::$db->query('INSERT INTO `ds_users_inactive` SET

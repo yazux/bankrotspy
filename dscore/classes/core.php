@@ -390,7 +390,8 @@ class core
     {
       $query = 'DELETE FROM `ds_guests` WHERE `lastdate` <  "'. (time() - 600) .'";';
       $query .= 'UPDATE `ds_settings` SET `val`="'.time().'" WHERE `key`="last_clean";';
-      
+      $query .= 'DELETE FROM `ds_users_inactive` WHERE `time` <  "'. (time() - (24*3600)) .'";';
+
       self::$db->multi_query($query);
       self::$db->multi_free();
          
