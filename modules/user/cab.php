@@ -42,6 +42,7 @@ if(core::$user_id)
   if(isset($tariff))
     temp::assign('tariff', $tariff);
 
+  temp::assign('online', user::is_online($data['lastvisit']));
   temp::assign('ordercode', $data['ordercode']);
   if(isset($desttime))
     temp::assign('desttime', $desttime);
