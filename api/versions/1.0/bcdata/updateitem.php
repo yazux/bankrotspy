@@ -52,6 +52,7 @@ $outdata = array();
 $outdata['now_price'] = $load->price($sourse['nowprice']);
 $outdata['status'] = $load->status($sourse['status']);
 $outdata['last_update'] = time();
+$outdata['price_dif'] = $load->pricedif($data['price'], $outdata['now_price']);
 if(!$data['place'])
   $outdata['place'] = $load->place($sourse['place']);
 
