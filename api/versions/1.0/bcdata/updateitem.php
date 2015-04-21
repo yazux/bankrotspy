@@ -51,6 +51,7 @@ $outdata = array();
 //Названия те же что в таблице
 $outdata['now_price'] = $load->price($sourse['nowprice']);
 $outdata['status'] = $load->status($sourse['status']);
+$outdata['last_update'] = time();
 if(!$data['place'])
   $outdata['place'] = $load->place($sourse['place']);
 
