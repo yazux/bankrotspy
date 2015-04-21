@@ -287,8 +287,8 @@ if($res->num_rows)
     }
     if($category == 2)
     {
-      $loc['debpoints'] = $tabledata->debpoints($data['debpoints']);
       $loc['pricediff'] = $tabledata->pricediff($data['price_dif']);
+      $loc['debpoints'] = $tabledata->debpoints($data['debpoints']);
     }
 
     $loc['platform'] = $tabledata->platform($data['platform_id'], $data['auct_link']);
