@@ -5,18 +5,21 @@ $id = abs(intval(GET('id')));
 if(!$id)
   denied();
 
+
 $twr = core::$db->query('SELECT
    `ds_maindata`.*,
    `ds_maindata_regions`.`name` AS `regionname`,
    `ds_maindata_type`.`type_name`,
    `ds_maindata_status`.`status_name`,
-   `ds_maindata_platforms`.`platform_url`
+   `ds_maindata_platforms`.`platform_url`,
+   `ds_maindata_category`.`name` AS `catname`
     FROM
    `ds_maindata`
     LEFT JOIN `ds_maindata_regions` ON `ds_maindata`.`place` = `ds_maindata_regions`.`number`
     LEFT JOIN `ds_maindata_type` ON `ds_maindata`.`type` = `ds_maindata_type`.`id`
     LEFT JOIN `ds_maindata_status` ON `ds_maindata`.`status` = `ds_maindata_status`.`id`
     LEFT JOIN `ds_maindata_platforms` ON `ds_maindata`.`platform_id` = `ds_maindata_platforms`.`id`
+    LEFT JOIN `ds_maindata_category` ON `ds_maindata`.`cat_id` = `ds_maindata_category`.`id`
     WHERE `ds_maindata`.`id` = "'.$id.'"
     ;');
 if(!$twr->num_rows)
@@ -32,72 +35,6 @@ if(core::$user_id)
     $in_favorite = 1;
 }
 
-function out_price($price)
-{
-  $price = strrev($price);
-  $chars = preg_split('//', $price, -1, PREG_SPLIT_NO_EMPTY);
-  $out_price = '';
-
-  $i = 1;
-  foreach($chars AS $val)
-  {
-    $out_price .= $val;
-    if($i == 3)
-    {
-      $out_price .= ' '; //Неразрывный пробел наоборот
-      $i = 0;
-    }
-    $i++;
-  }
-  return strrev($out_price);
-}
-
-$data['name'] = trim($data['name']);
-$data['description'] = trim($data['description']);
-
-if(!$data['name'])
-  $name = $data['description'];
-elseif($data['name'] != $data['description'])
-{
-  if(mb_substr_count($data['description'], $data['name']))
-    $name = $data['description'];
-  else
-    $name = trim($data['name']) . '. ' . $data['description'];
-}
-else
-  $name = $data['name'];
-
-
-//Возимся со статусом основательно
-$nowtime = strtotime(date('Y').'-'.date('n').'-'.date('j'));
-$start_time = strtotime(date('Y', $data['start_time']).'-'.date('n', $data['start_time']).'-'.date('j', $data['start_time']));
-$real_status = (($start_time - $nowtime + 3600)/3600/24);
-if($real_status <= 0)
-{
-  $end_time = strtotime(date('Y', $data['end_time']).'-'.date('n', $data['end_time']).'-'.date('j', $data['end_time']));
-  if($nowtime <= $end_time)
-  {
-    //Определяем статус точнее
-    $before_close = array(3, 4, 5, 6);
-    if(in_array($data['status'], $before_close))
-    {
-      //Если пришел один из статусов окончания
-      $real_status = text::st($data['status_name']);
-    }
-    else
-      $real_status = 'Приём заявок';
-
-    if($real_status == 'Оконченный')
-      $real_status = 'Торги окончены';
-
-  }
-  else
-    $real_status = 'Торги окончены';
-}
-else
-  $real_status = round($real_status,0).' '.func::get_num_ending(round($real_status,0), array('день', 'дня', 'дней')).' до подачи заявок';
-
-
 $req = core::$db->query('SELECT * FROM `ds_maindata_debtors` WHERE `id` = "'.core::$db->res($data['debtor']).'"');
 if($req->num_rows)
   $data_debt = $req->fetch_assoc();
@@ -106,23 +43,72 @@ $req = core::$db->query('SELECT * FROM `ds_maindata_organizers` WHERE `id` = "'.
 if($req->num_rows)
   $data_org = $req->fetch_assoc();
 
-$lotname = text::st($name);
-if(mb_substr_count($lotname, ' | '))
-  $lotname = '- '.str_replace(' | ', '<br/>- ', $lotname);
+//Получаем список классов
+$tabledata = new tabledata(0, 0);
+
+//Текущая цена
+$lotprice = $tabledata->beginprice($data['price']);
+$lotprice = $lotprice['col'];
+
+$lotname = $tabledata->name($data['name'], 40, $data['id'], array(), $data['description']);
+$lotname = $lotname['onlydata'];
+
+$nowprice = $tabledata->nowprice($data['now_price']);
+$nowprice = $nowprice['col'];
+
+$status = $tabledata->beforedate($data['start_time'], $data['end_time'], $data['status_name'], $data['status']);
+$status = $status['col'];
+
+$pricediff = $tabledata->pricediff($data['price_dif']);
+$pricediff = $pricediff['col'];
+if($pricediff > 0)
+  $pricediff = '-'.$pricediff;
+elseif($pricediff < 0)
+  $pricediff = '+'.abs($pricedif);
+
+if($data['cat_id'] != 0 AND $data['cat_id'] != 4 AND $data['cat_id'] != 8 AND $data['cat_id'] != 2)
+{
+  $needshow_add_price = 1;
+  $realprice = $tabledata->marketprice($data['market_price']);
+  $realprice = $realprice['col'];
+  $profitrub = $tabledata->profitrub($data['profit_rub']);
+  $profitrub = $profitrub['col'];
+  $profitproc = $tabledata->profitproc($data['profit_proc']);
+  $profitproc = $profitproc['notcolored'];
+}
+if($data['cat_id'] == 2)
+{
+  $needshow_deb_points = 1;
+  $debpoints = $tabledata->debpoints($data['debpoints']);
+  $debpoints = $debpoints['col'];
+}
 
 //Выводим страничку
 core::$page_description = mb_substr($data['name'], 0, 200);
 engine_head(lang('card_n').''.$id);
 
-temp::assign('lotname', $data['name']);
 temp::assign('id', $data['id']);
+temp::assign('category', $data['catname']);
 temp::HTMassign('lotdescr', $lotname);
+if(isset($needshow_add_price))
+{
+  temp::assign('needshow_add_price', $needshow_add_price);
+  temp::HTMassign('realprice', $realprice);
+  temp::HTMassign('profitrub', $profitrub);
+  temp::HTMassign('profitproc', $profitproc);
+}
+if(isset($needshow_deb_points))
+{
+  temp::assign('needshow_deb_points', $needshow_deb_points);
+  temp::HTMassign('debpoints', $debpoints);
+}
+temp::HTMassign('pricediff', $pricediff);
 temp::assign('lotregion', $data['regionname']);
 temp::assign('lottype', $data['type_name']);
-temp::assign('lotstatus', $real_status);
+temp::assign('lotstatus', $status);
 temp::assign('lotstarttime', ds_time($data['start_time']));
 temp::assign('lotendtime', ds_time($data['end_time']));
-temp::assign('lotprice', out_price($data['price']));
+temp::HTMassign('lotprice', $lotprice);
 temp::assign('platform_url', $data['platform_url']);
 temp::assign('auct_link', $data['auct_link']);
 temp::assign('code_torg', $data['code']);
@@ -146,7 +132,7 @@ if(isset($data_org['org_name']))
 }
 
 temp::assign('case_number', $data['case_number']);
-temp::assign('nowprice', out_price($data['now_price']));
+temp::HTMassign('nowprice', $nowprice);
 temp::assign('lotnumber', $data['code']);
 temp::assign('lotfav', $in_favorite);
 temp::display('cards.index');

@@ -9,7 +9,7 @@
                     <b>Название лота:</b><br/>
                     <?=$lotdescr?>
                     <hr style="margin: 7px 0"/>
-                    <i class="icon-address"></i><b><?=$lotregion?></b> &nbsp;&nbsp;&nbsp;
+                    <i class="icon-location"></i><b><?=$lotregion?></b> &nbsp;&nbsp;&nbsp;
                     <span class="icon_to_click_fav" attr="<?=$id?>">
                         <?if($lotfav):?>
                             <i class="icon-star-clicked"></i><span id="fav_info">Удалить лот из избранного</span>
@@ -30,11 +30,45 @@
                         </tr>
                         <tr>
                             <td style="width: 200px;"><b>Текущая цена:</b><br/></td>
-                            <td><i class="icon-rouble"></i> <?=$nowprice?></td>
+                            <td><i class="icon-rouble"></i> <?=$nowprice?>
+
+                                <?if($pricediff AND $pricediff != '-'):?>
+                                (<?=$pricediff?>%)
+                                <?endif?>
+                            </td>
                         </tr>
                     </table>
+                    <?if($needshow_add_price):?>
+                    <table class="lottable">
+                        <tr>
+                            <td style="width: 200px;"><b>Рыночная цена:</b><br/></td>
+                            <td><i class="icon-rouble"></i> <?=$realprice?></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 200px;"><b>Прибыль:</b><br/></td>
+                            <td><i class="icon-rouble"></i> <?=$profitrub?>
+
+                            <?if($profitproc AND $profitproc != '-'):?>
+                              (<?=$profitproc?>%)
+                            <?endif?>
+                            </td>
+                        </tr>
+                    </table>
+                    <?endif?>
+                    <?if($needshow_deb_points):?>
+                    <table class="lottable">
+                        <tr>
+                            <td style="width: 200px;"><b>Баллы:</b><br/></td>
+                            <td> <?=$debpoints?></td>
+                        </tr>
+                    </table>
+                    <?endif?>
                     <hr/>
                     <table class="lottable">
+                        <tr>
+                            <td style="width: 200px;"><b>Категория:</b><br/></td>
+                            <td><?if($category):?><?=$category?><?else:?>Прочее<?endif?></td>
+                        </tr>
                         <tr>
                             <td style="width: 200px;"><b>Тип торгов:</b><br/></td>
                             <td><?=$lottype?></td>

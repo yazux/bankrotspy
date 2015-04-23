@@ -35,11 +35,14 @@ class column_profitproc
     if(!$price)
       $price = '-';
 
+    $not_colored = $price;
+
     if($color_red)
       $price = '<span style="color:#ff7863">' .$price.'</span>';
 
     return array(
       'col' => $price,
+      'notcolored' => $not_colored,
       'style' => 'text-align:center;'
     );
   }
