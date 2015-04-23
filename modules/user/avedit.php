@@ -63,12 +63,12 @@ if($id and core::$user_id)
                $error[] = lang('img_not_valid2');
              else
              {
-               $av_big=ImageCreateTrueColor($w,$h);  
+               $av_big=ImageCreateTrueColor(80,80);
                imagealphablending($av_big, false);
                imagesavealpha($av_big,true);  
                $transparent = imagecolorallocatealpha($av_big, 255, 255, 255, 127);
-               imagefilledrectangle($av_big, 0, 0, $w, $h, $transparent);
-               imagecopyresampled($av_big, $img, 0, 0, 0, 0, $w, $h, $size[0], $size[1]);  
+               imagefilledrectangle($av_big, 0, 0, 80, 80, $transparent);
+               imagecopyresampled($av_big, $img, 0, 0, 0, 0, 80, 80, $size[0], $size[1]);
                
                $av_small=ImageCreateTrueColor(40,40);  
                imagealphablending($av_small, false);
@@ -107,7 +107,10 @@ if($id and core::$user_id)
          func::notify(lang('anketa').' | '.lang('avatar') , lang('av_deleted'), core::$home.'/user/avedit?id='.$id);
       }  
 
-      $avatar = user::get_avatar($id, $data['avtime']);
+      if(file_exists('images/avatars/' . $data['avtime'] . '_' . $id . '.png'))
+        $avatar = core::$home . '/images/avatars/' . $data['avtime'] . '_' . $id . '.png';
+      else
+        $avatar = core::$theme_path . '/images/user.png';
         
       engine_head(lang('anketa').' | '.lang('avatar'));
       temp::assign('user_prof',$id);
