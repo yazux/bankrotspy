@@ -59,9 +59,14 @@ if(!$data['place'])
 //print_r($outdata);
 
 if(!$outdata['now_price'])
-  $error[] = 'No now price for '.$sourse['lotid'];
+  $error[] = 'No now price for id: '.$sourse['lotid'];
 if(!$outdata['status'])
-  $error[] = 'Can\'t detect status for '.$sourse['lotid'];
+  $error[] = 'Can\'t detect status for id: '.$sourse['lotid'];
+if(!$data['place'])
+{
+  if(!$outdata['place'])
+    $error[] = 'Can\'t detect place for id: '.$sourse['lotid'];
+}
 
 if(!$error)
 {
@@ -81,5 +86,5 @@ else
   echo implode(', ', $error);
 
   $old_file_data = file_get_contents('./logs/itemdata.log');
-  file_put_contents('./logs/itemdata.log', $old_file_data."\n".$getdata.' - '. loaditem::get_error());
+  file_put_contents('./logs/itemdata.log', $old_file_data."\n".$getdata.' - '. implode(', ', $error));
 }

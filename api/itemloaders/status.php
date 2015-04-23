@@ -72,11 +72,12 @@ class loader_status
         $status = array_search($t_status, $allstatses);
       else
       {
+        //Пока удаляем автоматическое добавление - попадает много мусора
         //Добавляем статус автоматом если он не найден
-        core::$db->query('INSERT INTO `ds_maindata_status` SET
-          `status_name` = "'.core::$db->res($this->status).'" ;');
+        //core::$db->query('INSERT INTO `ds_maindata_status` SET
+        //  `status_name` = "'.core::$db->res($this->status).'" ;');
 
-        $status = core::$db->insert_id;
+        //$status = core::$db->insert_id;
       }
     }
 
