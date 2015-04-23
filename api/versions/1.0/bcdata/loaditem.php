@@ -26,6 +26,7 @@ if($sql)
 }
 else
 {
+  $id_lot = loaditem::get_id();
   core::$db->query('INSERT INTO `ds_maindata_bad_data` SET `lkey` = "'.core::$db->res($id_lot).'", `data` = "'.core::$db->res($getdata).'", `errors` = "'.core::$db->res(loaditem::get_error()).'" ;');
   echo loaditem::get_error();
 }
