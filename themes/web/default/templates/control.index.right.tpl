@@ -8,5 +8,6 @@
     <div class="elmenu"><a href="<?=$home?>/control/tset">Настройки тарифов и оплаты</a></div>
     <div class="elmenu"><a href="<?=$home?>/control/pays">Платежи</a></div>
     <div class="elmenu"><a href="<?=$home?>/control/allusers">Пользователи сайта</a></div>
+    <div class="elmenu"><a href="<?=$home?>/parserstat">Статистика парсеров</a></div>
     <div class="down_rmenu"> </div>
 </div>
