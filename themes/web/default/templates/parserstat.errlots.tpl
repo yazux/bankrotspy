@@ -6,7 +6,9 @@
                 <div class="conthead">
                     <h2><i class="icon-cog-alt"></i> Статистика парсеров</h2>
                 </div>
-
+                <div class="contbody_forms">
+                    <b>Всего:</b> <?=$total?>
+                </div>
             <?if($rmenu):?>
 
             <?foreach($rmenu as $rmenu): ?>
@@ -31,8 +33,8 @@
             <div class="contbody_forms">Нет ни одного пункта меню.</div>
             <?endif?>
 
-                <div class="contfin_forms" style="padding: 9px 23px">
-                  <b>Всего:</b> <?=$total?>
+                <div class="contfin_forms">
+                    <a class="urlbutton" href="<?=$home?>/parserstat/renewlots">Перезалить лоты</a>
                 </div>
             </div>
 

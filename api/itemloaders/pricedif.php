@@ -14,6 +14,11 @@ class loader_pricedif
 
   public function process()
   {
-    return round(($this->price - $this->now_price)/$this->price*100, 0);
+    $this->price = abs(intval($this->price));
+
+    if($this->price)
+      return round(($this->price - $this->now_price)/$this->price*100, 0);
+    else
+      return 0;
   }
 }

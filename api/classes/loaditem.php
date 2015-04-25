@@ -130,6 +130,21 @@ class loaditem
     {
       //Забиваем ошибки
       self::$error = implode(', ', $error);
+
+      //Очищаем то что зря забили
+      if($outdata['debtor'])
+      {
+        $cont_lots_deb = core::$db->query('SELECT COUNT(*) FROM `ds_maindata` WHERE `debtor` = "'.core::$db->res($outdata['debtor']).'" ;')->count();
+        if(!$cont_lots_deb)
+          core::$db->query('DELETE FROM `ds_maindata_debtors` WHERE `id` = "'.core::$db->res($outdata['debtor']).'" ;');
+      }
+
+      if($outdata['organizer'])
+      {
+        $cont_lots_organizer = core::$db->query('SELECT COUNT(*) FROM `ds_maindata` WHERE `organizer` = "'.core::$db->res($outdata['organizer']).'" ;')->count();
+        if(!$cont_lots_organizer)
+          core::$db->query('DELETE FROM `ds_maindata_organizers` WHERE `id` = "'.core::$db->res($outdata['organizer']).'" ;');
+      }
     }
     return FALSE;
   }

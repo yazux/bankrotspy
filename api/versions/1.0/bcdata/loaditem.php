@@ -2,7 +2,10 @@
 defined('DS_ENGINE') or die('web_demon laughs');
 
 $getdata = POST('itemdata');
-$getdata = iconv("windows-1251", "UTF-8", $getdata);
+$unicode = POST('unicode');
+$dontadderrors = POST('dontadderrors');
+if(!$unicode)
+  $getdata = iconv("windows-1251", "UTF-8", $getdata);
 
 if(!$getdata)
   exit('No item data');
@@ -27,6 +30,7 @@ if($sql)
 else
 {
   $id_lot = loaditem::get_id();
-  core::$db->query('INSERT INTO `ds_maindata_bad_data` SET `lkey` = "'.core::$db->res($id_lot).'", `data` = "'.core::$db->res($getdata).'", `errors` = "'.core::$db->res(loaditem::get_error()).'" ;');
+  if(!$dontadderrors)
+    core::$db->query('INSERT INTO `ds_maindata_bad_data` SET `lkey` = "'.core::$db->res($id_lot).'", `data` = "'.core::$db->res($getdata).'", `errors` = "'.core::$db->res(loaditem::get_error()).'" ;');
   echo loaditem::get_error();
 }
