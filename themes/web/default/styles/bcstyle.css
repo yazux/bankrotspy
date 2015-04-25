@@ -560,3 +560,21 @@ a.user_onl_bottom:hover{
 .pays_t tr td{
     padding: 2px;
 }
+
+.in_bookmark
+{
+    position: relative;
+    top: 1px;
+    background: #f7a52e;
+    color: white;
+    display: inline-block;
+    border-radius: 2px;
+    font: 89%/1.4545em Arial,sans-serif;
+    padding: 2px 6px 2px 2px;
+}
+
+.in_bookmark:hover
+{
+    cursor: pointer;
+    background: #dd8c2d;
+}

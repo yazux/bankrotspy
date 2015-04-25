@@ -6,7 +6,7 @@
     <meta name="keywords" content="<?=$keywords?>"/>
     <meta name="description" content="<?=$description?>"/>
 
-    <? $now_id = 67; ?>
+    <? $now_id = 68; ?>
 
     <script type="text/javascript" src="<?=$themepath?>/js/jquery-latest.js?id=<?=$now_id?>"></script>
     <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/allstyle.css?id=<?=$now_id?>"/>
@@ -60,7 +60,27 @@
                        <table>
                            <tr>
                                <td style="width:1%;"><a href="<?=core::$home?>"><img class="logo" src="<?=$themepath?>/images/logo.png"/></a></td>
-                               <td style="width:100%;"> </td>
+                               <td valign="top" style="width:100%;padding-top: 9px;">
+
+                                  <span id="bookmark" class="in_bookmark"><i class="icon-bookmark"></i>В закладки</span>
+                                   <script type="text/javascript">
+                                       $(function() {
+                                           $('#bookmark').click(function(e) {
+                                               if (window.sidebar && window.sidebar.addPanel) { // Mozilla Firefox Bookmark
+                                                   window.sidebar.addPanel(document.title,window.location.href,'');
+                                               } else if(window.external && ('AddFavorite' in window.external)) { // IE Favorite
+                                                   window.external.AddFavorite(location.href,document.title);
+                                               } else if(window.opera && window.print) { // Opera Hotlist
+                                                   this.title=document.title;
+                                                   return true;
+                                               } else { // webkit - safari/chrome
+                                                   alert('Нажмите ' + (navigator.userAgent.toLowerCase().indexOf('mac') != - 1 ? 'Command/Cmd' : 'CTRL') + ' + D чтобы добавить эту страницу.');
+                                               }
+                                               e.preventDefault();
+                                           });
+                                       });
+                                   </script>
+                               </td>
                            </tr>
                        </table>
                     </div>

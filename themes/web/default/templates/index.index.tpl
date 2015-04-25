@@ -76,9 +76,18 @@
                         </tr>
                     </table>
                      <hr class="news_back_hr" />
-                    <div class="set_button_cont">
-                       <span id="search_in_table" class="urlbutton_index button_no_top_index">Искать</span> &nbsp; <span id="clear_set_table" class="urlbutton_index button_no_top_index">Очистить</span>
-                    </div>
+                        <table>
+                            <tr>
+                                <td style="border: 0px;font-size: 15px;">  </td>
+                                <td  style="border: 0px;">
+                                    <div class="set_button_cont">
+                                    <span id="search_in_table" class="urlbutton_index button_no_top_index">Искать</span> &nbsp; <span id="clear_set_table" class="urlbutton_index button_no_top_index">Очистить</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+
                 </div>
 
             </div>

@@ -9,11 +9,12 @@
     <table>
         <tr>
             <td style="width: 100%;padding-top: 10px;padding-left: 13px;">
-              <span style="color: #bababa">BANKROT-SPY.RU <?=date("Y")?>г. | <a href="<?=$home?>/pages/7">Контакты</a></span>
+               <script async type="text/javascript" src="//yastatic.net/share/share.js" charset="utf-8"></script><div style="display: inline-block; margin-right: 5px;" class="yashare-auto-init" data-yashareL10n="ru" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,gplus" data-yashareTheme="counter" data-yashareImage="<?=$themepath?>/images/apple-touch-icon.png"></div>
+               <span style="color: #bababa;position: relative;top: 1px;">BANKROT-SPY.RU <?=date("Y")?>г. | <a href="<?=$home?>/pages/7">Контакты</a></span>
             </td>
+
             <td style="min-width: 210px;padding-top: 10px;text-align: right;padding-right: 17px;">
                 <!--<span style="color: #888888"><?=round((microtime(true) - rem::get('microtime'))*1000, 0)?>ms, sql:<?=$sql_count?></span>-->
-
                 <a class="user_onl_bottom" href="<?=$home?>/user/online"><i class="icon-user-male-bottom"></i> <?=$onl_all?></a>
             </td>
         </tr>
