@@ -171,7 +171,9 @@
         <div class="top_nav_info"></div>
 
         <table class="data_table" >
-
+            <tr>
+                <th colattr="undefined" style="background:white;border:0px;padding: 40px 0;font-size: 14px;"><i class="icon-spin5"></i> Загрузка...</th>
+            </tr>
         </table>
 
         <div class="bottomp_nav_info"></div>

@@ -13,7 +13,8 @@ while($data = $res->fetch_array())
   $loc['id'] = $data['id'];
   $loc['time'] = ds_time($data['time'], '%H:%M');
   $loc['data'] = ds_time($data['time'], '%d %B2 %Y');
-  $loc['text'] = text::st($data['text']);
+  text::add_cache($data['cache']);
+  $loc['text'] = text::out($data['text'], 0);
   $outnews[] = $loc;
 }
 
