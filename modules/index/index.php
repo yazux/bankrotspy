@@ -122,7 +122,21 @@ if(core::$user_id AND isset(core::$user_set['tabledata']) AND core::$user_set['t
   $platforms_used = $user_tset['platforms'];
 }
 
+//Новости по лотам
+$outnews = array();
+$res = core::$db->query('SELECT * FROM `ds_platform_news` LIMIT 10;');
+while($data = $res->fetch_array())
+{
+  $loc = array();
+  $loc['id'] = $data['id'];
+  $loc['time'] = ds_time($data['time'], '%H:%M');
+  $loc['data'] = ds_time($data['time'], '%d %B2 %Y');
+  $loc['text'] = text::st($data['text']);
+  $outnews[] = $loc;
+}
+
 engine_head();
+temp::HTMassign('outnews', $outnews);
 temp::assign('table_default_set', json_encode($set_table_array));
 temp::assign('table_set', (isset($save_set) ? json_encode($save_set) : json_encode($set_table_array)));
 temp::HTMassign('types_set', $types);

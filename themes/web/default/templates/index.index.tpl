@@ -95,15 +95,31 @@
         <td class="right_back_menu_index">
             <div class="right_panel_conf_index">
                 <div class="menu_rt_index">Новости площадок:</div>
-                <div class="news_back" id="bs_news_container">
+                <div class="news_back_right" id="bs_news_container">
 
                     <div class="news_text" id="bs_news_text">
-
-
+                        <?if($outnews):?>
+                        <?foreach($outnews as $otn): ?>
+                        <table class="newsitem_table">
+                          <tr>
+                              <td style="width: 29px;">
+                                  <i class="icon-newspaper"></i>
+                              </td>
+                              <td>
+                                   <?=$otn['text']?><br/>
+                                  <span class="undtexttime">Время: <b><?=$otn['time']?></b>, <?=$otn['data']?></span>
+                              </td>
+                          </tr>
+                        </table>
+                        <hr class="hrnews"/>
+                        <?endforeach?>
+                        <?else:?>
+                           <div style="text-align: center;margin-top: 10px;color:#b8baba;">Нет новостей</div>
+                        <?endif?>
                     </div>
                     <div class="grback"></div>
                     <div class="news_button_cont" id="bs_news_button_cont">
-                      <a href="" class="urlbutton_index button_no_top_index">Показать все</a>
+                      <a href="<?=$home?>/pnews" class="urlbutton_index button_no_top_index">Показать все</a>
                     </div>
                 </div>
 
