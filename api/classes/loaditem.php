@@ -86,6 +86,7 @@ class loaditem
     $outdata['last_update'] = 0;
     $outdata['price_dif'] = $load->pricedif($outdata['price'], $outdata['now_price']);
     $outdata['debpoints'] = 0;
+    $outdata['loadtime'] = time();
 
     //Забиваем id-шку
     self::$id = $outdata['item_key'];

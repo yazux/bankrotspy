@@ -4,7 +4,7 @@
 
             <div class="content">
                 <div class="conthead">
-                    <h2><i class="icon-cog-alt"></i> Статистика парсеров</h2>
+                    <h2><i class="icon-cog-alt"></i> Ошибки разбора API</h2>
                 </div>
                 <div class="contbody_forms">
                     <b>Всего:</b> <?=$total?>
