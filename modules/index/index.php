@@ -124,7 +124,7 @@ if(core::$user_id AND isset(core::$user_set['tabledata']) AND core::$user_set['t
 
 //Новости по лотам
 $outnews = array();
-$res = core::$db->query('SELECT * FROM `ds_platform_news` LIMIT 10;');
+$res = core::$db->query('SELECT * FROM `ds_platform_news` ORDER BY `time` DESC LIMIT 10;');
 while($data = $res->fetch_array())
 {
   $loc = array();

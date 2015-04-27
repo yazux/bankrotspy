@@ -6,7 +6,7 @@ new nav; //Постраничная навигация
 $total = core::$db->query('SELECT COUNT(*) FROM `ds_platform_news`')->count();
 
 $outnews = array();
-$res = core::$db->query('SELECT * FROM `ds_platform_news` LIMIT '.nav::$start.', '.nav::$kmess.';');
+$res = core::$db->query('SELECT * FROM `ds_platform_news` ORDER BY `time` DESC LIMIT '.nav::$start.', '.nav::$kmess.';');
 while($data = $res->fetch_array())
 {
   $loc = array();

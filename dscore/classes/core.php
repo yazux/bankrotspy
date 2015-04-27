@@ -53,6 +53,7 @@ class core
     self::initiate_module();
     self::user();
     self::system_clean();
+    self::cron_imitate();
 
     self::check_subsc();
   } 
@@ -396,6 +397,17 @@ class core
       self::$db->multi_free();
          
     }  
+  }
+
+  private static function cron_imitate()
+  {
+    $last_launch = self::$set['last_launch'];
+    if($last_launch < time()-(12*3600))
+    {
+      core::$db->query('UPDATE `ds_settings` SET `val`="'.time().'" WHERE `key`="last_launch";');
+
+      new cron_imitator;
+    }
   }
 
   public static function parse_lang($file)
