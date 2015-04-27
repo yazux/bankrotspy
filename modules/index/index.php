@@ -48,7 +48,7 @@ while($i <= $half_platform)
 $platforms = $now_platforms;
 
 //Список регионов
-$bold_regions_set = array(77, 78, 50, 47);
+$bold_regions_set = array(77, 78, 50, 47); //Регионы в топе (выделены жирным)
 $bold_places = array();
 //Достаем регионы
 $places_def = array();
@@ -108,18 +108,23 @@ $set_table_array = defaultset::get(array($types_def, $places_def, $platforms_def
 //Сохраненный поиск пользователя
 if(core::$user_id AND isset(core::$user_set['tabledata']) AND core::$user_set['tabledata'])
 {
-  $save_set = array();
-  $user_tset = json_decode(core::$user_set['tabledata'], 1);
-  //Проходимся еще раз, вдруг в таблице добавились новые настройки
-  foreach($set_table_array AS $key => $value)
+  $res = core::$db->query('SELECT * FROM `ds_search_profiles` WHERE `id` = "'.core::$db->res(core::$user_set['tabledata']).'" AND `userid` = "'.core::$user_id.'";');
+  if($res->num_rows)
   {
-    if(isset($user_tset[$key]))
-      $save_set[$key] = $user_tset[$key];
-    else
-      $save_set[$key] = $value;
+    $pdata = $res->fetch_array();
+    $save_set = array();
+    $user_tset = json_decode($pdata['profile'], 1);
+    //Проходимся еще раз, вдруг в таблице добавились новые настройки
+    foreach($set_table_array AS $key => $value)
+    {
+      if(isset($user_tset[$key]))
+        $save_set[$key] = $user_tset[$key];
+      else
+        $save_set[$key] = $value;
+    }
+    $places_used = $user_tset['places'];
+    $platforms_used = $user_tset['platforms'];
   }
-  $places_used = $user_tset['places'];
-  $platforms_used = $user_tset['platforms'];
 }
 
 //Новости по лотам
