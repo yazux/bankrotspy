@@ -78,7 +78,7 @@
                      <hr class="news_back_hr" />
                         <table class="ch_profile_menu">
                             <tr>
-                                <td style="border: 0px;">
+                                <td style="border: 0px;padding-right: 0px;">
 
                                     <span  class="search_profile_area">
                                         <span class="icon_in_range" id="icon_s_status"><i class="icon-right-dir"></i></span><span class="pfame">Стандартный профиль dfb dfg df g dfgdfgdg sdfsdf</span> <span class="icon_in_range" ><i id="del_now_ch_profile" title="Удалить этот профиль" class="icon-cancel-2"></i></span>
@@ -88,7 +88,7 @@
                                         <div id="">Третий профиль sd fds sdf sdf ds fsdf sd fsd f</div>
                                     </div>
                                 </td>
-                                <td style="border: 0px;">
+                                <td style="border: 0px;padding-left: 5px;">
                                     <span class="new_s_profile"><i title="Новый профиль" class="icon-plus"></i></span>
                                     <a class="q_search_link" href="">Что это?</a>
                                 </td>
