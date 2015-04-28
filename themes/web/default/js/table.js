@@ -719,28 +719,28 @@ $(document).ready(function(){
   });
 
   //профили
-  var is_visivle_profile_cont = 0;
-  function menu_cont_int()
+  $(document).click(function(e)
   {
-    if (is_visivle_profile_cont == 0)
+    if ($('.profiles_container').is(':hidden'))
     {
-      $('.profiles_container').fadeIn(200);
-      is_visivle_profile_cont = 1;
-      $('#icon_s_status').html('<i class="icon-down-dir"></i>');
+      if ($(e.target).closest('.pfame').length) {
+        $('.profiles_container').fadeIn(200);
+        $('#icon_s_status').html('<i class="icon-down-dir"></i>');
+        return;
+      }
+      if ($(e.target).closest('#icon_s_status').length) {
+        $('.profiles_container').fadeIn(200);
+        $('#icon_s_status').html('<i class="icon-down-dir"></i>');
+        return;
+      }
     }
     else
     {
+      if ($(e.target).closest(".profiles_container").length) return;
       $('.profiles_container').fadeOut(200);
-      is_visivle_profile_cont = 0;
       $('#icon_s_status').html('<i class="icon-right-dir"></i>');
+      e.stopPropagation();
     }
-  }
-
-  $(document).on('click', '.pfame', function(){
-    menu_cont_int();
-  });
-  $(document).on('click', '#icon_s_status', function(){
-    menu_cont_int();
   });
 
 
