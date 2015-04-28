@@ -717,4 +717,31 @@ $(document).ready(function(){
     $('#place_table input[type="checkbox"]').prop('checked', false);
     place_set_listener();
   });
+
+  //профили
+  var is_visivle_profile_cont = 0;
+  function menu_cont_int()
+  {
+    if (is_visivle_profile_cont == 0)
+    {
+      $('.profiles_container').fadeIn(200);
+      is_visivle_profile_cont = 1;
+      $('#icon_s_status').html('<i class="icon-down-dir"></i>');
+    }
+    else
+    {
+      $('.profiles_container').fadeOut(200);
+      is_visivle_profile_cont = 0;
+      $('#icon_s_status').html('<i class="icon-right-dir"></i>');
+    }
+  }
+
+  $(document).on('click', '.pfame', function(){
+    menu_cont_int();
+  });
+  $(document).on('click', '#icon_s_status', function(){
+    menu_cont_int();
+  });
+
+
 });

@@ -39,6 +39,7 @@ function create_new_profile($tosave)
         ;');
 
   core::$user_set['tabledata'] = core::$db->insert_id;
+  core::$user_set['defprofile'] = core::$user_set['tabledata'];
   core::$db->query('UPDATE `ds_users` SET `settings`="'.core::$db->res(serialize(core::$user_set)).'" WHERE `id` = "'.core::$user_id.'";');
 
   return true;

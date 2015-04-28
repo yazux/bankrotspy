@@ -76,10 +76,26 @@
                         </tr>
                     </table>
                      <hr class="news_back_hr" />
-                        <table>
+                        <table class="ch_profile_menu">
                             <tr>
-                                <td style="border: 0px;font-size: 15px;">  </td>
-                                <td  style="border: 0px;">
+                                <td style="border: 0px;">
+
+                                    <span  class="search_profile_area">
+                                        <span class="icon_in_range" id="icon_s_status"><i class="icon-right-dir"></i></span><span class="pfame">Стандартный профиль dfb dfg df g dfgdfgdg sdfsdf</span> <span class="icon_in_range" ><i id="del_now_ch_profile" title="Удалить этот профиль" class="icon-cancel-2"></i></span>
+                                    </span>
+                                    <div class="profiles_container">
+                                        <div id="">Еще профиль</div>
+                                        <div id="">Третий профиль sd fds sdf sdf ds fsdf sd fsd f</div>
+                                    </div>
+                                </td>
+                                <td style="border: 0px;">
+                                    <span class="new_s_profile"><i title="Новый профиль" class="icon-plus"></i></span>
+                                    <a class="q_search_link" href="">Что это?</a>
+                                </td>
+                                <td style="border: 0px;">
+
+                                </td>
+                                <td  style="border: 0px;white-space: nowrap">
                                     <div class="set_button_cont">
                                     <span id="search_in_table" class="urlbutton_index button_no_top_index">Искать</span> &nbsp; <span id="clear_set_table" class="urlbutton_index button_no_top_index">Очистить</span>
                                     </div>

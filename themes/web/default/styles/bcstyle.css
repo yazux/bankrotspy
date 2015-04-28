@@ -598,3 +598,77 @@ a.user_onl_bottom:hover{
 hr.hrnews{
     margin: 3px 5px 5px 30px;
 }
+
+.search_profile_area
+{
+    font-size: 13px;
+    display: block;
+    width: 200px;
+    height: 27px;
+    border: 1px solid #d3d3d3;
+    padding: 0px 0px 0px 0px;
+    background: #f8f8f8;
+}
+
+.search_profile_area:hover
+{
+    cursor: pointer;
+    background: #f6f6f6;
+}
+
+.pfame
+{
+    display: block;
+    float:left;
+    width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    height: 24px;
+    padding-top: 3px;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+
+.new_s_profile:hover
+{
+    cursor: pointer;
+}
+
+.profiles_container
+{
+    font-size: 13px;
+    display: none;
+    width: 200px;
+    z-index: 999;
+    border: 1px solid #d3d3d3;
+    border-bottom: 0;
+    background: white;
+    position: absolute;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
+}
+
+.profiles_container div
+{
+   padding: 4px 10px 4px 10px;
+   border-bottom: 1px solid #d3d3d3;
+   width: 180px;
+   white-space: nowrap;
+   overflow: hidden;
+   height: 20px;
+}
+
+.profiles_container div:hover
+{
+    cursor: pointer;
+    background: #f7f7f7;
+}
+
+.icon_in_range
+{
+    display: block;
+    float:left;
+    width: 18px;
+    height:24px;
+    padding-top: 3px;
+}
