@@ -6,10 +6,11 @@
                 <div class="conthead">
                     <h2><i class="icon-cog-alt"></i> Ошибки разбора API</h2>
                 </div>
+                <?if($rmenu):?>
                 <div class="contbody_forms">
                     <b>Всего:</b> <?=$total?>
                 </div>
-            <?if($rmenu):?>
+
 
             <?foreach($rmenu as $rmenu): ?>
             <div class="contbody_forms">
@@ -30,11 +31,11 @@
             <?endforeach?>
 
             <?else:?>
-            <div class="contbody_forms">Нет ни одного пункта меню.</div>
+            <div class="contbody_forms">Нет лотов с ошибками</div>
             <?endif?>
 
                 <div class="contfin_forms">
-                    <a class="urlbutton" href="<?=$home?>/parserstat/renewlots">Перезалить лоты</a>
+                    <a class="urlbutton" href="<?=$home?>/parserstat/renewlots">Перезалить лоты</a> <a class="urlbutton" href="<?=$home?>/parserstat/clearlots">Очистить таблицу</a>
                 </div>
             </div>
 
