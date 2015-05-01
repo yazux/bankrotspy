@@ -3,8 +3,8 @@ Options -Indexes
 
 RewriteEngine On
 
-RewriteCond %{HTTP_HOST} ^www.dsengine\.com$ [NC]
-RewriteRule ^(.*)$ http://dsengine.com/$1 [R=301,L]
+RewriteCond %{HTTP_HOST} ^www.bankrot-spy\.ru$ [NC]
+RewriteRule ^(.*)$ http://bankrot-spy.ru/$1 [R=301,L]
 
 RewriteCond %{REQUEST_METHOD} ^TRACE
 RewriteCond %{HTTP:range} !(^bytes=[^,]+(,[^,]+){0,4}$|^$)
