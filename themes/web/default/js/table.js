@@ -743,5 +743,117 @@ $(document).ready(function(){
     }
   });
 
+  //Создание профиля
+  function create_new_profile()
+  {
+    var name = $('#name_new_profile').val();
+    if(!name)
+    {
+      $('#error_newprofile_log').text('Поле пустое!');
+    }
+    else
+    {
+      $('#popup_overlay_newprofile').fadeOut(200);
+      begin_loader();
 
+      $.post(
+        "/tabledata/newprofile",
+        {
+          formid: engine_formid,
+          profile_name: name
+        },
+        answer_new_profile
+      );
+    }
+  }
+
+  function answer_new_profile(data)
+  {
+    end_loader();
+    var answer = data.substr(0, 2);
+    var loadid = data.substr(2);
+
+    if(answer == 'ok')
+      location.href = engine_home;
+    else
+      create_head_mess('Ошибка создания профиля!');
+  }
+
+  $(document).on('click', '#newprofile_popup_close', function(){
+    $('#error_newprofile_log').text('');
+    $('#popup_overlay_newprofile').fadeOut(200);
+  });
+  $(document).on('click', '#newprofile_set', function(){
+    $('#popup_overlay_newprofile').fadeIn(200);
+  });
+  $(document).on('click', '#newprofile_popup_create', function(){
+    create_new_profile();
+  });
+
+  //Удаление профиля
+  $(document).on('click', '#del_now_ch_profile', function(){
+    $('#popup_overlay_delprofile').fadeIn(200);
+  });
+  $(document).on('click', '#delprofile_popup_close', function(){
+    $('#popup_overlay_delprofile').fadeOut(200);
+  });
+
+  $(document).on('click', '.profiles_container div', function(){
+
+    var loadprofile = $(this).attr('attrid');
+
+    $('.profiles_container').fadeOut(200);
+    $('#icon_s_status').html('<i class="icon-right-dir"></i>');
+    $('.pfame').text($(this).text());
+
+    if(loadprofile)
+    {
+      begin_loader();
+
+      $.post(
+        "/tabledata/changeprofile",
+        {
+          formid: engine_formid,
+          profile_id: loadprofile
+        },
+
+        function(data)
+        {
+          if(data == 'ok')
+            location.href = engine_home;
+          else
+          {
+            end_loader();
+            create_head_mess('При смене профиля возникла ошибка!');
+          }
+        }
+      );
+    }
+
+  });
+
+  $(document).on('click', '#delprofile_doit', function(){
+    $('#popup_overlay_delprofile').fadeOut(200);
+    begin_loader();
+
+    $.post(
+      "/tabledata/deleteprofile",
+      {
+        formid: engine_formid,
+        profile_id: engine_now_profile
+      },
+
+      function(data)
+      {
+        if(data == 'ok')
+          location.href = engine_home;
+        else
+        {
+          end_loader();
+          create_head_mess('При удалении профиля возникла ошибка!');
+        }
+      }
+    );
+
+  });
 });

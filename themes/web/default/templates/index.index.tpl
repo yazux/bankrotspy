@@ -94,8 +94,8 @@
                                     </div>
                                 </td>
                                 <td style="border: 0px;padding-left: 5px;">
-                                    <span class="new_s_profile"><i title="Новый профиль" class="icon-plus"></i></span>
-                                    <a class="q_search_link" href="">Что это?</a>
+                                    <span id="newprofile_set" class="new_s_profile"><i title="Новый профиль" class="icon-plus"></i></span>
+                                    <a style="font-size: 13px;" class="q_search_link" onmouseover="toolTip('<b>Поисковые профили</b> - это инструмент для отслеживания большого количества лотов по заданным поисковым параметрам.<hr/>Более подробное описание по ссылке в разделе \'Поисковые профили\'')" onmouseout="toolTip()" href="<?=$home?>/pages/1">Что это?</a>
                                 </td>
                                 <td style="border: 0px;">
 
@@ -210,6 +210,8 @@
     var default_settings = jQuery.parseJSON($('#table_default_set').text());
     var engine_global_loader = 0; //Показывать ли в первый раз оповещение о загрузке таблицы
 
+    var engine_home = '<?=$home?>';
+    var engine_now_profile = '<?=$now_profile_id?>';
 
     load_table();
     $(document).ready(function()
@@ -351,5 +353,79 @@
         <div class="main_pop_bottom">
             <span id="platform_popup_close" class="urlbutton_index">Сохранить</span>
         </div>
+    </div>
+</div>
+
+<div id="popup_overlay_newprofile" class="popup_overlay">
+    <div class="popup_table">
+        <div class="close_modal_img"><span id="icon_close_butt"><i class="icon-cancel-circled"></i></span></div>
+        <?if(core::$user_id):?>
+        <div class="main_pop_head">
+            Новый профиль
+        </div>
+        <div class="main_pop_body">
+
+            <b>Название профиля:</b><br/>
+            <div id="error_newprofile_log" style="color:red;font-size: 13px;"></div>
+            <input id="name_new_profile" type="text" name="orig_pass" value="" />
+            <hr/>
+            <i class="icon-attention"></i> Буден создан новый чистый профиль с введенным названием.
+            При работе с этим профилем все изменения в поисковых параметрах будут сохранятся в этом поисковом профиле после нажатия кнопки "Искать".
+            Очистка полей будет работать только для выбранного профиля.
+        </div>
+        <div class="main_pop_bottom">
+            <span id="newprofile_popup_create" class="urlbutton_index">Создать</span> &nbsp; <span id="newprofile_popup_close" class="urlbutton_index">Отмена</span>
+        </div>
+        <?else:?>
+        <div class="main_pop_head">
+            Новый профиль
+        </div>
+        <div class="main_pop_body">
+            <div style="text-align: center;">
+                <b>Ошибка!</b> Профили могут создавать только зарегистрированные пользователи!<br/>
+
+            </div>
+
+        </div>
+        <div class="main_pop_bottom">
+            <a class="urlbutton_index" href="">Вход</a> &nbsp; <a class="urlbutton_index" href="">Регистрация</a>
+        </div>
+        <?endif?>
+    </div>
+</div>
+
+<div id="popup_overlay_delprofile" class="popup_overlay">
+    <div class="popup_table">
+        <div class="close_modal_img"><span id="icon_close_butt"><i class="icon-cancel-circled"></i></span></div>
+        <?if(core::$user_id):?>
+        <div class="main_pop_head">
+            Удаление профиля
+        </div>
+        <?if($now_profile_id != $default_profile_id):?>
+             <div class="main_pop_body">
+                <div style="text-align: center;">Вы действительно хотите удалить текущий поисковой профиль?</div>
+             </div>
+             <div class="main_pop_bottom">
+                <span id="delprofile_doit" class="urlbutton_index">Удалить</span> &nbsp; <span id="delprofile_popup_close" class="urlbutton_index">Отмена</span>
+             </div>
+        <?else:?>
+            <div class="main_pop_body">
+                <div style="text-align: center;">Нельзя удалить стандартный профиль!</div>
+            </div>
+            <div class="main_pop_bottom">
+                <span id="delprofile_popup_close" class="urlbutton_index">Отмена</span>
+            </div>
+        <?endif?>
+        <?else:?>
+        <div class="main_pop_head">
+            Ошибка
+        </div>
+        <div class="main_pop_body">
+            <div style="text-align: center;">Управлять профилями могут только зарегистрированные пользователи!</div>
+        </div>
+        <div class="main_pop_bottom">
+            <span id="delprofile_popup_close" class="urlbutton_index">Отмена</span>
+        </div>
+        <?endif?>
     </div>
 </div>
