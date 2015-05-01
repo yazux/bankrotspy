@@ -81,11 +81,16 @@
                                 <td style="border: 0px;padding-right: 0px;">
 
                                     <span  class="search_profile_area">
-                                        <span class="icon_in_range" id="icon_s_status"><i class="icon-right-dir"></i></span><span class="pfame">Стандартный профиль dfb dfg df g dfgdfgdg sdfsdf</span> <span class="icon_in_range" ><i id="del_now_ch_profile" title="Удалить этот профиль" class="icon-cancel-2"></i></span>
+                                        <span class="icon_in_range" id="icon_s_status"><i class="icon-right-dir"></i></span><span class="pfame"><?=$now_profile_name ? $now_profile_name : 'Стандартный профиль'?></span> <span class="icon_in_range" ><i id="del_now_ch_profile" title="Удалить этот профиль" class="icon-cancel-2"></i></span>
                                     </span>
                                     <div class="profiles_container">
-                                        <div id="">Еще профиль</div>
-                                        <div id="">Третий профиль sd fds sdf sdf ds fsdf sd fsd f</div>
+                                        <?if($outprofiles):?>
+                                        <?foreach($outprofiles as $pval): ?>
+                                          <div attrid="<?=$pval['id']?>"><?=$pval['name']?></div>
+                                        <?endforeach?>
+                                        <?else:?>
+                                          <div attrid="">Стандартный профиль</div>
+                                        <?endif?>
                                     </div>
                                 </td>
                                 <td style="border: 0px;padding-left: 5px;">

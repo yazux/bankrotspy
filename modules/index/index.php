@@ -124,6 +124,22 @@ if(core::$user_id AND isset(core::$user_set['tabledata']) AND core::$user_set['t
     }
     $places_used = $user_tset['places'];
     $platforms_used = $user_tset['platforms'];
+
+    //Текущий профиль
+    $now_profile_name = $pdata['pname'];
+    $now_profile_id = $pdata['id'];
+    $default_profile_id = core::$user_set['defprofile'];
+
+    //Достаем все профили
+    $outprofiles = array();
+    $res = core::$db->query('SELECT * FROM `ds_search_profiles` WHERE `userid` = "'.core::$user_id.'";');
+    while($prd = $res->fetch_array())
+    {
+      $loc = array();
+      $loc['id'] = $prd['id'];
+      $loc['name'] = $prd['pname'];
+      $outprofiles[] = $loc;
+    }
   }
 }
 
@@ -153,6 +169,14 @@ temp::HTMassign('places_used', isset($places_used) ? $places_used : $places_def)
 
 temp::HTMassign('bold_places', $bold_places);
 temp::HTMassign('places_def', $places_def);
+
+if(isset($now_profile_id))
+{
+  temp::assign('now_profile_id', $now_profile_id);
+  temp::assign('now_profile_name', $now_profile_name);
+  temp::assign('default_profile_id', $default_profile_id);
+  temp::HTMassign('outprofiles', $outprofiles);
+}
 
 temp::HTMassign('platforms', $platforms);
 temp::HTMassign('platforms_def', $platforms_def);
