@@ -35,12 +35,31 @@ if(core::$user_id)
   if($data['desttime'])
     $desttime = ds_time($data['desttime']);
 
+  //Достаем все профили
+  if(core::$user_id AND isset(core::$user_set['tabledata']) AND core::$user_set['tabledata'])
+  {
+    $outprofiles = array();
+    $res = core::$db->query('SELECT * FROM `ds_search_profiles` WHERE `userid` = "'.core::$user_id.'";');
+    while($prd = $res->fetch_array())
+    {
+      $loc = array();
+      $loc['id'] = $prd['id'];
+      $loc['name'] = $prd['pname'];
+      if($loc['id'] != core::$user_set['defprofile'])
+        $loc['can_edit'] = 1;
+      $outprofiles[] = $loc;
+    }
+  }
+
   engine_head(lang('cab'));
   temp::assign('user_ip', core::$ip);
   temp::assign('user_ua', core::$ua);
   temp::assign('avatar', $avatar);
   if(isset($tariff))
     temp::assign('tariff', $tariff);
+
+  if(isset($outprofiles))
+    temp::HTMassign('outprofiles', $outprofiles);
 
   temp::assign('online', user::is_online($data['lastvisit']));
   temp::assign('ordercode', $data['ordercode']);

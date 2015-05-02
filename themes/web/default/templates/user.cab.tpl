@@ -54,6 +54,42 @@
                 </div>
             </div>
 
+            <div class="content">
+                <div class="conthead">
+                    <h2><i class="icon-search"></i> Поисковые профили</h2>
+                </div>
+                <div class="contbody_forms">
+                    <b>Поисковые профили</b> - это инструмент для отслеживания большого количества лотов по заданным поисковым параметрам. Более подробное описание в разделе <a href="<?=$home?>/pages/1">Помощь</a>.
+                </div>
+                <?if($outprofiles):?>
+
+                <?foreach($outprofiles as $rmenu): ?>
+                <div class="contbody_forms">
+                    <table>
+                        <tr>
+                            <td valign="top" style="width: 30px;padding-top: 6px"><i class="icon-list"></i></td>
+                            <td>
+                                <b><?=$rmenu['name']?></b><br/>
+                                <a href="<?=$home?>/user/loadrofile?id=<?=$rmenu['id']?>">Загрузить профиль</a>
+                            </td>
+                            <?if($rmenu['can_edit']):?>
+                                <td class="cont_act"><a title="Редактировать" href="<?=$home?>/user/renameprofile?id=<?=$rmenu['id']?>"><i class="icon-edit"></i></a></td>
+                                <td class="cont_act"><a title="Удалить" href="<?=$home?>/user/deleteprofile?id=<?=$rmenu['id']?>"><i class="icon-delete"></i></a></td>
+                            <?endif?>
+                        </tr>
+                    </table>
+                </div>
+                <?endforeach?>
+
+                <?else:?>
+                <div class="contbody_forms" style="padding-top: 20px;padding-bottom: 20px;">Нет ни одного поискового профиля.</div>
+                <?endif?>
+                <div class="contfin_forms">
+                    <a href="<?=$home?>/user/newprofile" class="urlbutton_index">Создать новый</a>
+                </div>
+            </div>
+
+
         </td>
         <td class="right_back_menu">
             <div class="right_panel_conf">
