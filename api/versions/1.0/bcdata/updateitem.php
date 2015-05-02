@@ -53,7 +53,7 @@ $outdata['now_price'] = $load->price($sourse['nowprice']);
 $outdata['status'] = $load->status($sourse['status']);
 $outdata['last_update'] = time();
 $outdata['price_dif'] = $load->pricedif($data['price'], $outdata['now_price']);
-if(!$data['place'])
+if($sourse['place'])
   $outdata['place'] = $load->place($sourse['place']);
 
 //print_r($outdata);
@@ -62,11 +62,6 @@ if(!$outdata['now_price'])
   $error[] = 'No now price for id: '.$sourse['lotid'];
 if(!$outdata['status'])
   $error[] = 'Can\'t detect status for id: '.$sourse['lotid'];
-if(!$data['place'])
-{
-  if(!$outdata['place'])
-    $error[] = 'Can\'t detect place for id: '.$sourse['lotid'];
-}
 
 if(!$error)
 {
