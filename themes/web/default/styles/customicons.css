@@ -27,6 +27,16 @@ a [class^="icon-"]:hover:before,a [class*=" icon-"]:hover:before {
     color: red;
 }
 
+.icon-help:before
+{
+    font-size: 13px;
+}
+
+.icon-help:hover:before
+{
+    cursor:help;
+}
+
 .icon-plus:before
 {
     position: relative;

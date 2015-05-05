@@ -27,6 +27,8 @@ class column_debpoints
   public function process()
   {
     $price = $this->price;
+    if(!$price)
+      $price = '<i onmouseover="toolTip(\'У этого лота пока нет баллов\')" onmouseout="toolTip()" class="icon-help"></i>';
 
     return array(
       'col' => $price,
