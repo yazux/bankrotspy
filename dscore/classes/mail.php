@@ -16,7 +16,7 @@ class mail
      $adds[] = 'Reply-To: =?utf-8?B?'.base64_encode(self::$name_from).'?= <'.self::$mail_from.'>';
      $adds[] = 'Subject: '.$subject;
      $adds[] = 'Content-Type: text/plain; charset="utf-8"';
-     $adds = implode("\r\n", $adds);
+     $adds = implode("\n", $adds);
 
      mail($mail, $subject, $mail_body, $adds);
   }
