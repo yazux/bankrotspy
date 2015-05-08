@@ -95,7 +95,7 @@
                                 </td>
                                 <td style="border: 0px;padding-left: 5px;">
                                     <span id="newprofile_set" class="new_s_profile"><i title="Новый профиль" class="icon-plus"></i></span>
-                                    <a style="font-size: 13px;" class="q_search_link" onmouseover="toolTip('<b>Поисковые профили</b> - это инструмент для отслеживания большого количества лотов по заданным поисковым параметрам.<hr/>Более подробное описание по ссылке в разделе \'Поисковые профили\'')" onmouseout="toolTip()" href="<?=$home?>/pages/1">Что это?</a>
+                                    <a style="font-size: 13px;" class="q_search_link" onmouseover="toolTip('<b>Поисковые профили</b> - это инструмент для отслеживания большого количества лотов по заданным поисковым параметрам.<hr/>Более подробное описание по ссылке:')" onmouseout="toolTip()" href="<?=$home?>/pages/8">Что это?</a>
                                 </td>
                                 <td style="border: 0px;">
 
