@@ -73,13 +73,13 @@ function build_page_navigation(page, total, kmess)
   {
     if(numpages > 2)
       outdata += '<span class="navpgin">1</span>';
-    outdata += '<span class="navpgin">« Позже</span>';
+    outdata += '<span class="navpgin">« Назад</span>';
   }
   else
   {
     if(numpages > 2)
       outdata += '<span class="navpg" onclick="load_table_page(1)">1</span>';
-    outdata += '<span class="navpg" onclick="load_table_page(' + previos_page + ')">« Позже</span>';
+    outdata += '<span class="navpg" onclick="load_table_page(' + previos_page + ')">« Назад</span>';
   }
 
   outdata += '<form method="get" style="display:inline" action="">';
@@ -95,13 +95,13 @@ function build_page_navigation(page, total, kmess)
 
   if(page == numpages)
   {
-    outdata += '<span class="navpgin">Раньше »</span>';
+    outdata += '<span class="navpgin">Вперед »</span>';
     if(numpages > 2)
       outdata += '<span class="navpgin">' + numpages + '</span>';
   }
   else
   {
-    outdata += '<span class="navpg" onclick="load_table_page(' + next_page + ')">Раньше »</span>';
+    outdata += '<span class="navpg" onclick="load_table_page(' + next_page + ')">Вперед »</span>';
     if(numpages > 2)
       outdata += '<span class="navpg"  onclick="load_table_page(' + numpages + ')">' + numpages + '</span>';
   }
