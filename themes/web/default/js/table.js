@@ -484,8 +484,8 @@ function search_listener()
     str_err += 'Нельзя одновременно использовать "Дату подачи" и функцию "Дней до подачи заявок"!' + '<br/>';
 
   //Минимальная и максимальная цены
-  var price_start = parseInt($('[name="price_start"]').val());
-  var price_end = parseInt($('[name="price_end"]').val());
+  var price_start = parseInt(unformat_number($('[name="price_start"]').val()));
+  var price_end = parseInt(unformat_number($('[name="price_end"]').val()));
   engine_settings.price_start = price_start;
   engine_settings.price_end = price_end;
 
@@ -558,6 +558,9 @@ function restore_settings()
 
   $('[name="price_start"]').val(engine_settings.price_start);
   $('[name="price_end"]').val(engine_settings.price_end);
+  //Разделяем разряды
+  number_format('price_start_forid');
+  number_format('price_end_forid');
 
   $("input[name=type_price][value='" + engine_settings.type_price + "']").prop("checked",true);
 }

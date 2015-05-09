@@ -60,10 +60,10 @@
                                <i class="icon-rouble"></i> Цена лота:<br/>
                                <table class="nomarginnews">
                                    <tr>
-                                       <td style="width: 28px;">С: </td><td><input type="text" name="price_start"/></td>
+                                       <td style="width: 28px;">С: </td><td><input type="text" id="price_start_forid" onkeyup="number_format(this.id);" name="price_start"/></td>
                                    </tr>
                                    <tr>
-                                       <td>По: </td><td><input type="text" name="price_end"/></td>
+                                       <td>По: </td><td><input type="text" id="price_end_forid" onkeyup="number_format(this.id);" name="price_end"/></td>
                                    </tr>
                                </table>
 
