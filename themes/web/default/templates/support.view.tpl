@@ -70,8 +70,8 @@
                             <div class="texta"><textarea id="messarea" name="msg" rows="5"></textarea></div>
                         </div>
                         <div class="contbody_forms"><i class="icon-attention"></i> Если Вам нужно прикрепить файл (скриншот), тогда воспользуйтесь бесплатными сервисами, например:
-                            <a href="http://pixs.ru/">http://pixs.ru/</a> или
-                            <a href=""https://gyazo.com/ru>https://gyazo.com/ru</a> и вставьте ссылку на изображение в сообщение.
+                            <a target="_blank" href="http://pixs.ru/">http://pixs.ru/</a> или
+                            <a target="_blank" href=""https://gyazo.com/ru>https://gyazo.com/ru</a> и вставьте ссылку на изображение в сообщение.
                         </div>
                         <div class="contfintext">
                             <input type="submit" name="submit" size="14" value="Отправить" />
