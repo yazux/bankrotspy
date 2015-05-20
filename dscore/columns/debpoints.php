@@ -20,7 +20,8 @@ class column_debpoints
   public function name()
   {
     return array(
-      'name' => 'Баллы'
+      'name' => 'Баллы',
+      'addhtml' => ' onmouseover="toolTip(\'Рейтинг ликвидности лота, рассчитанный на основе 3-х критериев:<br/>3 - высокое качество лота<br/>2 - среднее качество лота<br/>0-1 - низкое качество лота\')" onmouseout="toolTip()" '
     );
   }
 

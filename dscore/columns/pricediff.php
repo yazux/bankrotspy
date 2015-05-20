@@ -20,7 +20,8 @@ class column_pricediff
   public function name()
   {
     return array(
-      'name' => 'Понижение цены, %'
+      'name' => 'Понижение цены, %',
+      'addhtml' => '  onmouseover="toolTip(\'Разница между начальной и текущей ценой\')" onmouseout="toolTip()" '
     );
   }
 

@@ -20,7 +20,8 @@ class column_profitproc
   public function name()
   {
     return array(
-      'name' => 'Доходность, %'
+      'name' => 'Доходность, %',
+      'addhtml' => '  onmouseover="toolTip(\'Вероятная доходность операции по приобретению лота на торгах и продаже его на рынке\')" onmouseout="toolTip()" '
     );
   }
 

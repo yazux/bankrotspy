@@ -20,7 +20,8 @@ class column_marketprice
   public function name()
   {
     return array(
-      'name' => 'Рыночная цена, руб.'
+      'name' => 'Рыночная цена, руб.',
+      'addhtml' => ' onmouseover="toolTip(\'Рыночная цена лота на рынке\')" onmouseout="toolTip()" '
     );
   }
 

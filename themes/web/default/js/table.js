@@ -169,7 +169,11 @@ function answer_load(data)
                 class_sort = ' class="sort_up" ';
             }
 
-            head_table += '<th ' + class_sort + ' colattr="' + this.classname + '" ' + style_holder + ' >' + this.name + '</th>';
+            var addhtml_holder = '';
+            if(this.addhtml)
+              addhtml_holder = ' ' + this.addhtml + ' ';
+
+            head_table += '<th ' + addhtml_holder + class_sort + ' colattr="' + this.classname + '" ' + style_holder + ' >' + this.name + '</th>';
 
         });
 
