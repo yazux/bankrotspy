@@ -55,6 +55,12 @@ $outdata['last_update'] = time();
 $outdata['price_dif'] = $load->pricedif($data['price'], $outdata['now_price']);
 if($sourse['place'])
   $outdata['place'] = $load->place($sourse['place']);
+//Если есть рыночная цена, то нужно обновить прибыль и доходность.
+if($data['market_price'] AND $data['now_price'])
+{
+  $outdata['profit_rub'] = $load->profitrub($data['market_price'], $data['now_price']);
+  $outdata['profit_proc'] = $load->prifitproc($data['market_price'], $data['now_price']);
+}
 
 //print_r($outdata);
 
