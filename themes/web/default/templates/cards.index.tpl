@@ -120,7 +120,7 @@
                             <td>
                                 <?if($organizer):?>
                                     <?if($organizer_profile):?>
-                                        <a target="_blank" href="<?=$organizer?>"><i class="icon-globe-table"></i>
+                                        <a target="_blank" href="<?=$organizer_profile?>"><i class="icon-globe-table"></i>
                                         <?=$organizer?>
                                         </a>
                                     <?else:?>
