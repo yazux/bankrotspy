@@ -60,7 +60,14 @@ if($data['market_price'] AND $data['now_price'])
 {
   $outdata['profit_rub'] = $load->profitrub($data['market_price'], $data['now_price']);
   $outdata['profit_proc'] = $load->prifitproc($data['market_price'], $data['now_price']);
+
+  if($outdata['profit_proc'] > 2000)
+  {
+    $outdata['profit_rub'] = 0;
+    $outdata['profit_proc'] = 0;
+  }
 }
+
 
 //print_r($outdata);
 

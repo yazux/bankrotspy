@@ -12,6 +12,13 @@ while($data = $res->fetch_assoc())
   {
     $profit_rub = $load->profitrub($data['market_price'], $data['now_price']);
     $profit_proc = $load->prifitproc($data['market_price'], $data['now_price']);
+
+    if($profit_proc > 2000)
+    {
+      $profit_rub = 0;
+      $profit_proc = 0;
+    }
+
     $addsql = ' , `profit_rub` = "'.$profit_rub.'", `profit_proc` = "'.$profit_proc.'" ';
   }
   core::$db->query('UPDATE `ds_maindata` SET `price_dif` = "'.$price_dif.'" '.$addsql.' WHERE `id` = "'.core::$db->res($data['id']).'" ;');
