@@ -127,8 +127,10 @@ if(isset($data_org['org_name']))
   temp::assign('contact_person', $data_org['contact_person']);
   temp::assign('manager', $data_org['manager']);
   temp::assign('inn_orgname', $data_org['inn']);
-  if($data_org['org_profile'])
+  if(isset($data_org['org_profile']) AND $data_org['org_profile'])
     temp::assign('organizer_profile', $data_org['org_profile']);
+  if(isset($data_org['arbitr_profile']) AND $data_org['arbitr_profile'])
+    temp::assign('arbitr_profile', $data_org['arbitr_profile']);
 }
 
 temp::assign('case_number', $data['case_number']);

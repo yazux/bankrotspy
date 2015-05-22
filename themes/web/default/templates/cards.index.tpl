@@ -137,7 +137,16 @@
                         </tr>
                         <tr>
                             <td style="width: 200px;"><b>Арбитражный управляющий:</b><br/></td>
-                            <td><?if($manager):?><?=$manager?><?else:?><span style="color:#95968d">нет</span><?endif?></td>
+                            <td><?if($manager):?>
+                                    <?if($arbitr_profile):?>
+                                        <a target="_blank" href="<?=$arbitr_profile?>"><i class="icon-globe-table"></i>
+                                        <?=$manager?>
+                                    <?else:?>
+                                        <?=$manager?>
+                                    <?endif?>
+                                <?else:?>
+                                  <span style="color:#95968d">нет</span>
+                                <?endif?></td>
                         </tr>
                         <tr>
                             <td style="width: 200px;"><b>ИНН организатора:</b><br/></td>
