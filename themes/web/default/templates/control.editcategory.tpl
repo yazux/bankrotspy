@@ -24,6 +24,10 @@
                         <b>Ключевые слова</b> (каждое в новой строке)<br/>
                         <div class="texta"><textarea name="keywords_lot" rows="13"><?=$keywords?></textarea></div>
                     </div>
+                    <div class="contbody_forms">
+                        <b>Дополнительно</b> (каждое в новой строке)<br/>
+                        <div class="texta"><textarea name="addition_lot" rows="13"><?=$addition?></textarea></div>
+                    </div>
                     <div class="contfin_forms">
                         <input name="submit" type="submit" value="Сохранить" />
                     </div>

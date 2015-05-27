@@ -21,6 +21,8 @@ if(POST('submit'))
   if(!$keys)
     $error[] = lang('no_keys');
 
+  $addition = text::st(POST('addition_lot'));
+
   if(!$error)
   {
     if($name != $data['name'])
@@ -29,18 +31,28 @@ if(POST('submit'))
     if($keys != $data['slova'])
     {
       $keywords = explode("\n", str_replace("\r\n", "\n", $keys));
+      array_walk($keywords, 'trim_value');
       $keywords = implode("\r\n", $keywords);
-      core::$db->query('UPDATE `ds_main_cat_spec` SET `slova` = "' . core::$db->res(text::st($keywords)) . '" WHERE `id` = "' . $id . '";');
+
+      $addition = explode("\n", str_replace("\r\n", "\n", $addition));
+      array_walk($addition, 'trim_value');
+      $addition = implode("\r\n", $addition);
+      core::$db->query('UPDATE `ds_main_cat_spec` SET `slova` = "' . core::$db->res(text::st($keywords)) . '", `def` = "' . core::$db->res(text::st($addition)) . '" WHERE `id` = "' . $id . '";');
     }
 
     func::notify(lang('edit_item'), lang('new_item_changed'), core::$home . '/control/categories', lang('continue'));
   }
 }
 
+function trim_value(&$value)
+{
+  $value = trim($value);
+}
 
 engine_head(lang('edit_item'));
 temp::assign('name', $data['name']);
 temp::assign('keywords', $data['slova']);
+temp::assign('addition', $data['def']);
 temp::assign('id', $data['id']);
 temp::HTMassign('error', $error);
 temp::display('control.editcategory');
