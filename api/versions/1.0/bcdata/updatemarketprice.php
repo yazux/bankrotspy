@@ -53,6 +53,7 @@ $outdata = array();
 $outdata['market_price'] = $load->price($sourse['market_price']);
 $outdata['profit_rub'] = $load->profitrub($outdata['market_price'], $data['now_price']);
 $outdata['profit_proc'] = $load->prifitproc($outdata['market_price'], $data['now_price']);
+$outdata['mprice_update'] = time();
 
 if($outdata['profit_proc'] > 2000)
 {
