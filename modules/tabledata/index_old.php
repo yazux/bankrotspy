@@ -215,7 +215,7 @@ if($order_conditions)
   $order_cond = ' ORDER BY '.implode(' , ', $order_conditions).' , `ds_maindata`.`id` ASC ';
 else
   $order_cond = '';
-//$order_cond = ' ORDER BY `ds_maindata`.`id` ASC ';
+  //$order_cond = ' ORDER BY `ds_maindata`.`id` ASC ';
 
 
 //Счетчик
@@ -234,12 +234,20 @@ $count = core::$db->query('SELECT
 //Основной запрос
 $main_sql = 'SELECT
   `ds_maindata`.*,
-  `ds_maindata_favorive`.`item`
+  `ds_maindata_favorive`.`item`,
+  `ds_maindata_regions`.`name` AS `regionname`,
+  `ds_maindata_status`.`status_name`
   ' . $select_cond . '
   FROM
   `ds_maindata`
   LEFT JOIN
   `ds_maindata_favorive` ON `ds_maindata`.`id` = `ds_maindata_favorive`.`item` '.$join_cond.'
+  LEFT JOIN
+  `ds_maindata_regions` ON `ds_maindata`.`place` = `ds_maindata_regions`.`number`
+  LEFT JOIN
+  `ds_maindata_platforms` ON `ds_maindata`.`platform_id` = `ds_maindata_platforms`.`id`
+  LEFT JOIN
+  `ds_maindata_status` ON `ds_maindata`.`status` = `ds_maindata_status`.`id`
 
   '.$where_cond.'
 
@@ -254,21 +262,9 @@ if($svalue)
   $item_arr = explode(' ', $svalue);
 }
 
-$all_statuses  = get_all_status();
-
-$out = array();
-$out2 = array();
-
 if($res->num_rows)
 {
-  while($getdata = $res->fetch_assoc())
-  {
-    $loc = $getdata;
-    $loc['status_name'] = $all_statuses[$getdata['status']];
-    $out[] = $loc;
-  }
-
-  foreach ($out AS $key => $data)
+  while($data = $res->fetch_array())
   {
     $loc = array();
 
@@ -299,10 +295,8 @@ if($res->num_rows)
 
     $loc['platform'] = $tabledata->platform($data['platform_id'], $data['auct_link']);
     $loc['favorite'] = $tabledata->favorite($data['id'], $data['item']);
-    $out2[] = $loc;
+    $out[] = $loc;
   }
-
-  $out = $out2;
 
   $outdata = array(
     'columns' => $tabledata->get_names(),
@@ -450,18 +444,6 @@ function get_types($only_keys = false)
     return $out;
   else
     return $types;
-}
-
-function get_all_status()
-{
-  $out = array();
-  $req = core::$db->query('SELECT * FROM `ds_maindata_status` ;');
-  while($data = $req->fetch_assoc())
-  {
-    $out[$data['id']] = $data['status_name'];
-  }
-
-  return $out;
 }
 
 echo json_encode($outdata);

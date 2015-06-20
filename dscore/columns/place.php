@@ -14,7 +14,7 @@ class column_place
   public function before_load()
   {
     return array(
-      'sortcolumn' => ' `regionname` '
+      'sortcolumn' => ' `ds_maindata`.`place` ' //'sortcolumn' => ' `regionname` '
     );
   }
 
