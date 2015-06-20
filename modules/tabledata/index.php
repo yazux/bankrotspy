@@ -214,7 +214,8 @@ $order_cond = '`ds_maindata`.`id` ASC';
 if($order_conditions)
   $order_cond = ' ORDER BY '.implode(' , ', $order_conditions).' , `ds_maindata`.`id` ASC ';
 else
-  $order_cond = ' ORDER BY `ds_maindata`.`id` ASC ';
+  $order_cond = '';
+  //$order_cond = ' ORDER BY `ds_maindata`.`id` ASC ';
 
 
 //Счетчик
@@ -231,7 +232,7 @@ $count = core::$db->query('SELECT
   ;')->count();
 
 //Основной запрос
-$res = core::$db->query('SELECT
+$main_sql = 'SELECT
   `ds_maindata`.*,
   `ds_maindata_favorive`.`item`,
   `ds_maindata_regions`.`name` AS `regionname`,
@@ -252,8 +253,9 @@ $res = core::$db->query('SELECT
 
   ' . $order_cond . '
 
-  LIMIT '.$start.', '.$kmess.' ;');
+  LIMIT '.$start.', '.$kmess.' ;';
 
+$res = core::$db->query($main_sql);
 
 if($svalue)
 {
