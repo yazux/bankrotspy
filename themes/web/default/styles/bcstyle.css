@@ -297,7 +297,7 @@ td.firstt{
 margin: 16px 0 16px 0;
 }
 
-.data_table tr th, .data_table tr th.sort_down, .data_table tr th.sort_up{
+.data_table tr th, .data_table tr th.sort_down, .data_table tr th.sort_up, .data_table tr th.no_sort{
     background-color: #ebebeb;
     border: 1px solid #d1d1d1;
     font-weight: normal;
@@ -326,6 +326,11 @@ margin: 16px 0 16px 0;
     background-position: center right;
 }
 
+.data_table tr th.no_sort{
+    background-image: none;
+    padding: 4px 4px 4px 3px;
+}
+
 .data_table tr td{
     color: #4d4d4d;
     border: 1px solid #e1e1e1;
@@ -336,6 +341,11 @@ margin: 16px 0 16px 0;
 
 .data_table tr.data_line:hover{
     background: #f8f8f8;
+}
+
+.data_table tr th.no_sort:hover {
+    cursor: default;
+    background: #ebebeb;
 }
 
 .namelink{

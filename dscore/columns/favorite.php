@@ -23,7 +23,8 @@ class column_favorite
   {
     return array(
       'name' => '<i title="Избранное" class="icon-star-1"></i>', //А, че, оказывается можно и иконку засунуть
-      'style' => 'max-width: 50px;min-width: 40px;'
+      'style' => 'max-width: 50px;min-width: 40px;',
+      'nosort' => 1
     );
   }
 

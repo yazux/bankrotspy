@@ -33,25 +33,32 @@ function columns_sort_listener(item)
   var sorttype = 0;
   var nowloaded = $(item).attr('class');
 
-  if(!nowloaded)
+  if(nowloaded == 'no_sort')
   {
-    sorttype = 1;
-    $(item).attr('class', 'sort_down');
-  }
-  if(nowloaded == 'sort_down')
-  {
-    sorttype = 2;
-    $(item).attr('class', 'sort_up');
-  }
-  if(nowloaded == 'sort_up')
-  {
-    sorttype = 0;
-    $(item).removeAttr('class');
-  }
 
-  engine_settings.sorttype = sorttype;
+  }
+  else
+  {
+    if (!nowloaded)
+    {
+      sorttype = 1;
+      $(item).attr('class', 'sort_down');
+    }
+    if (nowloaded == 'sort_down')
+    {
+      sorttype = 2;
+      $(item).attr('class', 'sort_up');
+    }
+    if (nowloaded == 'sort_up')
+    {
+      sorttype = 0;
+      $(item).removeAttr('class');
+    }
 
-  save_settings_and_load();
+    engine_settings.sorttype = sorttype;
+
+    save_settings_and_load();
+  }
 }
 
 function load_table_page(page)
@@ -161,14 +168,20 @@ function answer_load(data)
                 style_holder = 'style="' + this.style + '"';
 
             var class_sort = '';
-            if(this.sorttype && engine_settings.sortcolumn == this.classname)
+            if(this.nosort == 1)
             {
-              if(this.sorttype == 1)
-                class_sort = ' class="sort_down" ';
-              if(this.sorttype == 2)
-                class_sort = ' class="sort_up" ';
+              class_sort = ' class="no_sort" ';
             }
-
+            else
+            {
+              if (this.sorttype && engine_settings.sortcolumn == this.classname)
+              {
+                if (this.sorttype == 1)
+                  class_sort = ' class="sort_down" ';
+                if (this.sorttype == 2)
+                  class_sort = ' class="sort_up" ';
+              }
+            }
             var addhtml_holder = '';
             if(this.addhtml)
               addhtml_holder = ' ' + this.addhtml + ' ';

@@ -235,6 +235,8 @@
         columns_sort_listener(this);
     });
 
+
+
     $(document).on('click', '.table_tab td span', function(){
         engine_settings.category = $(this).attr('attr');
         engine_settings.page = 1;
