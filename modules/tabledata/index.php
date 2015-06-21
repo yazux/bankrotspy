@@ -97,7 +97,6 @@ $conditions_or = array();
 
 //Дополнительные условия для LEFT JOIN
 $join_conditions = array();
-$join_conditions['fav_sql'] = '`ds_maindata_favorive`.`user_id` = "'.core::$user_id.'"';
 
 //Условия для выборки
 $selects = array();
@@ -111,7 +110,11 @@ if($sort)
   $order_conditions['sort'] = $sort;
 
 if($category == '-1')
+{
   $conditions['fav_sql'] = '`ds_maindata_favorive`.`user_id` = "'.core::$user_id.'" ';
+  $join_conditions['fav_sql'] = 'LEFT JOIN `ds_maindata_favorive` ON `ds_maindata`.`id` = `ds_maindata_favorive`.`item` AND `ds_maindata_favorive`.`user_id` = "'.core::$user_id.'"';
+  $selects['fav_sql'] = ' `ds_maindata_favorive`.`item` ';
+}
 elseif($category >= 0)
   $conditions['category'] = ' `ds_maindata`.`cat_id` = "'.$category.'" ';
 
@@ -204,7 +207,7 @@ if($conditions OR $conditions_or)
 
 $join_cond = '';
 if($join_conditions)
-  $join_cond = ' AND '.implode(' AND ', $join_conditions);
+  $join_cond = ' '.implode(' ', $join_conditions);
 
 $select_cond = '';
 if($selects)
@@ -223,8 +226,7 @@ $count = core::$db->query('SELECT
   COUNT(*)
   FROM
   `ds_maindata`
-  LEFT JOIN
-  `ds_maindata_favorive` ON `ds_maindata`.`id` = `ds_maindata_favorive`.`item` '.$join_cond.'
+ '.$join_cond.'
 
   '.$where_cond.'
 
@@ -233,13 +235,12 @@ $count = core::$db->query('SELECT
 
 //Основной запрос
 $main_sql = 'SELECT
-  `ds_maindata`.*,
-  `ds_maindata_favorive`.`item`
+  `ds_maindata`.*
+
   ' . $select_cond . '
   FROM
   `ds_maindata`
-  LEFT JOIN
-  `ds_maindata_favorive` ON `ds_maindata`.`id` = `ds_maindata_favorive`.`item` '.$join_cond.'
+ '.$join_cond.'
 
   '.$where_cond.'
 
@@ -254,7 +255,8 @@ if($svalue)
   $item_arr = explode(' ', $svalue);
 }
 
-$all_statuses  = get_all_status();
+$all_statuses = get_all_status();
+$fav_array = get_fav_array();
 
 $out = array();
 $out2 = array();
@@ -265,6 +267,8 @@ if($res->num_rows)
   {
     $loc = $getdata;
     $loc['status_name'] = $all_statuses[$getdata['status']];
+    if(in_array($loc['id'], $fav_array))
+      $loc['item'] = 1;
     $out[] = $loc;
   }
 
@@ -461,6 +465,20 @@ function get_all_status()
     $out[$data['id']] = $data['status_name'];
   }
 
+  return $out;
+}
+
+function get_fav_array()
+{
+  $out = array();
+  if(core::$user_id)
+  {
+    $req = core::$db->query('SELECT * FROM `ds_maindata_favorive` WHERE `user_id` = "'.core::$user_id.'" ;');
+    while($data = $req->fetch_assoc())
+    {
+      $out[] = $data['item'];
+    }
+  }
   return $out;
 }
 

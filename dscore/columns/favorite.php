@@ -15,7 +15,7 @@ class column_favorite
   public function before_load()
   {
     return array(
-      'sortcolumn' => ' `ds_maindata_favorive`.`item` '
+      'sortcolumn' => ' `ds_maindata`.`id` ' //'sortcolumn' => ' `ds_maindata_favorive`.`item` '
     );
   }
 
