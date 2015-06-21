@@ -217,7 +217,7 @@ $order_cond = '`ds_maindata`.`id` ASC';
 if($order_conditions)
   $order_cond = ' ORDER BY '.implode(' , ', $order_conditions).' , `ds_maindata`.`id` ASC ';
 else
-  $order_cond = '';
+  $order_cond = ' ORDER BY `ds_maindata`.`profit_proc` DESC ';
 //$order_cond = ' ORDER BY `ds_maindata`.`id` ASC ';
 
 
