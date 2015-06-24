@@ -21,7 +21,8 @@ class column_place
   public function name()
   {
     return array(
-      'name' => 'Регион'
+      'name' => 'Регион',
+      'nosort' => 1
     );
   }
 

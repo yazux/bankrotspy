@@ -22,7 +22,8 @@ class column_platform
   public function name()
   {
     return array(
-      'name' => 'Площадка'
+      'name' => 'Площадка',
+      'nosort' => 1
     );
   }
 
