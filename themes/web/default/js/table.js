@@ -205,9 +205,14 @@ function answer_load(data)
               //Стиль, если есть
               var style_holder = '';
               if(this.style)
-                style_holder = 'style="' + this.style + '"';
+                style_holder = ' style="' + this.style + '" ';
 
-              body_table += '<td ' + style_holder + addition_holder +' >' + this.col + '</td>';
+              //Класс, если есть
+              var customclass_holder = '';
+              if(this.customclass)
+                customclass_holder = ' class="' + this.customclass + '" ';
+
+              body_table += '<td ' + customclass_holder + style_holder + addition_holder +' >' + this.col + '</td>';
             });
 
             body_table += '</tr>';

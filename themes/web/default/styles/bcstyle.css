@@ -682,3 +682,8 @@ hr.hrnews{
     height:24px;
     padding-top: 3px;
 }
+
+.cell_with_notify:hover
+{
+   cursor: help;
+}
