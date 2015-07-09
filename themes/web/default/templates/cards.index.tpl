@@ -59,7 +59,7 @@
                     <table class="lottable">
                         <tr>
                             <td style="width: 200px;"><b>Баллы:</b><br/></td>
-                            <td> <?=$debpoints?></td>
+                            <td <?=$customclassdeb?> <?=$additionhtmldeb?> > <?=$debpoints?></td>
                         </tr>
                     </table>
                     <?endif?>

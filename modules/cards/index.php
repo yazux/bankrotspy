@@ -79,13 +79,25 @@ if($data['cat_id'] != 0 AND $data['cat_id'] != 4 AND $data['cat_id'] != 8 AND $d
 if($data['cat_id'] == 2)
 {
   $needshow_deb_points = 1;
-  $debpoints = $tabledata->debpoints($data['debpoints']);
+  $debpoints = $tabledata->debpoints($data['debpoints'], $data['debnotice']);
+
+  if(isset($debpoints['addition']) AND $debpoints['addition'])
+    $additionhtmldeb = $debpoints['addition'];
+
+  if(isset($debpoints['customclass']) AND $debpoints['customclass'])
+    $customclassdeb = $debpoints['customclass'];
+
   $debpoints = $debpoints['col'];
 }
 
 //Выводим страничку
 core::$page_description = mb_substr($data['name'], 0, 200);
 engine_head(lang('card_n').''.$id);
+
+if(isset($additionhtmldeb))
+  temp::HTMassign('additionhtmldeb', $additionhtmldeb);
+if(isset($customclassdeb))
+  temp::HTMassign('customclassdeb', ' class="'.$customclassdeb.'" ');
 
 temp::assign('id', $data['id']);
 temp::assign('category', $data['catname']);
