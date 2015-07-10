@@ -33,6 +33,8 @@ $sourse['lotid']         = intval(abs(trim($dataarr[1])));
 $sourse['debpoints']         = $dataarr[2];
 if(isset($dataarr[3]) AND $dataarr[3])
   $sourse['debnotice'] =  htmlentities(trim($dataarr[3]), ENT_QUOTES, 'UTF-8');
+if(isset($dataarr[4]) AND $dataarr[4])
+  $sourse['debfullnotice'] =  htmlentities(trim($dataarr[4]), ENT_QUOTES, 'UTF-8');
 
 if(!$sourse['lotid'])
   exit('No item id');
@@ -55,6 +57,8 @@ $outdata = array();
 $outdata['debpoints'] = abs(intval($sourse['debpoints']));
 if(isset($sourse['debnotice']) AND $sourse['debnotice'])
   $outdata['debnotice'] = $sourse['debnotice'];
+if(isset($sourse['debfullnotice']) AND $sourse['debfullnotice'])
+  $outdata['debfullnotice'] = $sourse['debfullnotice'];
 $outdata['debicheck'] = time();
 
 //print_r($outdata);
