@@ -291,10 +291,10 @@ if($res->num_rows)
       $loc['profitrub'] = $tabledata->profitrub($data['profit_rub']);
       $loc['profitproc'] = $tabledata->profitproc($data['profit_proc']);
     }
-    elseif($category == 0 OR $category == 4 OR $category == 8)
-    {
+    //elseif($category == 0 OR $category == 4 OR $category == 8)
+    //{
       $loc['pricediff'] = $tabledata->pricediff($data['price_dif']);
-    }
+    //}
     if($category == 2)
     {
       $loc['pricediff'] = $tabledata->pricediff($data['price_dif']);
