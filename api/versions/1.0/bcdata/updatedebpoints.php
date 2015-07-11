@@ -29,10 +29,14 @@ $dataarr = $new_drarr;
 
 //Для лучшего понимания
 $sourse = array();
-$sourse['lotid']         = intval(abs(trim($dataarr[1])));
-$sourse['debpoints']         = $dataarr[2];
+$sourse['lotid']           = intval(abs(trim($dataarr[1])));
+
+if(isset($dataarr[1]) AND preg_match('/^[0-9\.\,]+$/', $dataarr[2]))
+  $sourse['debpoints']       = str_replace(',', '.', $dataarr[2]);
+else
+  $sourse['debpoints']       = 0;
 if(isset($dataarr[3]) AND $dataarr[3])
-  $sourse['debnotice'] =  htmlentities(trim($dataarr[3]), ENT_QUOTES, 'UTF-8');
+  $sourse['debnotice']     =  htmlentities(trim($dataarr[3]), ENT_QUOTES, 'UTF-8');
 if(isset($dataarr[4]) AND $dataarr[4])
   $sourse['debfullnotice'] =  htmlentities(trim($dataarr[4]), ENT_QUOTES, 'UTF-8');
 
@@ -54,7 +58,7 @@ $error = array();
 $outdata = array();
 
 //Названия те же что в таблице
-$outdata['debpoints'] = abs(intval($sourse['debpoints']));
+$outdata['debpoints'] = $sourse['debpoints'];
 if(isset($sourse['debnotice']) AND $sourse['debnotice'])
   $outdata['debnotice'] = $sourse['debnotice'];
 if(isset($sourse['debfullnotice']) AND $sourse['debfullnotice'])
