@@ -4,10 +4,12 @@ defined('DS_ENGINE') or die('web_demon laughs');
 class column_pricediff
 {
   private $price;
+  private $platform_id;
 
   function __construct($params)
   {
     $this->price = isset($params[0]) ? $params[0] : '';
+    $this->platform_id = isset($params[1]) ? $params[1] : '';
   }
 
   public function before_load()
@@ -38,6 +40,10 @@ class column_pricediff
 
     if($color_red)
       $price = '<span style="color:#ff7863">' .$price.'</span>';
+
+    $man_plf = func::get_manual_platforms();
+    if(in_array($this->platform_id, $man_plf))
+      $price = '<i onmouseover="toolTip(\'Не рассчитывается, т.к. цена определяется вручную\')" onmouseout="toolTip()" class="icon-help"></i>';
 
     return array(
       'col' => $price,

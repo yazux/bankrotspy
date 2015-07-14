@@ -53,13 +53,13 @@ $lotprice = $lotprice['col'];
 $lotname = $tabledata->name($data['name'], 40, $data['id'], array(), $data['description']);
 $lotname = $lotname['onlydata'];
 
-$nowprice = $tabledata->nowprice($data['now_price']);
+$nowprice = $tabledata->nowprice($data['now_price'], $data['platform_id']);
 $nowprice = $nowprice['col'];
 
 $status = $tabledata->beforedate($data['start_time'], $data['end_time'], $data['status_name'], $data['status']);
 $status = $status['col'];
 
-$pricediff = $tabledata->pricediff($data['price_dif']);
+$pricediff = $tabledata->pricediff($data['price_dif'], $data['platform_id']);
 $pricediff = $pricediff['col'];
 if($pricediff > 0)
   $pricediff = '-'.$pricediff;
@@ -71,9 +71,9 @@ if($data['cat_id'] != 0 AND $data['cat_id'] != 4 AND $data['cat_id'] != 8 AND $d
   $needshow_add_price = 1;
   $realprice = $tabledata->marketprice($data['market_price']);
   $realprice = $realprice['col'];
-  $profitrub = $tabledata->profitrub($data['profit_rub']);
+  $profitrub = $tabledata->profitrub($data['profit_rub'],  $data['platform_id']);
   $profitrub = $profitrub['col'];
-  $profitproc = $tabledata->profitproc($data['profit_proc']);
+  $profitproc = $tabledata->profitproc($data['profit_proc'], $data['platform_id']);
   $profitproc = $profitproc['notcolored'];
 }
 if($data['cat_id'] == 2)

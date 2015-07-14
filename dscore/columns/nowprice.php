@@ -4,10 +4,12 @@ defined('DS_ENGINE') or die('web_demon laughs');
 class column_nowprice
 {
   private $price;
+  private $platform_id;
 
   function __construct($params)
   {
     $this->price = isset($params[0]) ? $params[0] : '';
+    $this->platform_id = isset($params[1]) ? $params[1] : '';
   }
 
   public function before_load()
@@ -44,6 +46,10 @@ class column_nowprice
       $i++;
     }
     $out_price = strrev($out_price);
+
+    $man_plf = func::get_manual_platforms();
+    if(in_array($this->platform_id, $man_plf))
+      $out_price = 'Определяется вручную';
 
     return array(
       'col' => $out_price,

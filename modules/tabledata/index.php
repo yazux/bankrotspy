@@ -284,20 +284,20 @@ if($res->num_rows)
     $loc['closedate'] = $tabledata->closedate($data['end_time']);
     $loc['beforedate'] = $tabledata->beforedate($data['start_time'], $data['end_time'], $data['status_name'], $data['status']);
     $loc['beginprice'] = $tabledata->beginprice($data['price']);
-    $loc['nowprice'] = $tabledata->nowprice($data['now_price']);
+    $loc['nowprice'] = $tabledata->nowprice($data['now_price'], $data['platform_id']);
     if($category != 0 AND $category != 4 AND $category != 8 AND $category != 2)
     {
       $loc['marketprice'] = $tabledata->marketprice($data['market_price']);
-      $loc['profitrub'] = $tabledata->profitrub($data['profit_rub']);
-      $loc['profitproc'] = $tabledata->profitproc($data['profit_proc']);
+      $loc['profitrub'] = $tabledata->profitrub($data['profit_rub'], $data['platform_id']);
+      $loc['profitproc'] = $tabledata->profitproc($data['profit_proc'], $data['platform_id']);
     }
     //elseif($category == 0 OR $category == 4 OR $category == 8)
     //{
-      $loc['pricediff'] = $tabledata->pricediff($data['price_dif']);
+      $loc['pricediff'] = $tabledata->pricediff($data['price_dif'], $data['platform_id']);
     //}
     if($category == 2)
     {
-      $loc['pricediff'] = $tabledata->pricediff($data['price_dif']);
+      //$loc['pricediff'] = $tabledata->pricediff($data['price_dif'], $data['platform_id']);
       $loc['debpoints'] = $tabledata->debpoints($data['debpoints'], $data['debnotice']);
     }
 

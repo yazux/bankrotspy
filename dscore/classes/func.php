@@ -248,4 +248,24 @@ class func
     else
       return FALSE;
   }
+
+  public static function get_manual_platforms()
+  {
+    $platforms = array();
+    if(!rem::exists('maintable_platforms_manual'))
+    {
+      $res = core::$db->query('SELECT * FROM `ds_maindata_platforms` ;');
+      while($data = $res->fetch_array())
+      {
+        if($data['manual_price'] == 1)
+          $platforms[] = $data['id'];
+      }
+      rem::remember('maintable_platforms_manual', serialize($platforms));
+    }
+    else
+      $platforms = unserialize(rem::get('maintable_platforms_manual'));
+
+    return $platforms;
+  }
+
 }
