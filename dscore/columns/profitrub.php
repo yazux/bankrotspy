@@ -5,11 +5,13 @@ class column_profitrub
 {
   private $price;
   private $platform_id;
+  private $type;
 
   function __construct($params)
   {
     $this->price = isset($params[0]) ? $params[0] : '';
     $this->platform_id = isset($params[1]) ? $params[1] : '';
+    $this->type = isset($params[2]) ? $params[2] : '';
   }
 
   public function before_load()
@@ -61,7 +63,7 @@ class column_profitrub
       $out_price = '<span style="color:#ff7863">' .$out_price.'</span>';
 
     $man_plf = func::get_manual_platforms();
-    if(in_array($this->platform_id, $man_plf))
+    if(in_array($this->platform_id, $man_plf) AND $this->type == 2)
       $out_price = '<i onmouseover="toolTip(\'Не рассчитывается, т.к. цена определяется вручную\')" onmouseout="toolTip()" class="icon-help"></i>';
 
     return array(

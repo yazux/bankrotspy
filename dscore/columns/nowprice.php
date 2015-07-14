@@ -5,11 +5,13 @@ class column_nowprice
 {
   private $price;
   private $platform_id;
+  private $type;
 
   function __construct($params)
   {
     $this->price = isset($params[0]) ? $params[0] : '';
     $this->platform_id = isset($params[1]) ? $params[1] : '';
+    $this->type = isset($params[2]) ? $params[2] : '';
   }
 
   public function before_load()
@@ -48,7 +50,7 @@ class column_nowprice
     $out_price = strrev($out_price);
 
     $man_plf = func::get_manual_platforms();
-    if(in_array($this->platform_id, $man_plf))
+    if(in_array($this->platform_id, $man_plf) AND $this->type == 2)
       $out_price = 'Определяется вручную';
 
     return array(
