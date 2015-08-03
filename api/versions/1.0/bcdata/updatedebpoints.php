@@ -31,10 +31,10 @@ $dataarr = $new_drarr;
 $sourse = array();
 $sourse['lotid']           = intval(abs(trim($dataarr[1])));
 
-if(isset($dataarr[1]) AND preg_match('/^[0-9\.\,]+$/', $dataarr[2]))
+if(isset($dataarr[1]) AND preg_match('/^[0-9\.\,\-]+$/', $dataarr[2]) AND $dataarr[2] >= -1)
   $sourse['debpoints']       = str_replace(',', '.', $dataarr[2]);
-else
-  $sourse['debpoints']       = 0;
+//else
+//  $sourse['debpoints']       = -1;
 if(isset($dataarr[3]) AND $dataarr[3])
   $sourse['debnotice']     =  htmlentities(trim($dataarr[3]), ENT_QUOTES, 'UTF-8');
 if(isset($dataarr[4]) AND $dataarr[4])
@@ -65,10 +65,8 @@ if(isset($sourse['debfullnotice']) AND $sourse['debfullnotice'])
   $outdata['debfullnotice'] = $sourse['debfullnotice'];
 $outdata['debicheck'] = time();
 
-//print_r($outdata);
-
-if(!$outdata['debpoints'])
-  $error[] = 'No debpoints for id: '.$sourse['lotid'];
+if(!isset($outdata['debpoints']))
+  $error[] = 'Wrong debpoints for id: '.$sourse['lotid'];
 
 if(!$error)
 {

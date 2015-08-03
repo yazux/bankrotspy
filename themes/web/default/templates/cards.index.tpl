@@ -89,7 +89,7 @@
                     <hr/>
                     <table class="lottable">
                         <tr>
-                            <td style="width: 200px;"><b>Должник:</b><br/></td>
+                            <td style="width: 200px;"><b>Банкрот:</b><br/></td>
                             <td>
                                 <?if($debtor):?>
                                     <?if($debtor_profile):?>
@@ -109,7 +109,7 @@
                             <td><?=$case_number?></td>
                         </tr>
                         <tr>
-                            <td style="width: 200px;"><b>ИНН должника:</b><br/></td>
+                            <td style="width: 200px;"><b>ИНН банкрота:</b><br/></td>
                             <td><?if($debtor_inn):?><?=$debtor_inn?><?else:?><span style="color:#95968d">нет</span><?endif?></td>
                         </tr>
                     </table>

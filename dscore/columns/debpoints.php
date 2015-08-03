@@ -30,7 +30,7 @@ class column_debpoints
   public function process()
   {
     $price = $this->price;
-    if(!$price)
+    if($price == -1)
     {
       $price = '<i onmouseover="toolTip(\'У этого лота пока нет баллов\')" onmouseout="toolTip()" class="icon-help"></i>';
       $class = '';
