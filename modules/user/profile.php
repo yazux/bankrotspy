@@ -104,7 +104,7 @@ if(core::$user_id)
     if(CAN('ban_user', $data['rights']) and core::$user_id != $id)
       temp::assign('can_ban',1);
       
-    if(isset($user_set['show_mail']) AND $user_set['show_mail'])
+    if((isset($user_set['show_mail']) AND $user_set['show_mail']) OR (core::$rights==100))
       temp::assign('mail',$data['mail']);
     temp::display('user.profile');
     engine_fin();    
