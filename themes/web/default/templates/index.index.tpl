@@ -431,3 +431,7 @@
         <?endif?>
     </div>
 </div>
+
+<div style="text-align: center">
+    <embed src="<?=$themepath?>/images/hori1a-f2.swf" quality="high" type="application/x-shockwave-flash" wmode="transparent" width="996" height="100" pluginspage="http://www.macromedia.com/go/getflashplayer" allowScriptAccess="always"></embed>
+</div>
