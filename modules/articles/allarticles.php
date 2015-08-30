@@ -83,7 +83,7 @@ foreach ($out AS $key=> $value)
     $arr['is_new'] = 1;
   else
     $arr['is_new'] = 0;
-    
+
   $out2[] = $arr;    
 }
 

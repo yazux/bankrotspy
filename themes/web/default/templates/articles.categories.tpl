@@ -1,15 +1,10 @@
-<div class="content">
-  <div class="conthead">
-    <h2><i class="icon-doc-text-inv icon-theme"></i><?=lang('stats')?></h2>
-  </div>
+<table>
+    <tr>
+        <td valign="top">
+            <div class="content">
+                <div class="conthead"><h2><i class="icon-newspaper"></i> <?=lang('keywords_p')?></h2></div>
 
-  <? temp::include('articles._lang.head.tpl') ?>
-</div>
 
-<div class="content">
-  <div class="conthead">
-    <b><?=lang('keywords_p')?></b>
-  </div>
   <?if($out):?>
     <?foreach($out as $out): ?>
     <div class="contbody_und"> 
@@ -27,7 +22,19 @@
   <div class="contfin">
       <div class="total_info"><b><?=lang('total_p')?></b> <?=$total?></div>
   </div>      
-</div>
+
 
 
 <?if($navigation):?><div class="navig"><?=$navigation?></div><?endif?>
+
+
+        </td>
+        <td class="right_back_menu">
+            <div class="right_panel_conf">
+                <div class="menu_rt">Статьи:</div>
+                <? temp::include('articles._lang.head.tpl') ?>
+                <div class="down_rmenu"> </div>
+            </div>
+        </td>
+    </tr>
+</table>

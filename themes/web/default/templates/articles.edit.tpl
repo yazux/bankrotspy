@@ -1,31 +1,23 @@
-<div class="content">
-  <div class="conthead">
-    <h2><?=lang('edit_st')?></h2>
-  </div>
+<table>
+    <tr>
+        <td valign="top">
 
-    <table class="contbutton">
-      <tr>
-        <?if($hide_stat):?>
-          <td><a href="<?=$home?>/articles/draft"><?=lang('draft')?></a></td>
-        <?endif?>
-        <td><a href="<?=$home?>/articles/post<?=$id?>"><?=lang('turn_back')?></a></td>
-        <td class="contbfin">&nbsp;</td>
-      </tr>
-    </table>
-</div>
+            <?if ($error):?>
+            <div class="error">
+                <?foreach($error as $error): ?>
+                <?=$error?><br/>
+                <?endforeach?>
+            </div>
+            <?endif?>
 
-  <?if ($error):?>
-    <div class="error">
-      <?foreach($error as $error): ?>
-        <?=$error?><br/>
-      <?endforeach?>
-    </div>
-  <?endif?>
+            <div class="content">
+                <div class="conthead"><h2><i class="icon-newspaper"></i> <?=lang('edit_st')?></h2></div>
+
   
 <?if($preview):?>
 
-<div class="content">
-  <div class="conthead">
+
+  <div class="conthead" style="border-bottom: 1px dotted #E4E4E4;background: white">
        <table>
           <tr>
             <td width="50px">
@@ -44,8 +36,8 @@
           </tr>
        </table>
   </div>
-  <div class="contbodytext"><div class="image_resizer"><?=$arr['text']?></div></div>
-  <div class="contfintext">
+  <div class="contbodytext" style="border-bottom: 0px;"><div class="image_resizer"><?=$arr['text']?></div></div>
+  <div class="contfintext" style="border-top: 1px dotted #E4E4E4;border-bottom: 1px solid #E4E4E4;background: white">
     <table>
       <tr>
         <td width="100%"> </td>
@@ -53,15 +45,18 @@
       </tr>
     </table>
   </div>
-</div>
+
+    <div class="conthead">
+        <h2><i class="icon-newspaper"></i> Редактирование:</h2>
+    </div>
 
 <?endif?>  
   
 
 <form name="mess" action="<?=$home?>/articles/edit?id=<?=$id?>" method="post" enctype="multipart/form-data">
 <? temp::formid() /* ЭТА ФУНКЦИЯ ОБЯЗАТЕЛЬНА ДЛЯ ВСЕХ ФОРМ!!! */?>
-<div class="content">
-  <div class="conthead_forms">
+
+  <div class="contbody_forms">
     <b><?=lang('name_stat')?></b><br/>
     <input type="text" name="art_name" value="<?=$name?>" />
   </div>
@@ -103,9 +98,22 @@
      <?else:?>
        <input name="preview" type="submit" value="<?=lang('preview')?>" />
      <?endif?>
-     <?if($hide_stat):?>
+     <!--<?if($hide_stat):?>
        <input name="public" type="submit" value="<?=lang('to_public')?>" />
-     <?endif?>
+     <?endif?>-->
    </div>
-</div>
+
 </form>
+
+            </div>
+        </td>
+        <td class="right_back_menu">
+            <div class="right_panel_conf">
+                <div class="menu_rt">Статьи:</div>
+                <? temp::include('articles._lang.head.tpl') ?>
+                <div class="elmenu"><a href="<?=$home?>/articles/post<?=$id?>"><?=lang('turn_back')?></a></div>
+                <div class="down_rmenu"> </div>
+            </div>
+        </td>
+    </tr>
+</table>

@@ -1,26 +1,41 @@
-<div class="content">
-    <div class="conthead">
-        <h2><i class="icon-doc-text-inv icon-theme"></i><?=lang('stats')?></h2>
-    </div>
-    <? temp::include('articles._lang.head.tpl') ?>
-</div>
+<table>
+    <tr>
+        <td valign="top">
+            <div class="content">
+                <div class="conthead"><h2><i class="icon-newspaper"></i> <?=lang('stats')?></h2></div>
 
-<div class="content">
+
+
     <div class="contbody_forms">
         <form action="<?=$home?>/articles/search">
             <input type="text" name="q" value="<?=$item?>"> <input class="butt_like_area" type="submit" value="<?=lang('search_it')?>" />
         </form>
     </div>
-</div>
+                <div class="contfin_forms_delimiter">
+
+                </div>
    
 <?if($out):?>   
   <?foreach($out as $out): ?>
     <? temp::include('articles.index.view.tpl') ?>
   <?endforeach?>
 <?elseif($item_exists):?>
-   <div class = "simple_mess"><?=lang('no_found')?></div>
+   <div class = "contbody_forms"><br/><?=lang('no_found')?><br/><br/></div>
 <?else:?>
-   <div class = "simple_mess"><?=lang('lets_search')?></div>
+   <div class = "contbody_forms"><br/><?=lang('lets_search')?><br/><br/></div>
 <?endif?>
 
+         </div>
 <?if($navigation):?><div class="navig"><?=$navigation?></div><?endif?>
+
+
+        </td>
+        <td class="right_back_menu">
+            <div class="right_panel_conf">
+                <div class="menu_rt">Статьи:</div>
+                <? temp::include('articles._lang.head.tpl') ?>
+                <div class="down_rmenu"> </div>
+            </div>
+        </td>
+    </tr>
+</table>

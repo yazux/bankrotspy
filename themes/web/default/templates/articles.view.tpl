@@ -1,10 +1,6 @@
-<div class="content">
-  <div class="conthead">
-    <h2><?if($onmoder_stat):?><i class="icon-suitcase icon-theme"></i><?=lang('stats')?><?elseif($hidden_stat):?><i class="icon-suitcase icon-theme"></i> <?=lang('draft')?><?else:?><i class="icon-doc-text-inv icon-theme"></i><?=lang('stats')?><?endif?></h2>
-  </div>
 
-  <? temp::include('articles._lang.head.tpl') ?>
-</div>
+
+
 
   <?if ($error):?>
     <div class="error">
@@ -14,8 +10,15 @@
     </div>
   <?endif?>
 
-<div class="content">
-  <div class="conthead">
+<table>
+    <tr>
+        <td valign="top">
+            <div class="content">
+                <div class="conthead"><h2><i class="icon-newspaper"></i> <?if($onmoder_stat):?><?=lang('stats')?><?elseif($hidden_stat):?> <?=lang('draft')?><?else:?><?=lang('stats')?><?endif?></h2></div>
+
+
+
+  <div class="conthead" style="border-bottom: 1px dotted #E4E4E4;background: white">
        <table>
           <tr>
             <td width="50px">
@@ -50,7 +53,7 @@
              </td>
               <?if(core::$user_id AND !$hidden_stat):?>
                <td class="cont_act">
-                   <form id="choosen_form" action="<?=$home?>/articles/addtofav" method="post">
+                   <!--<form id="choosen_form" action="<?=$home?>/articles/addtofav" method="post">
                        <? temp::formid() /* ЭТА ФУНКЦИЯ ОБЯЗАТЕЛЬНА ДЛЯ ВСЕХ ФОРМ!!! */?>
                        <input type="hidden" name="art_id" value="<?=$out['id']?>"/>
                        <span class="pslink" onClick="document.getElementById('choosen_form').submit()">
@@ -60,7 +63,7 @@
                            <i title="<?=lang('chit_title')?>" class="icon-star-empty"></i>
                          <?endif?>
                        </span></td>
-                   </form>
+                   </form>-->
               <?endif?>
              <?if($can_ed_stat):?>
                <td class="cont_act"><a title="<?=lang('edit_stat')?>" href="<?=$home?>/articles/edit?id=<?=$out['id']?>"><i class="icon-edit"></i></a></td>
@@ -71,6 +74,7 @@
           </tr>
        </table>
   </div>
+
   <div class="contbodytext"><div class="image_resizer"><?=$out['text']?></div></div>
   <div class="contfintext">
     <table>
@@ -110,7 +114,7 @@
           </form>
           <?endif?>
         </td>
-        <td title="<?=lang('stat_autor')?>"><a href="<?=$home?>/user/profile?id=<?=$out['userid']?>"><i class="icon-user-1"></i><?=$out['user']?></a></td>
+        <td title="<?=lang('stat_autor')?>"><a href="<?=$home?>/user/profile?id=<?=$out['userid']?>">Автор: <?=$out['user']?></a></td>
       </tr>
     </table>
   </div>
@@ -194,3 +198,14 @@
 
 <?if($navigation):?><div class="navig"><?=$navigation?></div><?endif?>
 <?endif?>
+
+        </td>
+        <td class="right_back_menu">
+            <div class="right_panel_conf">
+                <div class="menu_rt">Статьи:</div>
+                <? temp::include('articles._lang.head.tpl') ?>
+                <div class="down_rmenu"> </div>
+            </div>
+        </td>
+    </tr>
+</table>

@@ -1,23 +1,25 @@
-<div class="content">
-  <div class="conthead">
-    <h2><i class="icon-doc-text-inv icon-theme"></i><?=lang('stats')?></h2>
-  </div>
+<table>
+    <tr>
+        <td valign="top">
 
-  <? temp::include('articles._lang.head.tpl') ?>
-</div>
+            <?if ($error):?>
+            <div class="error">
+                <?foreach($error as $error): ?>
+                <?=$error?><br/>
+                <?endforeach?>
+            </div>
+            <?endif?>
 
-  <?if ($error):?>
-    <div class="error">
-      <?foreach($error as $error): ?>
-        <?=$error?><br/>
-      <?endforeach?>
-    </div>
-  <?endif?>
+            <div class="content">
+                <div class="conthead"><h2><i class="icon-newspaper"></i> Новая статья</h2></div>
+
+
+
   
 <?if($preview):?>
 
-<div class="content">
-  <div class="conthead">
+
+  <div class="conthead" style="border-bottom: 1px dotted #E4E4E4;background: white">
        <table>
           <tr>
             <td width="50px">
@@ -40,8 +42,8 @@
           </tr>
        </table>
   </div>
-  <div class="contbodytext"><div class="image_resizer"><?=$arr['text']?></div></div>
-  <div class="contfintext">
+  <div class="contbodytext" style="border-bottom: 0px;"><div class="image_resizer"><?=$arr['text']?></div></div>
+  <div class="contfintext" style="border-top: 1px dotted #E4E4E4;border-bottom: 1px solid #E4E4E4;background: white">
     <table>
       <tr>
         <td width="100%"> </td>
@@ -49,15 +51,17 @@
       </tr>
     </table>
   </div>
-</div>
+                <div class="conthead">
+                    <h2><i class="icon-newspaper"></i> Редактирование:</h2>
+                </div>
 
 <?endif?>  
   
 
 <form name="mess" action="<?=$home?>/articles/create" method="post" enctype="multipart/form-data">
 <? temp::formid() /* ЭТА ФУНКЦИЯ ОБЯЗАТЕЛЬНА ДЛЯ ВСЕХ ФОРМ!!! */?>
-<div class="content">
-  <div class="conthead_forms">
+
+  <div class="contbody_forms">
     <b><?=lang('name_stat')?></b><br/>
     <input type="text" style="width: 200px" name="art_name" value="<?=$name?>" />
   </div>
@@ -93,13 +97,26 @@
   <?endif?>
        
    <div class="contfin_forms">
-     <input name="draft" type="submit" value="<?=lang('to_draft')?>" />
-     <?if($preview):?>
-       <input name="preview" class="button_noright" type="submit" value="<?=lang('preview')?>" /><input title="<?=lang('exitpreview')?>" name="exitpreview" class="button_noleft" type="submit" value="X" />
-     <?else:?>
-       <input name="preview" type="submit" value="<?=lang('preview')?>" />
-     <?endif?>
-     <input name="submit" type="submit" value="<?=lang('save')?>" />
-   </div>
-</div>
-</form>
+       <!--<input name="draft" type="submit" value="<?=lang('to_draft')?>" />-->
+       <?if($preview):?>
+         <input name="preview" class="button_noright" type="submit" value="<?=lang('preview')?>" /><input title="<?=lang('exitpreview')?>" name="exitpreview" class="button_noleft" type="submit" value="X" />
+       <?else:?>
+         <input name="preview" type="submit" value="<?=lang('preview')?>" />
+       <?endif?>
+       <input name="submit" type="submit" value="<?=lang('save')?>" />
+     </div>
+
+  </form>
+
+
+              </div>
+          </td>
+          <td class="right_back_menu">
+              <div class="right_panel_conf">
+                  <div class="menu_rt">Статьи:</div>
+                  <? temp::include('articles._lang.head.tpl') ?>
+                  <div class="down_rmenu"> </div>
+              </div>
+          </td>
+      </tr>
+  </table>
