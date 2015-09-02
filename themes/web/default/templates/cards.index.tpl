@@ -163,7 +163,10 @@
                             <td style="width: 200px;"><b>Торги на площадке:</b><br/></td>
                             <td><a target="_blank" href="<?=$auct_link?>"><i class="icon-globe-table"></i><?=$platform_url?></a></td>
                         </tr>
-
+                        <tr>
+                            <td style="width: 200px;"><b>Лот на федресурсе:</b><br/></td>
+                            <td><?if($fedlink):?><a target="_blank" href="<?=$fedlink?>"><i class="icon-globe-table"></i>fedresurs.ru</a><?else:?>пусто<?endif?></td>
+                        </tr>
                     </table>
 
                 </div>

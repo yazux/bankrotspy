@@ -5,11 +5,13 @@ class column_platform
 {
   private $pid;
   private $platforms = array();
+  private $fedlink;
 
   function __construct($params)
   {
     $this->pid = isset($params[0]) ? $params[0] : '';
     $this->url = isset($params[1]) ? $params[1] : '';
+    $this->fedlink = isset($params[2]) ? $params[2] : '';
   }
 
   public function before_load()
@@ -22,7 +24,7 @@ class column_platform
   public function name()
   {
     return array(
-      'name' => 'Площадка',
+      'name' => 'Площадка, Федресурс',
       'nosort' => 1
     );
   }
@@ -31,9 +33,13 @@ class column_platform
   {
     $this->get_platforms();
 
+    $addout = '';
+    if($this->fedlink)
+      $addout = ', <a style="color:green;white-space:nowrap;" target="_blank" href="'.$this->fedlink.'"><i class="icon-globe-table"></i>fedresurs.ru</a>';
+
     return array(
-      'col' => '<a style="color:green;" target="_blank" href="'.$this->url.'"><i class="icon-globe-table"></i>'.$this->platforms[$this->pid].'</a>',
-      'style' => 'text-align:center;white-space:nowrap;'
+      'col' => '<a style="color:green;white-space:nowrap;" target="_blank" href="'.$this->url.'"><i class="icon-globe-table"></i>'.$this->platforms[$this->pid].'</a>'.$addout,
+      'style' => 'text-align:center;'
     );
   }
 
