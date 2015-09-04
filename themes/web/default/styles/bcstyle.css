@@ -343,6 +343,10 @@ margin: 16px 0 16px 0;
     background: #f8f8f8;
 }
 
+.data_table tr.data_line.new {
+    background:#FCF3E8;
+}
+
 .data_table tr th.no_sort:hover {
     cursor: default;
     background: #ebebeb;
@@ -574,6 +578,14 @@ a.user_onl_bottom:hover{
 
 .pays_t tr td{
     padding: 2px;
+}
+
+.top-banner {
+    display:block;
+    padding:0 15px;
+}
+.top-banner:hover > img{
+    outline:1px solid #eee;
 }
 
 .in_bookmark

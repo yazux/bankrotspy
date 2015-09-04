@@ -61,7 +61,7 @@
                        <table>
                            <tr>
                                <td style="width:1%;"><a href="<?=core::$home?>"><img class="logo" src="<?=$themepath?>/images/logo.png"/></a></td>
-                               <td valign="top" style="width:100%;padding-top: 9px;">
+                               <td valign="top" style="width:20%;padding-top: 9px;">
 
                                   <span id="bookmark" class="in_bookmark"><i class="icon-bookmark"></i>В закладки</span>
                                    <script type="text/javascript">
@@ -81,6 +81,17 @@
                                            });
                                        });
                                    </script>
+                               </td>
+                               <td>
+                                    <? $link = 'user/register'; ?>
+                                    <? $open = ''; ?>
+                                    <? if($user_id): ?>
+                                        <? $link = 'data/materials/textbook.pdf'; ?>
+                                        <? $open = 'target="_blank"'; ?>
+                                    <? endif; ?>
+                                    <a class="top-banner" href="<?= core::$home ?>/<?= $link ?>" <?= $open ?>>
+                                        <img src="<?=$themepath?>/images/banners/textbook.gif"/>
+                                    </a>
                                </td>
                            </tr>
                        </table>
