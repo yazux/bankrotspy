@@ -275,7 +275,8 @@ if($res->num_rows)
   foreach ($out AS $key => $data)
   {
     $loc = array();
-
+    
+    $loc['loadtime'] = $data['loadtime'] * 1000;
     //$loc['number'] = $tabledata->number($data['code'], $data['id']);
     $loc['name'] = $tabledata->name($data['name'], 40, $data['id'], $item_arr, $data['description']);
     $loc['type'] = $tabledata->type($data['type']);

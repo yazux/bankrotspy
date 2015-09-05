@@ -193,8 +193,19 @@ function answer_load(data)
         //данные таблицы
         var body_table = '';
         $.each(obj.maindata, function(key, val) {
-            body_table += '<tr class="data_line">';
-
+           
+            var period  =   24 * 60 * 60 * 1000;
+            var current = new Date().getTime() - period;
+            var loaded = this.loadtime;
+            
+            if(current < loaded) {
+                body_table += '<tr class="data_line new">';
+            } else {
+                body_table += '<tr class="data_line">';
+            }
+            
+            delete this.loadtime;
+            
             $.each(this, function() {
 
               //Дополнительно (скрипты например)
