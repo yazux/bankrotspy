@@ -4,6 +4,7 @@ defined('DS_ENGINE') or die('web_demon laughs');
 class column_name
 {
   private $name;
+  private $date;
   private $lenght;
   private $attr;
   private $item_arr;
@@ -17,12 +18,13 @@ class column_name
     $this->attr = isset($params[2]) ? $params[2] : '';
     $this->item_arr = isset($params[3]) ? $params[3] : array();
     $this->descr = isset($params[4]) ? trim($params[4]) : '';
+    $this->date = isset($params[5]) ?  trim($params[5]) : '';
   }
 
   public function before_load()
   {
     return array(
-      'sortcolumn' => ' `ds_maindata`.`name` '
+      'sortcolumn' => ' `ds_maindata`.`loadtime` '
     );
   }
 
@@ -143,7 +145,7 @@ class column_name
     }
 
     return array(
-      'col' => '<a target="_blank" class="namelink" href="'.core::$home.'/card/'.$this->attr.'"><i class="icon-share"></i><span id="min_name_'.$this->attr.'">'.$this->replace_onbr($name).'</span><span style="display: none;" id="max_name_'.$this->attr.'">'.$this->replace_onbr(text::st($full_name)).'</span></a>'.($cutted ? '<br/><span attr="'.$this->attr.'" class="show_span">Показать</span>' : '' ).(isset($addition)? $addition : '' ),
+      'col' => '<span class="added">Добавлено: '.date('d.m.Y', $this->date).'</span><br/><a target="_blank" class="namelink" href="'.core::$home.'/card/'.$this->attr.'"><i class="icon-share"></i><span id="min_name_'.$this->attr.'">'.$this->replace_onbr($name).'</span><span style="display: none;" id="max_name_'.$this->attr.'">'.$this->replace_onbr(text::st($full_name)).'</span></a>'.($cutted ? '<br/><span attr="'.$this->attr.'" class="show_span">Показать</span>' : '' ).(isset($addition)? $addition : '' ),
       'onlydata' => $this->replace_onbr(text::st($full_name)),
       'style' => 'max-width: 300px;'
     );

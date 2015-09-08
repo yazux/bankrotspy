@@ -343,8 +343,11 @@ margin: 16px 0 16px 0;
     background: #f8f8f8;
 }
 
-.data_table tr.data_line.new {
+.data_table tr.data_line.updated {
     background:#fcf3e8;
+}
+.data_table tr.data_line.new {
+    background:#e8fae8;
 }
 
 .data_table tr th.no_sort:hover {

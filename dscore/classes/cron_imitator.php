@@ -11,7 +11,15 @@ class cron_imitator
   private static function get_yield()
   {
     $baze_yield = core::$set['baze_yield'];
-    $res = core::$db->query('SELECT * FROM  `ds_maindata` WHERE `profit_proc` >= "'.$baze_yield.'" AND `platform_id` NOT IN ('.implode(', ', func::get_manual_platforms()).') AND `mprice_update` > "'.(time()-(12*3600)).'";');
+    $range = explode('-', $baze_yield);
+    
+    if(count($range) === 1) {
+        $where = '`profit_proc` >= "' . $range[0] . '"';
+    } else {
+        $where = '`profit_proc` >= "' . $range[0] . '" AND `profit_proc` <= "' . $range[1] . '"';
+    }
+    
+    $res = core::$db->query('SELECT * FROM  `ds_maindata` WHERE '.$where.' AND `platform_id` NOT IN ('.implode(', ', func::get_manual_platforms()).') AND `mprice_update` > "'.(time()-(12*3600)).'";');
     $out = array();
     while($data = $res->fetch_array())
     {

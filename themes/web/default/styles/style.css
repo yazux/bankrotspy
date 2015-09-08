@@ -975,6 +975,40 @@ padding: 10px 0px 10px 10px;
     font-size: 12px;
     color: #b1b1b1;
 }
+.top_nav_info div, .bottomp_nav_info div {
+    display:table-cell;
+}
+
+.info {
+    display:table;
+}
+
+.info span {
+    display:table-cell;
+   
+    padding:0 0 0 30px;
+}
+
+.info span.new::before, .info span.updated::before{
+    display:inline-block;
+    content:'';
+    height:15px;
+    width:15px;
+    margin-bottom:-3px;
+    outline:1px solid #ddd;
+}
+
+.info span.new::before {
+    background:#e8fae8;
+}
+
+.info span.updated::before {
+    background:#fcf3e8;
+}
+
+.added {
+    font-size:12px;
+}
 
 .bottomp_nav_info{
     margin: -6px 5px 6px 20px;

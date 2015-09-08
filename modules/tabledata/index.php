@@ -277,8 +277,9 @@ if($res->num_rows)
     $loc = array();
     
     $loc['loadtime'] = $data['loadtime'] * 1000;
+    $loc['last_update'] = $data['last_update'] * 1000;
     //$loc['number'] = $tabledata->number($data['code'], $data['id']);
-    $loc['name'] = $tabledata->name($data['name'], 40, $data['id'], $item_arr, $data['description']);
+    $loc['name'] = $tabledata->name($data['name'], 40, $data['id'], $item_arr, $data['description'], $data['loadtime']);
     $loc['type'] = $tabledata->type($data['type']);
     $loc['place'] = $tabledata->place($data['place']);
     $loc['begindate'] = $tabledata->begindate($data['start_time']);

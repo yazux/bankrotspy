@@ -189,7 +189,13 @@
         <div id="table_default_set" style="display: none"><?=$table_default_set?></div>
         <div id="table_set" style="display: none"><?=$table_set?></div>
 
-        <div class="top_nav_info"></div>
+        <div class="top_nav_info">
+        <div class="results"></div>
+        <div class="info">
+            <span class="new"> - Новый лот</span>
+            <span class="updated"> - Обновленный лот</span>
+        </div>
+        </div>
 
         <table class="data_table" >
             <tr>

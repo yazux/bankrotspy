@@ -197,17 +197,21 @@ function answer_load(data)
             var period  =   24 * 60 * 60 * 1000;
             var current = new Date().getTime() - period;
             var loaded = this.loadtime;
+            var updated = this.last_update;
             
-            if(current < loaded) {
+            if (current < loaded) {
                 body_table += '<tr class="data_line new">';
+            } else if (current < updated) {
+                body_table += '<tr class="data_line updated">';
             } else {
                 body_table += '<tr class="data_line">';
             }
-            
+
             delete this.loadtime;
+            delete this.last_update
             
             $.each(this, function() {
-
+    
               //Дополнительно (скрипты например)
               var addition_holder = '';
               if(this.addition)
@@ -241,7 +245,7 @@ function answer_load(data)
         if(obj.count > 0)
         {
           //Верхняя панелька
-          $('.top_nav_info').text(bar_info);
+          $('.top_nav_info .results').text(bar_info);
           $('.top_nav_info').fadeIn(0);
 
           //Нижняя панелька
@@ -250,7 +254,7 @@ function answer_load(data)
         }
         else
         {
-          $('.top_nav_info').fadeOut(0);
+          $('.top_nav_info .results').parent().fadeOut(0);
           $('.bottomp_nav_info').fadeOut(0);
         }
 
