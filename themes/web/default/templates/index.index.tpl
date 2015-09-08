@@ -438,6 +438,6 @@
     </div>
 </div>
 
-<div style="text-align: center">
-    <embed src="<?=$themepath?>/images/hori1a-f2.swf" quality="high" type="application/x-shockwave-flash" wmode="transparent" width="996" height="100" pluginspage="http://www.macromedia.com/go/getflashplayer" allowScriptAccess="always"></embed>
+<div style="text-align: center; cursor:pointer;">
+    <a href="https://vk.com/money_mihalchenco"><img src="<?=$themepath?>/images/banners/banner-bankrot.gif" /></a>
 </div>
