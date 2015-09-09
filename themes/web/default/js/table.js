@@ -249,13 +249,13 @@ function answer_load(data)
           $('.top_nav_info').fadeIn(0);
 
           //Нижняя панелька
-          $('.bottomp_nav_info').text(bar_info);
+          $('.bottomp_nav_info .results').text(bar_info);
           $('.bottomp_nav_info').fadeIn(0);
         }
         else
         {
           $('.top_nav_info .results').parent().fadeOut(0);
-          $('.bottomp_nav_info').fadeOut(0);
+          $('.bottomp_nav_info .results').fadeOut(0);
         }
 
         build_page_navigation(engine_settings.page, obj.count, engine_settings.kmess);

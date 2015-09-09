@@ -989,7 +989,7 @@ padding: 10px 0px 10px 10px;
     padding:0 0 0 30px;
 }
 
-.info span.new::before, .info span.updated::before{
+.info span.new::before, .info span.notupdated::before, .info span.updated::before{
     display:inline-block;
     content:'';
     height:15px;
@@ -1004,6 +1004,10 @@ padding: 10px 0px 10px 10px;
 
 .info span.updated::before {
     background:#fcf3e8;
+}
+
+.info span.notupdated {
+     background:#ffffff;
 }
 
 .added {

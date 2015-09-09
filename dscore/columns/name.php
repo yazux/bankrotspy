@@ -145,7 +145,7 @@ class column_name
     }
 
     return array(
-      'col' => '<span class="added">Добавлено: '.date('d.m.Y', $this->date).'</span><br/><a target="_blank" class="namelink" href="'.core::$home.'/card/'.$this->attr.'"><i class="icon-share"></i><span id="min_name_'.$this->attr.'">'.$this->replace_onbr($name).'</span><span style="display: none;" id="max_name_'.$this->attr.'">'.$this->replace_onbr(text::st($full_name)).'</span></a>'.($cutted ? '<br/><span attr="'.$this->attr.'" class="show_span">Показать</span>' : '' ).(isset($addition)? $addition : '' ),
+      'col' => '<span class="added">Добавлен: '.date('d.m.Y', $this->date).'</span><br/><a target="_blank" class="namelink" href="'.core::$home.'/card/'.$this->attr.'"><i class="icon-share"></i><span id="min_name_'.$this->attr.'">'.$this->replace_onbr($name).'</span><span style="display: none;" id="max_name_'.$this->attr.'">'.$this->replace_onbr(text::st($full_name)).'</span></a>'.($cutted ? '<br/><span attr="'.$this->attr.'" class="show_span">Показать</span>' : '' ).(isset($addition)? $addition : '' ),
       'onlydata' => $this->replace_onbr(text::st($full_name)),
       'style' => 'max-width: 300px;'
     );
