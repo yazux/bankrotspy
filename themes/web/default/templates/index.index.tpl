@@ -194,7 +194,7 @@
         <div class="info">
             <span class="new"> - Новый лот</span>
             <span class="updated"> - Обновленный лот</span>
-            <span class="notupdated"> - без изменений</span>
+            <span class="notupdated"> - Нет изменений</span>
         </div>
         </div>
 
@@ -209,7 +209,7 @@
             <div class="info">
                 <span class="new"> - Новый лот</span>
                 <span class="updated"> - Обновленный лот</span>
-                <span class="notupdated"> - без изменений</span>
+                <span class="notupdated"> - Нет изменений</span>
             </div>
         </div>
 
