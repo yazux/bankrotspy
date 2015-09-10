@@ -16,4 +16,3 @@ if(file_exists('modules/'.core::$module.'/--inc.php'))
 
 //подключаем модуль-действие
 require_once('modules/'.core::$module.'/'.core::$action.'.php');
-
