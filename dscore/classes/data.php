@@ -77,4 +77,14 @@ class SQLResult extends MySQLi_Result
   {
     return $this->fetch_assoc();
   }
+  
+    public function fetch_all($a)
+    {
+        $result = array();
+        
+        while ($row = $this->fetch_assoc()) {
+            $result[] = $row;
+        }
+        return $result;
+    }
 }
