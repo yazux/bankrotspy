@@ -338,6 +338,12 @@ img.avatar {
     margin: 0px 3px 0px 3px;
     line-height: 20px;
     font-size: 21px;
+    display:table-cell;
+    width:100%;
+}
+
+.conthead a.edit {
+   display:table-cell;
 }
 
 .contbody {

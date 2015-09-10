@@ -3,7 +3,12 @@
         <td valign="top">
 
             <div class="content">
-                <div class="conthead"><h2><i class="icon-newspaper"></i> Лот №<?=$lotnumber?></h2></div>
+                <div class="conthead">
+                    <h2><i class="icon-newspaper"></i> Лот №<?=$lotnumber?></h2>
+                    <? if(core::$rights == 100): ?>
+                    <a href="<?= core::$home ?>/control/edititem?id=<?= $id ?>" class="edit">Изменить</a>
+                    <? endif; ?>
+                </div>
 
                 <div class="contbody_forms">
                     <b>Название лота:</b><br/>
