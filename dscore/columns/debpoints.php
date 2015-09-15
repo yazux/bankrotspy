@@ -5,11 +5,13 @@ class column_debpoints
 {
   private $price;
   private $debnotice;
+  private $access;
 
   function __construct($params)
   {
     $this->price = isset($params[0]) ? $params[0] : '';
     $this->debnotice = isset($params[1]) ? $params[1] : '';
+    $this->access = !empty($params[2]) ? true : false;
   }
 
   public function before_load()
@@ -30,7 +32,9 @@ class column_debpoints
   public function process()
   {
     $price = $this->price;
-    if($price == -1)
+    $access = $this->access;
+    
+    if($price == -1 && $access)
     {
       $price = '<i onmouseover="toolTip(\'У этого лота пока нет баллов\')" onmouseout="toolTip()" class="icon-help"></i>';
       $class = '';
@@ -38,11 +42,13 @@ class column_debpoints
     }
     else
     {
-      if($this->debnotice)
-      {
-        $class = 'cell_with_notify';
-        $addition = ' onmouseover="toolTip(\''.text::st(str_replace("\n", '<br/>', str_replace("\r\n", "\n", $this->debnotice))).'\')" onmouseout="toolTip()" ';
-      }
+        if($this->debnotice && $access) {
+            $class = 'cell_with_notify';
+            $addition = ' onmouseover="toolTip(\''.text::st(str_replace("\n", '<br/>', str_replace("\r\n", "\n", $this->debnotice))).'\')" onmouseout="toolTip()" ';
+        } else {
+            $price = '<i class="fa fa-lock"></i>';
+            $addition = ' onmouseover="toolTip(\'Информация доступна для зарегистрированных пользователей\')" onmouseout="toolTip()" ';
+        }
     }
 
     return array(

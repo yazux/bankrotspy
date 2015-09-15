@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/style.css?id=<?=$now_id?>"/>
     <link rel="stylesheet" type="text/css" href="<?=$themepath?>/styles/bcstyle.css?id=<?=$now_id?>"/>
     <link rel="stylesheet" href="<?=$themepath?>/styles/fontello.css?id=<?=$now_id?>" type="text/css">
+    <link rel="stylesheet" href="<?=$themepath?>/styles/font-awesome.min.css?id=<?=$now_id?>" type="text/css">
     <link rel="stylesheet" href="<?=$themepath?>/styles/customicons.css?id=<?=$now_id?>" type="text/css">
 
     <script type = "text/javascript" src="<?=$themepath?>/js/jquery.jdpicker.js?id=<?=$now_id?>"></script>
