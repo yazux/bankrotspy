@@ -72,7 +72,7 @@ class column_profitrub
         } else {
             $addition = ' onmouseover="toolTip(\'Информация доступна для зарегистрированных пользователей\')" onmouseout="toolTip()" ';
         }
-    } else {
+    } elseif(!$access) {
         $addition = ' onmouseover="toolTip(\'Информация доступна для зарегистрированных пользователей\')" onmouseout="toolTip()" ';
     }
     
