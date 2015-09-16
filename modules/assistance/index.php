@@ -99,7 +99,7 @@ if(GET('act'))
             $mail->send();
         }
         
-        func::notify(lang('title'), lang('success'), core::$home . '/assistance');
+        func::notify(lang('title'), lang('success'), core::$home);
         
     } 
 }
