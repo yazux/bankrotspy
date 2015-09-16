@@ -22,6 +22,9 @@
                             <i class="icon-star-empty"></i><span id="fav_info">Добавить лот в избранное</span>
                         <?endif?>
                     </span>
+                    <a href="<?= core::$home ?>/assistance?lotid=<?= $id ?>" class="button aright">
+                        Помощь и участие в торгах
+                    </a>
                 </div>
                 <div class="contfin_forms_delimiter">
 
