@@ -693,7 +693,6 @@ function place_set_listener()
   //Регионы
   var new_places = {};
   var choosen = 0;
-  console.log(default_settings);
   $.each(default_settings.places, function(key, val) {
     if($('[name="place_number_' + key + '"]').prop('checked'))
     {
