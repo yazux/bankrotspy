@@ -1,7 +1,7 @@
 <?php
 defined('DS_ENGINE') or die('web_demon laughs');
-error_reporting(E_ALL);
-ini_set('display_errors', 'on');
+//error_reporting(E_ALL);
+//ini_set('display_errors', 'on');
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dscore/libs/phpmailer/PHPMailerAutoload.php';
 
@@ -76,8 +76,8 @@ if(GET('act'))
         
         $mail->setSubject(lang('success_head'), $subject);
         $mail->setBody('assistance', $body);
-        //$mail->addAddress('sales@i-tt.ru');
-        $mail->addAddress('imbagroup@yandex.ru');
+        $mail->addAddress('sales@i-tt.ru');
+        //$mail->addAddress('imbagroup@yandex.ru');
         $mail->send();
        
         $data = array(
@@ -99,7 +99,7 @@ if(GET('act'))
             $mail->send();
         }
         
-       // func::notify(lang('title'), lang('success'), core::$home . '/assistance');
+        func::notify(lang('title'), lang('success'), core::$home . '/assistance');
         
     } 
 }

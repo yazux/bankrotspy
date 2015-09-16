@@ -13,9 +13,10 @@ class Mailer extends Phpmailer
     public function __construct($config)
     {
         parent::__construct();
-        $this->SMTPDebug = 3;
+        //$this->SMTPDebug = 3;
         $this->config = $config;
         $this->isHTML(true);
+        $this->CharSet = 'UTF-8';
         $this->setFrom('no-reply@bankrot-spy.ru', 'Bankrot-Spy');
     }
     
