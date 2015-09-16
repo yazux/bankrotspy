@@ -33,6 +33,8 @@ if(GET('act'))
     
     if(!$text) {
         $error[] = lang('empty_text');
+    } elseif(mb_strlen($text) < 4) {
+        $error[] = lang('length_text');
     }
     
     if(!func::capcha()) {
@@ -100,7 +102,6 @@ if(GET('act'))
         }
         
         func::notify(lang('title'), lang('success'), core::$home);
-        
     } 
 }
 
