@@ -58,9 +58,11 @@ function denied()
 
 function GET($string)
 {
-  if(isset($_GET[$string]))
-    return trim($_GET[$string]);
-  return FALSE;
+    if(isset($_GET[$string])) {
+        $param = trim($_GET[$string]);
+        return $param;
+    }
+    return false;
 }
 
 function smart_trim($string)

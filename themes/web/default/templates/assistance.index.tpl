@@ -36,7 +36,8 @@
   </div>
   <div class="contbody_forms">
     <b><?=lang('text')?></b><br/>
-    <span class="under"><?=lang('require')?></span><br/>
+    <span style="background:#ffd394;">Для скорейшего решения Ваших проблем и задач, просим указывать номер телефона</span><br/>
+    <span class="under"><?=lang('require')?></span><span></span><br/>
     <div class="texta"><textarea name="text" rows="4"><?= $text ?></textarea></div>
   </div>
   <div class="contbody_forms">

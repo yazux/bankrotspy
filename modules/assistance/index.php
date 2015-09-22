@@ -5,11 +5,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/dscore/libs/phpmailer/PHPMailerAutolo
 
 $error = array();  
 
-$lotid = !empty(GET('lotid')) ? GET('lotid') : '';
-$name   = !empty(POST('name')) ? POST('name') : '';
-$email  = !empty(POST('email')) ? POST('email') : '';
-$skype  = !empty(POST('skype')) ? POST('skype') : '';
-$text   = !empty(POST('text')) ? POST('text') : '';
+$lotid = GET('lotid');
+$name   = POST('name');
+$email  = POST('email');
+$skype  = POST('skype');
+$text   = POST('text');
 
 if (GET('act')) {
     
