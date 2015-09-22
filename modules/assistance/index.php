@@ -1,26 +1,17 @@
 <?php
 defined('DS_ENGINE') or die('web_demon laughs');
-//error_reporting(E_ALL);
-//ini_set('display_errors', 'on');
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dscore/libs/phpmailer/PHPMailerAutoload.php';
 
-/*
-if(!core::$user_id) {
-    denied();
-}*/
-
 $error = array();  
 
-$lotid = GET('lotid');
+$lotid = !empty(GET('lotid')) ? GET('lotid') : '';
+$name   = !empty(POST('name')) ? POST('name') : '';
+$email  = !empty(POST('email')) ? POST('email') : '';
+$skype  = !empty(POST('skype')) ? POST('skype') : '';
+$text   = !empty(POST('text')) ? POST('text') : '';
 
-if(GET('act'))
-{
-    $name   = POST('name');
-    $email  = POST('email');
-    $skype  = POST('skype');
-    $text   = POST('text');
-    $lotid  = POST('lotid');
+if (GET('act')) {
     
     if(!$name) {
         $error[] = lang('empty_name');
