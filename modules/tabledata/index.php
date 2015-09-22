@@ -279,7 +279,7 @@ if($res->num_rows)
     $loc['loadtime'] = $data['loadtime'] * 1000;
     $loc['last_update'] = $data['last_update'] * 1000;
     //$loc['number'] = $tabledata->number($data['code'], $data['id']);
-    $loc['name'] = $tabledata->name($data['name'], 40, $data['id'], $item_arr, $data['description'], $data['loadtime']);
+    $loc['name'] = $tabledata->name($data['name'], 80, $data['id'], $item_arr, $data['description'], $data['loadtime']);
     $loc['type'] = $tabledata->type($data['type']);
     $loc['place'] = $tabledata->place($data['place']);
     $loc['begindate'] = $tabledata->begindate($data['start_time']);
@@ -287,11 +287,18 @@ if($res->num_rows)
     $loc['beforedate'] = $tabledata->beforedate($data['start_time'], $data['end_time'], $data['status_name'], $data['status']);
     $loc['beginprice'] = $tabledata->beginprice($data['price']);
     $loc['nowprice'] = $tabledata->nowprice($data['now_price'], $data['platform_id'], $data['type']);
+    
+    $access = true;
+        
+    if(!core::$user_id) {
+        $access = false;
+    }
+    
     if($category != 0 AND $category != 4 AND $category != 8 AND $category != 2)
     {
-      $loc['marketprice'] = $tabledata->marketprice($data['market_price']);
-      $loc['profitrub'] = $tabledata->profitrub($data['profit_rub'], $data['platform_id'], $data['type']);
-      $loc['profitproc'] = $tabledata->profitproc($data['profit_proc'], $data['platform_id'], $data['type']);
+        $loc['marketprice'] = $tabledata->marketprice($data['market_price'], $access);
+        $loc['profitrub'] = $tabledata->profitrub($data['profit_rub'], $data['platform_id'], $data['type'], $access);
+        $loc['profitproc'] = $tabledata->profitproc($data['profit_proc'], $data['platform_id'], $data['type'], $access);
     }
     //elseif($category == 0 OR $category == 4 OR $category == 8)
     //{
@@ -300,7 +307,7 @@ if($res->num_rows)
     if($category == 2)
     {
       //$loc['pricediff'] = $tabledata->pricediff($data['price_dif'], $data['platform_id'], $data['type']);
-      $loc['debpoints'] = $tabledata->debpoints($data['debpoints'], $data['debnotice']);
+      $loc['debpoints'] = $tabledata->debpoints($data['debpoints'], $data['debnotice'], $access);
     }
 
     $loc['platform'] = $tabledata->platform($data['platform_id'], $data['auct_link'], $data['fedlink']);

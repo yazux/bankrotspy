@@ -5,6 +5,11 @@ $id = abs(intval(GET('id')));
 if(!$id)
   denied();
 
+$access = true;
+        
+if(!core::$user_id) {
+    $access = false;
+}
 
 $twr = core::$db->query('SELECT
    `ds_maindata`.*,
@@ -69,17 +74,17 @@ elseif($pricediff < 0)
 if($data['cat_id'] != 0 AND $data['cat_id'] != 4 AND $data['cat_id'] != 8 AND $data['cat_id'] != 2)
 {
   $needshow_add_price = 1;
-  $realprice = $tabledata->marketprice($data['market_price']);
+  $realprice = $tabledata->marketprice($data['market_price'], $access);
   $realprice = $realprice['col'];
-  $profitrub = $tabledata->profitrub($data['profit_rub'],  $data['platform_id'], $data['type']);
+  $profitrub = $tabledata->profitrub($data['profit_rub'],  $data['platform_id'], $data['type'], $access);
   $profitrub = $profitrub['col'];
-  $profitproc = $tabledata->profitproc($data['profit_proc'], $data['platform_id'], $data['type']);
+  $profitproc = $tabledata->profitproc($data['profit_proc'], $data['platform_id'], $data['type'], $access);
   $profitproc = $profitproc['notcolored'];
 }
 if($data['cat_id'] == 2)
 {
   $needshow_deb_points = 1;
-  $debpoints = $tabledata->debpoints($data['debpoints'], $data['debnotice']);
+  $debpoints = $tabledata->debpoints($data['debpoints'], $data['debnotice'], $access);
 
   if(isset($debpoints['addition']) AND $debpoints['addition'])
     $additionhtmldeb = $debpoints['addition'];
