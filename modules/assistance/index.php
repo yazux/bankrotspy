@@ -79,7 +79,7 @@ if(GET('act'))
         $mail->setSubject(lang('success_head'), $subject);
         $mail->setBody('assistance', $body);
         $mail->addAddress('sales@i-tt.ru');
-        //$mail->addAddress('imbagroup@yandex.ru');
+        $mail->addAddress('ak@i-tt.ru');
         $mail->send();
        
         $data = array(

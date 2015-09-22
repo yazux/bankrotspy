@@ -15,6 +15,15 @@ class Mailer extends Phpmailer
         parent::__construct();
         //$this->SMTPDebug = 3;
         $this->config = $config;
+        
+        $this->isSMTP();                                      // Set mailer to use SMTP
+        
+        $this->Host = 'mail.bankrot-spy.ru';  // Specify main and backup SMTP servers
+        $this->SMTPAuth = true;                               // Enable SMTP authentication
+        $this->Username = 'no-reply@bankrot-spy.ru';                 // SMTP username
+        $this->Password = 'C7q3H3u9';                           // SMTP password
+        $this->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+        $this->Port = 25;
         $this->isHTML(true);
         $this->CharSet = 'UTF-8';
         $this->setFrom('no-reply@bankrot-spy.ru', 'Bankrot-Spy');

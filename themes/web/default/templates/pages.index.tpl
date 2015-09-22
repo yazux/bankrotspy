@@ -3,7 +3,7 @@
         <td valign="top">
 
             <div class="content">
-                <div class="conthead"><h2><i class="icon-docs"></i> <?=$name?></h2></div>
+                <div class="conthead"><h2><i class="icon-docs"></i> <?=$name?></h2> <a class="button aright" href="http://bsd.bankrot-spy.ru/assistance"> Помощь и участие в торгах </a></div>
                 <div class="contbody_forms">
                     <?=$text?>
                 </div>

@@ -5,9 +5,9 @@
             <div class="content">
                 <div class="conthead">
                     <h2><i class="icon-newspaper"></i> Лот №<?=$lotnumber?></h2>
-                    <? if(core::$rights == 100): ?>
-                    <a href="<?= core::$home ?>/control/edititem?id=<?= $id ?>" class="edit">Изменить</a>
-                    <? endif; ?>
+                    <a href="<?= core::$home ?>/assistance?lotid=<?= $id ?>" class="button aright">
+                        Помощь и участие в торгах
+                    </a>
                 </div>
 
                 <div class="contbody_forms">
@@ -22,9 +22,9 @@
                             <i class="icon-star-empty"></i><span id="fav_info">Добавить лот в избранное</span>
                         <?endif?>
                     </span>
-                    <a href="<?= core::$home ?>/assistance?lotid=<?= $id ?>" class="button aright">
-                        Помощь и участие в торгах
-                    </a>
+                    <? if(core::$rights == 100): ?>
+                    <a href="<?= core::$home ?>/control/edititem?id=<?= $id ?>" class="edit aright">Изменить</a>
+                    <? endif; ?>
                 </div>
                 <div class="contfin_forms_delimiter">
 
