@@ -152,6 +152,30 @@ a.urlbutton_index:hover, .urlbutton_index:hover {
     text-decoration: none;
 }
 
+a.button {
+    padding:4px 12px;
+    background: #ff9b24;
+    border-radius:4px;
+    color:#fff;
+    border-right: rgba(253, 255, 253, 0.32) 1px solid;
+    border-bottom: rgba(253, 255, 253, 0.32) 1px solid;
+
+}
+
+a.button:hover {
+    cursor: pointer;
+    background: #feab2e;
+    text-decoration:none;
+    border-right: rgba(253, 255, 253, 0.49) 1px solid;
+    border-bottom: rgba(253, 255, 253, 0.49) 1px solid;
+}
+
+.aright{
+    position:absolute;
+    right:20px;
+    bottom:4px;
+}
+
 .grback {
     background: url("../images/gr_back.png") repeat-x scroll center bottom transparent;
     height: 30px;
