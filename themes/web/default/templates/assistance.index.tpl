@@ -24,7 +24,12 @@
     <b><?=lang('name')?></b><br/>
     <span class="under"><?=lang('require')?></span><br/>
     <input type="text" name="name" value="<?= $name ?>" />
-  </div>  
+  </div>
+    <div class="contbody_forms">
+        <b><?=lang('phone')?></b><br/>
+         <span style="background:#ffd394;">Для скорейшего решения Ваших проблем и задач, просим указывать номер телефона</span><br/>
+        <input type="text" name="phone" value="<?= $phone ?>" />
+    </div>  
   <div class="contbody_forms">
     <b><?=lang('email')?></b><br/>
     <span class="under"><?=lang('require')?></span><br/>
@@ -36,7 +41,6 @@
   </div>
   <div class="contbody_forms">
     <b><?=lang('text')?></b><br/>
-    <span style="background:#ffd394;">Для скорейшего решения Ваших проблем и задач, просим указывать номер телефона</span><br/>
     <span class="under"><?=lang('require')?></span><span></span><br/>
     <div class="texta"><textarea name="text" rows="4"><?= $text ?></textarea></div>
   </div>

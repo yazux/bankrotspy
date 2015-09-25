@@ -10,12 +10,14 @@ $name   = POST('name');
 $email  = POST('email');
 $skype  = POST('skype');
 $text   = POST('text');
+$phone   = POST('phone');
 
 if (GET('act')) {
     
     if(!$name) {
         $error[] = lang('empty_name');
-    } 
+    }
+    
     if(!$email) {
         $error[] = lang('empty_email');
     } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -42,6 +44,7 @@ if (GET('act')) {
             `name`="'.core::$db->res($name).'",
             `email`="'.core::$db->res($email).'",
             `skype`="'.core::$db->res($skype).'",
+            `phone`="'.core::$db->res($phone).'",
             `text`="'.core::$db->res($text).'",
             `created`="'.time().'"
         ');
@@ -57,6 +60,7 @@ if (GET('act')) {
         
         $body = array(
             'name'  => $name,
+            'phone'  => $phone,
             'email' => $email,
             'skype' => $skype,
             'href'  => $href,
@@ -102,6 +106,7 @@ temp::HTMassign('error',$error);
 
 temp::assign('name',$name);
 temp::assign('email',$email);
+temp::assign('phone',$phone);
 temp::assign('skype',$skype);
 temp::assign('text',$text);
 temp::assign('lotid',$lotid);
