@@ -22,7 +22,8 @@ if($id)
     if(isset($out_fil))
       pages::$out_fil = $out_fil;
       
-    engine_head($res['name']);
+    engine_head($res['name'], $res['keywords'], $res['description']);
+    
     temp::assign('name', $res['name']);
     temp::assign('id', $res['id']);
     $to_text = text::out($res['text'] ,0);

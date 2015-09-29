@@ -28,11 +28,20 @@ function lang($string='')
     return '[lang::'.$string.']';
 }
 
-function engine_head($title = '')
+function engine_head($title = '', $keywords = '', $description = '')
 {
   if(!$title)
     $title = htmlentities(core::$set['site_name_main'], ENT_QUOTES, 'UTF-8');
   core::$page_title = $title.' - '.htmlentities(core::$set['site_name'], ENT_QUOTES, 'UTF-8');
+  
+    if(!empty($keywords)) {
+        core::$page_keywords = htmlentities($keywords, ENT_QUOTES, 'UTF-8');
+    }
+    
+    if(!empty($description)) {
+        core::$page_description = htmlentities($description, ENT_QUOTES, 'UTF-8');
+    }
+  
   unset($title);
   require_once('dscore/head.php');
 }

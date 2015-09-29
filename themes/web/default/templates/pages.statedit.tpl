@@ -20,6 +20,14 @@
                         <input type="text" name="art_name" value="<?=$name?>" />
                     </div>
                     <div class="contbody_forms">
+                        <b><?=lang('keywords')?></b><br/>
+                        <input type="text" name="keywords" value="<?=$keywords?>" style="width:98%;"/>
+                    </div>
+                    <div class="contbody_forms">
+                        <b><?=lang('description')?></b><br/>
+                        <input type="text" name="description" value="<?=$description?>" style="width:98%;"/>
+                    </div>
+                    <div class="contbody_forms">
                         <b><?=lang('data_opis')?></b><br/>
                         <?=func::tagspanel('messarea');?>
                         <div class="texta"><textarea id="messarea" name="art_text" rows="15"><?=$text?></textarea></div>

@@ -48,6 +48,9 @@ if(isset($_POST['add_attachment']))
    $save_data['art_name'] = htmlentities(POST('art_name'), ENT_QUOTES, 'UTF-8');
    $save_data['art_text'] = htmlentities(POST('art_text'), ENT_QUOTES, 'UTF-8');
    
+   $save_data['keywords'] = htmlentities(POST('keywords'), ENT_QUOTES, 'UTF-8');
+   $save_data['description'] = htmlentities(POST('description'), ENT_QUOTES, 'UTF-8');
+   
    $file=$_FILES['file']['name'];
    if($file)
    {
@@ -161,9 +164,12 @@ elseif(POST('submit'))
   if(!$art_text)
     $error[] = lang('no_text');
     
+    $keywords = POST('keywords');
+    $description = POST('description');
+    
   if(!$error)
   {
-    core::$db->query('INSERT INTO `ds_pages` SET `name` = "'.core::$db->res($art_name).'", `text` = "'.core::$db->res($art_text).'", `cache` = "'.core::$db->res(text::presave($art_text)).'";');
+    core::$db->query('INSERT INTO `ds_pages` SET `keywords` = "'.core::$db->res($keywords).'", `description` = "'.core::$db->res($description).'", `name` = "'.core::$db->res($art_name).'", `text` = "'.core::$db->res($art_text).'", `cache` = "'.core::$db->res(text::presave($art_text)).'";');
     $insert_id = core::$db->insert_id;
     if ($att)
       core::$db->query('UPDATE `ds_pages_files` SET `post` = "'.$insert_id.'" WHERE `attach` = "'.$att.'" AND `post` = "0";');

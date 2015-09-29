@@ -165,9 +165,12 @@ if($id)
         if(!$art_text)
           $error[] = lang('no_text');  
      
+        $keywords = POST('keywords');
+        $description = POST('description');
+        
        if(!$error)
        {
-         core::$db->query('UPDATE `ds_pages` SET `name` = "'.core::$db->res($art_name).'", `text` = "'.core::$db->res($art_text).'", `cache` = "'.core::$db->res(text::presave($art_text)).'" WHERE `id` = "'.$id.'";');
+         core::$db->query('UPDATE `ds_pages` SET `keywords` = "'.core::$db->res($keywords).'", `description` = "'.core::$db->res($description).'", `name` = "'.core::$db->res($art_name).'", `text` = "'.core::$db->res($art_text).'", `cache` = "'.core::$db->res(text::presave($art_text)).'" WHERE `id` = "'.$id.'";');
          func::notify(lang('pr_adminpanel'), lang('stat_added'), core::$home.'/pages/'.$id, lang('continue'));
        } 
     }  
@@ -204,6 +207,16 @@ if($id)
        temp::assign('text', POST('art_text'));
     else
       temp::assign('text', $res['text']);
+  
+    if(POST('keywords'))
+       temp::assign('keywords', POST('keywords'));
+    else
+      temp::assign('keywords', $res['keywords']);
+  
+    if(POST('description'))
+       temp::assign('description', POST('description'));
+    else
+      temp::assign('description', $res['description']);
     
     temp::HTMassign('out', $out);
     temp::HTMassign('error', $error);
