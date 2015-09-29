@@ -38,7 +38,7 @@
                             <td style="width: 120px;"><b><span class="user_mark"><?=lang('from')?></span></b><br/></td>
                             <td><?=$from ? $from : lang('none') ?></td>
                         </tr>
-                        <?if($mail and core::$user_id):?>
+                        <?if($mail && core::$user_id && core::$rights == 100):?>
                         <tr>
                             <td style="width: 120px;"><b><span class="user_mark"><?=lang('us_mail')?></span></b><br/></td>
                             <td><?=$mail?></td>
