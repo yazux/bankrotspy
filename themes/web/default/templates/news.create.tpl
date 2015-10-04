@@ -17,6 +17,16 @@
                     <b>Заголовок новости:</b><br/>
                     <input name='newshead' type="text" size="60" value="<?=$nick?>"/><br/>
                 </div>
+                
+                <div class="contbody_forms">
+                    <b>Ключевые слова (keywords):</b><br/>
+                    <input name="keywords" type="text"  value="<?=$keywords?>"/><br/>
+                </div>
+                <div class="contbody_forms">
+                    <b>Описание (description):</b><br/>
+                    <input name="description" type="text"  value="<?=$description?>"/><br/>
+                </div>
+                
                 <div class="contbody_forms">
                     <b>Текст:</b>
                     <?=func::tagspanel('messarea');?>
@@ -39,4 +49,3 @@
         </td>
     </tr>
 </table>
-

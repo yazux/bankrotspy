@@ -22,11 +22,16 @@ if($res->num_rows)
       if(!$nn_text)
         $error[] = lang('no_s_text');
     
+    $keywords = POST('keywords');
+    $description = POST('description');
+    
       if(!$error)
       {
          core::$db->query('UPDATE `ds_news` SET 
           `name` = "'.core::$db->res($nn_name).'",
-          `text` = "'.core::$db->res($nn_text).'"
+          `text` = "'.core::$db->res($nn_text).'",
+          `keywords` = "'.core::$db->res($keywords).'",
+          `description` = "'.core::$db->res($description).'"
           WHERE `id`="'.$id.'" LIMIT 1;');  
           
         uscache::rem('mess_head', lang('edit_st'));
@@ -45,6 +50,18 @@ if($res->num_rows)
     else
       temp::assign('text', $data['text']);
 
+    if (isset($keywords)) {
+        temp::assign('keywords', $keywords);
+    } else {
+        temp::assign('keywords', $data['keywords']);
+    }
+  
+    if (isset($description)) {
+        temp::assign('description', $description);
+    } else {
+        temp::assign('description', $data['description']);
+    }
+  
     if(isset($nn_name))
       temp::assign('nick', $nn_name);
     else

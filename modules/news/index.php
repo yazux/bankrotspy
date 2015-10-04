@@ -22,6 +22,8 @@ $total = core::$db->query('SELECT COUNT(*) FROM `ds_news` ;')->count();
     $out['date'] = ds_time($data['time']);
     $out['time'] = $data['time'];
     $out['comtime'] = $data['comtime'];
+    $out['keywords'] = $data['keywords'];
+    $out['description'] = $data['description'];
     
     $sql .= 'SELECT COUNT(*) FROM `ds_comm` WHERE `module`="news" AND `mid` = "'.$data['id'].'" ;';
     if($out['comtime'] > 0)

@@ -22,6 +22,15 @@
                     </div>
 
                     <div class="contbody_forms">
+                        <b>Ключевые слова (keywords):</b><br/>
+                        <input name="keywords" type="text"  value="<?=$keywords?>"/><br/>
+                    </div>
+                    <div class="contbody_forms">
+                        <b>Описание (description):</b><br/>
+                        <input name="description" type="text"  value="<?=$description?>"/><br/>
+                    </div>
+                    
+                    <div class="contbody_forms">
                         <b>Текст:</b>
                         <?=func::tagspanel('messarea');?>
                         <div class="texta"><textarea id="messarea" name="mess" rows="15"><?=$text?></textarea></div>

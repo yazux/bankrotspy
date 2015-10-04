@@ -16,12 +16,17 @@ if(POST('submit'))
   if(!$nn_text)
     $n_error[] = lang('no_s_text');
   
+  $keywords = POST('keywords');
+  $description = POST('description');
+  
   if(!$n_error)
   {
     core::$db->query('INSERT INTO `ds_news` SET
        `name` = "'.core::$db->res($nn_name).'" ,
        `text` = "'.core::$db->res($nn_text).'" ,
-       `cache`="'.core::$db->res(text::presave($nn_text)).'",
+       `keywords` = "'.core::$db->res($keywords).'" ,
+       `description` = "'.core::$db->res($description).'" ,
+       `cache`="'.core::$db->res(text::presave($description)).'",
        `user_id` = "'.core::$user_id.'",
        `login` = "'.core::$db->res(core::$user_name).'",
        `time` = "'.time().'";');

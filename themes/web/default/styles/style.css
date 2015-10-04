@@ -624,6 +624,10 @@ input[type="text"], select, input[type="password"], input[type="file"], select {
     height: 18px;
 }
 
+input[name=keywords], input[name=description] {
+    width:98%;
+}
+
 select {
     width: 260px;
     padding: 5px 9px 6px 9px;

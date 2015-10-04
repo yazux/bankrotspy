@@ -111,7 +111,7 @@ if($res->num_rows)
   // Выводим комментарии
   $comms = comm::view(nav::$start, nav::$kmess);
   
-  engine_head(lang('news'));
+   engine_head(lang('news'), $rs['keywords'], $rs['description']);
   temp::HTMassign('error', $error);
   if(CAN('news_create', 0))
       temp::assign('can_cr_news', 1);
