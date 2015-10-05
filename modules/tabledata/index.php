@@ -4,7 +4,7 @@ defined('DS_ENGINE') or die('web_demon laughs');
 //Ключ, скорее для виду, сесcия доставит гораздо больше проблем =)
 $somevar = 'tvybunwedowhduw2397ey9hd8ybhb83wecugwvevct';
 if($somevar != POST('somevar'))
-  exit('Glory Sithis!');
+    exit('Glory Sithis!');
 
 $category = intval(POST('category'));
 
@@ -14,45 +14,43 @@ $tabledata = new tabledata($sortcolumn, $sorttype);
 
 $price_search = 'price';
 $type_price = abs(intval(POST('type_price')));
-{
-  if($type_price == 2)
+
+if($type_price == 2) {
     $price_search = 'now_price';
-  elseif($type_price == 3)
+} elseif($type_price == 3) {
     $price_search = 'market_price';
 }
+
 
 $price_start = abs(intval(POST('price_start')));
 $price_end = abs(intval(POST('price_end')));
 
-if($price_start AND $price_end)
-{
-  if($price_start > $price_end)
-  {
-    $price_start = '';
-    $price_end  = '';
-  }
+if ($price_start AND $price_end) {
+    if ($price_start > $price_end) {
+        $price_start = '';
+        $price_end  = '';
+    }
 }
 
 $altint = POST('altint');
-if($altint)
-{
-  $alt_arr = explode('-', $altint);
-  $first_alt = isset($alt_arr[0]) ? abs(intval($alt_arr[0])) : '' ;
-  $second_alt = isset($alt_arr[1]) ? abs(intval($alt_arr[1])) : '' ;
+if ($altint) {
+    $alt_arr = explode('-', $altint);
+    $first_alt = isset($alt_arr[0]) ? abs(intval($alt_arr[0])) : '' ;
+    $second_alt = isset($alt_arr[1]) ? abs(intval($alt_arr[1])) : '' ;
 }
 
 $begin_date = abs(intval(POST('begin_date')));
 $end_date = abs(intval(POST('end_date')));
-if($end_date AND $begin_date)
-{
-  if($end_date < $begin_date)
-  {
-    $end_date = '';
-    $begin_date = '';
-  }
+
+if ($end_date AND $begin_date) {
+    if ($end_date < $begin_date) {
+        $end_date = '';
+        $begin_date = '';
+    }
 }
-if($end_date)
-  $end_date = $end_date + ((24*3600)-1); //Добавляем без секунду сутки, чтоб было включительно
+if ($end_date) {
+    $end_date = $end_date + ((24*3600)-1); //Добавляем без секунду сутки, чтоб было включительно
+}
 
 $types = POST('types');
 $types = check_types($types);
@@ -67,18 +65,25 @@ $status_need_future = false;
 $status_need_now = false;
 $status_need_last = false;
 $status_item = explode('|', POST('status'));
-if(in_array(1, $status_item))
-  $status_need_future = 1;
-if(in_array(2, $status_item))
-  $status_need_now = 1;
-if(in_array(3, $status_item))
-  $status_need_last = 1;
+
+if (in_array(1, $status_item)) {
+    $status_need_future = 1;
+}
+
+if (in_array(2, $status_item)) {
+    $status_need_now = 1;
+}
+
+if (in_array(3, $status_item)) {
+    $status_need_last = 1;
+}
 
 //echo POST('status').'|'.$status_need_future.'-'.$status_need_now.'-'.$status_need_last;
 
 $svalue = POST('svalue');
-if(mb_strlen($svalue) < 2)
-  $svalue = '';
+if (mb_strlen($svalue) < 2) {
+    $svalue = '';
+}
 
 //Постраничная навигация
 $now_page = abs(intval(POST('page')));
@@ -261,95 +266,88 @@ $fav_array = get_fav_array();
 $out = array();
 $out2 = array();
 
-if($res->num_rows)
-{
-  while($getdata = $res->fetch_assoc())
-  {
-    $loc = $getdata;
-    $loc['status_name'] = $all_statuses[$getdata['status']];
-    if(in_array($loc['id'], $fav_array))
-      $loc['item'] = 1;
-    $out[] = $loc;
-  }
-
-  foreach ($out AS $key => $data)
-  {
-    $loc = array();
-    
-    $loc['loadtime'] = $data['loadtime'] * 1000;
-    $loc['last_update'] = $data['last_update'] * 1000;
-    //$loc['number'] = $tabledata->number($data['code'], $data['id']);
-    $loc['name'] = $tabledata->name($data['name'], 80, $data['id'], $item_arr, $data['description'], $data['loadtime']);
-    $loc['type'] = $tabledata->type($data['type']);
-    $loc['place'] = $tabledata->place($data['place']);
-    $loc['begindate'] = $tabledata->begindate($data['start_time']);
-    $loc['closedate'] = $tabledata->closedate($data['end_time']);
-    $loc['beforedate'] = $tabledata->beforedate($data['start_time'], $data['end_time'], $data['status_name'], $data['status']);
-    $loc['beginprice'] = $tabledata->beginprice($data['price']);
-    $loc['nowprice'] = $tabledata->nowprice($data['now_price'], $data['platform_id'], $data['type']);
-    
-    $access = true;
+if ($res->num_rows) {
+    while ($getdata = $res->fetch_assoc()) {
+        $loc = $getdata;
+        $loc['status_name'] = $all_statuses[$getdata['status']];
         
-    if(!core::$user_id) {
-        $access = false;
+        if (in_array($loc['id'], $fav_array)) {
+            $loc['item'] = 1;
+        }
+        $out[] = $loc;
     }
+
+    foreach ($out AS $key => $data) {
+        $loc = array();
     
-    if($category != 0 AND $category != 4 AND $category != 8 AND $category != 2)
-    {
-        $loc['marketprice'] = $tabledata->marketprice($data['market_price'], $access);
-        $loc['profitrub'] = $tabledata->profitrub($data['profit_rub'], $data['platform_id'], $data['type'], $access);
-        $loc['profitproc'] = $tabledata->profitproc($data['profit_proc'], $data['platform_id'], $data['type'], $access);
+        $loc['loadtime'] = $data['loadtime'] * 1000;
+        $loc['last_update'] = $data['last_update'] * 1000;
+        //$loc['number'] = $tabledata->number($data['code'], $data['id']);
+        $loc['name'] = $tabledata->name($data['name'], 80, $data['id'], $item_arr, $data['description'], $data['loadtime']);
+        $loc['type'] = $tabledata->type($data['type']);
+        $loc['place'] = $tabledata->place($data['place']);
+        $loc['begindate'] = $tabledata->begindate($data['start_time']);
+        $loc['closedate'] = $tabledata->closedate($data['end_time']);
+        $loc['beforedate'] = $tabledata->beforedate($data['start_time'], $data['end_time'], $data['status_name'], $data['status']);
+        $loc['beginprice'] = $tabledata->beginprice($data['price']);
+        $loc['nowprice'] = $tabledata->nowprice($data['now_price'], $data['platform_id'], $data['type'], $data['grafik1']);
+
+        $access = true;
+        
+        if (!core::$user_id) {
+            $access = false;
+        }
+    
+        if ($category != 0 AND $category != 4 AND $category != 8 AND $category != 2) {
+            $loc['marketprice'] = $tabledata->marketprice($data['market_price'], $access);
+            $loc['profitrub'] = $tabledata->profitrub($data['profit_rub'], $data['platform_id'], $data['type'], $access, $data['grafik1']);
+            $loc['profitproc'] = $tabledata->profitproc($data['profit_proc'], $data['platform_id'], $data['type'], $access, $data['grafik1']);
+        }
+        //elseif($category == 0 OR $category == 4 OR $category == 8)
+        //{
+        $loc['pricediff'] = $tabledata->pricediff($data['price_dif'], $data['platform_id'], $data['type'], $data['grafik1']);
+        //}
+        if ($category == 2) {
+            //$loc['pricediff'] = $tabledata->pricediff($data['price_dif'], $data['platform_id'], $data['type']);
+            $loc['debpoints'] = $tabledata->debpoints($data['debpoints'], $data['debnotice'], $access);
+        }
+
+        $loc['platform'] = $tabledata->platform($data['platform_id'], $data['auct_link'], $data['fedlink']);
+        $loc['favorite'] = $tabledata->favorite($data['id'], $data['item']);
+        $out2[] = $loc;
     }
-    //elseif($category == 0 OR $category == 4 OR $category == 8)
-    //{
-      $loc['pricediff'] = $tabledata->pricediff($data['price_dif'], $data['platform_id'], $data['type']);
-    //}
-    if($category == 2)
-    {
-      //$loc['pricediff'] = $tabledata->pricediff($data['price_dif'], $data['platform_id'], $data['type']);
-      $loc['debpoints'] = $tabledata->debpoints($data['debpoints'], $data['debnotice'], $access);
+
+    $out = $out2;
+
+    $outdata = array(
+        'columns' => $tabledata->get_names(),
+        'maindata' => $out,
+        'count' => $count
+    );
+} else {
+    $outdata = array(
+        'columns' => array('name' => array(
+            'name' => (($category == '-1' AND !core::$user_id) ? 'Добавление в избранное доступно только зарегистрированным пользователям!' : 'Ничего не найдено!'),
+            'style' => 'background:white;border:0px;padding: 40px 0;font-size: 14px;'
+        )),
+        'maindata' => '',
+        'count' => $count
+    );
+}
+
+function check_platforms($platforms) {
+    $in_platforms = get_platforms();
+    $arr = explode('|', $platforms);
+    $out = array();
+    foreach ($arr AS $val) {
+        if(isset($in_platforms[$val]))
+            $out[] = $val;
     }
-
-    $loc['platform'] = $tabledata->platform($data['platform_id'], $data['auct_link'], $data['fedlink']);
-    $loc['favorite'] = $tabledata->favorite($data['id'], $data['item']);
-    $out2[] = $loc;
-  }
-
-  $out = $out2;
-
-  $outdata = array(
-    'columns' => $tabledata->get_names(),
-    'maindata' => $out,
-    'count' => $count
-  );
-
-}
-else
-{
-  $outdata = array(
-    'columns' => array('name' => array(
-      'name' => (($category == '-1' AND !core::$user_id) ? 'Добавление в избранное доступно только зарегистрированным пользователям!' : 'Ничего не найдено!'),
-      'style' => 'background:white;border:0px;padding: 40px 0;font-size: 14px;'
-    )),
-    'maindata' => '',
-    'count' => $count
-  );
-}
-
-function check_platforms($platforms)
-{
-  $in_platforms = get_platforms();
-  $arr = explode('|', $platforms);
-  $out = array();
-  foreach($arr AS $val)
-  {
-    if(isset($in_platforms[$val]))
-      $out[] = $val;
-  }
-  if(!$out)
-    return get_platforms(true);
-  else
-    return $out;
+    if (!$out) {
+        return get_platforms(true);
+    } else {
+        return $out;
+    }
 }
 
 function get_platforms($only_keys = false)
