@@ -157,7 +157,21 @@ while($data = $res->fetch_array())
   $outnews[] = $loc;
 }
 
+
+// костыль вывода статьи на лавной
+$articleData = core::$db->query('SELECT `ds_article`.*, `ds_users`.`lastvisit`, `ds_users`.`avtime`, `ds_users`.`sex`, `ds_users`.`rights` FROM `ds_article` LEFT JOIN `ds_users` ON `ds_article`.`userid` = `ds_users`.`id` WHERE `ds_article`.`id` = "8" ;');
+$articleData = $articleData->fetch_assoc();
+
+$article['name'] = htmlentities($articleData['name'], ENT_QUOTES, 'UTF-8');
+$article['text'] = text::out($articleData['text'], 0, $articleData['id']);
+$article['text'] = fload::replace_files($article['text'], $articleData['id'], core::$module);
+$article['time'] = ds_time($articleData['time']);
+
+
 engine_head();
+
+temp::HTMassign('article', $article);
+
 temp::HTMassign('outnews', $outnews);
 temp::assign('table_default_set', json_encode($set_table_array));
 temp::assign('table_set', (isset($save_set) ? json_encode($save_set) : json_encode($set_table_array)));

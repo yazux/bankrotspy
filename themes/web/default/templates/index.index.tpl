@@ -449,3 +449,22 @@
 <div style="text-align: center; cursor:pointer;">
     <a href="https://vk.com/money_mihalchenco"><img src="<?=$themepath?>/images/banners/banner-bankrot.gif" /></a>
 </div>
+
+<div class="content" style="margin:8px 0 8px 16px;">
+    <div class="conthead" style="border-bottom: 1px dotted #E4E4E4;background:#fff; padding: 10px 17px;">
+        <table>
+            <tr>
+                <td>
+                    <b><?=$article['name']?></b>
+                </td>
+                <td class="timetd">
+                    <?=$article['time']?>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="contbodytext"><div class="image_resizer"><?=$article['text']?></div></div>
+    <div class="contfintext" style="padding:15px; text-decoration:underline;">
+        <a href="/articles/allarticles">Читать все статьи</a>
+    </div>
+</div>
