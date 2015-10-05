@@ -5,11 +5,13 @@ class column_marketprice
 {
     private $price;
     private $access;
+    private $hint;
     
     public function __construct($params)
     {
         $this->price = isset($params[0]) ? $params[0] : '';
         $this->access = !empty($params[1]) ? true : false;
+        $this->hint = !empty($params[2]) ? $params[2] : false;
     }
 
     public function before_load()
@@ -47,6 +49,11 @@ class column_marketprice
                 $i++;
             }
             $out_price = strrev($out_price);
+            
+            if(!empty($this->hint)) {
+                $addition = ' onmouseover="toolTip(\''.$this->hint.'\')" onmouseout="toolTip()" ';
+            }
+            
         } elseif($access) {
             $out_price = '-';
         } else {

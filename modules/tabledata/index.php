@@ -114,20 +114,23 @@ $sort = $tabledata->get_sort_order();
 if($sort)
   $order_conditions['sort'] = $sort;
 
-if($category == '-1')
-{
-  $conditions['fav_sql'] = '`ds_maindata_favorive`.`user_id` = "'.core::$user_id.'" ';
-  $join_conditions['fav_sql'] = 'LEFT JOIN `ds_maindata_favorive` ON `ds_maindata`.`id` = `ds_maindata_favorive`.`item` AND `ds_maindata_favorive`.`user_id` = "'.core::$user_id.'"';
-  $selects['fav_sql'] = ' `ds_maindata_favorive`.`item` ';
+//выборка по категориям
+if ($category == '-1') {
+    $conditions['fav_sql'] = '`ds_maindata_favorive`.`user_id` = "'.core::$user_id.'" ';
+    $join_conditions['fav_sql'] = 'LEFT JOIN `ds_maindata_favorive` ON `ds_maindata`.`id` = `ds_maindata_favorive`.`item` AND `ds_maindata_favorive`.`user_id` = "'.core::$user_id.'"';
+    $selects['fav_sql'] = ' `ds_maindata_favorive`.`item` ';
+} elseif($category === 5) {
+    $conditions['hint'] = ' `ds_maindata`.`cat_id` = "'.$category.'" ';
+    $join_conditions['hint']= 'LEFT JOIN `ds_maindata_hint` ON `ds_maindata`.`id` = `ds_maindata_hint`.`id`';
+    $selects['hint'] = ' `ds_maindata_hint`.`text` AS hint_text';
+} elseif ($category >= 0) {
+    $conditions['category'] = ' `ds_maindata`.`cat_id` = "'.$category.'" ';
 }
-elseif($category >= 0)
-  $conditions['category'] = ' `ds_maindata`.`cat_id` = "'.$category.'" ';
 
-if($svalue)
-{
-  $selects['search'] = ' MATCH (`ds_maindata`.`name`, `ds_maindata`.`description`) AGAINST ("' . core::$db->res($svalue) . '" IN BOOLEAN MODE) as `rel` ';
-  $conditions['search'] = ' MATCH (`ds_maindata`.`name`, `ds_maindata`.`description`) AGAINST ("' . core::$db->res($svalue) . '" IN BOOLEAN MODE) ';
-  $order_conditions['search'] = '`rel` DESC ';
+if ($svalue) {
+    $selects['search'] = ' MATCH (`ds_maindata`.`name`, `ds_maindata`.`description`) AGAINST ("' . core::$db->res($svalue) . '" IN BOOLEAN MODE) as `rel` ';
+    $conditions['search'] = ' MATCH (`ds_maindata`.`name`, `ds_maindata`.`description`) AGAINST ("' . core::$db->res($svalue) . '" IN BOOLEAN MODE) ';
+    $order_conditions['search'] = '`rel` DESC ';
 }
 
 //Фильтрация по типам
@@ -279,7 +282,7 @@ if ($res->num_rows) {
 
     foreach ($out AS $key => $data) {
         $loc = array();
-    
+        
         $loc['loadtime'] = $data['loadtime'] * 1000;
         $loc['last_update'] = $data['last_update'] * 1000;
         //$loc['number'] = $tabledata->number($data['code'], $data['id']);
@@ -292,6 +295,8 @@ if ($res->num_rows) {
         $loc['beginprice'] = $tabledata->beginprice($data['price']);
         $loc['nowprice'] = $tabledata->nowprice($data['now_price'], $data['platform_id'], $data['type'], $data['grafik1']);
 
+        
+        
         $access = true;
         
         if (!core::$user_id) {
@@ -299,7 +304,12 @@ if ($res->num_rows) {
         }
     
         if ($category != 0 AND $category != 4 AND $category != 8 AND $category != 2) {
-            $loc['marketprice'] = $tabledata->marketprice($data['market_price'], $access);
+            if ($category === 5) {
+                $loc['marketprice'] = $tabledata->marketprice($data['market_price'], $access, $data['hint_text']);
+            } else {
+                $loc['marketprice'] = $tabledata->marketprice($data['market_price'], $access);
+            }
+            
             $loc['profitrub'] = $tabledata->profitrub($data['profit_rub'], $data['platform_id'], $data['type'], $access, $data['grafik1']);
             $loc['profitproc'] = $tabledata->profitproc($data['profit_proc'], $data['platform_id'], $data['type'], $access, $data['grafik1']);
         }
