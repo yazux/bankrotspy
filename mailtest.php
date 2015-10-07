@@ -1,6 +1,7 @@
 <?php
 
-
+phpinfo();
+/*
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
 $string = '[url=https://tes.bestt.ru?main=12d|class=test]asd[/url]';
@@ -12,3 +13,4 @@ function url_replace_del($a)
     var_dump($a);
 }
 
+*/

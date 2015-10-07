@@ -447,7 +447,7 @@
 </div>
 
 <div style="text-align: center; cursor:pointer;">
-    <a href="https://vk.com/money_mihalchenco"><img src="<?=$themepath?>/images/banners/banner-bankrot.gif" /></a>
+    <a href="http://intrening.ru/lpop-auction-free-webinar/?idp=71953&utm_source=partner&utm_medium=cpa&utm_campaign=lpop-auction-free-webinar&utm_content=partner_71953&utm_term="><img src="<?=$themepath?>/images/banners/uu2.gif" /></a>
 </div>
 
 <div class="content" style="margin:8px 0 8px 16px;">

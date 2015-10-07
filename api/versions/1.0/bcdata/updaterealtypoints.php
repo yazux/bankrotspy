@@ -4,7 +4,7 @@
 defined('DS_ENGINE') or die('web_demon laughs');
 
 $data = $_POST['itemdata'];
-
+//var_dump($_POST);exit;
 if(!$data)
   exit('No item data');
 
