@@ -26,12 +26,13 @@ if(!is_array($data)) {
 foreach ($result as $i => $item) {
 
     $query = core::$db->query('SELECT * FROM `ds_maindata` WHERE `id` = "'.core::$db->res($item['id']).'" ;');
-    if(!$query->num_rows)
-        echo 'Wrong id: ' . $item['id'];
-
+    if(!$query->num_rows) {
+        echo 'Wrong id: ' . $item['id']. PHP_EOL;
+        continue;
+    }
 
     core::$db->query('UPDATE `ds_maindata` SET `market_price` = "'.$item['price'].'" WHERE `id` = "'.core::$db->res($item['id']).'";');
     core::$db->query('REPLACE INTO `ds_maindata_hint` SET `id` = "' . core::$db->res($item['id']) . '", `text` = "' . core::$db->res($item['hint']) . '";');
 }
 
-echo 'ok';
+echo 'ok' . PHP_EOL;
