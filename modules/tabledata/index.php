@@ -222,12 +222,17 @@ if($selects)
   $select_cond = ' , '.implode(' , ', $selects);
 
 $order_cond = '`ds_maindata`.`id` ASC';
-if($order_conditions)
-  $order_cond = ' ORDER BY '.implode(' , ', $order_conditions).' , `ds_maindata`.`id` ASC ';
-else
-  $order_cond = ' ORDER BY `ds_maindata`.`profit_proc` DESC ';
-//$order_cond = ' ORDER BY `ds_maindata`.`id` ASC ';
 
+if($order_conditions && $category == 2) {
+   $order_cond = ' ORDER BY '.implode(' , ', $order_conditions).' , `ds_maindata`.`debpoints` DESC ';
+} elseif($category == 2) { 
+    $order_cond = ' ORDER BY `ds_maindata`.`debpoints` DESC ';
+} elseif($order_conditions) {
+    $order_cond = ' ORDER BY '.implode(' , ', $order_conditions).' , `ds_maindata`.`id` ASC ';
+} else {
+    $order_cond = ' ORDER BY `ds_maindata`.`profit_proc` DESC ';
+//$order_cond = ' ORDER BY `ds_maindata`.`id` ASC ';
+}
 
 //Счетчик
 $count = core::$db->query('SELECT
