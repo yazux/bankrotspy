@@ -28,7 +28,7 @@ class column_profitrub
     public function name()
     {
         return array(
-            'name' => 'Прибыль, руб.',
+            'name' => 'Доход, руб.',
             'addhtml' => '  onmouseover="toolTip(\'Разница между ценой на рынке и на торгах\')" onmouseout="toolTip()" '
         );
     }
