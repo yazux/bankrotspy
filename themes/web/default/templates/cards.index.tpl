@@ -53,7 +53,7 @@
                             <td><i class="icon-rouble"></i> <?=$realprice?></td>
                         </tr>
                         <tr>
-                            <td style="width: 200px;"><b>Прибыль:</b><br/></td>
+                            <td style="width: 200px;"><b>Доход:</b><br/></td>
                             <td><i class="icon-rouble"></i> <?=$profitrub?>
 
                             <?if($profitproc AND $profitproc != '-'):?>
@@ -145,16 +145,26 @@
                         </tr>
                         <tr>
                             <td style="width: 200px;"><b>Арбитражный управляющий:</b><br/></td>
-                            <td><?if($manager):?>
-                                    <?if($arbitr_profile):?>
-                                        <a target="_blank" href="<?=$arbitr_profile?>"><i class="icon-globe-table"></i>
-                                        <?=$manager?>
+                            <td><? if($manager): ?>
+                                    <?if ($arbitr_profile): ?>
+                                        <!--<a target="_blank" href="<?= $arbitr_profile ?>"><i class="icon-globe-table"></i>-->
+                                        <a target="_blank" href="<?= core::$home ?>/amc?id=<?= $oid ?>"><i class="icon-globe-table">
+                                        <?= $manager ?>
                                     <?else:?>
-                                        <?=$manager?>
-                                    <?endif?>
-                                <?else:?>
+                                        <?= $manager ?>
+                                    <? endif ?>
+                                <? else: ?>
                                   <span style="color:#95968d">нет</span>
-                                <?endif?></td>
+                                <? endif ?>
+                            </td>
+                            <? if($manager && $arbitr_profile): ?>
+                            <td>
+                               Рейтинг:&nbsp;&nbsp;<span style="color:#f00;"><?= $rating ?></span></a>
+                            </td>
+                            <td>
+                               Ссылка на документы: <a href="<?= $docs ?>"> просмотреть</a>
+                            </td>
+                            <? endif; ?>
                         </tr>
                         <tr>
                             <td style="width: 200px;"><b>ИНН организатора:</b><br/></td>
@@ -173,7 +183,7 @@
                         </tr>
                         <tr>
                             <td style="width: 200px;"><b>Лот на федресурсе:</b><br/></td>
-                            <td><?if($fedlink):?><a target="_blank" href="<?=$fedlink?>"><i class="icon-globe-table"></i>fedresurs.ru</a><?else:?>пусто<?endif?></td>
+                            <td><?if($fedlink):?><a target="_blank" href="<?=$fedlink?>"><i class="icon-globe-table"></i>fedresurs.ru</a><?else:?>нет<?endif?></td>
                         </tr>
                     </table>
 
@@ -190,8 +200,8 @@
         </td>
     </tr>
 </table>
-
 <script type="text/javascript">
+
     var engine_formid = <?=core::$formid?>;
 
     function action_favorite_cards(lot, action, item)

@@ -1033,3 +1033,7 @@ padding: 10px 0px 10px 10px;
 {
     color: #797979;
 }
+
+.fa-line-chart {
+    cursor:pointer;
+}
