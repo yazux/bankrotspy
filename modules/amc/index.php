@@ -18,7 +18,7 @@ $data = $query->fetch_assoc();
 if ($chartQuery->num_rows) {
     $i = 0;
     while ($row = $chartQuery->fetch_assoc()) {
-        var_dump($row);
+        
         $data['chart'][$i]['date'] = date("Y-m-d",$row['tm']);
         $data['chart'][$i]['value'] = $row['bals'];
         $i++;
