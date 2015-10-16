@@ -161,9 +161,9 @@
                             <td>
                                Рейтинг:&nbsp;&nbsp;<span style="color:#f00;"><?= $rating ?></span></a>
                             </td>
-                            <td>
+                            <!--<td>
                                Ссылка на документы: <a href="<?= $docs ?>"> просмотреть</a>
-                            </td>
+                            </td>-->
                             <? endif; ?>
                         </tr>
                         <tr>

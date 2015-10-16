@@ -6,7 +6,7 @@
                 <div class="contbody_forms">
                     <table class="lottable">
                         <tr>
-                            <td width="200"><b>Арбитражный управляющий:</b></td>
+                            <td width="200"><b>Арбитражный управляющий(АУ):</b></td>
                             <td><?= $data['manager'] ?></td>
                         </tr>
                         <tr>
@@ -61,6 +61,10 @@ var chart = AmCharts.makeChart("myChart", {
     "language": "ru",
     "type": "serial",
     "theme": "light",
+    "titles": [{
+        "text": "Динамика рейтинга АУ",
+        "size": 15
+    }],
     "marginRight": 20,
     "autoMarginOffset": 20,
     "dataDateFormat": "YYYY-MM-DD",
