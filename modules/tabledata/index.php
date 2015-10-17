@@ -307,12 +307,23 @@ if ($res->num_rows) {
         if (!core::$user_id) {
             $access = false;
         }
-    
+        /*
+            0 - ? 
+            2 - Деб. задолженность
+            4 - Сельхоз. имущество
+            5 - Недвиж. жилая
+            8 - Обор. Инст. Мат.
+        */
         if ($category != 0 AND $category != 4 AND $category != 8 AND $category != 2) {
             if ($category === 5) {
                 $loc['marketprice'] = $tabledata->marketprice($data['market_price'], $access, $data['hint_text']);
             } else {
                 $loc['marketprice'] = $tabledata->marketprice($data['market_price'], $access);
+            }
+            
+            // расчет прибыли в рублях
+            if($data['now_price'] > 0 && $data['market_price'] > 0) {
+                $data['profit_rub'] = $data['market_price'] - $data['now_price'];
             }
             
             $loc['profitrub'] = $tabledata->profitrub($data['profit_rub'], $data['platform_id'], $data['type'], $access, $data['grafik1']);
