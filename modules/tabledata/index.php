@@ -321,16 +321,31 @@ if ($res->num_rows) {
                 $loc['marketprice'] = $tabledata->marketprice($data['market_price'], $access);
             }
             
-            // расчет прибыли в рублях
+            // расчет прибыли в рублях и в процентах
             if($data['now_price'] > 0 && $data['market_price'] > 0) {
                 $data['profit_rub'] = $data['market_price'] - $data['now_price'];
+                
+                $percent = ($data['profit_rub'] / $data['market_price']) * 100;
+                
+                $data['profit_proc'] = floor($percent); 
             }
+            
             
             $loc['profitrub'] = $tabledata->profitrub($data['profit_rub'], $data['platform_id'], $data['type'], $access, $data['grafik1']);
             $loc['profitproc'] = $tabledata->profitproc($data['profit_proc'], $data['platform_id'], $data['type'], $access, $data['grafik1']);
         }
         //elseif($category == 0 OR $category == 4 OR $category == 8)
         //{
+       
+      
+        // разница между текущей и начальной ценой
+        if($data['now_price'] > 0 && $data['price'] > 0 && $data['price'] != $data['now_price']) {   
+        
+            $percent = ($data['now_price'] / $data['price']) * 100;
+            $data['price_dif'] = floor($percent); 
+            
+        }
+        
         $loc['pricediff'] = $tabledata->pricediff($data['price_dif'], $data['platform_id'], $data['type'], $data['grafik1']);
         //}
         if ($category == 2) {
