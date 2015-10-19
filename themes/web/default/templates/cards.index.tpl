@@ -52,6 +52,13 @@
                             <td style="width: 200px;"><b>Рыночная цена:</b><br/></td>
                             <td><i class="icon-rouble"></i> <?=$realprice?></td>
                         </tr>
+                        <? if(!empty($realprice)): ?>
+                        <tr>
+                            <td style="width: 200px;"><b>Средняя цена м.кв на открытом рынке:</b><br/></td>
+                            <td><i class="icon-rouble"></i> <?=$realprice?>
+                            </td>
+                        </tr>
+                        <? endif; ?>
                         <tr>
                             <td style="width: 200px;"><b>Доход:</b><br/></td>
                             <td><i class="icon-rouble"></i> <?=$profitrub?>
@@ -148,7 +155,7 @@
                             <td><? if($manager): ?>
                                     <?if ($arbitr_profile): ?>
                                         <!--<a target="_blank" href="<?= $arbitr_profile ?>"><i class="icon-globe-table"></i>-->
-                                        <a target="_blank" href="<?= core::$home ?>/amc?id=<?= $oid ?>"><i class="icon-globe-table">
+                                        <a target="_blank" href="<?= core::$home ?>/amc/<?= $oid ?>"><i class="icon-globe-table">
                                         <?= $manager ?>
                                     <?else:?>
                                         <?= $manager ?>
@@ -159,10 +166,15 @@
                             </td>
                             <? if($manager && $arbitr_profile): ?>
                             <td>
-                               Рейтинг:&nbsp;&nbsp;<span style="color:#f00;"><?= $rating ?></span></a>
+                            <? if($rating > 5): ?>
+                                <? $class = 'class="plus"'; ?>
+                            <? else: ?>
+                                <? $class = 'class="minus"'; ?>
+                            <? endif; ?>
+                               Рейтинг:&nbsp;&nbsp;<a <?= $class ?> href="<?= core::$home ?>/amc/<?= $oid ?>" target="_blank"><?= $rating ?></a>
                             </td>
                             <!--<td>
-                               Ссылка на документы: <a href="<?= $docs ?>"> просмотреть</a>
+                               Документы судов: <a href="<?= $docs ?>"> просмотреть</a>
                             </td>-->
                             <? endif; ?>
                         </tr>
