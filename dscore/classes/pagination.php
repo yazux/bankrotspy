@@ -18,7 +18,7 @@ class Pagination {
 	
 	public function createLinks() {
 		 
-		$last 	= floor($this->_total / $this->_limit);
+		$last 	= ceil($this->_total / $this->_limit);
  		
 		$start 	= (($this->_page - $this->_links) > 0) ? $this->_page - $this->_links : 1;
 		$end 	= (($this->_page + $this->_links) < $last) ? $this->_page + $this->_links : $last;

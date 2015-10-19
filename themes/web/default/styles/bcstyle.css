@@ -152,17 +152,18 @@ a.urlbutton_index:hover, .urlbutton_index:hover {
     text-decoration: none;
 }
 
-a.button {
+a.button, button.button {
     padding:4px 12px;
     background: #ff9b24;
     border-radius:4px;
     color:#fff;
     border-right: rgba(253, 255, 253, 0.32) 1px solid;
     border-bottom: rgba(253, 255, 253, 0.32) 1px solid;
-
 }
-
-a.button:hover {
+button.button {
+    padding:7px 12px;
+}
+a.button:hover, button.button:hover {
     cursor: pointer;
     background: #feab2e;
     text-decoration:none;

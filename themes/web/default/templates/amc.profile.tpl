@@ -13,7 +13,10 @@
                             <td width="200"><b>Контактное лицо:</b></td>
                             <td><?= !empty($data['contact_person']) ? $data['contact_person'] : 'Нет'; ?></td>
                         </tr>
-                        
+                        <tr>
+                            <td width="200"><b>Телефон:</b></td>
+                            <td><?= !empty($data['phone']) ? intval($data['phone']) : 'Нет'; ?></td>
+                        </tr>
                         <tr>
                             <td width="200"><b>ИНН:</b></td>
                             <td><?= $data['inn'] ?></td>
@@ -21,17 +24,27 @@
                         <tr>
                             <td width="200"><b>Рейтинг:</b></td>
                             <td>
-                            <? if($data['bal'] > 5): ?>
-                                <? $class = 'class="plus"'; ?>
+                            <? if(!empty($data['totaldoc'])): ?>
+                                <? if($data['bal'] > 5): ?>
+                                    <? $class = 'class="plus"'; ?>
+                                <? else: ?>
+                                    <? $class = 'class="minus"'; ?>
+                                <? endif; ?>
+                                    <span <?= $class ?>><?= $data['bal'] ?></span>
                             <? else: ?>
-                                <? $class = 'class="minus"'; ?>
+                                Нет данных
                             <? endif; ?>
-                                <span <?= $class ?>><?= $data['bal'] ?></span>
                             </td>
                         </tr>
                         <tr>
                             <td width="200"><b>Документы судов:</b></td>
-                            <td><a href="<?= $data['linkdocs'] ?>" target="_blank">Смотреть</a></td>
+                            <td>
+                            <? if(!empty($data['totaldoc'])): ?>
+                                <a href="<?= $data['linkdocs'] ?>" target="_blank">Смотреть</a>
+                            <? else: ?>
+                                Нет данных
+                            <? endif; ?>
+                            </td>
                         </tr>
                         <tr>
                             <td width="200"><b>Профиль на федресурсе:</b></td>

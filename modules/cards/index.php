@@ -146,9 +146,14 @@ if (isset($data_org['org_name'])) {
     temp::assign('inn_orgname', $data_org['inn']);
   
     temp::assign('oid', $data_org['id']);
-    temp::assign('rating', $data_org['bal']); // рейтинг
-    temp::assign('docs', $data_org['linkdocs']); // ссылка на документы
-  
+    if ($data_org['totaldoc'] > 0) {
+        temp::assign('rating', $data_org['bal']); // рейтинг
+        temp::assign('docs', $data_org['linkdocs']); // ссылка на документы
+    } else {
+        temp::assign('rating', 'Нет данных'); // рейтинг
+        temp::assign('docs', 'Нет данных'); // ссылка на документы
+    }
+    
     if (isset($data_org['org_profile']) && $data_org['org_profile']) {
         temp::assign('organizer_profile', $data_org['org_profile']);
     }
