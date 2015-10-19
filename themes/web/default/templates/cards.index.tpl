@@ -53,11 +53,11 @@
                             <td><i class="icon-rouble"></i> <?=$realprice?></td>
                         </tr>
                         <? if(!empty($realprice)): ?>
-                        <tr>
+                        <!--<tr>
                             <td style="width: 200px;"><b>Средняя цена м.кв на открытом рынке:</b><br/></td>
                             <td><i class="icon-rouble"></i> <?=$realprice?>
                             </td>
-                        </tr>
+                        </tr>-->
                         <? endif; ?>
                         <tr>
                             <td style="width: 200px;"><b>Доход:</b><br/></td>
