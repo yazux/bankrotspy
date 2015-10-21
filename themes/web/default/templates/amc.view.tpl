@@ -19,19 +19,28 @@
                             <th>Арбитражный управляющий</th>
                             <th>Рейтинг</th>
                             <th>Документы суда</th>
+                            <th>Документы ФАС</th>
                             <th>E-mail</th>
                             <th>Телефон</th>
                         </tr>
                         <? foreach($data as $item): ?>
                         <tr>
-                            <td><a href="<?= core::$home ?>/amc/<?= $item['id'] ?>" target="_blank"><?= $item['name'] ?><a/></td>
-                            <td align="center" width="20">
-                                <? if($item['rating'] > 5): ?>
-                                    <? $class = 'class="plus"'; ?>
+                            <td width="400"><a href="<?= core::$home ?>/amc/<?= $item['id'] ?>" target="_blank"><?= $item['name'] ?></a></td>
+                            <td align="center" width="150">
+                                <? if($item['totaldoc'] < 3 && $item['totaldoc'] > 0 ): ?>
+                                    <? $rating = 'Мало данных'; ?>
+                                <? elseif($item['totaldoc'] == 0): ?>
+                                    <? $rating = 'Нет данных'; ?>
+                                <? elseif($item['rating'] > 5): ?>
+                                    <? 
+                                        $rating = '<a  class="plus" href="' . core::$home . '/amc/' . $item['id'] . '" target="_blank">' . $item['rating'] . '</a>';
+                                    ?>
                                 <? else: ?>
-                                    <? $class = 'class="minus"'; ?>
+                                    <?
+                                        $rating = '<a  class="minus" href="' . core::$home . '/amc/' . $item['id'] . '" target="_blank">' . $item['rating'] . '</a>';
+                                    ?>
                                 <? endif; ?>
-                                <a <?= $class ?> href="<?= core::$home ?>/amc/<?= $item['id'] ?>" target="_blank"><?= $item['rating'] ?></a>
+                                <?= $rating ?>
                             
                             </td>
                             <td align="center" width="150">
@@ -41,8 +50,15 @@
                                 Нет данных
                             <? endif; ?>
                             </td>
+                            <td align="center" width="150">
+                             <? if(!empty($item['fasdocs'])): ?>
+                                <a href="<?= $item['fasdocs'] ?>" target="_blank">Смотреть</a>
+                            <? else: ?>
+                                Нет данных
+                            <? endif; ?>
+                            </td>
                             <td align="center" width="150"><?= $item['email'] ?></td>
-                            <td align="center" width="150"><?= $item['phone'] ?></td>
+                            <td align="center" width="150"><?= !empty($item['phone']) ? $item['phone'] : ''; ?></td>
                         </tr>
                         <? endforeach; ?>
                     </table>

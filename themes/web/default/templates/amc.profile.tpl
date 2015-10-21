@@ -7,7 +7,7 @@
                     <table class="lottable">
                         <tr>
                             <td width="200"><b>Арбитражный управляющий (АУ):</b></td>
-                            <td><?= $data['manager'] ?></td>
+                            <td><?= str_replace(array('ИП ', 'ИП'), '', $data['manager']) ?></td>
                         </tr>
                         <tr>
                             <td width="200"><b>Контактное лицо:</b></td>
@@ -24,16 +24,20 @@
                         <tr>
                             <td width="200"><b>Рейтинг:</b></td>
                             <td>
-                            <? if(!empty($data['totaldoc'])): ?>
-                                <? if($data['bal'] > 5): ?>
-                                    <? $class = 'class="plus"'; ?>
-                                <? else: ?>
-                                    <? $class = 'class="minus"'; ?>
+                                <? if($data['totaldoc'] < 3 && $data['totaldoc'] > 0 ): ?>
+                                    <? $rating = 'Мало данных'; ?>
+                                <? elseif($data['totaldoc'] == 0): ?>
+                                    <? $rating = 'Нет данных'; ?>
+                                <? elseif($data['bal'] > 5): ?>
+                                    <? 
+                                        $rating = '<span class="plus">' . $data['bal'] . '</span>';
+                                    ?>
+                                <? elseif($data['bal'] <= 5): ?>
+                                    <?
+                                        $rating = '<span  class="minus">' . $data['bal'] . '</span>';
+                                    ?>
                                 <? endif; ?>
-                                    <span <?= $class ?>><?= $data['bal'] ?></span>
-                            <? else: ?>
-                                Нет данных
-                            <? endif; ?>
+                                <?= $rating ?>
                             </td>
                         </tr>
                         <tr>
@@ -47,8 +51,27 @@
                             </td>
                         </tr>
                         <tr>
+                            <td width="200"><b>Документы ФАС:</b></td>
+                            <td>
+                            <? if(!empty($data['fasdocs'])): ?>
+                                <a href="<?= $data['fasdocs'] ?>" target="_blank">Смотреть</a>
+                            <? else: ?>
+                                Нет данных
+                            <? endif; ?>
+                            </td>
+                        </tr>
+                        <tr>
                             <td width="200"><b>Профиль на федресурсе:</b></td>
-                            <td><a href="<?= $data['arbitr_profile'] ?>" target="_blank">Смотреть</a></td>
+                            <td>
+                            <? if(!empty($data['arbitr_profile'])): ?>
+                                <? $link = '<a href="' . $data['arbitr_profile'] . '" target="_blank">Смотреть</a>' ?>
+                            <? elseif(!empty($data['org_profile'])): ?>
+                                <? $link = '<a href="' . $data['arbitr_profile'] . '" target="_blank">Смотреть</a>' ?>
+                            <? else: ?>
+                                <? $link = 'Нет'; ?>
+                            <? endif; ?>
+                            <?= $link ?>
+                            </td>
                         </tr>
                     </table>
                 
@@ -58,7 +81,7 @@
         </td>
     </tr>
 </table>
-<? if(!empty($data['chart'])): ?>
+<? if(!empty($data['chart']) && $data['totaldoc'] > 3): ?>
 
 <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
 <script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>

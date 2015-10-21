@@ -36,14 +36,16 @@ $i = 0;
 while($row = $query->fetch_assoc()) {
     
     $data[$i]['id'] = $row['id'];
-    $data[$i]['name'] = $row['org_name'];
+    $data[$i]['name'] = str_replace(array('ИП ', 'ИП'), '', $row['org_name']);
     $data[$i]['phone'] = intval($row['phone']);
     if($row['totaldoc'] > 0) {
         $data[$i]['rating'] = $row['bal'];
     } else {
         $data[$i]['rating'] = 'Нет данных';
     }
+    $data[$i]['totaldoc'] = $row['totaldoc'];
     $data[$i]['linkdocs'] = $row['linkdocs'];
+    $data[$i]['fasdocs'] = $row['fasdocs'];
     $data[$i]['email'] = $row['mail'];
     $i++;
 }
