@@ -341,7 +341,7 @@ if ($res->num_rows) {
         // разница между текущей и начальной ценой
         if($data['now_price'] > 0 && $data['price'] > 0 && $data['price'] != $data['now_price']) {   
         
-            $percent = ($data['now_price'] / $data['price']) * 100;
+            $percent = ($data['price'] - $data['now_price']) / $data['price'] * 100;
             $data['price_dif'] = floor($percent); 
             
         }

@@ -5,8 +5,10 @@
                 <div class="conthead"><h2><i class="fa fa-list-alt"></i> <?= $title ?></h2></div>
                 <div class="contbody_forms">
                     <form style="display:block;margin-bottom:20px;">
-                        <input type="text" name="search" placeholder="Название, ИНН, E-mail, Телефон"><button class="button">Найти</button>
+                        <input type="text" name="search" placeholder="Название, ИНН, E-mail, Телефон"><button class="button">Найти</button>&nbsp;
+                        <a class="button" style="padding:6px 13px;" href="/amc/">Очистить</a>
                     </form>
+                    
                     <div class="results">
                         <? if(!$search): ?>
                         Показаны результаты: <?= $start ?>-<?= $end ?> из <?= $total ?>

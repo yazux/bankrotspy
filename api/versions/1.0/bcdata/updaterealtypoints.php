@@ -4,7 +4,7 @@
 defined('DS_ENGINE') or die('web_demon laughs');
 
 $data = $_POST['itemdata'];
-//var_dump($_POST);exit;
+//var_dump($_POST);
 if(!$data)
   exit('No item data');
 
@@ -17,12 +17,14 @@ if(!is_array($data)) {
         $item = iconv("windows-1251", "UTF-8", $item);
         $item = explode(';', $item);
     
-        $result[$id]['id'] = intval($item[0]);
+        $result[$id]['id'] = intval($item[0]); 
         $result[$id]['price'] = intval($item[1]);
         $result[$id]['hint'] = htmlentities(trim($item[2]));
+        $result[$id]['pricem2'] = $item[3];
+        $result[$id]['link'] = base64_decode($item[4]);
     }
 }
-
+//var_dump($result);
 foreach ($result as $i => $item) {
 
     $query = core::$db->query('SELECT * FROM `ds_maindata` WHERE `id` = "'.core::$db->res($item['id']).'" ;');
@@ -32,7 +34,7 @@ foreach ($result as $i => $item) {
     }
 
     core::$db->query('UPDATE `ds_maindata` SET `market_price` = "'.$item['price'].'" WHERE `id` = "'.core::$db->res($item['id']).'";');
-    core::$db->query('REPLACE INTO `ds_maindata_hint` SET `id` = "' . core::$db->res($item['id']) . '", `text` = "' . core::$db->res($item['hint']) . '";');
+    core::$db->query('REPLACE INTO `ds_maindata_hint` SET `id` = "' . core::$db->res($item['id']) . '", `price` = "' . core::$db->res($item['pricem2']) . '", `link` = "' . core::$db->res($item['link']) . '", `text` = "' . core::$db->res($item['hint']) . '";');
 }
 
 echo 'ok' . PHP_EOL;

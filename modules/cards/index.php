@@ -17,7 +17,10 @@ $twr = core::$db->query('SELECT
    `ds_maindata_type`.`type_name`,
    `ds_maindata_status`.`status_name`,
    `ds_maindata_platforms`.`platform_url`,
-   `ds_maindata_category`.`name` AS `catname`
+   `ds_maindata_category`.`name` AS `catname`,
+   `ds_maindata_hint`.`link` AS `link`,
+   `ds_maindata_hint`.`price` AS `pricem2`,
+   `ds_maindata_hint`.`text` AS `hint`
     FROM
    `ds_maindata`
     LEFT JOIN `ds_maindata_regions` ON `ds_maindata`.`place` = `ds_maindata_regions`.`number`
@@ -25,6 +28,7 @@ $twr = core::$db->query('SELECT
     LEFT JOIN `ds_maindata_status` ON `ds_maindata`.`status` = `ds_maindata_status`.`id`
     LEFT JOIN `ds_maindata_platforms` ON `ds_maindata`.`platform_id` = `ds_maindata_platforms`.`id`
     LEFT JOIN `ds_maindata_category` ON `ds_maindata`.`cat_id` = `ds_maindata_category`.`id`
+    LEFT JOIN `ds_maindata_hint` ON `ds_maindata`.`id` = `ds_maindata_hint`.`id`
     WHERE `ds_maindata`.`id` = "'.$id.'"
     ;');
 if(!$twr->num_rows)
@@ -81,6 +85,10 @@ if($data['cat_id'] != 0 AND $data['cat_id'] != 4 AND $data['cat_id'] != 8 AND $d
   $profitproc = $tabledata->profitproc($data['profit_proc'], $data['platform_id'], $data['type'], $access, $data['grafik1']);
   $profitproc = $profitproc['notcolored'];
 }
+
+// стоимость м.кв и ссылка на яндекс
+
+
 if($data['cat_id'] == 2)
 {
   $needshow_deb_points = 1;
@@ -103,6 +111,14 @@ if(isset($additionhtmldeb))
   temp::HTMassign('additionhtmldeb', $additionhtmldeb);
 if(isset($customclassdeb))
   temp::HTMassign('customclassdeb', ' class="'.$customclassdeb.'" ');
+
+
+if($data['cat_id'] == 5) {
+    temp::assign('pricem2', $data['pricem2']);
+    temp::assign('link', $data['link']);
+    temp::assign('hint', $data['hint']);
+}
+
 
 temp::assign('id', $data['id']);
 temp::assign('category', $data['catname']);

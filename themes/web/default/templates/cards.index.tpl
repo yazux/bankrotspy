@@ -52,12 +52,12 @@
                             <td style="width: 300px;"><b>Рыночная цена:</b><br/></td>
                             <td><i class="icon-rouble"></i> <?=$realprice?></td>
                         </tr>
-                        <? if(!empty($realprice)): ?>
-                        <!--<tr>
+                        <? if(!empty($pricem2)): ?>
+                        <tr>
                             <td style="width: 200px;"><b>Средняя цена м.кв на открытом рынке:</b><br/></td>
-                            <td><i class="icon-rouble"></i> <?=$realprice?>
+                            <td><a href="<?= $link ?>" target="_blank"> <?= str_replace('&amp;nbsp;', ' ', $hint) ?></a>
                             </td>
-                        </tr>-->
+                        </tr>
                         <? endif; ?>
                         <tr>
                             <td style="width: 300px;"><b>Доход:</b><br/></td>
@@ -151,8 +151,8 @@
                             <td><?if($contact_person):?><?=$contact_person?><?else:?><span style="color:#95968d">нет</span><?endif?></td>
                         </tr>
                         <tr>
-                            <td style="width: 300px; border-top: 2px solid #eee; border-bottom: 2px solid #eee;"><b>Арбитражный управляющий:</b><br/></td>
-                            <td style="border-top: 2px solid #eee; border-bottom: 2px solid #eee;">
+                            <td style="width: 300px; background:#eee;"><b>Арбитражный управляющий:</b><br/></td>
+                            <td style="background:#eee;">
                                 <? if($manager): ?>
                                     <a target="_blank" href="<?= core::$home ?>/amc/<?= $oid ?>"><i class="icon-globe-table"></i>
                                     <?= $manager ?>
