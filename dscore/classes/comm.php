@@ -19,7 +19,7 @@ class comm
      self::$module = $module;
      self::$mid = $mid;
      self::$action = $action;
-     self::$post_long = 1000;
+     self::$post_long = 2000;
      
      self::$total_mess = core::$db->query('SELECT COUNT(*) FROM `ds_comm` WHERE `module`="'.self::$module.'" AND `mid` = "'.self::$mid.'" ;')->count();
      if(nav::$kmess)
