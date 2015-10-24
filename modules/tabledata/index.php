@@ -202,7 +202,7 @@ if($price_start OR $price_end)
   if($type_price == 3)
     $conditions['price_end_third'] = ' `ds_maindata`.`' . $price_search . '` > "0" ';
 }
-
+//выборка новых лотов за последние 48 часов
 if(!empty($new_lots)) {
     $conditions['loadtime'] = ' FROM_UNIXTIME(`ds_maindata`.`loadtime`) > NOW() - INTERVAL 2 DAY ';
 }
