@@ -114,6 +114,7 @@ if(core::$user_id AND isset(core::$user_set['tabledata']) AND core::$user_set['t
     $pdata = $res->fetch_array();
     $save_set = array();
     $user_tset = json_decode($pdata['profile'], 1);
+    
     //Проходимся еще раз, вдруг в таблице добавились новые настройки
     foreach($set_table_array AS $key => $value)
     {
@@ -122,9 +123,10 @@ if(core::$user_id AND isset(core::$user_set['tabledata']) AND core::$user_set['t
       else
         $save_set[$key] = $value;
     }
+    $new_lots = $save_set['new_lots'];
     $places_used = $user_tset['places'];
     $platforms_used = $user_tset['platforms'];
-
+    
     //Текущий профиль
     $now_profile_name = $pdata['pname'];
     $now_profile_id = $pdata['id'];
@@ -191,6 +193,7 @@ if(isset($now_profile_id))
   temp::assign('default_profile_id', $default_profile_id);
   temp::HTMassign('outprofiles', $outprofiles);
 }
+temp::HTMassign('new_lots', $new_lots);
 
 temp::HTMassign('platforms', $platforms);
 temp::HTMassign('platforms_def', $platforms_def);
