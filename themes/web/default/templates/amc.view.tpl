@@ -5,8 +5,9 @@
                 <div class="conthead"><h2><i class="fa fa-list-alt"></i> <?= $title ?></h2></div>
                 <div class="contbody_forms">
                     <form style="display:block;margin-bottom:20px;">
-                        <input type="text" name="search" placeholder="Название, ИНН, E-mail, Телефон"><button class="button">Найти</button>&nbsp;
-                        <a class="button" style="padding:6px 13px;" href="/amc/">Очистить</a>
+                        <input type="text" name="search" placeholder="Название, ИНН, E-mail, Телефон">&nbsp;
+                        <input type="submit" class="urlbutton_index button_no_top_index" value="Найти">
+                        <a class="urlbutton_index button_no_top_index" href="/amc/">Очистить</a>
                     </form>
                     
                     <div class="results">
@@ -27,7 +28,7 @@
                         </tr>
                         <? foreach($data as $item): ?>
                         <tr>
-                            <td width="400"><a href="<?= core::$home ?>/amc/<?= $item['id'] ?>" target="_blank"><?= $item['name'] ?></a></td>
+                            <td width="400"><a class="namelink" href="<?= core::$home ?>/amc/<?= $item['id'] ?>" target="_blank"><?= $item['name'] ?></a></td>
                             <td align="center" width="150">
                                 <? if($item['totaldoc'] < 3 && $item['totaldoc'] > 0 ): ?>
                                     <? $rating = 'Мало данных'; ?>
@@ -35,11 +36,11 @@
                                     <? $rating = 'Нет данных'; ?>
                                 <? elseif($item['rating'] > 5): ?>
                                     <? 
-                                        $rating = '<a  class="plus" href="' . core::$home . '/amc/' . $item['id'] . '" target="_blank">' . $item['rating'] . '</a>';
+                                        $rating = '<a class="plus" href="' . core::$home . '/amc/' . $item['id'] . '" target="_blank">' . $item['rating'] . '</a>';
                                     ?>
                                 <? else: ?>
                                     <?
-                                        $rating = '<a  class="minus" href="' . core::$home . '/amc/' . $item['id'] . '" target="_blank">' . $item['rating'] . '</a>';
+                                        $rating = '<a class="minus" href="' . core::$home . '/amc/' . $item['id'] . '" target="_blank">' . $item['rating'] . '</a>';
                                     ?>
                                 <? endif; ?>
                                 <?= $rating ?>
@@ -47,14 +48,14 @@
                             </td>
                             <td align="center" width="150">
                             <? if(!empty($item['totaldoc'])): ?>
-                                <a href="<?= $item['linkdocs'] ?>" target="_blank">Смотреть</a>
+                                <a class="namelink" href="<?= $item['linkdocs'] ?>" target="_blank">Смотреть</a>
                             <? else: ?>
                                 Нет данных
                             <? endif; ?>
                             </td>
                             <td align="center" width="150">
                              <? if(!empty($item['fasdocs'])): ?>
-                                <a href="<?= $item['fasdocs'] ?>" target="_blank">Смотреть</a>
+                                <a class="namelink" href="<?= $item['fasdocs'] ?>" target="_blank">Смотреть</a>
                             <? else: ?>
                                 Нет данных
                             <? endif; ?>
@@ -76,21 +77,22 @@
     color:#838488;
 }
 
-
-.table {
-    
-}
-
 .table th {
-    border:1px solid #eee;
-    padding:8px;
+    background-color: #ebebeb;
+    border: 1px solid #d1d1d1;
+    color: #676767;
+    font-size: 14px;
+    font-weight: normal;
+    padding: 4px 16px 4px 3px;
 }
 
 .table td{
-    border:1px solid #eee;
+    border:1px solid #e1e1e1;
     padding:5px 10px;
 }
 .table tr:hover {
-    background:#eee;
+    background:#f8f8f8;
 }
+
+
 </style>

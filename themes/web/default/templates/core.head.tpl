@@ -98,7 +98,7 @@
                        </table>
                     </div>
                 </td>
-                <td class="userpanel_bg" rowspan="2">
+                <td class="userpanel_bg" >
                     <?if($user_id):?>
                     <table class="userarea">
                         <tr>
@@ -111,7 +111,7 @@
                             </td>
                             <td>
                                 <a class="username" href="<?=$home?>/user/profile"><?=core::$user_name?></a><br/>
-                                <a class="usercab" href="<?=$home?>/user/cab"><?=lang('private_cab')?></a><br/>
+                                <a class="usercab" href="<?=$home?>/user/cab"><?=lang('private_cab')?></a>&nbsp;&nbsp;
 
                                 <form class="exitbut" method="POST" action="<?=$home?>/exit">
                                     <input type="hidden" name="act" value="do"/>
@@ -128,8 +128,9 @@
                             </td>
                             <td>
                                 <a class="username" href="<?=$home?>/login"><?=lang('login')?></a><br/>
-                                <a class="usercab" href="<?=$home?>/user/recpassword"><?=lang('forgot_pass')?></a><br/>
-                                <a class="usercab" href="<?=$home?>/user/register"><?=lang('register')?></a><br/>
+                                <a class="usercab" href="<?=$home?>/user/register"><?=lang('register')?></a>&nbsp;&nbsp;
+                                <a class="usercab" href="<?=$home?>/user/recpassword"><?=lang('forgot_pass')?></a>
+                                
                             </td>
 
                         </tr>
@@ -139,7 +140,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="und_head_cont">
+                <td class="und_head_cont" colspan="2">
                     <div class="headmenu">
                         <table class="topbutton">
                             <tr>
@@ -159,7 +160,6 @@
                                        </a>
                                    </td>
 
-
                                 <?endforeach?>
                                 <?endif?>
 
@@ -172,13 +172,7 @@
                 </td>
             </tr>
         </table>
-
-
         <div class="mainall"></div>
         <table width="100%" height="100%">
             <tr>
                 <td valign="top" id="mainwidth" class="main">
-
-
-
-         
