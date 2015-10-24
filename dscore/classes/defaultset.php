@@ -61,7 +61,8 @@ class defaultset
         'sorttype' => '',
         'places' => $places_def,
         'platforms' => $platforms_def,
-        'status' => array(1=> 1, 2=>1, 3=> 0)
+        'status' => array(1=> 1, 2=>1, 3=> 0),
+        'new_lots' => false
     );
 
     return $set_table_array;
