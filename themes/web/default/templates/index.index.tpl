@@ -55,6 +55,8 @@
                                <hr/>
                                <span style="font-size: 13px">Или дней до подачи заявок*:</span>
                                <input style="width: 37px;" onmouseover="toolTip('Число или интервал,<br/> например: 2-5<hr/>Нельзя одновременно использовать Дату подачи и эту функцию.')" onmouseout="toolTip()" type="text" name="altintconf"/><br/>
+                               
+                               <label>Новые лоты за последние 48 часов<input type="checkbox" name="new_lots"/></label>
                            </td>
                            <td valign="top" style="border-right: 0">
                                <i class="icon-rouble"></i> Цена лота:<br/>

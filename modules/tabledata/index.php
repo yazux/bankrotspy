@@ -11,6 +11,9 @@ $category = intval(POST('category'));
 $sortcolumn = POST('sortcolumn');
 $sorttype = intval(abs(POST('sorttype')));
 $tabledata = new tabledata($sortcolumn, $sorttype);
+$new_lots = POST('new_lots');
+
+
 
 $price_search = 'price';
 $type_price = abs(intval(POST('type_price')));
@@ -153,6 +156,7 @@ if(!$first_alt AND !$second_alt)
   if($end_date)
     $conditions['endtime'] = ' `ds_maindata`.`start_time` < "' . $end_date . '" ';
 }
+
 if(!$begin_date AND !$end_date)
 {
   $nowtime = strtotime(date('Y').'-'.date('n').'-'.date('j'));
@@ -197,6 +201,10 @@ if($price_start OR $price_end)
 {
   if($type_price == 3)
     $conditions['price_end_third'] = ' `ds_maindata`.`' . $price_search . '` > "0" ';
+}
+
+if(!empty($new_lots)) {
+    $conditions['loadtime'] = ' FROM_UNIXTIME(`ds_maindata`.`loadtime`) > NOW() - INTERVAL 2 DAY ';
 }
 
 //Компилим условия

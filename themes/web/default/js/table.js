@@ -381,7 +381,7 @@ function connection_keeper()
 function save_settings_and_load()
 {
   load_table();
-
+    
   var json_set = JSON.stringify(engine_settings);
 
   $.post(
@@ -434,27 +434,27 @@ function load_table()
   $('.table_tab td span').removeClass("active_tab");
   $('#bs_tab_' + engine_settings.category).addClass("active_tab");
 
-  $.post(
-    "/tabledata",
-    {
-      somevar: 'tvybunwedowhduw2397ey9hd8ybhb83wecugwvevct',
-      formid: engine_formid,
-      category: engine_settings.category,
-      page: engine_settings.page,
-      kmess: engine_settings.kmess,
-      svalue: engine_settings.svalue,
-      types: compile_arr_set(engine_settings.types),
-      begin_date: date_to_int(engine_settings.begin_date),
-      end_date: date_to_int(engine_settings.end_date),
-      altint: engine_settings.altint,
-      price_start: engine_settings.price_start,
-      price_end: engine_settings.price_end,
-      type_price: engine_settings.type_price,
-      sortcolumn: engine_settings.sortcolumn,
-      sorttype: engine_settings.sorttype,
-      places: compile_arr_set(engine_settings.places),
-      platforms: compile_arr_set(engine_settings.platforms),
-      status: compile_arr_set(engine_settings.status)
+    $.post(
+        "/tabledata", {
+            somevar: 'tvybunwedowhduw2397ey9hd8ybhb83wecugwvevct',
+            formid: engine_formid,
+            category: engine_settings.category,
+            page: engine_settings.page,
+            kmess: engine_settings.kmess,
+            svalue: engine_settings.svalue,
+            types: compile_arr_set(engine_settings.types),
+            begin_date: date_to_int(engine_settings.begin_date),
+            end_date: date_to_int(engine_settings.end_date),
+            altint: engine_settings.altint,
+            price_start: engine_settings.price_start,
+            price_end: engine_settings.price_end,
+            type_price: engine_settings.type_price,
+            sortcolumn: engine_settings.sortcolumn,
+            sorttype: engine_settings.sorttype,
+            places: compile_arr_set(engine_settings.places),
+            platforms: compile_arr_set(engine_settings.platforms),
+            status: compile_arr_set(engine_settings.status),
+            new_lots: engine_settings.new_lots
     },
     answer_load
   );
@@ -499,6 +499,7 @@ function search_listener()
   if(choosen_st < 1)
     str_err += 'Выберите хотя бы один статус торгов!'+ '<br/>';
 
+
   //Дата начала конца торгов
   var begin_d = $('[name="begin_set_date"]').val();
   var end_d = $('[name="end_set_date"]').val();
@@ -510,6 +511,13 @@ function search_listener()
     if(end_int_d < begin_int_d)
       str_err += 'Дата окончания не должна быть меньше даты начала!'+ '<br/>';
   }
+
+    engine_settings.new_lots = 0;
+    if($('[name="new_lots"]').prop('checked')) {
+        engine_settings.new_lots = 1;
+    }
+      
+  
   engine_settings.begin_date = begin_d;
   engine_settings.end_date = end_d;
 

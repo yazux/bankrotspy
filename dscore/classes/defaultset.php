@@ -46,22 +46,22 @@ class defaultset
 
     //Настройки по умолчанию
     $set_table_array = array(
-      'category' => -2,
-      'page' => 1,
-      'kmess' => 20,
-      'svalue' => '',
-      'types' => $types_def,
-      'begin_date' => '',
-      'end_date' => '',
-      'altint' => '',
-      'price_start' => '',
-      'price_end' => '',
-      'type_price' => 1,
-      'sortcolumn' => '',
-      'sorttype' => '',
-      'places' => $places_def,
-      'platforms' => $platforms_def,
-      'status' => array(1=> 1, 2=>1, 3=> 0)
+        'category' => -2,
+        'page' => 1,
+        'kmess' => 20,
+        'svalue' => '',
+        'types' => $types_def,
+        'begin_date' => '',
+        'end_date' => '',
+        'altint' => '',
+        'price_start' => '',
+        'price_end' => '',
+        'type_price' => 1,
+        'sortcolumn' => '',
+        'sorttype' => '',
+        'places' => $places_def,
+        'platforms' => $platforms_def,
+        'status' => array(1=> 1, 2=>1, 3=> 0)
     );
 
     return $set_table_array;
