@@ -21,7 +21,7 @@ if(!is_array($data)) {
         $result[$id]['price'] = intval($item[1]);
         $result[$id]['hint'] = htmlentities(trim($item[2]));
         $result[$id]['pricem2'] = $item[3];
-        $result[$id]['link'] = urldecode(base64_decode($item[4]));
+        $result[$id]['link'] = base64_decode($item[4]);
     }
 }
 //var_dump($result);
