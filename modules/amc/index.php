@@ -85,7 +85,7 @@ if(!empty($search)) {
 }
 
 
-temp::HTMassign('textData', $textData['text']);
+temp::HTMassign('textData', text::out($textData['text'], 0));
 temp::assign('start', $start);
 temp::assign('end', $end);
 temp::assign('total', $total);
