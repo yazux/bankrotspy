@@ -19,6 +19,15 @@ class data extends mysqli
             self::error();  
         }
     }   
+    /**
+     *
+     * return raw sql string
+     *
+    **/
+    public function debugRawQuery()
+    {
+        return !empty(self::$last_sql) ? self::$last_sql : '';
+    }
     
     public function insert($sql)
     {

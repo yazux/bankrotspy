@@ -272,6 +272,8 @@ $main_sql = 'SELECT
 
 $res = core::$db->query($main_sql);
 
+//echo core::$db->debugRawQuery();
+
 if($svalue)
 {
   $item_arr = explode(' ', $svalue);
