@@ -3,7 +3,13 @@
         <td valign="top">
             <div class="content">
                 <div class="conthead"><h2><i class="fa fa-list-alt"></i> <?= $title ?></h2></div>
+                <? if(!empty($textData)): ?>
                 <div class="contbody_forms">
+                    <?= $textData ?>
+                </div>
+                <? endif; ?>
+                <div class="contbody_forms">
+                    
                     <form style="display:block;margin-bottom:20px;">
                         <input type="text" name="search" placeholder="Название, ИНН, E-mail, Телефон">&nbsp;
                         <input type="submit" class="urlbutton_index button_no_top_index" value="Найти">
