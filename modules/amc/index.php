@@ -31,9 +31,6 @@ if (!empty($search) && strlen($search) >= 4 ) {
     $_SESSION['hash'] = md5($query->num_rows);
 }
 
-$textQuery = core::$db->query('SELECT * FROM `ds_pages` WHERE `id` = "9" LIMIT 1;');
-$textData =  $textQuery->fetch_assoc();
-
 $data = array();
 $i = 0;
 while($row = $query->fetch_assoc()) {
@@ -84,6 +81,8 @@ if(!empty($search)) {
     }
 }
 
+$textQuery = core::$db->query('SELECT * FROM `ds_pages` WHERE `id` = "9" LIMIT 1;');
+$textData =  $textQuery->fetch_assoc();
 
 temp::HTMassign('textData', text::out($textData['text'], 0));
 temp::assign('start', $start);
