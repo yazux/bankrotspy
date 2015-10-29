@@ -204,7 +204,7 @@ if($price_start OR $price_end)
 }
 //выборка новых лотов за последние 48 часов
 if(!empty($new_lots)) {
-    $conditions['loadtime'] = ' FROM_UNIXTIME(`ds_maindata`.`loadtime`) > NOW() - INTERVAL 2 DAY ';
+    $conditions['loadtime'] = ' FROM_UNIXTIME(`ds_maindata`.`loadtime`) > NOW() - INTERVAL 3 DAY ';
     $order_cond = ' ORDER BY `ds_maindata`.`loadtime` DESC ';
 }
 
