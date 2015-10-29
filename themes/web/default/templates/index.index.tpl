@@ -57,7 +57,7 @@
                                <span style="font-size: 13px">Дней до подачи</span>
                                <br/>
                                
-                               <label><input type="checkbox" name="new_lots" <?= !empty($new_lots) ? 'checked' : '' ?>/>&nbsp;&nbsp;Новые лоты за 48 час.</label>
+                               <label><input type="checkbox" name="new_lots" <?= !empty($new_lots) ? 'checked' : '' ?>/>&nbsp;&nbsp;Новые лоты за 72 час.</label>
                            </td>
                            <td valign="top" style="border-right: 0">
                                <i class="icon-rouble"></i> Цена лота:<br/>
