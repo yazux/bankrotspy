@@ -23,6 +23,7 @@
     <script type="text/javascript" src="<?=$themepath?>/js/number_format.js?id=<?=$now_id?>"></script>
     <script type="text/javascript" src="<?=$themepath?>/js/some.js?id=<?=$now_id?>"></script>
     <script type="text/javascript" src="<?=$themepath?>/js/table.js?id=<?=$now_id?>"></script>
+    <script type="text/javascript" src="<?=$themepath?>/js/stickyTableHeaders.js"></script>
     <script type='text/javascript' src='<?=$themepath?>/js/toolpit.js?id=<?=$now_id?>'></script>
 
     <link rel="shortcut icon" href="<?=$themepath?>/images/favicon.ico"/>

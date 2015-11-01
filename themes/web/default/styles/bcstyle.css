@@ -319,10 +319,22 @@ td.firstt{
 }
 
 .data_table{
-margin: 16px 0 16px 0;
+    margin: 16px 0 16px 0;
 }
 
 .data_table tr th, .data_table tr th.sort_down, .data_table tr th.sort_up, .data_table tr th.no_sort{
+    background-color: #ebebeb;
+    border: 1px solid #d1d1d1;
+    font-weight: normal;
+    font-size: 12px;
+    color: #676767;
+    padding: 4px 16px 4px 3px;
+    background-image: url(../images/table/bg.png);
+    background-repeat: no-repeat;
+    background-position: center right;
+}
+
+.head_table tr th{
     background-color: #ebebeb;
     border: 1px solid #d1d1d1;
     font-weight: normal;

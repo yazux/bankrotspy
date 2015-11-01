@@ -149,6 +149,10 @@ function end_loader()
   //$('#loadmess').fadeIn(0);
 
   $('#loadmess').fadeOut(700);
+  $(function(){
+   $(".data_table").stickyTableHeaders();
+   
+});
 }
 
 function answer_load(data)
@@ -233,7 +237,7 @@ function answer_load(data)
             body_table += '</tr>';
         });
 
-        var all_data = '<tr>' + head_table + '</tr>' + '' + body_table;
+        var all_data = '<thead><tr>' + head_table + '</tr></thead><tbody>'+ body_table+'</tbody>';
         $('.data_table').html(all_data);
 
         var start_int = ((engine_settings.page * engine_settings.kmess) - engine_settings.kmess)+1;

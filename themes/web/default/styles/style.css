@@ -107,6 +107,7 @@ td.main {
     word-wrap: break-word;
     max-width: 100px;
     background: #eeeeee;
+    position:relative;
 }
 
 .prebottom {
