@@ -62,8 +62,12 @@ if (empty($search)) {
     $pagination = $pagination->createLinks();
 }
 
-engine_head(lang('title'));
-temp::assign('title', lang('title'));
+$textQuery = core::$db->query('SELECT * FROM `ds_pages` WHERE `id` = "9" LIMIT 1;');
+$textData =  $textQuery->fetch_assoc();
+
+engine_head($textData['name'], $textData['keywords'], $textData['description']);
+
+temp::assign('title', $textData['name']);
 
 if(!empty($search)) {
 
@@ -81,8 +85,9 @@ if(!empty($search)) {
     }
 }
 
-$textQuery = core::$db->query('SELECT * FROM `ds_pages` WHERE `id` = "9" LIMIT 1;');
-$textData =  $textQuery->fetch_assoc();
+
+
+
 
 temp::HTMassign('textData', text::out($textData['text'], 0));
 temp::assign('start', $start);
