@@ -148,11 +148,9 @@ function end_loader()
   //$("#loadmess").stop();
   //$('#loadmess').fadeIn(0);
 
-  $('#loadmess').fadeOut(700);
-  $(function(){
-   $(".data_table").stickyTableHeaders();
-   
-});
+    $('#loadmess').fadeOut(700);
+    $('.data_table').stickyTableHeaders('destroy');
+    $(".data_table").stickyTableHeaders();
 }
 
 function answer_load(data)
@@ -384,7 +382,7 @@ function connection_keeper()
 
 function save_settings_and_load()
 {
-  load_table();
+  
     
   var json_set = JSON.stringify(engine_settings);
 
@@ -400,6 +398,7 @@ function save_settings_and_load()
       //ничего не делаем
     }
   );
+  load_table();
 }
 
 function compile_arr_set(obj)
