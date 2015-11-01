@@ -33,6 +33,20 @@
                             <? endforeach; ?>
                         </select>
                     </div>
+                    <div class="contbody_forms">
+                        <b>Категория:</b><br/>
+                        <select name="category">
+                            <? $selected = '';?>
+                            <? foreach($categories as $category): ?>
+                                <? if($category['id'] == $item['cat_id']): ?>
+                                    <? $selected = 'selected'; ?>
+                                <? else: ?>
+                                    <? $selected = ''; ?>
+                                <? endif; ?>
+                            <option value="<?= $category['id'] ?>" <?= $selected ?>><?= $category['name'] ?></option>
+                            <? endforeach; ?>
+                        </select>
+                    </div>
                     <div class="contfin_forms">
                         <input name="submit" type="submit" value="Сохранить" />
                     </div>
