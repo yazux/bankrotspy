@@ -52,9 +52,9 @@
                             <td style="width: 300px;"><b>Рыночная цена:</b><br/></td>
                             <td><i class="icon-rouble"></i> <?=$realprice?></td>
                         </tr>
-                        <? if(!empty($pricem2)): ?>
+                        <? if(!empty($price_average)): ?>
                         <tr>
-                            <td style="width: 200px;"><b>Средняя цена м.кв на открытом рынке:</b><br/></td>
+                            <td style="width: 200px;"><b><?= $field_name ?></b><br/></td>
                             <td><a href="<?= $link ?>" target="_blank"> <?= str_replace('&amp;nbsp;', ' ', $hint) ?></a>
                             </td>
                         </tr>

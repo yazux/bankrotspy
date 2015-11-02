@@ -19,7 +19,7 @@ $twr = core::$db->query('SELECT
    `ds_maindata_platforms`.`platform_url`,
    `ds_maindata_category`.`name` AS `catname`,
    `ds_maindata_hint`.`link` AS `link`,
-   `ds_maindata_hint`.`price` AS `pricem2`,
+   `ds_maindata_hint`.`price` AS `price_average`,
    `ds_maindata_hint`.`text` AS `hint`
     FROM
    `ds_maindata`
@@ -75,15 +75,25 @@ if($pricediff > 0)
 elseif($pricediff < 0)
   $pricediff = '+'.abs($pricedif);
 
-if($data['cat_id'] != 0 AND $data['cat_id'] != 4 AND $data['cat_id'] != 8 AND $data['cat_id'] != 2)
-{
-  $needshow_add_price = 1;
-  $realprice = $tabledata->marketprice($data['market_price'], $access);
-  $realprice = $realprice['col'];
-  $profitrub = $tabledata->profitrub($data['profit_rub'],  $data['platform_id'], $data['type'], $access, $data['grafik1']);
-  $profitrub = $profitrub['col'];
-  $profitproc = $tabledata->profitproc($data['profit_proc'], $data['platform_id'], $data['type'], $access, $data['grafik1']);
-  $profitproc = $profitproc['notcolored'];
+if($data['cat_id'] != 0 AND $data['cat_id'] != 4 AND $data['cat_id'] != 8 AND $data['cat_id'] != 2) {
+    
+    // расчет профита в рублях и в процентах
+    if($data['now_price'] > 0 && $data['market_price'] > 0) {
+        $data['profit_rub'] = $data['market_price'] - $data['now_price'];
+        $percent = ($data['profit_rub'] / $data['market_price']) * 100;
+        $data['profit_proc'] = floor($percent); 
+    }
+    
+    $needshow_add_price = 1;
+    $realprice = $tabledata->marketprice($data['market_price'], $access);
+
+    $realprice = $realprice['col'];
+  
+    $profitrub = $tabledata->profitrub($data['profit_rub'],  $data['platform_id'], $data['type'], $access, $data['grafik1']);
+    $profitrub = $profitrub['col'];
+    $profitproc = $tabledata->profitproc($data['profit_proc'], $data['platform_id'], $data['type'], $access, $data['grafik1']);
+
+    $profitproc = $profitproc['notcolored'];
 }
 
 // стоимость м.кв и ссылка на яндекс
@@ -113,8 +123,17 @@ if(isset($customclassdeb))
   temp::HTMassign('customclassdeb', ' class="'.$customclassdeb.'" ');
 
 
-if($data['cat_id'] == 5) {
-    temp::assign('pricem2', $data['pricem2']);
+if($data['cat_id'] == 5 || $data['cat_id'] == 1 || $data['cat_id'] == 7 || $data['cat_id'] == 6) {
+    
+    $fields = array(
+        '1' => 'Средняя цена на открытом рынке:',
+        '5' => 'Средняя цена м.кв на открытом рынке:',
+        '6' => 'Средняя цена м.кв на открытом рынке:',
+        '7' => 'Средняя цена на открытом рынке:',
+    );
+    
+    temp::assign('field_name', $fields[$data['cat_id']]);
+    temp::assign('price_average', $data['price_average']);
     temp::assign('link', $data['link']);
     temp::assign('hint', $data['hint']);
 }
