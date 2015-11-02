@@ -78,11 +78,12 @@ elseif($pricediff < 0)
 if($data['cat_id'] != 0 AND $data['cat_id'] != 4 AND $data['cat_id'] != 8 AND $data['cat_id'] != 2) {
     
     // расчет профита в рублях и в процентах
+    /*
     if($data['now_price'] > 0 && $data['market_price'] > 0) {
         $data['profit_rub'] = $data['market_price'] - $data['now_price'];
         $percent = ($data['profit_rub'] / $data['market_price']) * 100;
         $data['profit_proc'] = floor($percent); 
-    }
+    }*/
     
     $needshow_add_price = 1;
     $realprice = $tabledata->marketprice($data['market_price'], $access);

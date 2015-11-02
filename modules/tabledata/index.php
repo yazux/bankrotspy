@@ -333,13 +333,14 @@ if ($res->num_rows) {
             }
             
             // расчет прибыли в рублях и в процентах
+            /*
             if($data['now_price'] > 0 && $data['market_price'] > 0) {
                 $data['profit_rub'] = $data['market_price'] - $data['now_price'];
                 
                 $percent = ($data['profit_rub'] / $data['market_price']) * 100;
                 
                 $data['profit_proc'] = floor($percent); 
-            }
+            }*/
             
             
             $loc['profitrub'] = $tabledata->profitrub($data['profit_rub'], $data['platform_id'], $data['type'], $access, $data['grafik1']);
