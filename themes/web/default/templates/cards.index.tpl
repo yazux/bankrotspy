@@ -1,7 +1,6 @@
 <table>
     <tr>
         <td valign="top">
-
             <div class="content">
                 <div class="conthead">
                     <h2><i class="icon-newspaper"></i> Лот №<?=$lotnumber?></h2>
@@ -192,7 +191,15 @@
                             <td><?if($fedlink):?><a target="_blank" href="<?=$fedlink?>"><i class="icon-globe-table"></i>fedresurs.ru</a><?else:?>нет<?endif?></td>
                         </tr>
                     </table>
-
+                    <? if(!empty($similarDataPrice)): ?>
+                    <table class="lottable">
+                        <tr>
+                        <td>
+                            <div id="grapch"></div>
+                        </td>
+                        </tr>
+                    </table>
+                    <? endif; ?>
                 </div>
             </div>
 
@@ -206,8 +213,100 @@
         </td>
     </tr>
 </table>
-<script type="text/javascript">
+<? if(!empty($similarDataPrice)): ?>
+<style>
+#grapch {
+	width		: 100%;
+	height		: 500px;
+	font-size	: 11px;
+}	
 
+.amcharts-graph-graph2 .amcharts-graph-stroke {
+  stroke-dasharray: 4px 5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  -webkit-animation: am-moving-dashes 1s linear infinite;
+  animation: am-moving-dashes 1s linear infinite;
+}
+
+@-webkit-keyframes am-moving-dashes {
+  100% {
+    stroke-dashoffset: -28px;
+  }
+}
+@keyframes am-moving-dashes {
+  100% {
+    stroke-dashoffset: -28px;
+  }
+}
+	
+</style>
+<script src="http://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="http://www.amcharts.com/lib/3/serial.js"></script>
+<script src="http://www.amcharts.com/lib/3/themes/light.js"></script>
+<script type="text/javascript" src="http://www.amcharts.com/lib/3/lang/ru.js"></script>
+
+<script type="text/javascript">
+    var chart = AmCharts.makeChart("grapch", {
+  "type": "serial",
+  "titles": [{
+        "text": "Цены на аналогичные товары",
+        "size": 15
+    }],
+  
+    "theme": "light",
+
+   
+    "marginRight": 8,
+    "marginTop": 10,
+    "marginBottom": 26,
+    "balloon": {
+        "adjustBorderColor": false,
+        "horizontalPadding": 10,
+        "verticalPadding": 8,
+        "color": "#ffffff"
+    },
+
+    "dataProvider": <?= $similarDataPrice ?>,
+  "valueAxes": [{
+    "axisAlpha": 0,
+    "position": "left"
+  }],
+  "startDuration": 1,
+  "graphs": [{
+    "alphaField": "alpha",
+    "balloonText": "<span style='font-size:12px;'>[[title]]:<br>[[value]] руб.</span>",
+    "fillAlphas": 1,
+    "title": "Цена",
+    "type": "column",
+    "valueField": "price",
+    "dashLengthField": "dashLengthColumn"
+  }, {
+    "id": "graph2",
+    "balloonText": "<span style='font-size:12px;'>[[title]]: [[value]] руб.</span>",
+    "bullet": "round",
+    "lineThickness": 3,
+    "bulletSize": 7,
+    "bulletBorderAlpha": 1,
+    "bulletColor": "#FFFFFF",
+    "useLineColorForBulletBorder": true,
+    "bulletBorderThickness": 3,
+    "fillAlphas": 0,
+    "lineAlpha": 1,
+    "title": "Средняя цена",
+    "valueField": "average"
+  }],
+  "categoryField": "price",
+  "categoryAxis": {
+    "gridPosition": "start",
+    "axisAlpha": 0,
+    "tickLength": 0
+  }
+});
+</script>
+<? endif; ?>
+
+<script type="text/javascript">
     var engine_formid = <?=core::$formid?>;
 
     function action_favorite_cards(lot, action, item)

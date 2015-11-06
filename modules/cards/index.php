@@ -36,6 +36,20 @@ if(!$twr->num_rows)
 
 $data = $twr->fetch_assoc();
 
+//var_dump($data);
+$query = core::$db->query('SELECT * FROM `lot_prices` WHERE `id` = "' . $id . '" ORDER BY price ASC');
+$countLot = $query->num_rows;
+$similarDataPrice = array();
+
+if($countLot > 0 ) { 
+    while($row = $query->fetch_assoc()) {
+        $row['average'] = $data['market_price'];
+        $similarDataPrice[] = $row;
+    }
+}
+
+
+
 $in_favorite = 0;
 if(core::$user_id)
 {
@@ -166,6 +180,10 @@ temp::assign('platform_url', $data['platform_url']);
 temp::assign('fedlink', $data['fedlink']);
 temp::assign('auct_link', $data['auct_link']);
 temp::assign('code_torg', $data['code']);
+
+if(!empty($similarDataPrice)) {
+    temp::HTMassign('similarDataPrice', json_encode($similarDataPrice));
+}
 
 if(isset($data_debt['dept_name']))
 {
