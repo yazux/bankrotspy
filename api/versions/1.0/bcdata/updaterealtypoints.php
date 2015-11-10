@@ -22,6 +22,7 @@ if(!is_array($data)) {
         $result[$id]['hint'] = htmlentities(trim($item[2]));
         $result[$id]['pricem2'] = $item[3];
         $result[$id]['link'] = base64_decode($item[4]);
+        $result[$id]['prices'] = explode('#', $item[5]);
     }
 }
 //var_dump($result);
@@ -32,9 +33,17 @@ foreach ($result as $i => $item) {
         echo 'Wrong id: ' . $item['id']. PHP_EOL;
         continue;
     }
-
+        
     core::$db->query('UPDATE `ds_maindata` SET `market_price` = "'.$item['price'].'" WHERE `id` = "'.core::$db->res($item['id']).'";');
     core::$db->query('REPLACE INTO `ds_maindata_hint` SET `id` = "' . core::$db->res($item['id']) . '", `price` = "' . core::$db->res($item['pricem2']) . '", `link` = "' . core::$db->res($item['link']) . '", `text` = "' . core::$db->res($item['hint']) . '";');
+    
+    
+    // данные для графика
+    if(!empty($item['prices'])) {
+        foreach($item['prices'] as $price) {
+            core::$db->query('INSERT INTO `lot_prices` (id, price) VALUES ("' . core::$db->res($item['id']) . '", "' . core::$db->res($price) . '")');
+        }
+    }
 }
 
 echo 'ok' . PHP_EOL;
