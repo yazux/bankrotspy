@@ -223,9 +223,8 @@
                             if(data.status == 1) {
                                 $('.export-block').slideToggle();
                                 create_head_mess('Лоты успешно сохранены');
-                                load_table();
                             } else if (data.status == 2) {
-                                window.location = data.url;
+                                window.location = data.file;
                             } else {
                                 create_head_mess('Превышен лимит');
                             }

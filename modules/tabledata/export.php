@@ -394,7 +394,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'download') {
         'file' => $filename
     );
     
-    echo json_encode($response);
+    echo json_encode($response);exit;
     
 } else {
 
