@@ -390,7 +390,7 @@ $objWriter->save($filename);
 
 if(isset($_GET['action']) && $_GET['action'] == 'download') {
     $response = array(
-        'status' => 2
+        'status' => 2,
         'file' => $filename
     );
     
