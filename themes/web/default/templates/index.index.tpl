@@ -443,7 +443,7 @@
              <td>&nbsp;</td>
             <td width="50%" style="font-weight:bold;">
                 <label>
-                    <input type="checkbox" name="place_number_0">
+                    <input type="checkbox" name="place_number_0" checked>
                     Не определен
                 </label>
                 <br>
