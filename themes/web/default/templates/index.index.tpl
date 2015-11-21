@@ -200,7 +200,9 @@
             <span class="notupdated"> - Нет изменений</span>
         </div>
         <? if(core::$user_id): ?>
-        <!--<span class="export">Сохранить избранное в файл</span>-->
+        <?if(core::$rights == 100):?>
+        <span class="export">Сохранить избранное в файл</span>-->
+        <? endif; ?>
         </div>
         <script>
             $(function(){
