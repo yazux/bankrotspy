@@ -201,7 +201,7 @@
         </div>
         <? if(core::$user_id): ?>
         <?if(core::$rights == 100):?>
-        <span class="export">Сохранить избранное в файл</span>-->
+        <span class="export">Сохранить избранное в файл</span>
         <? endif; ?>
         </div>
         <script>
