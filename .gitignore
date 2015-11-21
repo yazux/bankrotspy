@@ -4,6 +4,8 @@
 /data/usercache
 /data/cache
 /data/export
+/dscore/libs/PHPExcel.php
+/dscore/libs/PHPExcel/
 /data/materials
 /images/avatars
 /images/photos
