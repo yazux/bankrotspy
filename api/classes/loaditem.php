@@ -32,7 +32,7 @@ class loaditem
     $sourse = array();
     $sourse['lotname']         = $dataarr[2];
     $sourse['price']           = $dataarr[3];
-    $sourse['place']           = $dataarr[4];
+    $sourse['place']           = !empty($dataarr[4]) ? $dataarr[4] : 0;
     $sourse['type']            = $dataarr[5];
     $sourse['status']          = $dataarr[6];
     $sourse['description']     = $dataarr[7];
@@ -60,10 +60,12 @@ class loaditem
     //Для вывода
     $outdata = array();
 
+    $place = $load->place($sourse['place']);
+    
     //Названия те же что в таблице
     $outdata['name'] = trim($sourse['lotname']);
     $outdata['price'] = $load->price($sourse['price']);
-    $outdata['place'] = $load->place($sourse['place']);
+    $outdata['place'] = !empty($place) ? $place : 0;
     $outdata['type'] = $load->type($sourse['type']);
     $outdata['status'] = $load->status($sourse['status']);
     $outdata['description'] = trim($sourse['description']);
@@ -94,8 +96,8 @@ class loaditem
     //print_r($outdata);
 
     //Собираем ошибки
-    if(!$outdata['place'])
-      $error[] = 'Can\'t detect place for '.$outdata['item_key'];
+    /*if(!$outdata['place'])
+      $error[] = 'Can\'t detect place for '.$outdata['item_key'];*/
     if(!$outdata['type'])
       $error[] = 'Can\'t detect type for '.$outdata['item_key'];
     if(!$outdata['status'])

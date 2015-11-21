@@ -54,13 +54,16 @@ $bold_places = array();
 $places_def = array();
 $places = array();
 $res = core::$db->query('SELECT * FROM  `ds_maindata_regions` ORDER BY `name` ASC;');
-while($data = $res->fetch_array())
-{
-  $places_def[$data['number']] = 1;
-  if(in_array($data['number'], $bold_regions_set))
-    $bold_places[$data['number']] = $data['name'];
-  else
-    $places[] = array($data['number'], $data['name']);
+while ($data = $res->fetch_array()) {
+  
+    $places_def[$data['number']] = 1;
+    
+    if($data['number'] == 0) continue;
+    
+    if(in_array($data['number'], $bold_regions_set))
+        $bold_places[$data['number']] = $data['name'];
+    else
+        $places[] = array($data['number'], $data['name']);
 }
 
 //Произвольная сортировка регионов вначале

@@ -37,8 +37,9 @@ foreach ($result as $i => $item) {
     core::$db->query('UPDATE `ds_maindata` SET `market_price` = "'.$item['price'].'" WHERE `id` = "'.core::$db->res($item['id']).'";');
     core::$db->query('REPLACE INTO `ds_maindata_hint` SET `id` = "' . core::$db->res($item['id']) . '", `price` = "' . core::$db->res($item['pricem2']) . '", `link` = "' . core::$db->res($item['link']) . '", `text` = "' . core::$db->res($item['hint']) . '";');
     
-    
-    // данные для графика
+    // удаляем данные для графика
+    core::$db->query('DELETE FROM `lot_prices` WHERE `id` = "' . core::$db->res($item['id']) . '"');
+    // вставляем данные для графика
     if(!empty($item['prices'])) {
         foreach($item['prices'] as $price) {
             core::$db->query('INSERT INTO `lot_prices` (id, price) VALUES ("' . core::$db->res($item['id']) . '", "' . core::$db->res($price) . '")');

@@ -36,14 +36,28 @@ if(!$twr->num_rows)
 
 $data = $twr->fetch_assoc();
 
-//var_dump($data);
+//тип графика (техника)
+$graphType = 1;
+
+// если категория недвижимость берем среднее метр квадратный
+if($data['cat_id'] == 5 || $data['cat_id'] == 6) {
+    $m2price = $query = core::$db->query('SELECT * FROM `ds_maindata_hint` WHERE `id` = "' . $id . '" LIMIT 1');
+    $average = $m2price->fetch_assoc();
+    $graphType = 2;//недвижимость
+}
+
 $query = core::$db->query('SELECT * FROM `lot_prices` WHERE `id` = "' . $id . '" ORDER BY price ASC');
 $countLot = $query->num_rows;
 $similarDataPrice = array();
 
 if($countLot > 0 ) { 
     while($row = $query->fetch_assoc()) {
-        $row['average'] = $data['market_price'];
+        // если категория недвижимость берем среднее метр квадратный иначе рыночная стоимость
+        if($data['cat_id'] == 5 || $data['cat_id'] == 6) {
+            $row['average'] = $average['price'];
+        } else {
+            $row['average'] = $data['market_price'];
+        }
         $similarDataPrice[] = $row;
     }
 }
@@ -184,6 +198,8 @@ temp::assign('code_torg', $data['code']);
 if(!empty($similarDataPrice)) {
     temp::HTMassign('similarDataPrice', json_encode($similarDataPrice));
 }
+
+temp::assign('graphType', $graphType);
 
 if(isset($data_debt['dept_name']))
 {

@@ -250,7 +250,11 @@
     var chart = AmCharts.makeChart("grapch", {
   "type": "serial",
   "titles": [{
+        <? if($graphType == 1): ?>
         "text": "Цены на аналогичные товары",
+        <? else: ?>
+        "text": "Цена 1м2 аналогичных предложений",
+        <? endif; ?>
         "size": 15
     }],
   

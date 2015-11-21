@@ -298,7 +298,7 @@ if ($res->num_rows) {
 
     foreach ($out AS $key => $data) {
         $loc = array();
-        
+        $loc['id'] = $data['id'];
         $loc['loadtime'] = $data['loadtime'] * 1000;
         $loc['last_update'] = $data['last_update'] * 1000;
         //$loc['number'] = $tabledata->number($data['code'], $data['id']);

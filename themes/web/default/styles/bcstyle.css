@@ -319,7 +319,7 @@ td.firstt{
 }
 
 .data_table{
-    margin: 16px 0 16px 0;
+    margin: 0 0 16px 0;
 }
 
 .data_table tr th, .data_table tr th.sort_down, .data_table tr th.sort_up, .data_table tr th.no_sort{

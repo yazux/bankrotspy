@@ -350,6 +350,7 @@ img.avatar {
 .contbody {
     padding: 8px;
     border-bottom: #e4e4e4 solid 1px;
+    position:relative;
 }
 
 .contbody_forms {
@@ -981,7 +982,7 @@ padding: 10px 0px 10px 10px;
 }
 
 .top_nav_info, .bottomp_nav_info{
-    margin: 10px 5px -10px 20px;
+    margin: 10px 5px 10px 20px;
     display: none;
     font-weight: bold;
     font-size: 12px;
@@ -1039,6 +1040,16 @@ padding: 10px 0px 10px 10px;
     cursor:pointer;
 }
 
+.export {
+    display:none;
+    position:absolute;
+    right:7px;
+    top:0;
+    padding:0 10px;
+}
+.export:hover {
+    cursor:pointer;
+}
 
 .pagination {
     display: inline-block;
@@ -1144,4 +1155,42 @@ padding: 10px 0px 10px 10px;
 
 .minus, .minus:hover {
     color:#FF0000;
+}
+
+.export {
+    color:#ff9b24;
+}
+
+.export-block {
+    padding: 8px 20px;
+    display:none;
+    border-top: 1px solid #e4e4e4;
+}
+.export-table {
+    margin:10px 0;
+    border-top: 1px solid #e4e4e4;
+}
+.export-table td{
+    padding:5px 0;
+    vertical-align:top;
+}
+.export-table input[type="checkbox"], .export-table input[type="radio"] {
+    margin:0 5px;
+    bottom: -2px;
+    position:relative;
+}
+.export-table label {
+    font-size:13px;
+    display:block;
+}
+.export-table .group_input {
+    text-align:right;
+}
+.export-table .group_input label {
+    display:inline;
+    margin-right:10px;
+}
+
+.export-table .all{
+    vertical-align:bottom;
 }

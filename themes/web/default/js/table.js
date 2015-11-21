@@ -200,15 +200,17 @@ function answer_load(data)
             var current = new Date().getTime() - period;
             var loaded = this.loadtime;
             var updated = this.last_update;
+            var id = this.id;
             
             if (current < loaded) {
-                body_table += '<tr class="data_line new">';
+                body_table += '<tr class="data_line new" data-lotid="'+id+'">';
             } else if (current < updated) {
-                body_table += '<tr class="data_line updated">';
+                body_table += '<tr class="data_line updated" data-lotid="'+id+'">';
             } else {
-                body_table += '<tr class="data_line">';
+                body_table += '<tr class="data_line" data-lotid="'+id+'">';
             }
 
+            delete this.id;
             delete this.loadtime;
             delete this.last_update
             
@@ -256,8 +258,8 @@ function answer_load(data)
         }
         else
         {
-          $('.top_nav_info .results').parent().fadeOut(0);
-          $('.bottomp_nav_info .results').fadeOut(0);
+          $('.top_nav_info').fadeOut(0);
+          $('.bottomp_nav_info').fadeOut(0);
         }
 
         build_page_navigation(engine_settings.page, obj.count, engine_settings.kmess);
@@ -270,76 +272,68 @@ function answer_load(data)
     }
 }
 
-function create_head_mess(mess)
-{
-    $("#alltopmess").clearQueue();
-    $("#alltopmess").stop();
+function create_head_mess(mess) {
+    
+    var el = $("#alltopmess");
+    
+    $(el).clearQueue();
+    $(el).stop();
 
-    $('#alltopmess').text(mess);
-    $('#alltopmess').fadeIn(400);
-    $('#alltopmess').delay(4000).fadeOut(700);
+    $(el).text(mess);
+    
+    pos = $(el).width() / 2;
 
-}
-
-function create_head_mess_html(mess)
-{
-  $("#alltopmess").clearQueue();
-  $("#alltopmess").stop();
-
-  $('#alltopmess').html(mess);
-  $('#alltopmess').fadeIn(400);
-  $('#alltopmess').delay(4000).fadeOut(700);
+    $(el).css('margin-left', '-'+pos);
+    
+    $(el).fadeIn(400);
+    $(el).delay(4000).fadeOut(700);
 
 }
 
-function action_favorite(lot, action, item)
-{
-  if(action == 1)
-  {
-    //Удаляем из избранного
-    $.post(
-      "/tabledata/favorite",
-      {
-         itemid: lot,
-         actionid: action,
-         formid: engine_formid
-      },
-      function(data)
-      {
-        if(data == 'ok')
-          create_head_mess('Лот был удален из изранного!');
-        else
-        {
-          create_head_mess('Ошибка! Только для зарегистрированных пользователей!');
-          $(item).find('i').attr('class', 'icon-star-clicked');
-          $(item).find('i').attr('title', 'Удалить лот из избранного');
-        }
-      }
-    );
-  }
-  else
-  {
-    //добавляем в избранное
-    $.post(
-      "/tabledata/favorite",
-      {
+function create_head_mess_html(mess) {
+  
+  var el = $("#alltopmess");
+  
+  $(el).clearQueue();
+  $(el).stop();
+
+  $(el).html(mess);
+  $(el).fadeIn(400);
+  $(el).delay(4000).fadeOut(700);
+
+}
+
+function action_favorite(lot, action, item) {
+    var data = {
         itemid: lot,
         actionid: action,
         formid: engine_formid
-      },
-      function(data)
-      {
-        if(data == 'ok')
-          create_head_mess('Лот был добавлен в избранное!');
-        else
-        {
-          create_head_mess('Ошибка! Только для зарегистрированных пользователей!');
-          $(item).find('i').attr('class', 'icon-star-empty');
-          $(item).find('i').attr('title', 'Добавить лот в избранное');
-        }
-      }
-    );
-  }
+    };
+    
+    if(action == 1) {
+        //Удаляем из избранного
+        $.post("/tabledata/favorite", data, function(data) {
+            if (data == 'ok') {
+                create_head_mess('Лот был удален из изранного!');
+                $('.data_table').find('[data-lotid='+lot+']').remove();
+            } else {
+                create_head_mess('Ошибка! Только для зарегистрированных пользователей!');
+                $(item).find('i').attr('class', 'icon-star-clicked');
+                $(item).find('i').attr('title', 'Удалить лот из избранного');
+            }
+        });
+    } else {
+        //добавляем в избранное
+        $.post("/tabledata/favorite", data, function(data) {
+            if (data == 'ok') {
+                create_head_mess('Лот был добавлен в избранное!');
+            } else {
+                create_head_mess('Ошибка! Только для зарегистрированных пользователей!');
+                $(item).find('i').attr('class', 'icon-star-empty');
+                $(item).find('i').attr('title', 'Добавить лот в избранное');
+            }
+        });
+    }
 }
 
 function listen_to_favorite(item)
@@ -363,42 +357,24 @@ function listen_to_favorite(item)
   }
 }
 
-
-function connection_keeper()
-{
-  $.post(
-    "/connectionkeeper",
-    {
-      formid: engine_formid
-    },
-    function(data)
-    {
-      //ничего не делаем, только сохраняем подключение
+function connection_keeper() {
+    var data = {
+        formid: engine_formid
     }
-  );
+    $.post("/connectionkeeper", data, function(data){//ничего не делаем, только сохраняем подключение
+    });
 }
 
-
-
-function save_settings_and_load()
-{
-  
+function save_settings_and_load() {
     
-  var json_set = JSON.stringify(engine_settings);
-
-  $.post(
-    "/tabledata/savesettings",
-    {
-      jsettings: json_set,
-      formid: engine_formid
-    },
-
-    function(data)
-    {
-      //ничего не делаем
+    var json_set = JSON.stringify(engine_settings);
+    var data = {
+        jsettings: json_set,
+        formid: engine_formid
     }
-  );
-  load_table();
+    
+    $.post("/tabledata/savesettings", data, function(data) { });
+    load_table();
 }
 
 function compile_arr_set(obj)
@@ -430,37 +406,44 @@ function date_to_int(date)
     return '';
 }
 
-function load_table()
-{
-  //Активная категория
-  begin_loader();
-  $('.table_tab td span').removeClass("active_tab");
-  $('#bs_tab_' + engine_settings.category).addClass("active_tab");
+function load_table() {
+    //Активная категория
+    begin_loader();
+    
+    var id = engine_settings.category;
+    
+    $('.table_tab td span').removeClass("active_tab");
+    $('#bs_tab_' + id).addClass("active_tab");
 
-    $.post(
-        "/tabledata", {
-            somevar: 'tvybunwedowhduw2397ey9hd8ybhb83wecugwvevct',
-            formid: engine_formid,
-            category: engine_settings.category,
-            page: engine_settings.page,
-            kmess: engine_settings.kmess,
-            svalue: engine_settings.svalue,
-            types: compile_arr_set(engine_settings.types),
-            begin_date: date_to_int(engine_settings.begin_date),
-            end_date: date_to_int(engine_settings.end_date),
-            altint: engine_settings.altint,
-            price_start: engine_settings.price_start,
-            price_end: engine_settings.price_end,
-            type_price: engine_settings.type_price,
-            sortcolumn: engine_settings.sortcolumn,
-            sorttype: engine_settings.sorttype,
-            places: compile_arr_set(engine_settings.places),
-            platforms: compile_arr_set(engine_settings.platforms),
-            status: compile_arr_set(engine_settings.status),
-            new_lots: engine_settings.new_lots
-    },
-    answer_load
-  );
+    if(id == '-1') {
+        $('.export').show();
+    } else {
+        $('.export').hide();
+    }
+    
+    var data = {
+        somevar: 'tvybunwedowhduw2397ey9hd8ybhb83wecugwvevct',
+        formid: engine_formid,
+        category: engine_settings.category,
+        page: engine_settings.page,
+        kmess: engine_settings.kmess,
+        svalue: engine_settings.svalue,
+        types: compile_arr_set(engine_settings.types),
+        begin_date: date_to_int(engine_settings.begin_date),
+        end_date: date_to_int(engine_settings.end_date),
+        altint: engine_settings.altint,
+        price_start: engine_settings.price_start,
+        price_end: engine_settings.price_end,
+        type_price: engine_settings.type_price,
+        sortcolumn: engine_settings.sortcolumn,
+        sorttype: engine_settings.sorttype,
+        places: compile_arr_set(engine_settings.places),
+        platforms: compile_arr_set(engine_settings.platforms),
+        status: compile_arr_set(engine_settings.status),
+        new_lots: engine_settings.new_lots
+    }
+    
+    $.post("/tabledata", data, answer_load);
 
 }
 
@@ -907,4 +890,5 @@ $(document).ready(function(){
     );
 
   });
+
 });

@@ -187,7 +187,7 @@
 </div>
 
 <div class="content bs_index_table">
-    <div class="contbody" style="padding: 0px">
+    <div class="contbody" style="padding: 0; border:0;">
 
         <div id="table_default_set" style="display: none"><?=$table_default_set?></div>
         <div id="table_set" style="display: none"><?=$table_set?></div>
@@ -199,8 +199,125 @@
             <span class="updated"> - Обновленный лот</span>
             <span class="notupdated"> - Нет изменений</span>
         </div>
+        <? if(core::$user_id): ?>
+        <!--<span class="export">Сохранить избранное в файл</span>-->
         </div>
+        <script>
+            $(function(){
+                $('.export').click(function(){
+                    $('.export-block').slideToggle();
+                });
+                
+                $('#export').submit(function(e) {
+                    e.preventDefault();
+                    var action = $(document.activeElement).attr('data-action');
+                    
+                    $.ajax({
+                        type: 'POST',
+                        url: '/tabledata/export?action='+action,
+                        data: $(this).serialize(),
+                        success: function(result){
+                            var data = jQuery.parseJSON(result);
+                            if(data.status == 1) {
+                                $('.export-block').slideToggle();
+                                create_head_mess('Лоты успешно сохранены');
+                                load_table();
+                            } else if (data.status == 2) {
+                                window.location = data.url;
+                            } else {
+                                create_head_mess('Превышен лимит');
+                            }
+                            load_table();
+                        }
+                    });
+                });
+                
+                $('input[name=all]').click(function(){
+                    if($(this).is(':checked')) {
+                        $('input[name^="fields"]').each(function(){
+                            $(this).prop('checked',true);
+                        });
+                    } else {
+                        $('input[name^="fields"]').each(function(){
+                            $(this).removeAttr('checked');
+                        });
+                    }
+                });
+                
+            });
+        </script>
+            <div class="export-block">
+                <div>
+                Отметьте необходимые поля лотов и скачайте файл Excel, так же можно отправить файл на вашу почту, которую вы указали в личном кабинет.
+                </div>
+                <form method="post" id="export">
+                <? temp::formid() /* ЭТА ФУНКЦИЯ ОБЯЗАТЕЛЬНА ДЛЯ ВСЕХ ФОРМ!!! */?>
+                <table class="export-table">
+                    <tr>
+                        <td width="100">
+                            <label><input type="checkbox" name="fields[name]" checked>Название</label>
+                            <label><input type="checkbox" name="fields[type]" checked>Тип</label>
+                            <label><input type="checkbox" name="fields[region]" checked>Регион</label>
+                            <label><input type="checkbox" name="fields[category]" checked>Категория</label>
+                        </td>
+                        <td width="100px">
+                            <label><input type="checkbox" name="fields[begin_date]" checked>Дата начала</label>
+                            <label><input type="checkbox" name="fields[end_date]" checked>Дата окончания</label>
+                            <label><input type="checkbox" name="fields[status]" checked>Статус</label>
+                        </td>
+                        <td width="50px">
+                            <label><input type="checkbox" name="fields[begin_price]" checked>Начальная цена</label>
+                            <label><input type="checkbox" name="fields[current_price]" checked>Текущая цена</label>
+                            <label><input type="checkbox" name="fields[market_price]" checked>Рыночная цена</label>
+                        </td>
+                        <td width="50px">
+                            <label><input type="checkbox" name="fields[profit_rub]" checked>Доход, руб.</label>
+                            <label><input type="checkbox" name="fields[profit_percent]" checked>Доходность, %</label>
+                            <label><input type="checkbox" name="fields[drop_price]" checked>Понижение цены, %</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="100">
+                            <label><input type="checkbox" name="fields[bankrupt]" checked>Банкрот</label>
+                            <label><input type="checkbox" name="fields[case_number]" checked>Дело №</label>
+                            <label><input type="checkbox" name="fields[bankrupt_inn]" checked>ИНН банкрота</label>
+                        </td>
 
+                        <td width="100px">        
+                            <label><input type="checkbox" name="fields[organizer]" checked>Организатор торгов</label>
+                            <label><input type="checkbox" name="fields[organizer_inn]" checked>ИНН организатора</label>
+                            <label><input type="checkbox" name="fields[arbitrator]" checked>Арбитражный управляющий</label>
+                        </td>
+                        <td>
+                            <label><input type="checkbox" name="fields[contact_person]" checked>Контактное лицо</label>
+                            <label><input type="checkbox" name="fields[trades_link]" checked>Торги на площадке</label>
+                            <label><input type="checkbox" name="fields[fed_link]" checked>Лот на федресурсе</label>
+                        </td>
+                        <td class="all">
+                           
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <hr/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="100px">
+                         <label><input type="checkbox" name="all" checked>Отметить все поля</label>
+                            
+                        </td>
+                        <td colspan="3" class="group_input">
+                            <label><input type="checkbox" name="delete">Очистить избранное после сохранения</label>
+                            <input type="submit" class="urlbutton_index button_no_top_index" data-action="email" value="Отправить на почту">
+                            <input type="submit" class="urlbutton_index button_no_top_index" data-action="download" value="Скачать">
+                        </td>
+                    </tr>
+                </table>
+                </form>
+            </div>
+            <? endif; ?>
+        </div>
         <table class="data_table" >
             <tr>
                 <th colattr="undefined" style="background:white;border:0px;padding: 40px 0;font-size: 14px;"><i class="icon-spin5"></i> Загрузка...</th>
@@ -252,10 +369,12 @@
         columns_sort_listener(this);
     });
 
-
-
     $(document).on('click', '.table_tab td span', function(){
-        engine_settings.category = $(this).attr('attr');
+        var id = $(this).attr('attr');
+        if(id !== '-1' && $('.export-block').is(":visible")) {
+            $('.export-block').slideToggle();
+        }
+        engine_settings.category = id
         engine_settings.page = 1;
         save_settings_and_load();
     });
@@ -320,11 +439,21 @@
                 <?endif?>
                 <?$i++;?>
             <?endforeach?>
-
+            <tr>
+             <td>&nbsp;</td>
+            <td width="50%" style="font-weight:bold;">
+                <label>
+                    <input type="checkbox" name="place_number_0">
+                    Не определен
+                </label>
+                <br>
+            </td>
+            </tr>
             <?if(!$last_tr):?>
-            <td>&nbsp;</td></tr>
+            <td>&nbsp;</td>
+            </tr>
             <?endif?>
-
+            
             </table>
         </div>
         <div class="main_pop_bottom">
@@ -450,7 +579,9 @@
 </div>
 
 <div style="text-align: center; cursor:pointer;">
-    <a href="http://intrening.ru/lpop-auction-free-webinar/?idp=71953&utm_source=partner&utm_medium=cpa&utm_campaign=lpop-auction-free-webinar&utm_content=partner_71953&utm_term="><img src="<?=$themepath?>/images/banners/uu2.gif" /></a>
+    <a href="https://vk.com/money_mihalchenco">
+        <img src="http://bankrot-spy.ru/themes/web/default/images/banners/banner-bankrot.gif">
+    </a>
 </div>
 
 <div class="content" style="margin:8px 0 8px 16px;">
