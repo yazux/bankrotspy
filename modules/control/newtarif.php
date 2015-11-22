@@ -12,8 +12,10 @@ if(POST('submit'))
     $error[] = lang('name_too_long');
 
   $price = abs(intval(POST('price')));
-  if(!$price)
-    $error[] = lang('no_price');
+  /*if(!$price)
+    $error[] = lang('no_price');*/
+
+    $typetime = intval(POST('typetime'));
 
   $longtime = abs(intval(POST('longtime')));
   if(!$longtime)
@@ -37,6 +39,7 @@ if(POST('submit'))
     core::$db->query('INSERT INTO `ds_tariffs` SET
        `name` = "'.core::$db->res($name).'",
        `longtime` = "'.$longtime.'",
+       `typetime` = '.$typetime.',
        `price` = "'.$price.'" ,
        `rights` = "'.$rights.'",
        `descr` = "'.core::$db->res($descr).'" ,

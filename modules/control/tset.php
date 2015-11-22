@@ -3,6 +3,12 @@ defined('DS_ENGINE') or die('web_demon laughs');
 
 $res = core::$db->query('SELECT * FROM `ds_tariffs` ORDER BY `price` ASC;');
 $rmenu = array();
+
+$typetime = array(
+    'День',
+    'Месяц'
+);
+
 while($data = $res->fetch_array())
 {
   $loc = array();
@@ -11,6 +17,7 @@ while($data = $res->fetch_array())
   text::add_cache($data['cache']);
   $loc['subtext'] = text::out($data['descr'], 0, $data['id']);
   $loc['longtime'] = $data['longtime'];
+  $loc['typetime'] = $typetime[$data['typetime']];
   $loc['price'] = $data['price'];
   $rmenu[] = $loc;
 }

@@ -25,8 +25,13 @@
                         <input name="price" type="text" value="<?=$price?>"/>
                     </div>
                     <div class="contbody_forms">
-                        <b>Продолжительность действия, мес.:</b><br/>
-                        <input name="longtime" type="text" value="<?=$longtime?>"/>
+                        <b>Продолжительность:</b><br/>
+                        <input name="longtime" type="text" value="<?=$longtime?>"/><br/>
+                        <b>Тип периода:</b><br/>
+                        <select name="typetime">
+                            <option value="0" <? if($typetime == 0) echo 'selected'; ?>>День</option>
+                            <option value="1" <? if($typetime == 1) echo 'selected'; ?>>Месяц</option>
+                        </select>
                     </div>
                     <div class="contbody_forms">
                         <b>Права для тарифа</b><br/>

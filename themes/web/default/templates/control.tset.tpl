@@ -17,7 +17,8 @@
               <td>
                   <b><?=$rmenu['name']?></b> (<?=$rmenu['price']?> руб.)<br/>
                   <hr style="margin: 3px 6px 3px 8px"/>
-                  Доступ, мес: <?=$rmenu['longtime']?><br/>
+                  Доступ: <?=$rmenu['longtime']?><br/>
+                  Период: <?=$rmenu['typetime']?><br/>
                   <span style="font-size: 13px;color: #b1aea8;"><?=$rmenu['subtext']?></span>
               </td>
                 <td class="cont_act"><a title="Редактировать" href="<?=$home?>/control/tarifedit?id=<?=$rmenu['id']?>"><i class="icon-edit"></i></a></td>

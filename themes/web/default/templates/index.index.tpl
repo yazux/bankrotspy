@@ -220,14 +220,19 @@
                         data: $(this).serialize(),
                         success: function(result){
                             var data = jQuery.parseJSON(result);
-                            if(data.status == 1) {
-                                $('.export-block').slideToggle();
-                                create_head_mess('Лоты успешно сохранены');
+                            
+                            if(data.status == 0) {
+                                create_head_mess('Данная функция доступна на тарифном плане VIP.');
+                            } else if (data.status == 1) {
+                            
                             } else if (data.status == 2) {
                                 window.location = data.file;
+                            } else if (data.status == 2) {
+                                create_head_mess('Файл отправлен на почту');
                             } else {
-                                create_head_mess('Превышен лимит');
+                                 create_head_mess('Не предвиденная ошибка');
                             }
+
                             load_table();
                         }
                     });
@@ -340,6 +345,7 @@
 <div id="navigation_container"></div>
 
 <script type="text/javascript">
+    
     var engine_formid = <?=core::$formid?>;
     var engine_settings = jQuery.parseJSON($('#table_set').text());
     var default_settings = jQuery.parseJSON($('#table_default_set').text());
@@ -348,10 +354,11 @@
     var engine_home = '<?=$home?>';
     var engine_now_profile = '<?=$now_profile_id?>';
 
-    load_table();
+    
     $(document).ready(function()
     {
         restore_settings();
+        load_table();
     });
 
     $(document).on('click', '.data_table .icon_to_click', function(){

@@ -5,8 +5,31 @@ defined('DS_ENGINE') or die('web_demon laughs');
 if(!core::$user_id)
   exit('denied');
 
+
+/*
+//статусы ответа
+
+0 - не корректные данные
+1 - доступ запрещен
+2 - файл отправлен на почту
+3 - прямая скачка файла
+*/
+
 if(empty($_POST)) {
-    exit('denied');
+    $response = array(
+        'status'    => 0,
+        'message'   => 'Не корректные данные'
+    );
+    ajax_response($response);
+}
+
+// доступ только для вип и пробная подписка
+if(core::$rights !== 100 || core::$rights !== 11) {
+    $response = array(
+        'status'    => 1,
+        'message'   => 'Данная функция доступна на тарифном плане VIP.'
+    );
+    ajax_response($response);
 }
 
 require_once 'dscore/libs/PHPExcel.php';
@@ -15,13 +38,14 @@ require_once 'dscore/libs/phpmailer/PHPMailerAutoload.php';
 
 $query = $query = core::$db->query('SELECT * FROM `ds_user_export` WHERE `user_id` = "'.core::$user_id.'" AND FROM_UNIXTIME(`datetime`) >= (INTERVAL -1 DAY + curdate())');
 $countExport = $query->num_rows;
-if($countExport >= 5) {
+
+/*if($countExport >= 5) {
     $response = array(
         'status' => 3
     );
     
     echo json_encode($response);exit;
-}
+}*/
 
 
 $fields = $_POST['fields']; //запрошенные столбцы
@@ -393,9 +417,8 @@ if(isset($_GET['action']) && $_GET['action'] == 'download') {
         'status' => 2,
         'file' => $filename
     );
-    
-    echo json_encode($response);exit;
-    
+
+    ajax_response($response);    
 } else {
 
     $body = array(
@@ -415,7 +438,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'download') {
     }
     
     $response = array(
-        'status' => 1
+        'status' => 3
     );
     
     echo json_encode($response);

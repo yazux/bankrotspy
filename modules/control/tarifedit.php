@@ -22,12 +22,14 @@ if(POST('submit'))
     $error[] = lang('name_too_long');
 
   $price = abs(intval(POST('price')));
-  if(!$price)
-    $error[] = lang('no_price');
+  /*if(!$price)
+    $error[] = lang('no_price');*/
 
   $longtime = abs(intval(POST('longtime')));
   if(!$longtime)
     $error[] = lang('no_longtime');
+
+    $typetime = intval(POST('typetime'));
 
   $def_rights = array(10, 11);
   $rights = abs(intval(POST('rights')));
@@ -47,6 +49,7 @@ if(POST('submit'))
     core::$db->query('UPDATE `ds_tariffs` SET
        `name` = "'.core::$db->res($name).'",
        `longtime` = "'.$longtime.'",
+       `typetime` = "'.$typetime.'",
        `price` = "'.$price.'" ,
        `rights` = "'.$rights.'",
        `descr` = "'.core::$db->res($descr).'" ,
@@ -78,6 +81,11 @@ if(isset($price))
   temp::assign('price', $price);
 else
   temp::assign('price', $data['price']);
+
+if(isset($typetime))
+  temp::assign('typetime', $typetime);
+else
+  temp::assign('typetime', $data['typetime']);
 
 if(isset($longtime))
   temp::assign('longtime', $longtime);

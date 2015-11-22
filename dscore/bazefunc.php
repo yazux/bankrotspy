@@ -135,3 +135,9 @@ function ds_time($timestamp, $format = '')
   $rusformat = str_replace('%B2', lang('month_r_'.$month_number), $format);
   return strftime($rusformat, $timestamp);
 }
+
+function ajax_response($data) {
+	header("Content-type: application/json");
+	echo json_encode($data);
+	exit;
+}
