@@ -7,6 +7,7 @@ class core
     public static $all_langs;
     public static $module = 'index';       //Загружаемый модуль
     public static $action = 'index';       //Действие модуля
+    public static $folder;
     public static $ln;                     //языковой массив
     public static $db;                     //MySQLi
     public static $typetheme = 'pda';      //Тип темы
@@ -54,6 +55,7 @@ class core
         self::user();
         self::system_clean();
         self::cron_imitate();
+        //проверка подписки надо избавится от этого
         self::check_subsc();
     }
 
@@ -157,7 +159,18 @@ class core
         core::$db->next_result();
         $res = core::$db->store_result();
         while($data = $res->fetch_array()) {
-            $rights_arr[$data['id']] =  unserialize($data['rights']);
+            $group_rights = unserialize($data['rights']);
+            $rights = array();
+            
+            foreach ($group_rights as $group) {
+                if (is_array($group)) {
+                    foreach ($group as $key => $value) {
+                        $rights[$key] = $value;
+                    }
+                }
+            }
+           
+            $rights_arr[$data['id']] =  $rights;
         }
         self::$all_rights = $rights_arr;
     }
@@ -228,11 +241,21 @@ class core
   
     private static function initiate_module()
     {
+       
         self::$module = isset($_GET['core_mod']) ? $_GET['core_mod'] : self::$module;
+        self::$folder = isset($_GET['folder']) ? $_GET['folder'] : false;
         self::$action = isset($_GET['core_act']) ? $_GET['core_act'] : self::$action;
 
-        if(!preg_match('/[^0-9a-z\_]+/',self::$module) and !preg_match('/[^0-9a-z\_]+/',self::$action)) {
-            if(!file_exists('modules/'.self::$module.'/'.self::$action.'.php'))
+        if(!empty(self::$folder)) {
+            $file = 'modules/'.self::$module.'/'.self::$folder.'/'.self::$action.'.php';
+            $language = 'languages/'.self::$lang.'/'.self::$module.'/'.self::$folder.'/'.self::$action.'.lang';
+        } else {
+            $file = 'modules/'.self::$module.'/'.self::$action.'.php';
+            $language = 'languages/'.self::$lang.'/'.self::$module.'/'.self::$action.'.lang';
+        }
+
+        if(!preg_match('/[^0-9a-z\_]+/',self::$module) && !preg_match('/[^0-9a-z\_]+/',self::$action)) {
+            if(!file_exists($file))
                 self::error(3);
         } else {
             self::error(3);
@@ -243,10 +266,11 @@ class core
         if(file_exists('languages/'.self::$lang.'/'.self::$module.'/--inc.lang'))
             self::$ln = array_merge(self::parse_lang('languages/'.self::$lang.'/'.self::$module.'/--inc.lang'), self::$ln);  //языковой файл
 
-        if(file_exists('languages/'.self::$lang.'/'.self::$module.'/'.self::$action.'.lang'))
+        if(file_exists($language)) {
             self::$ln = array_merge(self::parse_lang('languages/'.self::$lang.'/'.self::$module.'/'.self::$action.'.lang'), self::$ln);  //языковой файл
-        else
+        } else {
             self::error(4);
+        }
     }
   
     public function error($error='')
@@ -301,7 +325,7 @@ class core
                 else
                     self::$user_set = array();
                 self::$user_mail = $data['mail'];  
-                
+
                 //дописать права и др.  
                 self::$rights = $data['rights'];
                 self::$last_post = $data['lastpost'];
@@ -440,6 +464,7 @@ class core
 
     private static function check_subsc()
     {
+        /*
         if(core::$user_id AND (core::$rights == 10 OR core::$rights == 11)) {
             if(core::$dest_time < time()) {
                 core::$db->query('UPDATE `ds_users` SET
@@ -452,5 +477,6 @@ class core
                 exit();
             }
         }
+        */
     }
 }

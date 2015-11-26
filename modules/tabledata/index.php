@@ -313,10 +313,15 @@ if ($res->num_rows) {
 
         
         
-        $access = true;
+        $access = false;
+        $vipAccess = false;
         
-        if (!core::$user_id) {
-            $access = false;
+        if (core::$user_id) {
+            $access = true;
+        }
+        
+        if(CAN('scores_debtor')) {
+            $vipAccess = true;
         }
         /*
             0 - ? 
@@ -362,7 +367,7 @@ if ($res->num_rows) {
         //}
         if ($category == 2) {
             //$loc['pricediff'] = $tabledata->pricediff($data['price_dif'], $data['platform_id'], $data['type']);
-            $loc['debpoints'] = $tabledata->debpoints($data['debpoints'], $data['debnotice'], $access);
+            $loc['debpoints'] = $tabledata->debpoints($data['debpoints'], $data['debnotice'], $vipAccess);
         }
 
         $loc['platform'] = $tabledata->platform($data['platform_id'], $data['auct_link'], $data['fedlink']);

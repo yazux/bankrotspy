@@ -14,5 +14,11 @@ new temp('themes/'.core::$typetheme.'/'.core::$theme.'/templates/');
 if(file_exists('modules/'.core::$module.'/--inc.php'))
   require_once('modules/'.core::$module.'/--inc.php');
 
-//подключаем модуль-действие
-require_once('modules/'.core::$module.'/'.core::$action.'.php');
+
+if(!empty(core::$folder)) {
+    //подключаем модуль-действие
+    require_once('modules/'.core::$module.'/'.core::$folder.'/'.core::$action.'.php');
+} else {
+    require_once('modules/'.core::$module.'/'.core::$action.'.php');
+}
+

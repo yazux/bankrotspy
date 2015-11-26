@@ -24,7 +24,7 @@ if(empty($_POST)) {
 }
 
 // доступ только для вип и пробная подписка
-if(core::$rights !== 100 || core::$rights !== 11) {
+if(CAN('export_favorites', 11)) {
     $response = array(
         'status'    => 1,
         'message'   => 'Данная функция доступна на тарифном плане VIP.'

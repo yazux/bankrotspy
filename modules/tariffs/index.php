@@ -36,7 +36,7 @@ while ($data = $res->fetch_array()) {
     );
 
     $loc['name'] =  $data['name'];
-    if (core::$user_id AND !CAN('paycontent', 0)) {
+    if (core::$user_id) {
         $loc['params'] = $http_params_one;
     } else {
         $loc['params'] = array();
@@ -49,7 +49,7 @@ while ($data = $res->fetch_array()) {
     $rmenu[] = $loc;
 }
 
-if (core::$user_id AND !CAN('paycontent', 0)) {
+if (core::$user_id) {
     $res = core::$db->query('UPDATE `ds_users` SET `ordertimeid` = "'.$ordertime.'" WHERE `id` = "'.core::$user_id.'";');
 }
 
@@ -62,7 +62,7 @@ engine_head(lang('tariffs'));
 temp::HTMassign('text', $text);
 temp::HTMassign('rmenu',$rmenu);
 
-if (core::$user_id AND !CAN('paycontent', 0)) {
+if (core::$user_id) {
     temp::assign('oos_payment_page', $oos_payment_page);
 }
 

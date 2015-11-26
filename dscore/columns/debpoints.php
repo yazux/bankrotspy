@@ -47,7 +47,7 @@ class column_debpoints
             $addition = ' onmouseover="toolTip(\''.text::st(str_replace("\n", '<br/>', str_replace("\r\n", "\n", $this->debnotice))).'\')" onmouseout="toolTip()" ';
         } else {
             $price = '<i class="fa fa-lock"></i>';
-            $addition = ' onmouseover="toolTip(\'Информация доступна для зарегистрированных пользователей\')" onmouseout="toolTip()" ';
+            $addition = ' onmouseover="toolTip(\'Информация доступна только на платной подписке VIP-доступ\')" onmouseout="toolTip()" ';
         }
     }
 

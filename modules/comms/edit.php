@@ -15,6 +15,8 @@ if(!$res->num_rows)
   denied();
 
 $data = $res->fetch_assoc();
+
+
 if((core::$user_id == $data['userid'] AND CAN('comm_self_edit', 0)) OR CAN('comm_delete', $data['rights']))
 { }
 else

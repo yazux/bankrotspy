@@ -30,11 +30,24 @@
                     <div class="contbody_forms">
                         <b>Права группы:</b><hr style="margin: 6px 0px"/>
 
-                        <?if($regm):?>
-                        <?foreach($regm as $key=>$value): ?>
-                        <input name="rights[]" <?if(in_array($key,$nowreg)):?>checked="checked"<?endif?> value="<?=$key?>" type="checkbox"/> <?=$value?><br/>
-                        <?endforeach?>
-                        <?endif?>
+                        <table>
+                            <tr>
+                                <th align="left">Общие права</th>
+                                <th align="left">Платный контент</th>
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                <? foreach($right_description['common'] as $key => $value): ?>
+                                <input name="rights[common][]" <?if(in_array($key,$rights['common'])):?>checked="checked"<?endif?> value="<?=$key?>" type="checkbox"/> <?=$value?><br/>
+                                <? endforeach; ?>
+                                </td>
+                                <td valign="top">
+                                <? foreach($right_description['paid'] as $key => $value): ?>
+                                <input name="rights[paid][]" <?if(in_array($key,$rights['paid'])):?>checked="checked"<?endif?> value="<?=$key?>" type="checkbox"/> <?=$value?><br/>
+                                <? endforeach; ?>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
 
                     <div class="contfin_forms">

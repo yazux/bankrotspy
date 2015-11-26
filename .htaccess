@@ -37,6 +37,10 @@ RewriteRule ^api/([0-9\.]{1,})/([a-z0-9]{1,})$ api/index.php?apiversion=$1&core_
 RewriteRule ^api/([0-9\.]{1,})/([a-z0-9]{1,})/([a-z0-9]{1,})$ api/index.php?apiversion=$1&core_mod=$2&core_act=$3 [QSA]
 
 ## core rewrite ##
+
+RewriteRule ^control/mail$ ?core_mod=control&folder=mail&core_act=index [QSA]
+RewriteRule ^control/mail/([a-z]+)$ ?core_mod=control&folder=mail&core_act=$1 [QSA]
+
 RewriteRule ^([a-z0-9]{1,})$ ?core_mod=$1&core_act=index [QSA]
 RewriteRule ^([a-z0-9]{1,})/([a-z0-9]{1,})$ ?core_mod=$1&core_act=$2 [QSA]
 

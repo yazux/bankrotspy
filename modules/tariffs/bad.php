@@ -2,7 +2,7 @@
 defined('DS_ENGINE') or die('web_demon laughs');
 
 //Чтоб не нервировать гостей и юзеров оформивших подписку
-if(!core::$user_id OR CAN('paycontent', 0))
+if(!core::$user_id)
   denied();
 
 $order_id = $_GET['orderId'];
@@ -24,7 +24,7 @@ if(count($ord_arr) == 4 AND $ord_arr[0] == core::$set['market_prefix'] AND user:
   mail_temp::assign('userid', $ord_arr[1]);
   mail_temp::assign('details', @$check['errorCode'].' / '.@$check['errorDescription'].' / '.$check['payment']['state']);
   $mail_body = mail_temp::get('mail_buy_err');
-  mail::send('analytic-spy@i-tt.ru', lang('mail_head_err').' '.$order_id.' ('.core::$set['site_name_main'].')', $mail_body);
+  mail::send('imbagroup@yandex.ru', lang('mail_head_err').' '.$order_id.' ('.core::$set['site_name_main'].')', $mail_body);
 
 
   engine_head(lang('tariffs'));

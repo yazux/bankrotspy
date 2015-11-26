@@ -1,5 +1,7 @@
 <?php
 
+require_once 'dscore/libs/phpmailer/PHPMailerAutoload.php';
+
 class Mailer extends Phpmailer
 {
     protected $config;
@@ -32,7 +34,10 @@ class Mailer extends Phpmailer
     public function setBody($template, array $data = array())
     {
         $file = $this->config . $template . '.tpl';
-        $template = file_get_contents($file);
+        if(file_exists($file)) {
+            $template = file_get_contents($file);
+        }
+        
         $this->Body = $this->parseStr($template, $data);
     }
     

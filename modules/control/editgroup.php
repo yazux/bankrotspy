@@ -1,5 +1,37 @@
 <?php
 
+/*
+array (
+    'common' => array(
+        'edit_user' => 1,
+        'del_user' => 1,
+        'edit_smiles' => 1,
+        'stats_create' => 1,
+        'stats_edit' => 1,
+        'stats_delete' => 1,
+        'comm_edit' => 1,
+        'comm_delete' => 1,
+        'ban_users' => 1,
+        'comm_self_edit' => 1,
+        'comm_self_delete' => 1,
+        'create_comm' => 1,
+        'tech_support' => 1,
+        'news_create' => 1,
+        'news_edit' => 1,
+        'news_delete' => 1,
+    ),
+    'paid' => array(
+        'export_favorites' => 1,
+        'rating_arbitration' => 1,
+        'scores_debtor' => 1,
+        'histogram_goods' => 1,
+        'cost_meter' => 1,
+        'planner_lots' => 1,
+        'document_creation' => 1
+    )
+)
+*/
+
 defined('DS_ENGINE') or die('web_demon laughs');
 
 $error = array();
@@ -12,31 +44,45 @@ if(!$id)
 if($id > 99 OR $id < 1)
   denied();
   
-$twr = core::$db->query('SELECT * FROM `ds_rights` WHERE `id` = "'.$id.'";');
+$query = core::$db->query('SELECT * FROM `ds_rights` WHERE `id` = "'.$id.'";');
 
-if ($twr->num_rows) {
-    $dt = $twr->fetch_assoc();  
+if ($query->num_rows) {
+    $result = $query->fetch_assoc();  
   
-    $currig = unserialize($dt['rights']);
-    $cur_rights = array();
-    foreach ($currig AS $kk=>$vv) {
-        $cur_rights[] = $kk;  
-    }  
+    $group_rights = unserialize($result['rights']);
+    $current_rights = array();
+    
+    foreach ($group_rights['common'] as $key => $value) {
+        $current_rights['common'][] = $key;  
+    }
+
+    foreach ($group_rights['paid'] as $key => $value) {
+        $current_rights['paid'][] = $key;  
+    }    
 
     $names_r =  core::parse_lang('data/lang_rights/descr.lang');
     $nr =  core::parse_lang('data/lang_rights/rights.lang');
 
-    $res = core::$db->query('SELECT * FROM `ds_rights` WHERE `id` = "100";');
-    $data = $res->fetch_array();
-    $descr = unserialize($data['rights']);
-    $all_desk = array();
-    $all_regs = array(); 
+    $query = core::$db->query('SELECT * FROM `ds_rights` WHERE `id` = "100";');
+    $result = $query->fetch_array();
+    $rights = unserialize($result['rights']);
+    
+    
+    $right_description = array(); //описание каждого поля
+    $all_rights = array(); // все права
   
-    foreach ($descr AS $key=>$value) {
-        $all_desk[$key] = $names_r[$key];
-        $all_regs[] = $key;  
+    //общие права на сайте
+    foreach($rights['common'] as $key => $value) {
+        $right_description['common'][$key] = $names_r[$key];
+        $all_rights['common'][] = $key;
     }
-
+    
+    //платный контент
+    foreach($rights['paid'] as $key => $value) {
+        $right_description['paid'][$key] = $names_r[$key];
+        $all_rights['paid'][] = $key;
+    }
+  
     $res = core::$db->query('SELECT * FROM `ds_rights` ORDER BY `id` DESC;');
     $rmenu = array();
     $all_ids = array();
@@ -69,26 +115,36 @@ if ($twr->num_rows) {
             $error[] = lang('wr_id_ren');
         }
         
-        $regime = POST('rights');
-        $new_regime = array();
-        
-        if (!$regime OR !is_array($regime)) {
+        $rights = POST('rights');
+        $new_rights = array();
+
+        if (!$rights || !is_array($rights)) {
             $error[] = lang('no_rights');
-            $regime = $new_regime;
+            $rights = $new_rights;
         } else {
             $loc_err = false;  
-            foreach ($regime AS $value) {
-                if (!in_array($value, $all_regs)) {
+            //общие права
+            foreach ($rights['common'] as $value) {
+                if (!in_array($value, $all_rights['common'])) {
                     $loc_err = true;
                 } else {
-                    $new_regime[] = $value;
+                    $new_rights['common'][] = $value;
                 }
             }
+            //платный контент
+            foreach ($rights['paid'] as $value) {
+                if (!in_array($value, $all_rights['paid'])) {
+                    $loc_err = true;
+                } else {
+                    $new_rights['paid'][] = $value;
+                }
+            }
+            
        
             if ($loc_err) {
                 $error[] = lang('wrong_rights');
             }
-            $regime = $new_regime;        
+            $rights = $new_rights;        
         }
       
         if (!$error) {
@@ -99,15 +155,21 @@ if ($twr->num_rows) {
             $rfile['short_'.$sid] = text::st($sname); 
       
             $outfile = '';
-            foreach ($rfile AS $key=>$value) {
+            foreach ($rfile as $key=>$value) {
                 $outfile .= $key.' = '.$value."\n";   
             }
             
             file_put_contents('data/lang_rights/rights.lang',$outfile,LOCK_EX);  
        
             $out_right = array();
-            foreach ($regime AS $skey=>$svalue) {
-                $out_right[$svalue] = 1;    
+            
+            // общие права
+            foreach ($rights['common'] as $key => $svalue) {
+                $out_right['common'][$svalue] = 1;    
+            }
+            // платный контент
+            foreach ($rights['paid'] as $key => $svalue) {
+                $out_right['paid'][$svalue] = 1;    
             }
        
             core::$db->query('DELETE FROM `ds_rights` WHERE `id`="'.$id.'";');
@@ -146,12 +208,13 @@ if ($twr->num_rows) {
   
     temp::assign('id', $id);
     temp::HTMassign('error', $error);
-    temp::HTMassign('regm', $all_desk);
-  
+    
+    temp::HTMassign('right_description', $right_description); // поля прав доступа
+
     if (POST('submit')) {
-        temp::HTMassign('nowreg', $regime);
+        temp::HTMassign('rights', $rights);
     } else {
-        temp::HTMassign('nowreg', $cur_rights);
+        temp::HTMassign('rights', $current_rights);
     }
 
     temp::display('control.editgroup');

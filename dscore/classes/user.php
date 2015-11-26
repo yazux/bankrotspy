@@ -76,21 +76,21 @@ class user
       return TRUE;
   }
 
-  public static function get_rights($short = 0)
-  {
-    if(!rem::exists('ds_rights_names'))
+    public static function get_rights($short = 0)
     {
-      $lang_rights = core::parse_lang('data/lang_rights/rights.lang');
-      $rights_arr = array();
-      foreach(core::$all_rights AS $key => $value)
-      {
-        if(!$short)
-          $rights_arr[$key] = $lang_rights['long_' . $key];
-        else
-          $rights_arr[$key] = $lang_rights['short_' . $key];
-      }
-      rem::remember('ds_rights_names', $rights_arr);
+        if(!rem::exists('ds_rights_names')) {
+            $lang_rights = core::parse_lang('data/lang_rights/rights.lang');
+            $rights_arr = array();
+            
+            foreach(core::$all_rights AS $key => $value)
+            {
+                if(!$short)
+                    $rights_arr[$key] = $lang_rights['long_' . $key];
+                else
+                    $rights_arr[$key] = $lang_rights['short_' . $key];
+            }
+            rem::remember('ds_rights_names', $rights_arr);
+        }
+        return rem::get('ds_rights_names');
     }
-    return rem::get('ds_rights_names');
-  }
 }

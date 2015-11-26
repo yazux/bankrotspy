@@ -58,7 +58,12 @@ function denied()
   $file_r = str_replace('\\','/',$file_error['file']);
   $file_r = str_replace($_SERVER['DOCUMENT_ROOT'],'',$file_r);
   echo '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru"><body>';
-  echo '<b>ACCESS ERROR!</b> Denied() called in "'.$file_r.'" <b>on line</b> '.$file_error['line'].'</body></html>';
+  
+  if(core::$rights == 100) {
+    echo '<b>ACCESS ERROR!</b> Denied() called in "'.$file_r.'" <b>on line</b> '.$file_error['line'].'</body></html>';
+  } else {
+    echo 'Доступ запрещен';
+  }
   exit();
 
   //header('Location: ' . core::$home);
@@ -102,26 +107,30 @@ function POST($string)
   return FALSE;
 }
 
-function CAN($what, $editing_rights)
+/*
+    функция прав
+*/
+function CAN($what, $editing_rights = 0)
 {
-  //Функция прав
-  if(core::$user_id)
-  {
-    $editing_rights = intval(abs($editing_rights));
-    $rights_arr = core::$all_rights;
+    
+    if (core::$user_id) {
+        $editing_rights = intval(abs($editing_rights));
+        $rights_arr = core::$all_rights;
 
-    //Определяем может ли юзер редачить $what
-    if(core::$rights < $editing_rights)
-      return FALSE;
-    else
-    {
-      if(!empty($rights_arr[core::$rights][$what]))
-        return TRUE;
-      else
-        return FALSE;
+        //Определяем может ли юзер редачить $what
+        if(core::$rights < $editing_rights) {
+            return false;
+        } else {
+            // есть ли доступ до данных
+            if (!empty($rights_arr[core::$rights][$what])) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
-  }
-  return FALSE;
+    
+    return false;
 }
 
 function ds_time($timestamp, $format = '')
