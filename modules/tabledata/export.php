@@ -23,6 +23,7 @@ if(empty($_POST)) {
     ajax_response($response);
 }
 
+
 // доступ только для вип и пробная подписка
 if(!CAN('export_favorites')) {
     $response = array(
@@ -148,7 +149,13 @@ $sql = 'SELECT `ds_maindata`.*,
 ';
 
 $query = core::$db->query($sql);
-
+if($query->num_rows == 0) {
+    $response = array(
+        'status'    => 0,
+        'message'   => 'У вас нет избранных лотов'
+    );
+    ajax_response($response);
+}
 //какие лоты есть в избранном для экспорта
 $lotsExport = array();   
 $i = 0;

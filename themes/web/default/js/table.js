@@ -147,7 +147,7 @@ function begin_loader()
     $(el).fadeOut(1);
 
     $(el).html(mess);
-    $(el).fadeIn(300);
+    $(el).fadeIn(100);
   } else {
     engine_global_loader = 1;
   }
@@ -297,7 +297,7 @@ function create_notify(mess) {
     $(el).css('left', left);
     $(el).css('bottom', top);
    
-    $(el).fadeIn(400);
+    $(el).fadeIn(100);
     $(el).delay(4000).fadeOut(700);
 
 }
