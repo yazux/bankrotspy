@@ -902,16 +902,12 @@ hr {
     position: fixed;
     width: 600px;
     max-width: 600px;
-    padding: 5px;
-    left: 50%;
-    margin-left: -420px;
-    top: 5px;
+    padding: 10px 15px;
+    left: 0;
     background: #ffefd2;
-    border: 1px solid #cd6a03;
+    border: 1px solid #ff9b24;
     color: #cd6a03;
     font-weight: bold;
-    border-radius: 5px 5px 5px 5px;
-    box-shadow: 0 0 14px rgba(0, 0, 0, 0.5);
     display: none;
     z-index: 999;
 }
@@ -922,18 +918,14 @@ hr {
     width: 200px;
     max-width: 120px;
     padding: 5px;
-    left: 50%;
-    margin-left: -10%;
-    top: 0px;
+    bottom: 0px;
     background: #faf4d4;
     border: 1px solid #d0ad34;
     color: #3a3a3a;
     font-weight: bold;
-    border-radius: 0px 0px 3px 3px;
     box-shadow: 0 0 14px rgba(130, 130, 130, 0.50);
     display: none;
     z-index: 999;
-    border-top: 0px;
 }
 
 a.newcounter_front {

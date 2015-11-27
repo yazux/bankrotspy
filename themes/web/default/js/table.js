@@ -127,27 +127,34 @@ function build_page_navigation(page, total, kmess)
 //Работа с данными
 function begin_loader()
 {
-  if(engine_global_loader)
-  {
+  if (engine_global_loader) {
     var mess = '<i class="icon-spin5"></i> Загрузка...';
+    var el = $('#loadmess');
+    
+    var window_height = $(window).height();
+    var window_width = $(window).width();
+    var el_width = $(el).width();
+    var el_height = $(el).height();
+    
+    var left = (window_width / 2) - (el_width / 2);
+    var top = (window_height / 2) - (el_height / 2);
+    
+    $(el).css('left', left);
+    $(el).css('bottom', top);
+    
+    $(el).clearQueue();
+    $(el).stop();
+    $(el).fadeOut(1);
 
-    $("#loadmess").clearQueue();
-    $("#loadmess").stop();
-    $('#loadmess').fadeOut(1);
-
-    $('#loadmess').html(mess);
-    $('#loadmess').fadeIn(300);
-  }
-  else
+    $(el).html(mess);
+    $(el).fadeIn(300);
+  } else {
     engine_global_loader = 1;
+  }
 }
 
 function end_loader()
 {
-  //$("#loadmess").clearQueue();
-  //$("#loadmess").stop();
-  //$('#loadmess').fadeIn(0);
-
     $('#loadmess').fadeOut(700);
     $('.data_table').stickyTableHeaders('destroy');
     $(".data_table").stickyTableHeaders();
@@ -155,7 +162,6 @@ function end_loader()
 
 function answer_load(data)
 {
-    //alert(data);
     if(data)
     {
         var obj = jQuery.parseJSON(data);
@@ -272,52 +278,48 @@ function answer_load(data)
     }
 }
 
-function create_head_mess(mess) {
+function create_notify(mess) {
     
     var el = $("#alltopmess");
     
     $(el).clearQueue();
     $(el).stop();
-
-    $(el).text(mess);
+    $(el).html(mess);
     
-    pos = $(el).width() / 2;
-
-    $(el).css('margin-left', '-'+pos);
+    var window_height = $(window).height();
+    var window_width = $(window).width();
+    var el_width = $(el).width();
+    var el_height = $(el).height();
     
+    var left = (window_width / 2) - (el_width / 2);
+    var top = (window_height / 2) - (el_height / 2);
+    
+    $(el).css('left', left);
+    $(el).css('bottom', top);
+   
     $(el).fadeIn(400);
     $(el).delay(4000).fadeOut(700);
 
 }
 
-function create_head_mess_html(mess) {
-  
-  var el = $("#alltopmess");
-  
-  $(el).clearQueue();
-  $(el).stop();
-
-  $(el).html(mess);
-  $(el).fadeIn(400);
-  $(el).delay(4000).fadeOut(700);
-
-}
-
-function action_favorite(lot, action, item) {
+function action_favorite(lot, action, item, hide = false) {
     var data = {
         itemid: lot,
         actionid: action,
         formid: engine_formid
     };
-    
+
     if(action == 1) {
         //Удаляем из избранного
         $.post("/tabledata/favorite", data, function(data) {
             if (data == 'ok') {
-                create_head_mess('Лот был удален из изранного!');
-                $('.data_table').find('[data-lotid='+lot+']').remove();
+                create_notify('Лот был удален из избранного!');
+                if(hide == true) {
+                    
+                    $('.data_table').find('[data-lotid='+lot+']').remove();
+                }
             } else {
-                create_head_mess('Ошибка! Только для зарегистрированных пользователей!');
+                create_notify('Ошибка! Только для зарегистрированных пользователей!');
                 $(item).find('i').attr('class', 'icon-star-clicked');
                 $(item).find('i').attr('title', 'Удалить лот из избранного');
             }
@@ -326,9 +328,9 @@ function action_favorite(lot, action, item) {
         //добавляем в избранное
         $.post("/tabledata/favorite", data, function(data) {
             if (data == 'ok') {
-                create_head_mess('Лот был добавлен в избранное!');
+                create_notify('Лот был добавлен в избранное!');
             } else {
-                create_head_mess('Ошибка! Только для зарегистрированных пользователей!');
+                create_notify('Ошибка! Только для зарегистрированных пользователей!');
                 $(item).find('i').attr('class', 'icon-star-empty');
                 $(item).find('i').attr('title', 'Добавить лот в избранное');
             }
@@ -336,8 +338,9 @@ function action_favorite(lot, action, item) {
     }
 }
 
-function listen_to_favorite(item)
+function listen_to_favorite(item, hide = false)
 {
+    
   var item_id = $(item).attr('attr');
   var now_class = $(item).find('i').attr('class');
 
@@ -346,14 +349,14 @@ function listen_to_favorite(item)
     //Кнопка уже нажата
     $(item).find('i').attr('class', 'icon-star-empty');
     $(item).find('i').attr('title', 'Добавить лот в избранное');
-    action_favorite(item_id, 1, item);
+    action_favorite(item_id, 1, item, hide);
   }
   else
   {
     //Кнопка не нажата
     $(item).find('i').attr('class', 'icon-star-clicked');
     $(item).find('i').attr('title', 'Удалить лот из избранного');
-    action_favorite(item_id, 0, item);
+    action_favorite(item_id, 0, item, hide);
   }
 }
 
@@ -560,7 +563,7 @@ function search_listener()
     save_settings_and_load();
   }
   else
-    create_head_mess_html(str_err);
+    create_notify(str_err);
 }
 
 function restore_settings()
@@ -814,7 +817,7 @@ $(document).ready(function(){
     if(answer == 'ok')
       location.href = engine_home;
     else
-      create_head_mess('Ошибка создания профиля!');
+      create_notify('Ошибка создания профиля!');
   }
 
   $(document).on('click', '#newprofile_popup_close', function(){
@@ -862,7 +865,7 @@ $(document).ready(function(){
           else
           {
             end_loader();
-            create_head_mess('При смене профиля возникла ошибка!');
+            create_notify('При смене профиля возникла ошибка!');
           }
         }
       );
@@ -888,7 +891,7 @@ $(document).ready(function(){
         else
         {
           end_loader();
-          create_head_mess('При удалении профиля возникла ошибка!');
+          create_notify('При удалении профиля возникла ошибка!');
         }
       }
     );

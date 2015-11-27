@@ -11,8 +11,8 @@ if(!core::$user_id)
 
 0 - не корректные данные
 1 - доступ запрещен
-2 - файл отправлен на почту
-3 - прямая скачка файла
+2 - прямая скачка файла
+3 - файл отправлен на почту
 */
 
 if(empty($_POST)) {
@@ -24,7 +24,7 @@ if(empty($_POST)) {
 }
 
 // доступ только для вип и пробная подписка
-if(CAN('export_favorites', 11)) {
+if(!CAN('export_favorites')) {
     $response = array(
         'status'    => 1,
         'message'   => 'Данная функция доступна на тарифном плане VIP.'
@@ -405,10 +405,10 @@ foreach($result as $row => $item) {
     
 }
 
-$datetime = date('d.m.Y H:i:s', time());
+$datetime = date('d.m.Y-H:i:s', time());
 
 $objWriter = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
-$filename = 'data/export/'.core::$user_id.'-' . $datetime . '.xlsx';
+$filename = 'data/export/bankrotspy_'.core::$user_id.'_' . $datetime . '.xlsx';
 $objWriter->save($filename);
 
 
@@ -430,7 +430,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'download') {
     $mail = mailer::factory('./data/engine/');    
     $mail->setSubject('Избранные лоты');
     $mail->setBody('export', $body);
-    $mail->addAttachment($filename, $datetime . '.xlsx');
+    $mail->addAttachment($filename);
     $mail->addAddress(core::$user_mail);
 
     if($mail->send()) {
@@ -438,7 +438,8 @@ if(isset($_GET['action']) && $_GET['action'] == 'download') {
     }
     
     $response = array(
-        'status' => 3
+        'status' => 3,
+        'message' => 'Файл отправлен на почту: ' . core::$user_mail
     );
     
     echo json_encode($response);

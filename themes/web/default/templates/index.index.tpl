@@ -200,14 +200,19 @@
             <span class="notupdated"> - Нет изменений</span>
         </div>
         <? if(core::$user_id): ?>
-        <?if(core::$rights == 100):?>
-        <span class="export">Сохранить избранное в файл</span>
-        <? endif; ?>
+        <span class="export"><i class="fa fa-long-arrow-down"></i> Сохранить избранное в файл</span>
         </div>
         <script>
             $(function(){
                 $('.export').click(function(){
-                    $('.export-block').slideToggle();
+                    var arrow = $(this).find('i');
+                    $('.export-block').slideToggle(function() {
+                        if($(this).is(':visible')) {
+                            $(arrow).removeClass('fa-long-arrow-down').addClass('fa-long-arrow-up');
+                        } else {
+                            $(arrow).removeClass('fa-long-arrow-up').addClass('fa-long-arrow-down');
+                        }
+                    });
                 });
                 
                 $('#export').submit(function(e) {
@@ -218,19 +223,14 @@
                         type: 'POST',
                         url: '/tabledata/export?action='+action,
                         data: $(this).serialize(),
-                        success: function(result){
-                            var data = jQuery.parseJSON(result);
-                            
-                            if(data.status == 0) {
-                                create_head_mess('Данная функция доступна на тарифном плане VIP.');
-                            } else if (data.status == 1) {
-                            
+                        dataType: 'json',
+                        success: function(data){
+                            if(data.status == 0 || data.status == 1 || data.status == 3) {
+                                create_notify(data.message);
                             } else if (data.status == 2) {
                                 window.location = data.file;
-                            } else if (data.status == 2) {
-                                create_head_mess('Файл отправлен на почту');
                             } else {
-                                 create_head_mess('Не предвиденная ошибка');
+                                 create_notify('Произошла ошибка!');
                             }
 
                             load_table();
@@ -362,7 +362,12 @@
     });
 
     $(document).on('click', '.data_table .icon_to_click', function(){
-        listen_to_favorite(this);
+        var tab = $('.active_tab').attr('attr');
+        if(tab == '-1') {
+            listen_to_favorite(this, true);
+        } else {
+            listen_to_favorite(this);
+        }
     });
 
     $(document).on('click', '#search_in_table', function(){
