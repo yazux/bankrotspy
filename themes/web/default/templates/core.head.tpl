@@ -21,8 +21,8 @@
 
     <script type="text/javascript" src="<?=$themepath?>/js/device.min.js"></script>
     <script type="text/javascript" src="<?=$themepath?>/js/number_format.js?id=<?=$now_id?>"></script>
-    <script type="text/javascript" src="<?=$themepath?>/js/some.js?id=<?=$now_id?>"></script>
     <script type="text/javascript" src="<?=$themepath?>/js/table.js?id=<?=$now_id?>"></script>
+    <script type="text/javascript" src="<?=$themepath?>/js/some.js?id=<?=$now_id?>"></script>
     <script type="text/javascript" src="<?=$themepath?>/js/stickyTableHeaders.js"></script>
     <script type='text/javascript' src='<?=$themepath?>/js/toolpit.js?id=<?=$now_id?>'></script>
 
@@ -52,7 +52,7 @@
 <div class="alltopmess" id="alltopmess"> </div>
 <?if($usc_mess_body):?>
    <script type="text/javascript">
-      engine_mess('<?=$usc_mess_body?>');
+      create_notify('<?=$usc_mess_body?>');
    </script>
 <?endif?>
 
