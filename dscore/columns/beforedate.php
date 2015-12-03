@@ -32,33 +32,32 @@ class column_beforedate
 
   public function process()
   {
-    $nowtime = strtotime(date('Y').'-'.date('n').'-'.date('j'));
-    $start_time = strtotime(date('Y', $this->time).'-'.date('n', $this->time).'-'.date('j', $this->time));
+    $nowtime = time();//strtotime(date('Y').'-'.date('n').'-'.date('j'));
+    $start_time =$this->time;// strtotime(date('Y', $this->time).'-'.date('n', $this->time).'-'.date('j', $this->time));
     $days = (($start_time - $nowtime + 3600)/3600/24);
-    if($days <= 0)
-    {
-      $end_time = strtotime(date('Y', $this->endtime).'-'.date('n', $this->endtime).'-'.date('j', $this->endtime));
-      if($nowtime <= $end_time)
-      {
-        //Определяем статус точнее
-        $before_close = array(3, 4, 5, 6);
-        if(in_array($this->intstatus, $before_close))
-        {
-          //Если пришел один из статусов окончания
-          $days = text::st($this->status);
+ 
+    $before_close = array(3, 4, 5, 6);
+    
+    if (in_array($this->intstatus, $before_close)) {
+        //Если пришел один из статусов окончания
+        $days = text::st($this->status);
+    } elseif ($days <= 0) {
+        $end_time = $this->endtime; //strtotime(date('Y', $this->endtime).'-'.date('n', $this->endtime).'-'.date('j', $this->endtime));
+       //var_dump($nowtime);
+       //var_dump($end_time);
+       //var_dump(date('H:i:s'));
+        if ($nowtime <= $end_time) {
+            if ($this->status == 'Оконченный') {
+                $days = 'Торги окончены';
+            } else {
+                $days = 'Приём заявок';
+            }
+        } else {
+            $days = 'Торги окончены';
         }
-        else
-          $days = 'Приём заявок';
-
-        if($days == 'Оконченный')
-          $days = 'Торги окончены';
-
-      }
-      else
-        $days = 'Торги окончены';
+    } else {
+        $days = round($days,0).' '.func::get_num_ending(round($days,0), array('день', 'дня', 'дней')).' до подачи заявок';
     }
-    else
-      $days = round($days,0).' '.func::get_num_ending(round($days,0), array('день', 'дня', 'дней')).' до подачи заявок';
 
 
     return array(
