@@ -19,10 +19,10 @@
                             <hr style="margin: 3px 6px 3px 8px"/>
                             <span style="font-size: 13px;"><?=$rmenu['undtext']?></span>
                         </td>
-                        <?if($rmenu['id'] != 0 AND $rmenu['id'] != 100):?>
+                        <? //if($rmenu['id'] != 0 AND $rmenu['id'] != 100): ?>
                         <td valign="top" class="cont_act"><a title="<?=lang('edit_link')?>" href="<?=$home?>/control/editgroup?id=<?=$rmenu['id']?>"><i class="icon-edit"></i></a></td>
                         <td valign="top" class="cont_act"><a title="<?=lang('del_link')?>" onclick="sup(<?=$rmenu['id']?>)" ><i class="icon-delete"></i></a></td>
-                        <?endif?>
+                        <? //endif; ?>
                     </tr>
                 </table>
 

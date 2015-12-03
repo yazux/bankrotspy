@@ -4,9 +4,13 @@ $error = array();
 
 $names_r =  core::parse_lang('data/lang_rights/descr.lang');
 $res = core::$db->query('SELECT * FROM `ds_rights` WHERE `id` = "100";');
-$data = $res->fetch_array();
 
-$rights = unserialize($data['rights']);
+if($res->num_rows) {
+    $data = $res->fetch_array();
+    $rights = unserialize($data['rights']);
+} else {
+    $rights = $defaultRights;
+}
 
 $right_description = array(); //описание каждого поля
 $all_rights = array(); // все права
@@ -43,11 +47,12 @@ if (POST('submit')) {
         $error[] = lang('max_sr_name');
     
     $sid = abs(intval(POST('gr_id')));
-    if(!$sid)
+    /*if(!$sid)
         $error[] = lang('no_id_name');
     elseif($sid > 99 OR $sid < 1)
         $error[] = lang('wr_id_name');
-    elseif(in_array($sid, $all_ids))
+    else*/
+    if(in_array($sid, $all_ids))
         $error[] = lang('wr_id_ren');
     
     $rights = POST('rights');

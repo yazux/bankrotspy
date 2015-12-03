@@ -128,16 +128,21 @@ if($data['cat_id'] != 0 AND $data['cat_id'] != 4 AND $data['cat_id'] != 8 AND $d
 // стоимость м.кв и ссылка на яндекс
 
 
-if($data['cat_id'] == 2)
-{
-  $needshow_deb_points = 1;
-  $debpoints = $tabledata->debpoints($data['debpoints'], $data['debnotice'], $access);
+if ($data['cat_id'] == 2) {
+    if(CAN('scores_debtor')) {
+        $vipAccess = true;
+    }
+    
+    $needshow_deb_points = 1;
+    $debpoints = $tabledata->debpoints($data['debpoints'], $data['debnotice'], $vipAccess);
 
-  if(isset($debpoints['addition']) AND $debpoints['addition'])
-    $additionhtmldeb = $debpoints['addition'];
+    if (isset($debpoints['addition']) AND $debpoints['addition']) {
+        $additionhtmldeb = $debpoints['addition'];
+    }
 
-  if(isset($debpoints['customclass']) AND $debpoints['customclass'])
-    $customclassdeb = $debpoints['customclass'];
+    if (isset($debpoints['customclass']) AND $debpoints['customclass']) {
+        $customclassdeb = $debpoints['customclass'];
+    }
 
   $debpoints = $debpoints['col'];
 }

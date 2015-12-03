@@ -1,55 +1,27 @@
 <?php
 
-/*
-array (
-    'common' => array(
-        'edit_user' => 1,
-        'del_user' => 1,
-        'edit_smiles' => 1,
-        'stats_create' => 1,
-        'stats_edit' => 1,
-        'stats_delete' => 1,
-        'comm_edit' => 1,
-        'comm_delete' => 1,
-        'ban_users' => 1,
-        'comm_self_edit' => 1,
-        'comm_self_delete' => 1,
-        'create_comm' => 1,
-        'tech_support' => 1,
-        'news_create' => 1,
-        'news_edit' => 1,
-        'news_delete' => 1,
-    ),
-    'paid' => array(
-        'export_favorites' => 1,
-        'rating_arbitration' => 1,
-        'scores_debtor' => 1,
-        'histogram_goods' => 1,
-        'cost_meter' => 1,
-        'planner_lots' => 1,
-        'document_creation' => 1
-    )
-)
-*/
-
 defined('DS_ENGINE') or die('web_demon laughs');
 
 $error = array();
 
 $id = abs(intval(GET('id')));
 
+/*
 if(!$id)
-  denied();
-
-if($id > 99 OR $id < 1)
-  denied();
+  denied();*/
+/*
+if($id > 99)
+  denied();*/
   
 $query = core::$db->query('SELECT * FROM `ds_rights` WHERE `id` = "'.$id.'";');
 
 if ($query->num_rows) {
     $result = $query->fetch_assoc();  
-  
     $group_rights = unserialize($result['rights']);
+} else {
+    $group_rights = $defaultRights;
+}
+    //var_dump($group_rights);
     $current_rights = array();
     
     foreach ($group_rights['common'] as $key => $value) {
@@ -106,14 +78,14 @@ if ($query->num_rows) {
         }
         
         $sid = abs(intval(POST('gr_id')));
-        
+        /*
         if (!$sid) {
             $error[] = lang('no_id_name');
         } elseif($sid > 99 OR $sid < 1) {
             $error[] = lang('wr_id_name');
         } elseif(in_array($sid, $all_ids)) {
             $error[] = lang('wr_id_ren');
-        }
+        }*/
         
         $rights = POST('rights');
         $new_rights = array();
@@ -219,6 +191,3 @@ if ($query->num_rows) {
 
     temp::display('control.editgroup');
     engine_fin();
-} else {
-    denied();
-}
