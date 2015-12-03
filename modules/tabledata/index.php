@@ -38,8 +38,8 @@ if ($price_start AND $price_end) {
 $altint = POST('altint');
 if ($altint) {
     $alt_arr = explode('-', $altint);
-    $first_alt = isset($alt_arr[0]) ? abs(intval($alt_arr[0])) : '' ;
-    $second_alt = isset($alt_arr[1]) ? abs(intval($alt_arr[1])) : '' ;
+    $first_alt = isset($alt_arr[0]) ? abs(intval($alt_arr[0])) : 0 ;
+    $second_alt = isset($alt_arr[1]) ? abs(intval($alt_arr[1])) : 0 ;
 }
 
 $begin_date = abs(intval(POST('begin_date')));
@@ -148,6 +148,8 @@ if(count(get_places(true)) != count($places) AND $places)
 if(count(get_platforms(true)) != count($platforms) AND $platforms)
   $conditions['platforms'] = ' `ds_maindata`.`platform_id` IN ('.implode(', ', $platforms).') ';
 
+
+//Дата начала и окончания торгов
 if(!$first_alt AND !$second_alt)
 {
   if($begin_date)
@@ -159,7 +161,7 @@ if(!$first_alt AND !$second_alt)
 
 if(!$begin_date AND !$end_date)
 {
-  $nowtime = strtotime(date('Y').'-'.date('n').'-'.date('j'));
+  $nowtime = time();//strtotime(date('Y').'-'.date('n').'-'.date('j'));
 
   if($first_alt AND $second_alt)
   {
@@ -181,7 +183,7 @@ if($status_need_future AND $status_need_now AND $status_need_last)
 else
 {
   $before_close = array(3, 4, 5, 6);
-  $edtime = strtotime(date('Y').'-'.date('n').'-'.date('j'));
+  $edtime = time();//strtotime(date('Y').'-'.date('n').'-'.date('j'));
   if($status_need_future)
     $conditions_or['status_start'] = ' `ds_maindata`.`start_time` > "' . $edtime . '" ';
   if($status_need_now)
