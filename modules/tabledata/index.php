@@ -47,8 +47,8 @@ $end_date = abs(intval(POST('end_date')));
 
 if ($end_date AND $begin_date) {
     if ($end_date < $begin_date) {
-        $end_date = '';
-        $begin_date = '';
+        $end_date = 0;
+        $begin_date = 0;
     }
 }
 if ($end_date) {
@@ -185,7 +185,7 @@ else
   $before_close = array(3, 4, 5, 6);
   $edtime = time();//strtotime(date('Y').'-'.date('n').'-'.date('j'));
   if($status_need_future)
-    $conditions_or['status_start'] = ' `ds_maindata`.`start_time` > "' . $edtime . '" ';
+    $conditions_or['status_start'] = ' `ds_maindata`.`start_time` > "' . $edtime . '" AND `ds_maindata`.`status` NOT IN ('.implode(', ', $before_close).')';
   if($status_need_now)
     $conditions_or['status_now'] = ' ( `ds_maindata`.`status` NOT IN ('.implode(', ', $before_close).') AND ( `ds_maindata`.`start_time` <= "' . $edtime . '" AND `ds_maindata`.`end_time` >= "' . $edtime . '" ) ) ';
   if($status_need_last)
