@@ -50,7 +50,8 @@ $query = core::$db->query('SELECT * FROM `lot_prices` WHERE `id` = "' . $id . '"
 $countLot = $query->num_rows;
 $similarDataPrice = array();
 
-if($countLot > 0 ) { 
+// надо минимум 2 значения для построения графика
+if($countLot > 1 ) { 
     while($row = $query->fetch_assoc()) {
         // если категория недвижимость берем среднее метр квадратный иначе рыночная стоимость
         if($data['cat_id'] == 5 || $data['cat_id'] == 6) {
