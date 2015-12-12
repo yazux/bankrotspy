@@ -13,6 +13,8 @@ $sorttype = intval(abs(POST('sorttype')));
 $tabledata = new tabledata($sortcolumn, $sorttype);
 $new_lots = POST('new_lots');
 
+$first_alt = 0;
+$second_alt = 0;
 
 
 $price_search = 'price';
@@ -276,9 +278,10 @@ $res = core::$db->query($main_sql);
 
 //echo core::$db->debugRawQuery();
 
-if($svalue)
-{
-  $item_arr = explode(' ', $svalue);
+$item_arr = [];
+
+if($svalue) {
+    $item_arr = explode(' ', $svalue);
 }
 
 $all_statuses = get_all_status();
@@ -294,6 +297,8 @@ if ($res->num_rows) {
         
         if (in_array($loc['id'], $fav_array)) {
             $loc['item'] = 1;
+        } else {
+            $loc['item'] = 0;
         }
         $out[] = $loc;
     }
@@ -373,6 +378,7 @@ if ($res->num_rows) {
         }
 
         $loc['platform'] = $tabledata->platform($data['platform_id'], $data['auct_link'], $data['fedlink']);
+        //var_dump($data);
         $loc['favorite'] = $tabledata->favorite($data['id'], $data['item']);
         $out2[] = $loc;
     }

@@ -37,7 +37,8 @@ class column_profitrub
     {
         $price = $this->price;
         $access = $this->access;
-    
+        $addition = '';
+        
         $color_red = false;
         if($price < 0)
             $color_red = true;

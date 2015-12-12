@@ -33,6 +33,7 @@ class column_marketprice
     {
         $price = $this->price;
         $access = $this->access;
+        $addition = '';
         
         if($price && $access) {
             $price = strrev($price);

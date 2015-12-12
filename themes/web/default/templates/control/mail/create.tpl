@@ -8,18 +8,37 @@
                 <div class="contbody_forms">
                                
                 </div>
-                <form action="<?=$home?>/control/mail/templates?save" method="post">
+                <form name="mess" action="<?=$home?>/control/mail/templates?save" method="post">
                 <? temp::formid() /* ЭТА ФУНКЦИЯ ОБЯЗАТЕЛЬНА ДЛЯ ВСЕХ ФОРМ!!! */?>
               
                 <div class="contbody_forms">
                     <b>Тема письма</b><br/>
                     <input type="text" name="template[<?= $item['id'] ?>][subject]" placeholder="Тема письма">
-                    <b>Текст письма</b><br/>
-                    <div class="texta">
-                        <textarea rows="5" name="template[<?= $item['id'] ?>][template]"><?= $item['template'] ?></textarea>
-                    </div>
                 </div>
 
+                <div class="contbody_forms">
+                        <b>Текст письма</b><br/>
+                        <?=func::tagspanel('messarea');?>
+                        <div class="texta"><textarea id="messarea" name="art_text" rows="15"><?=$text?></textarea></div>
+                </div>
+                
+                <div class="contbody_forms">
+                        <b>Файлы</b><br/>
+                        <input type="file" name="file" />
+                        <input type="submit" name="add_attachment" value="<?=lang('do_file')?>"/>
+                        <hr/>
+                        <?if($att_true):?>
+                        <br/>
+                        <b><?=lang('pr_files_n')?></b><hr/>
+                        <?foreach($out as $data):?>
+                        <i class="icon-doc-inv"></i> <input type="text" value="[<?=$data['type']?>=<?=$data['filename']?>]<?=$data['name']?>[/<?=$data['type']?>]"/> <b><a href="<?=$home?>/article/file<?=$data['id']?>/<?=$data['nameraw']?>"><?=$data['name']?></a></b>
+
+                        <input type="submit" name="del_attachment[<?=$data['id']?>]" value="<?=lang('del_th')?>"/>
+                        <hr/>
+                        <?endforeach?>
+                        <?endif?>
+                </div>
+                
                 <div class="contbody_forms">
                     <input type="submit" value="Сохранить" name="submit">
                 </div>

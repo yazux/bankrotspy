@@ -366,7 +366,7 @@
         if(tab == '-1') {
             listen_to_favorite(this, true);
         } else {
-            listen_to_favorite(this);
+            listen_to_favorite(this, false);
         }
     });
 

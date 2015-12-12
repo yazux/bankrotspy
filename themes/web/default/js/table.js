@@ -302,7 +302,7 @@ function create_notify(mess) {
 
 }
 
-function action_favorite(lot, action, item, hide = false) {
+function action_favorite(lot, action, item, hide) {
     var data = {
         itemid: lot,
         actionid: action,
@@ -338,7 +338,7 @@ function action_favorite(lot, action, item, hide = false) {
     }
 }
 
-function listen_to_favorite(item, hide = false)
+function listen_to_favorite(item, hide)
 {
     
   var item_id = $(item).attr('attr');

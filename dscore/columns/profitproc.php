@@ -39,7 +39,8 @@ class column_profitproc
         $access = $this->access;
     
         $color_red = false;
-    
+        $addition = '';
+        
         if($price < 0)
             $color_red = true;
 

@@ -24,7 +24,7 @@ class Mailer extends Phpmailer
         $this->SMTPAuth = true;                               // Enable SMTP authentication
         $this->Username = 'no-reply@bankrot-spy.ru';                 // SMTP username
         $this->Password = 'C7q3H3u9';                           // SMTP password
-        $this->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+        //$this->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
         $this->Port = 25;
         $this->isHTML(true);
         $this->CharSet = 'UTF-8';
