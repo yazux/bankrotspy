@@ -13,8 +13,8 @@ $sorttype = intval(abs(POST('sorttype')));
 $tabledata = new tabledata($sortcolumn, $sorttype);
 $new_lots = POST('new_lots');
 
-$first_alt = 0;
-$second_alt = 0;
+//$first_alt = 0;
+//$second_alt = 0;
 
 
 $price_search = 'price';
