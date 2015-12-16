@@ -62,6 +62,10 @@ class defaultset
         'places' => $places_def,
         'platforms' => $platforms_def,
         'status' => array(1=> 1, 2=>1, 3=> 0),
+        
+        
+        
+        
         'new_lots' => 0
     );
 
