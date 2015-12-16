@@ -1,6 +1,6 @@
 <?php
 defined('DS_ENGINE') or die('web_demon laughs');
-//var_dump($_POST);
+
 //Ключ, скорее для виду, сесcия доставит гораздо больше проблем =)
 $somevar = 'tvybunwedowhduw2397ey9hd8ybhb83wecugwvevct';
 if($somevar != POST('somevar'))
@@ -13,10 +13,8 @@ $sorttype = intval(abs(POST('sorttype')));
 $tabledata = new tabledata($sortcolumn, $sorttype);
 $new_lots = (bool)POST('new_lots');
 
-//var_dump($_POST);
-
-//$first_alt = 0;
-//$second_alt = 0;
+$first_alt = 0;
+$second_alt = 0;
 
 $price_search = 'price';
 $type_price = abs(intval(POST('type_price')));
