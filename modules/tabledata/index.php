@@ -1,6 +1,6 @@
 <?php
 defined('DS_ENGINE') or die('web_demon laughs');
-
+//var_dump($_POST);
 //Ключ, скорее для виду, сесcия доставит гораздо больше проблем =)
 $somevar = 'tvybunwedowhduw2397ey9hd8ybhb83wecugwvevct';
 if($somevar != POST('somevar'))
@@ -11,11 +11,12 @@ $category = intval(POST('category'));
 $sortcolumn = POST('sortcolumn');
 $sorttype = intval(abs(POST('sorttype')));
 $tabledata = new tabledata($sortcolumn, $sorttype);
-$new_lots = POST('new_lots');
+$new_lots = (bool)POST('new_lots');
 
-$first_alt = 0;
-$second_alt = 0;
+//var_dump($_POST);
 
+//$first_alt = 0;
+//$second_alt = 0;
 
 $price_search = 'price';
 $type_price = abs(intval(POST('type_price')));
@@ -207,6 +208,7 @@ if($price_start OR $price_end)
     $conditions['price_end_third'] = ' `ds_maindata`.`' . $price_search . '` > "0" ';
 }
 //выборка новых лотов за последние 48 часов
+//var_dump($new_lots);
 if(!empty($new_lots)) {
     $conditions['loadtime'] = ' FROM_UNIXTIME(`ds_maindata`.`loadtime`) > NOW() - INTERVAL 3 DAY ';
     $order_cond = ' ORDER BY `ds_maindata`.`loadtime` DESC ';

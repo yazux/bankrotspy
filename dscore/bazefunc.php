@@ -98,13 +98,13 @@ function smart_trim($string)
 
 function POST($string)
 {
-  if(isset($_POST[$string]))
-  {
-    if (is_array($_POST[$string]))
-      return $_POST[$string];
-    return smart_trim($_POST[$string]);
-  }
-  return FALSE;
+    if (isset($_POST[$string])) {
+        if (is_array($_POST[$string])) {
+            return $_POST[$string];
+        }
+        return smart_trim($_POST[$string]);
+    }
+    return false;
 }
 
 /*

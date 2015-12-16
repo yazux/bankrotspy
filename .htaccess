@@ -46,8 +46,3 @@ RewriteRule ^([a-z0-9]{1,})/([a-z0-9]{1,})$ ?core_mod=$1&core_act=$2 [QSA]
 
 ## fileload rewrite ##
 RewriteRule ^load/file([0-9]{1,11})/(.+?)$ ?core_mod=load&core_act=index&idfile=$1&fileload=$2 [QSA]
-
-
-
-
-
