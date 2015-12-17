@@ -430,7 +430,7 @@ class core
     private static function detect_devise()
     {
         $user_agent  = $_SERVER['HTTP_USER_AGENT'];
-        $accept      = $_SERVER['HTTP_ACCEPT'];
+        $accept      = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : '';
 
         $pda = 'pda';
         $wap = 'wap';

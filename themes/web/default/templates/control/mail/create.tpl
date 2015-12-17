@@ -25,7 +25,7 @@
                 <div class="contbody_forms">
                         <b>Файлы</b><br/>
                         <input type="file" name="file" />
-                        <input type="submit" name="add_attachment" value="<?=lang('do_file')?>"/>
+                        <input type="submit" name="add_attachment" value="Добавить"/>
                         <hr/>
                         <?if($att_true):?>
                         <br/>
@@ -33,7 +33,7 @@
                         <?foreach($out as $data):?>
                         <i class="icon-doc-inv"></i> <input type="text" value="[<?=$data['type']?>=<?=$data['filename']?>]<?=$data['name']?>[/<?=$data['type']?>]"/> <b><a href="<?=$home?>/article/file<?=$data['id']?>/<?=$data['nameraw']?>"><?=$data['name']?></a></b>
 
-                        <input type="submit" name="del_attachment[<?=$data['id']?>]" value="<?=lang('del_th')?>"/>
+                        <input type="submit" name="del_attachment[<?=$data['id']?>]" value="Удалить"/>
                         <hr/>
                         <?endforeach?>
                         <?endif?>

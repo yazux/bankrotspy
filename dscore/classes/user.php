@@ -9,7 +9,8 @@ class user
     $langcode = (!empty($langcode)) ? explode(';', $langcode) : $langcode;
     $langcode = (!empty($langcode['0'])) ? explode(',', $langcode['0']) : $langcode;
     $langcode = (!empty($langcode['0'])) ? explode('-', $langcode['0']) : $langcode;
-    return $langcode['0'];
+    $langcode = isset($langcode[0]) ? $langcode : '';
+    return $langcode;
   }
 
   public static function is_online($lastvisit)
