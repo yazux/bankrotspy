@@ -59,4 +59,3 @@ class column_debpoints
     );
   }
 }
-
