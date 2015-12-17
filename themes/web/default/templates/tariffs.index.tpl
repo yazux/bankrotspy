@@ -12,7 +12,7 @@
 
             </div>
 
-            <?if($rmenu):?>
+            <?if($rmenu && false == true):?>
 
             <?foreach($rmenu as $rmenu): ?>
 
@@ -52,9 +52,9 @@
             <?endforeach?>
 
             <?else:?>
-                <div class="content">
+                <!--<div class="content">
                     <div class="contbody_forms">Нет ни одного пункта меню.</div>
-                </div>
+                </div>-->
             <?endif?>
 
 
