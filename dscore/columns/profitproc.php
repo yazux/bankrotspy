@@ -41,12 +41,13 @@ class column_profitproc
         $color_red = false;
         $addition = '';
         
-        if($price < 0)
+        if ($price < 0) {
             $color_red = true;
-
-        if(!$price && $access) {
+        }
+        
+        if (!$price && $access) {
             $price = '-';
-        } elseif(!$access) {
+        } elseif (!$access) {
             $price = '<i class="fa fa-lock"></i>';
         }
   

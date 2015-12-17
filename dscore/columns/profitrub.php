@@ -40,10 +40,11 @@ class column_profitrub
         $addition = '';
         
         $color_red = false;
-        if($price < 0)
+        if ($price < 0) {
             $color_red = true;
-
-        if($price && $access) {
+        }
+        
+        if ($price && $access) {
 
             $price = strrev($price);
             $chars = preg_split('//', $price, -1, PREG_SPLIT_NO_EMPTY);
