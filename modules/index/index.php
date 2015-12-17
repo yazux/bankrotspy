@@ -107,6 +107,7 @@ while($data = $res->fetch_array())
 
 //Настройки по умолчанию
 $set_table_array = defaultset::get(array($types_def, $places_def, $platforms_def));
+$new_lots = $set_table_array['new_lots'];
 
 //Сохраненный поиск пользователя
 if(core::$user_id AND isset(core::$user_set['tabledata']) AND core::$user_set['tabledata'])
