@@ -130,6 +130,9 @@ if($data['cat_id'] != 0 AND $data['cat_id'] != 4 AND $data['cat_id'] != 8 AND $d
 
 
 if ($data['cat_id'] == 2) {
+    
+    $vipAccess = false;
+    
     if(CAN('scores_debtor')) {
         $vipAccess = true;
     }
