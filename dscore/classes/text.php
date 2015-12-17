@@ -56,6 +56,9 @@ class text
     $string = preg_replace('#\[(left|center|right)\](.+?)\[/\1\]#si', '\2', $string);
     $string = preg_replace_callback('#\[spoiler\](.+?)\[\/spoiler\](\<br \/\>)?|\[spoiler(\=|\ )([^\n\]]*)\](.+?)\[\/spoiler\](\<br \/\>)?#si', array('self', 'sp_del_call'), $string);
     $string = preg_replace_callback('~\\[url=(https?://(www.)?[0-9a-zа-яё\.-]+\.[0-9a-zа-яё]{2,6}[0-9a-zа-яё/\?\.\~&amp;_=/%-:#]*)\\](.+?)\\[/url\\]|(https?://(www.)?[0-9a-zа-яё\.-]+\.[0-9a-zа-яё]{2,6}[0-9a-zа-яё/\?\.\~&amp;_=/%-:#]*)~ui', array('self', 'url_replace_del'), $string);
+    
+    //$string = preg_replace('#\[url=mailto:[^\]]+]([^\[]+)[/url]#', '$1', $string);
+    
     $string = preg_replace('#\[hr\](\<br \/\>)?#si', '', $string);
     $string = preg_replace('#\[youtube\](.+?)\[/youtube\]#i', '\1', $string);
     $string = preg_replace('/\[(file|img)\=([^\n\&\/\"\\\\<\>\+\&\;\:]{1,200})\](.*?)\[\/\1\]/', '\3', $string);
@@ -215,6 +218,8 @@ class text
     //Парсинг ссылок
     $string = preg_replace_callback('~\\[url=(https?://(www.)?[0-9a-zа-яё\.-]+\.[0-9a-zа-яё]{2,6}[0-9a-zа-яё/\?\.\~&amp;_=/%-:#]*)\\](.+?)\\[/url\\]|(https?://(www.)?[0-9a-zа-яё\.-]+\.[0-9a-zа-яё]{2,6}[0-9a-zа-яё/\?\.\~&amp;_=/%-:#]*)~ui', array('self', 'url_replace'), $string);
 
+    $string = preg_replace('#\[url=mailto:[^\]]+]([^\[]+)\\[/url]#', '<a href="mailto:$1">$1</a>', $string);
+    
     $string = preg_replace_callback('#\[math\](.*?)\[/math\]#si', array('self', 'math2image'), $string);
     $string = preg_replace_callback('#\[youtube\=' . core::$smile_code . '\]([0-9a-z\-\_]{11})\[/youtube\]#si', array('self', 'youtube_return'), $string);
     $string = preg_replace('#\[smile\:\:([0-9]+?)\.(png|gif)\|' . core::$smile_code . '\]#si', '<img src="' . core::$home . '/images/smiles/\1.\2"/>', $string);
