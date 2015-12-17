@@ -9,12 +9,13 @@
                 </div>
                 <? endif; ?>
                 <div class="contbody_forms">
-                    
+                    <? if ($access == 1): ?>
                     <form style="display:block;margin-bottom:20px;">
                         <input type="text" name="search" placeholder="Название, ИНН, E-mail, Телефон">&nbsp;
                         <input type="submit" class="urlbutton_index button_no_top_index" value="Найти">
                         <a class="urlbutton_index button_no_top_index" href="/amc/">Очистить</a>
                     </form>
+                    <? endif; ?>
                     
                     <div class="results">
                         <? if(!$search): ?>
@@ -36,35 +37,13 @@
                         <tr>
                             <td width="400"><a class="namelink" href="<?= core::$home ?>/amc/<?= $item['id'] ?>" target="_blank"><?= $item['name'] ?></a></td>
                             <td align="center" width="150">
-                                <? if($item['totaldoc'] < 3 && $item['totaldoc'] > 0 ): ?>
-                                    <? $rating = 'Мало данных'; ?>
-                                <? elseif($item['totaldoc'] == 0): ?>
-                                    <? $rating = 'Нет данных'; ?>
-                                <? elseif($item['rating'] > 5): ?>
-                                    <? 
-                                        $rating = '<a class="plus" href="' . core::$home . '/amc/' . $item['id'] . '" target="_blank">' . $item['rating'] . '</a>';
-                                    ?>
-                                <? else: ?>
-                                    <?
-                                        $rating = '<a class="minus" href="' . core::$home . '/amc/' . $item['id'] . '" target="_blank">' . $item['rating'] . '</a>';
-                                    ?>
-                                <? endif; ?>
-                                <?= $rating ?>
-                            
+                                <?= $item['rating'] ?>
                             </td>
                             <td align="center" width="150">
-                            <? if(!empty($item['totaldoc'])): ?>
-                                <a class="namelink" href="<?= $item['linkdocs'] ?>" target="_blank">Смотреть</a>
-                            <? else: ?>
-                                Нет данных
-                            <? endif; ?>
+                            <?= $item['linkdocs'] ?>
                             </td>
                             <td align="center" width="150">
-                             <? if(!empty($item['fasdocs'])): ?>
-                                <a class="namelink" href="<?= $item['fasdocs'] ?>" target="_blank">Смотреть</a>
-                            <? else: ?>
-                                Нет данных
-                            <? endif; ?>
+                                <?= $item['fasdocs'] ?>
                             </td>
                             <td align="center" width="150"><?= $item['email'] ?></td>
                             <td align="center" width="150"><?= !empty($item['phone']) ? $item['phone'] : ''; ?></td>

@@ -15,7 +15,7 @@
                         </tr>
                         <tr>
                             <td width="200"><b>Телефон:</b></td>
-                            <td><?= !empty($data['phone']) ? intval($data['phone']) : 'Нет'; ?></td>
+                            <td><?= $data['phone'] ?></td>
                         </tr>
                         <tr>
                             <td width="200"><b>ИНН:</b></td>
@@ -24,53 +24,25 @@
                         <tr>
                             <td width="200"><b>Рейтинг:</b></td>
                             <td>
-                                <? if($data['totaldoc'] < 3 && $data['totaldoc'] > 0 ): ?>
-                                    <? $rating = 'Мало данных'; ?>
-                                <? elseif($data['totaldoc'] == 0): ?>
-                                    <? $rating = 'Нет данных'; ?>
-                                <? elseif($data['bal'] > 5): ?>
-                                    <? 
-                                        $rating = '<span class="plus">' . $data['bal'] . '</span>';
-                                    ?>
-                                <? elseif($data['bal'] <= 5): ?>
-                                    <?
-                                        $rating = '<span  class="minus">' . $data['bal'] . '</span>';
-                                    ?>
-                                <? endif; ?>
-                                <?= $rating ?>
+                                <?= $data['rating'] ?>
                             </td>
                         </tr>
                         <tr>
                             <td width="200"><b>Документы судов:</b></td>
                             <td>
-                            <? if(!empty($data['totaldoc'])): ?>
-                                <a href="<?= $data['linkdocs'] ?>" target="_blank">Смотреть</a>
-                            <? else: ?>
-                                Нет данных
-                            <? endif; ?>
+                            <?= $data['linkdocs'] ?>
                             </td>
                         </tr>
                         <tr>
                             <td width="200"><b>Документы ФАС:</b></td>
                             <td>
-                            <? if(!empty($data['fasdocs'])): ?>
-                                <a href="<?= $data['fasdocs'] ?>" target="_blank">Смотреть</a>
-                            <? else: ?>
-                                Нет данных
-                            <? endif; ?>
+                            <?= $data['fasdocs'] ?>
                             </td>
                         </tr>
                         <tr>
                             <td width="200"><b>Профиль на федресурсе:</b></td>
                             <td>
-                            <? if(!empty($data['arbitr_profile'])): ?>
-                                <? $link = '<a href="' . $data['arbitr_profile'] . '" target="_blank">Смотреть</a>' ?>
-                            <? elseif(!empty($data['org_profile'])): ?>
-                                <? $link = '<a href="' . $data['arbitr_profile'] . '" target="_blank">Смотреть</a>' ?>
-                            <? else: ?>
-                                <? $link = 'Нет'; ?>
-                            <? endif; ?>
-                            <?= $link ?>
+                            <?= $data['arbitr_profile'] ?>
                             </td>
                         </tr>
                     </table>

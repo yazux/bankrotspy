@@ -8,7 +8,7 @@ $sql_calc = 'SQL_CALC_FOUND_ROWS';
 
 
 // поиск
-if (!empty($search) && strlen($search) >= 4 ) {
+if (!empty($search) && strlen($search) >= 4 && $access === true) {
     $s = core::$db->res(GET('search'));
     
     $query = core::$db->query('SELECT ' . $sql_calc . ' * FROM `ds_maindata_organizers` WHERE 
@@ -31,23 +31,47 @@ if (!empty($search) && strlen($search) >= 4 ) {
     $_SESSION['hash'] = md5($query->num_rows);
 }
 
-$data = array();
+$data = [];
 $i = 0;
 while($row = $query->fetch_assoc()) {
     
-    $data[$i]['id'] = $row['id'];
-    $data[$i]['name'] = str_replace(array('ИП ', 'ИП'), '', $row['org_name']);
-    $data[$i]['phone'] = intval($row['phone']);
-    if($row['totaldoc'] > 0) {
-        $data[$i]['rating'] = $row['bal'];
+    if ($row['totaldoc'] > 0 && $row['totaldoc'] < 3) {
+        $rating = 'Мало данных';
+    } elseif($row['totaldoc'] == 0) {
+        $rating = 'Нет данных';
+    } elseif ($row['bal'] > 5 ) {
+        $rating = '<a class="plus" href="' . core::$home . '/amc/' . $row['id'] . '" target="_blank">' . $row['bal'] . '</a>';
     } else {
-        $data[$i]['rating'] = 'Нет данных';
+        $rating = '<a class="minus" href="' . core::$home . '/amc/' . $row['id'] . '" target="_blank">' . $row['bal'] . '</a>';
     }
-    $data[$i]['totaldoc'] = $row['totaldoc'];
-    $data[$i]['linkdocs'] = $row['linkdocs'];
-    $data[$i]['fasdocs'] = $row['fasdocs'];
-    $data[$i]['email'] = $row['mail'];
+    
+    if (!empty($row['totaldoc'])) {
+        $linkdocs = '<a class="namelink" href="' . $row['linkdocs'] . '" target="_blank">Смотреть</a>';
+    } else {
+        $linkdocs = 'Нет данных';
+    }
+    
+    if(!empty($row['fasdocs'])) {
+        $fasdocs = '<a class="namelink" href="' . $row['fasdocs'] .'" target="_blank">Смотреть</a>';
+    } else {
+        $fasdocs = 'Нет данных';
+    }
+    
+    
+ 
+    $data[$i]['id'] = $row['id'];
+    $data[$i]['name'] = str_replace(['ИП ', 'ИП'], '', $row['org_name']);
+    $data[$i]['phone'] = ($access === true) ? intval($row['phone']) : $access;
+    $data[$i]['rating'] = ($access === true) ? $rating : $access;
+    $data[$i]['fasdocs'] = ($access === true) ? $fasdocs : $access;
+    $data[$i]['linkdocs'] = ($access === true) ? $linkdocs : $access;
+    
+    $data[$i]['totaldoc'] = ($access === true)? $row['totaldoc'] : $access;
+
+    $data[$i]['email'] = ($access === true) ? $row['mail'] : $access;
+
     $i++;
+    
 }
 
 
@@ -93,6 +117,8 @@ temp::HTMassign('textData', text::out($textData['text'], 0));
 temp::assign('start', $start);
 temp::assign('end', $end);
 temp::assign('total', $total);
+
+temp::assign('access', $access);
 
 temp::HTMassign('pagination', $pagination);
 temp::HTMassign('data', $data);

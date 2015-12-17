@@ -2,6 +2,7 @@
 
 defined('DS_ENGINE') or die('web_demon laughs');
 
+/*
 if(!core::$user_id) { 
     
     $message = 'Для просмотра данной страницы вам необходимо <a href="/login">авторизоваться</a> или <a href="/user/register">зарегистрироваться</a> на сайте.';
@@ -23,4 +24,12 @@ if(!CAN('rating_arbitration')) {
     temp::HTMassign('message', $message);
     temp::display('access.denied');
     engine_fin();
+}*/
+
+$access = true;
+
+if(!core::$user_id) {
+    $access = '<i class="fa fa-lock" onmouseout="toolTip()" onmouseover="toolTip(\'Информация доступна для зарегистрированных пользователей\')"></i>';
+} elseif (!CAN('rating_arbitration')) {
+    $access = '<i class="fa fa-lock" onmouseover="toolTip(\'Информация доступна на подписке VIP\')"></i>';
 }
