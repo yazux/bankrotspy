@@ -602,53 +602,58 @@ function restore_settings()
 
 function clean_set_listener()
 {
-  engine_settings.svalue = '';
-  $('[name="svalname"]').val('');
+    engine_settings.svalue = '';
+    $('[name="svalname"]').val('');
 
-  var new_types = {};
-  $.each(default_settings.types, function(key, val) {
-    $('[name="type_auct_' + key + '"]').prop('checked', true);
-  });
-  engine_settings.types = default_settings.types;
+    var new_types = {};
+    $.each(default_settings.types, function(key, val) {
+        $('[name="type_auct_' + key + '"]').prop('checked', true);
+    });
+    engine_settings.types = default_settings.types;
 
-  $.each(default_settings.status, function(key, val) {
-    $('[name="status_auct_' + key + '"]').prop('checked', false);
-  });
-  var new_status = {};
-  $.each(default_settings.status, function(key, val) {
-    if(val==1)
-      $('[name="status_auct_' + key + '"]').prop('checked', true);
-  });
-  engine_settings.status = default_settings.status;
+    $.each(default_settings.status, function(key, val) {
+        $('[name="status_auct_' + key + '"]').prop('checked', false);
+    });
+    
+    var new_status = {};
+    
+    $.each(default_settings.status, function(key, val) {
+        if(val==1)
+            $('[name="status_auct_' + key + '"]').prop('checked', true);
+    });
+    engine_settings.status = default_settings.status;
 
-  engine_settings.begin_date = '';
-  engine_settings.end_date = '';
-  $('[name="begin_set_date"]').val('');
-  $('[name="end_set_date"]').val('');
+    engine_settings.begin_date = '';
+    engine_settings.end_date = '';
+    $('[name="begin_set_date"]').val('');
+    $('[name="end_set_date"]').val('');
+    
+    $('[name="new_lots"]').prop('checked',false);
+    engine_settings.new_lots = 0;
+  
+    $('[name="altintconf"]').val('');
+    engine_settings.altint = '';
 
-  $('[name="altintconf"]').val('');
-  engine_settings.altint = '';
+    $('[name="price_start"]').val('');
+    $('[name="price_end"]').val('');
+    engine_settings.price_start = '';
+    engine_settings.price_end = '';
 
-  $('[name="price_start"]').val('');
-  $('[name="price_end"]').val('');
-  engine_settings.price_start = '';
-  engine_settings.price_end = '';
+    $("input[name=type_price][value='" + default_settings.type_price + "']").prop("checked",true);
+    engine_settings.type_price = default_settings.type_price;
 
-  $("input[name=type_price][value='" + default_settings.type_price + "']").prop("checked",true);
-  engine_settings.type_price = default_settings.type_price;
+    $('#place_table input[type="checkbox"]').prop('checked', true);
+    engine_settings.places = default_settings.places;
+    place_set_listener();
 
-  $('#place_table input[type="checkbox"]').prop('checked', true);
-  engine_settings.places = default_settings.places;
-  place_set_listener();
+    $('#platform_table input[type="checkbox"]').prop('checked', true);
+    engine_settings.platforms = default_settings.platforms;
+    platform_set_listener();
 
-  $('#platform_table input[type="checkbox"]').prop('checked', true);
-  engine_settings.platforms = default_settings.platforms;
-  platform_set_listener();
+    //Cбрасываем страницу
+    engine_settings.page = 1;
 
-  //Cбрасываем страницу
-  engine_settings.page = 1;
-
-  save_settings_and_load();
+    save_settings_and_load();
 }
 
 function platform_set_listener()
