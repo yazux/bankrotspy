@@ -688,21 +688,20 @@ function listen_namepop(item)
 function place_set_listener()
 {
     'use strict';
-
-  //Регионы
-  var new_places = {};
-  var choosen = 0;
-
-  $.each(default_settings.places, function(key, val) {
-    if($('[name="place_number_' + key + '"]').prop('checked'))
-    {
-      new_places[key] = 1;
-      choosen++;
+    //Регионы
+    var new_places = {};
+    var choosen = 0;
+    
+    if(typeof default_settings !== 'undefined') {
+        $.each(default_settings.places, function(key, val) {
+            if ($('[name="place_number_' + key + '"]').prop('checked')) {
+                new_places[key] = 1;
+                choosen++;
+            }
+        });
+        $('#total_places_set').text(choosen);
+        engine_settings.places = new_places;
     }
-  });
-
-  $('#total_places_set').text(choosen);
-  engine_settings.places = new_places;
 }
 
 $(document).ready(function(){
