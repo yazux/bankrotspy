@@ -56,7 +56,7 @@ foreach ($narr AS $key=> $value)
   }
 
   //Пытаемся перенаправить юзера к новым комментам
-  if($arr['new_comm_count'])
+  if(isset($arr['new_comm_count']))
     $arr['page_to_go'] = ceil(($arr['comm_count']-$arr['new_comm_count'])/nav::$kmess);
 
 
