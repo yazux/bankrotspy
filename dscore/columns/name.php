@@ -121,8 +121,8 @@ class column_name
                     if ($val) {
                         //Это какой-то дурдом. Работает и хер с ним.
                         preg_match('/' . preg_quote($val) . '/ui', $text, $matches, PREG_OFFSET_CAPTURE);
-                        var_dump($matches);
-                        if($matches[0][0])
+                        //var_dump($matches);
+                        if(isset($matches[0][0]))
                             $pos = mb_strpos($text, $matches[0][0]);
                         break;
                     }
