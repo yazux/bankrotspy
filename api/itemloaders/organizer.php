@@ -45,7 +45,7 @@ class loader_organizer
   private function get_inn($dname)
   {
     preg_match('/([0-9]{10,12})/siu', $dname, $find);
-    return trim($find[1]);
+    return isset($find[1]) ? trim($find[1]) : '';
   }
 
   public function process()

@@ -227,6 +227,7 @@
                         success: function(data){
                             if(data.status == 0 || data.status == 1 || data.status == 3) {
                                 create_notify(data.message);
+                                $('.export-block').slideToggle();
                             } else if (data.status == 2) {
                                 window.location = data.file;
                             } else {

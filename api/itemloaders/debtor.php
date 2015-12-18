@@ -17,11 +17,12 @@ class loader_debtor
     return(trim(str_replace($inn, '',$dname)));
   }
 
-  private function get_inn($dname)
-  {
-    preg_match('/([0-9]{10,12})/siu', $dname, $find);
-    return trim($find[1]);
-  }
+    private function get_inn($dname)
+    {
+        preg_match('/([0-9]{10,12})/siu', $dname, $find);
+        
+        return isset($find[1]) ? trim($find[1]) : '';
+    }
 
   private function good_quotes($dname)
   {
