@@ -96,7 +96,7 @@ class SQLResult extends MySQLi_Result
     public function insertId()
     {
         $all = $this->fetch_all();
-        return count($all);
+        return $this->insert_id;
     }
     
     public function fetch()
