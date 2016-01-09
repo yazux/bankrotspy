@@ -41,7 +41,11 @@ class ipinit {
             return $ip3;
         }
         else {
-            die('Unknown IP');
+            if (php_sapi_name() == "cli") {
+                
+            } else {
+                die('Unknown IP');
+            }
         }
     }
 

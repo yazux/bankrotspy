@@ -13,7 +13,7 @@ $fileType = $_GET['type'];
 $fileName = strtolower(basename($_FILES[$fileType]['name']));
 $fileSource = $_FILES[$fileType]['tmp_name'];
 
-if (!empty(intval($_GET['id']))) {
+if (!empty($_GET['id'])) {
     $id = intval($_GET['id']);
     $uploadDir = 'data/mailing/' . $id . '/';
     $uploadfile = $uploadDir . $fileName;
@@ -30,7 +30,7 @@ if($_GET['action'] == 'upload') {
     // если редактируем
     if(!empty($id)) {
         if(upload($fileSource, $uploadfile)) {
-            core::$db->query('INSERT INTO `mail_mailing` (`mail_id`, `name`, `type`) 
+            core::$db->query('INSERT INTO `mail_mailing_files` (`mail_id`, `name`, `type`) 
                                 VALUES("'.$id.'", "'.$fileName.'", "'.$fileType.'")');
             $response = [
                 'error' => 0,
@@ -58,8 +58,9 @@ if($_GET['action'] == 'upload') {
 
 //удаление
 if($_GET['action'] == 'delete') {
+    $fileName = $_GET['file'];
     if(!empty($id)) {
-        core::$db->query('DELETE `mail_mailing` WHERE name = "'.$fileName.'"');
+        core::$db->query('DELETE FROM `mail_mailing_files` WHERE name = "'.$fileName.'" AND mail_id = "'.$id.'"');
         $uploadfile = 'data/mailing/' . $id . '/' . $_GET['file'];
         unlink($uploadfile);
     } else {

@@ -1,5 +1,7 @@
 <?php
 
+phpinfo();exit;
+
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
 require_once 'dscore/libs/phpmailer/PHPMailerAutoload.php';

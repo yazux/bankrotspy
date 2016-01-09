@@ -3,7 +3,13 @@
         <td valign="top">
             <div class="content">
                 <div class="conthead"><h2><i class="icon-user-male"></i> <?=lang('u_online')?></h2></div>
-
+                    
+                <div class="contbody_forms">
+                    <form style="display:block;margin-bottom:20px;">
+                        <input type="text" placeholder="id, логин или e-mail" name="search">
+                        <input class="urlbutton_index button_no_top_index" type="submit" value="искать">
+                    </form>
+               </div> 
                 <?if($out):?>
                 <?foreach($out as $out): ?>
                 <div class="contbody_forms">
@@ -27,6 +33,7 @@
                                 <span class="status"><?=$out['rights']?></span><br/>
                                 <?=lang('now')?> <?if($out['online']):?><span class="us_on"> <?=lang('lang_on_anc')?></span><?else:?><span class="us_off"> <?=lang('lang_off_anc')?></span><?endif?>
                             </div>
+                            <a href="/user/editprofile?id=<?=$out['id']?>">Редактировать</a>
                         </td>
                     </tr>
                 </table>

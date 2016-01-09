@@ -1,5 +1,13 @@
 <?php
 
+if (php_sapi_name() == "cli") {
+    foreach ($argv as $arg) {
+        $arg = explode('=', $arg);
+        if (count($arg) > 1) {
+           $_GET[$arg[0]] = $arg[1]; 
+        }
+    }
+}
 //error_reporting(E_ALL);
 //ini_set('display_errors', 'On');
 

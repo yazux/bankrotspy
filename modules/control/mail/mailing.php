@@ -37,45 +37,92 @@ if(isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id']))
     func::notify('Рассылка', 'Рассылка успешно удалена', core::$home . '/control/mail/mailinglist');
 }
 
+// функция обработки текста
+function prepare_text($text, $images, $dir)
+{
+    $replace_files = function($match) use ($images, $dir) {
+        if(in_array($match[2], $images)) {
+            $link = core::$home . '/' . $dir . '/' .$match[2];
+            $image = '<a target="_blank" href="'.$link.'"><img alt="'.$match[3].'" src="'.$link.'"></a>';
+            return $image;
+        }
+        return $match[2];
+    };
+    
+    $text = preg_replace_callback('/\[(file|img)\=([^\n\&\/\"\\\\<\>\+\&\;\:]{1,200})\](.*?)\[\/\1\]/', $replace_files, $text);
+    return $text;
+}
+
+
 if (!empty($_POST)) {
     
     $subject = $_POST['subject'];
-    $text = $_POST['text'];
+    $text = $_POST['text_source'];
     $groups = json_encode($_POST['groups']);
+    $mailId = !empty($_POST['id']) ? intval($_POST['id']) : 0;
     
-    $mailId = core::$db->insert('INSERT INTO `mail_mailing` (`groups`, `subject`, `text`, `created`) 
-                                    VALUES ("'.core::$db->res($groups).'", "'.core::$db->res($subject).'", "'.core::$db->res($text).'", "'.time().'")');
-
-    $dir = 'data/mailing/' . $mailId;
-    mkdir($dir, 0777);
-    
-    if (!empty($_POST['images'])) {
-        foreach ($_POST['images'] as $image) {
-            core::$db->insert('INSERT INTO `mail_mailing_files` (`mail_id`, `name`, `type`) 
+    // обновляем рассылку
+    if(!empty($mailId)) {
+        
+        $dir = 'data/mailing/' . $mailId;
+        
+        $text_compiled = prepare_text($text, $_POST['images'], $dir);
+        $text_compiled = text::out($text_compiled);
+        
+        core::$db->query('UPDATE `mail_mailing` SET 
+                            `text_source` = "'.core::$db->res($text).'",
+                            `text_compiled` = "'.core::$db->res($text_compiled).'",
+                            `subject` = "'.core::$db->res($subject).'",
+                            `groups` = "'.core::$db->res($groups).'"
+                            
+        ');
+        $message = 'Рассылка успешно обновлена';
+        
+    } else {
+        $mailId = core::$db->insert('INSERT INTO `mail_mailing` (`groups`, `subject`, `text_source`, `created`) 
+                                   VALUES ("'.core::$db->res($groups).'", 
+                                            "'.core::$db->res($subject).'", 
+                                            "'.core::$db->res($text).'", 
+                                            "'.time().'")');
+        
+        $dir = 'data/mailing/' . $mailId;
+        mkdir($dir, 0777);
+        
+        $text_compiled = prepare_text($text, $_POST['images'], $dir);
+        $text_compiled = text::out($text_compiled);
+        
+        core::$db->query('UPDATE `mail_mailing` SET `text_compiled` = "'.core::$db->res($text_compiled).'"');
+        
+        $message = 'Рассылка успешно создана';
+        
+        if (!empty($_POST['images'])) {
+            foreach ($_POST['images'] as $image) {
+                core::$db->insert('INSERT INTO `mail_mailing_files` (`mail_id`, `name`, `type`) 
                                 VALUES ("'.$mailId.'", "'.$image.'", "image")');
             
-            $tmpFile = 'data/tmp/mailing/' . $image;
-            $file = $dir . '/' . $image;
+                $tmpFile = 'data/tmp/mailing/' . $image;
+                $file = $dir . '/' . $image;
             
-            copy($tmpFile, $file);
-            unlink($tmpFile);
+                copy($tmpFile, $file);
+                unlink($tmpFile);
+            }
         }
-    }
     
-    if (!empty($_POST['files'])) {
-        foreach ($_POST['files'] as $file) {
-            core::$db->insert('INSERT INTO `mail_mailing_files` (`mail_id`, `name`, `type`) 
+        if (!empty($_POST['files'])) {
+            foreach ($_POST['files'] as $file) {
+                core::$db->insert('INSERT INTO `mail_mailing_files` (`mail_id`, `name`, `type`) 
                                 VALUES ("'.$mailId.'", "'.$file.'", "attachments")');
             
-            $tmpFile = 'data/tmp/mailing/' . $file;
-            $file = $dir . '/' . $file;
+                $tmpFile = 'data/tmp/mailing/' . $file;
+                $file = $dir . '/' . $file;
             
-            copy($tmpFile, $file);
-            unlink($tmpFile);
+                copy($tmpFile, $file);
+                unlink($tmpFile);
+            }
         }
     }
 
-    func::notify('Рассылка', 'Рассылка успешно создана', core::$home . '/control/mail/mailinglist');
+    func::notify('Рассылка', $message, core::$home . '/control/mail/mailinglist');
 }
 
 // редактирование рассылки

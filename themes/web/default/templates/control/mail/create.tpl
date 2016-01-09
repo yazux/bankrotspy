@@ -10,7 +10,7 @@
                 </div>
                 <form name="mess" action="<?=$home?>/control/mail/mailing" method="post">
                 <? temp::formid() /* ЭТА ФУНКЦИЯ ОБЯЗАТЕЛЬНА ДЛЯ ВСЕХ ФОРМ!!! */?>
-              
+                <input type="hidden" name="id" value="<?= $mail['id'] ?>" />
                 <div class="contbody_forms">
                     <b>Группы подписчиков</b><br/>
                     <label>
@@ -38,7 +38,7 @@
                 <div class="contbody_forms">
                         <b>Текст письма</b><br/>
                         <?=func::tagspanel('messarea');?>
-                        <div class="texta"><textarea id="messarea" name="text" rows="15"><?= $mail['text'] ?></textarea></div>
+                        <div class="texta"><textarea id="messarea" name="text_source" rows="15"><?= $mail['text_source'] ?></textarea></div>
                         <hr/>
                         <b>Изображения</b><br/><br/>
                         <a class="button upload">
@@ -53,7 +53,7 @@
                             <div>
                                 <span class="field" contenteditable="true">[img=<?= $image['name'] ?>]<?= $image['name'] ?>[/img]</span>
                                     <input type="hidden" name="images[]" value="<?= $image['name'] ?>"/>&nbsp;&nbsp;
-                                    <span><?= $image['name'] ?></span>&nbsp;&nbsp;
+                                    <b><?= $image['name'] ?></b>&nbsp;&nbsp;
                                     <a id="delete" class="button">Удалить</a>
                                 </div>
                             <? endforeach; ?>
@@ -74,7 +74,7 @@
                         <hr/>
                         <div>
                             <input type="hidden" name="files[]" value="<?= $file['name'] ?>"/>
-                            <span><?= $file['name'] ?></span>&nbsp;&nbsp;
+                            <b><?= $file['name'] ?></b>&nbsp;&nbsp;
                             <a id="delete" class="button">Удалить</a>
                         </div>
                         <? endforeach; ?>
@@ -105,7 +105,7 @@ $(function(){
         form.append(fileType, fileName);
         
         $.ajax({
-            url : '/control/mail/files?action=upload&type='+fileType+'&id='<?= $id ?>,
+            url : '/control/mail/files?action=upload&type='+fileType+'&id=<?= $mail['id'] ?>',
             type : 'POST',
             dataType: 'json',
             data : form,
@@ -113,10 +113,10 @@ $(function(){
             contentType: false,
             success : function(data) {
                 if (fileType == 'image') {
-                    var template = '<hr/><div><span class="field" contenteditable="true">[img='+data.name+']'+data.name+'[/img]</span><input type="hidden" name="images[]" value="'+data.name+'"/>&nbsp;&nbsp;<span>'+data.name+'</span>&nbsp;&nbsp;<a id="delete" class="button">Удалить</a></div>';
+                    var template = '<hr/><div><span class="field" contenteditable="true">[img='+data.name+']'+data.name+'[/img]</span><input type="hidden" name="images[]" value="'+data.name+'"/>&nbsp;&nbsp;<b>'+data.name+'</b>&nbsp;&nbsp;<a id="delete" class="button">Удалить</a></div>';
                     $('.images').append(template);
                 } else {
-                    var template = '<hr/><div><input type="hidden" name="files[]" value="'+data.name+'"/><span>'+data.name+'</span>&nbsp;&nbsp;<a id="delete" class="button">Удалить</a></div>';
+                    var template = '<hr/><div><input type="hidden" name="files[]" value="'+data.name+'"/><b>'+data.name+'</b>&nbsp;&nbsp;<a id="delete" class="button">Удалить</a></div>';
                     $('.attachments').append(template);
                 }
             }
@@ -127,10 +127,10 @@ $(function(){
     $('.content').on('click', '#delete',  function(e){
         e.preventDefault();
         var div = $(this).parent();
-        var file = $(this).parent().find('span').html();
+        var file = $(this).parent().find('b').html();
             
         $.ajax({
-            url : '/control/mail/files?action=delete&file=' + file + '&id=' <?= $id ?>,
+            url : '/control/mail/files?action=delete&file=' + file + '&id=<?= $mail['id'] ?>',
             type : 'POST',
             dataType: 'json',
             success : function(data) {
