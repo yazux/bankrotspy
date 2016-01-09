@@ -24,7 +24,7 @@
     <div style="position:relative;padding:25px;border-bottom: 1px solid #c7c7c7;background-color:#ffffff;">
         <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
             <tr>
-                <td align="left"><a style="text-decoration:none;font-size:14px;" target="_blank" href="http://bankrot-spy.ru">Команда Банкротный шпион</a></td>
+                <td align="left"><a style="text-decoration:none;font-size:14px;" target="_blank" href="http://bankrot-spy.ru">РљРѕРјР°РЅРґР° Р‘Р°РЅРєСЂРѕС‚РЅС‹Р№ С€РїРёРѕРЅ</a></td>
                 <td align="right"><a target="_blank" href="https://vk.com/bankrotspy"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYxIDY0LjE0MDk0OSwgMjAxMC8xMi8wNy0xMDo1NzowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNS4xIE1hY2ludG9zaCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2NjQ1NkJDQ0M0NDYxMUUxOTVERDgzRDQ5NTNEODQ0RSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo2NjQ1NkJDREM0NDYxMUUxOTVERDgzRDQ5NTNEODQ0RSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjY2NDU2QkNBQzQ0NjExRTE5NUREODNENDk1M0Q4NDRFIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjY2NDU2QkNCQzQ0NjExRTE5NUREODNENDk1M0Q4NDRFIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+t2OckAAAAeBJREFUeNpkUs9LW0EQ3nl5KBpF0UKteNQKXpqKeGrtrQT0LFZQ9A8QihdBvLYU/4R4KErx4EWoiKUXaaGgQZEixIoX0SD+jDxJFM3bXb+ZfQlpOzxm5+1+38y3s0Nn1/mPiz/3s1cekVJWKWXYKY+ioGydbc3Tw32xbF3i+CLAoTVWnOVYWQ2PVfGv4g17Gdyu/z70L4KCJ5mtFCCrKvMaYjCMiMDPBQVfG6MV42CjbxNjye5KGd/SBwvfd05zeSUZgfRM0dgQJKNDQ3+LhiV7O6aGXjsAPD4PFWAhSzamJKdvIvV5bbtw94D4RfuzonEGhPF5hXT0BEV1RBhPdifaW+I1VYiX1nfRgZAi2T6UoINiVK4w3t/jgvzt/eqvPSRFHCoVwx1wd+iRD+oiwtxKOvU1jaCutnp+ZhCqACDNSN8CJyCPXURILW9w+vzd5PAbBC+ft279yfIVICkUvCVCy1xprq4Ncg+86nK/25ljHWoXMyEmBJI3drs78+/LnT29vNnMHPGDyrD4SFssSTL/PoPayhx9+vIDl3ME7kzX4Oz/M1fqGwPkyJZ3/OaG+PnVjbDlzJGVjA7rNFam2E3U06Z6OjzJvZteOA8KMSFoISDWFUPojp40xhc/jDwKMAC4MjWEy8Hs2wAAAABJRU5ErkJggg=="/></a></td>
             </tr>
         </table>
@@ -32,7 +32,7 @@
 </div>
 </div>
 <div style="max-width: 980px;margin:0 auto;margin:25px auto;">
-<a style="text-decoration:none;" href="">��������� ��������</a>
+<a style="text-decoration:none;" href="">Отключить рассылку</a>
 </div>
 </body>
 </html>
