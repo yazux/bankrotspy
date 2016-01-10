@@ -43,7 +43,7 @@ function prepare_text($text, $images, $dir)
     $replace_files = function($match) use ($images, $dir) {
         if(in_array($match[2], $images)) {
             $link = core::$home . '/' . $dir . '/' .$match[2];
-            $image = '<a target="_blank" href="'.$link.'"><img alt="'.$match[3].'" src="'.$link.'"></a>';
+            $image = '<a target="_blank" href="'.$link.'"><img style="width:100%; height:auto;" alt="'.$match[3].'" src="'.$link.'"/></a>';
             return $image;
         }
         return $match[2];
@@ -66,8 +66,9 @@ if (!empty($_POST)) {
         
         $dir = 'data/mailing/' . $mailId;
         
-        $text_compiled = prepare_text($text, $_POST['images'], $dir);
-        $text_compiled = text::out($text_compiled);
+        $text_compiled = text::out($text);
+        $text_compiled = prepare_text($text_compiled, $_POST['images'], $dir);
+        
         
         core::$db->query('UPDATE `mail_mailing` SET 
                             `text_source` = "'.core::$db->res($text).'",
@@ -79,6 +80,7 @@ if (!empty($_POST)) {
         $message = 'Рассылка успешно обновлена';
         
     } else {
+        
         $mailId = core::$db->insert('INSERT INTO `mail_mailing` (`groups`, `subject`, `text_source`, `created`) 
                                    VALUES ("'.core::$db->res($groups).'", 
                                             "'.core::$db->res($subject).'", 

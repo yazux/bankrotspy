@@ -15,6 +15,8 @@ RewriteRule ^pages/([0-9]{1,11})$ ?core_mod=pages&core_act=index&id=$1 [QSA]
 RewriteRule ^pages/file([0-9]{1,11})/(.+?)$ pages/download?act=file&id=$1&namefile=$2 [QSA]
 
 
+RewriteRule ^unsubscribe$ ?core_mod=mail&core_act=unsubscribe [QSA]
+
 RewriteRule ^amc/$ ?core_mod=amc&core_act=index&id=$1 [QSA]
 RewriteRule ^amc/([0-9]+)$ ?core_mod=amc&core_act=profile&id=$1 [QSA]
 

@@ -36,7 +36,7 @@
                             <?= $mail['status'] ?>
                         </td>
                         <td>
-                            
+                           <?= $mail['totaluser'] ?> / <?= $mail['totalsent'] ?>
                         </td>
                         <td>
                             <?= $mail['start'] ?>
