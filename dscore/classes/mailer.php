@@ -4,27 +4,27 @@ require_once 'dscore/libs/phpmailer/PHPMailerAutoload.php';
 
 class Mailer extends Phpmailer
 {
-    protected $config;
+    protected $path;
     protected $template;
     
-    public static function factory($config = './data/engine/')
+    public static function factory($path = './data/engine/')
     {
-        return new Mailer($config);
+        return new Mailer($path);
     }
     
-    public function __construct($config)
+    public function __construct($path)
     {
         parent::__construct();
         //$this->SMTPDebug = 3;
-        $this->config = $config;
+        $this->path = $path;
         
-        $this->isSMTP();                                      // Set mailer to use SMTP
+        $this->isSMTP(); 
         
-        $this->Host = 'mail.bankrot-spy.ru';  // Specify main and backup SMTP servers
-        $this->SMTPAuth = true;                               // Enable SMTP authentication
-        $this->Username = 'no-reply@bankrot-spy.ru';                 // SMTP username
-        $this->Password = 'C7q3H3u9';                           // SMTP password
-        //$this->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+        $this->Host = 'mail.bankrot-spy.ru';
+        $this->SMTPAuth = true;
+        $this->Username = 'no-reply@bankrot-spy.ru';
+        $this->Password = 'C7q3H3u9';
+        //$this->SMTPSecure = 'tls';
         
         $this->Port = 25;
         $this->isHTML(true);
@@ -34,7 +34,7 @@ class Mailer extends Phpmailer
     
     public function setBody($template, array $data = array())
     {
-        $file = $this->config . $template . '.tpl';
+        $file = $this->path . $template . '.tpl';
         if(file_exists($file)) {
             $template = file_get_contents($file);
         }

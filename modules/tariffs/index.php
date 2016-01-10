@@ -9,43 +9,11 @@ $rmenu = array();
 while ($data = $res->fetch_array()) {
     $loc = array();
     $loc['id'] = $data['id'];
-
-    $message_one = array(
-        "amount" => $data['price'],
-        "details" => $data['name'],
-        "customerRating" => "5",
-        "customerAccount" => core::$user_id,
-        "orderId" => core::$set['market_prefix'].'-'.core::$user_id.'-'.$data['id'].'-'.$ordertime,
-        "successUrl" => core::$home.'/tariffs/good',
-        "failUrl" => core::$home.'/tariffs/bad',
-        "paymentMethod" => "",
-        "customerPhone" => "",
-        "customerEmail" => core::$user_mail,
-        "customerComment" => "",
-        "data" => array(
-            "user" => core::$user_id,
-            "debug" => "1"
-        )
-    );
-    
-    $messageText_one = json_encode($message_one);
-    $http_params_one = array(
-        "marketPlace" => $market_place_id,
-        "message" => base64_encode($messageText_one),
-        "signature" => hash('sha256', $messageText_one . $merchant_key)
-    );
-
     $loc['name'] =  $data['name'];
-    if (core::$user_id) {
-        $loc['params'] = $http_params_one;
-    } else {
-        $loc['params'] = array();
-    }
-    
-    text::add_cache($data['cache']);
     $loc['subtext'] = text::out($data['descr'], 0, $data['id']);
     $loc['longtime'] = $data['longtime'];
     $loc['price'] = $data['price'];
+    $loc['order'] = core::$set['market_prefix'].';'.core::$user_id.';'.$data['id'].';'.$ordertime;
     $rmenu[] = $loc;
 }
 

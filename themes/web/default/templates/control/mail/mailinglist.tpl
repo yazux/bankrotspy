@@ -143,12 +143,13 @@ $(function(){
 }
 
 .btn-test {
-    background-color: #d9534f;
-    border-color: #d43f3a;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
     color: #fff;
 }
 .btn-test:hover {
-    background-color: #c9302c;
-    border-color: #ac2925;
+    background-color: #449d44;
+    border-color: #398439;
+    color: #fff;
 }
 </style>

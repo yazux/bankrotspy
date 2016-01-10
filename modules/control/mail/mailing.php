@@ -99,7 +99,7 @@ if (!empty($_POST)) {
                             `text_compiled` = "'.core::$db->res($text_compiled).'",
                             `subject` = "'.core::$db->res($subject).'",
                             `groups` = "'.core::$db->res($groups).'"
-                            
+                            WHERE id = "'.$mailId.'"
         ');
         $message = 'Рассылка успешно обновлена';
         

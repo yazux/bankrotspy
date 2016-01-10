@@ -3,9 +3,9 @@
 defined('DS_ENGINE') or die('access denied');
 
 
-$query = core::$db->query('SELECT m.*, COUNT(l.id) as totalsent 
+$query = core::$db->query('SELECT m.*, (SELECT COUNT(id) FROM `mail_mailing_log` WHERE mail_id = m.id ) as totalsent 
                                     FROM `mail_mailing` AS m 
-                                        LEFT JOIN `mail_mailing_log` AS l ON (m.id = l.mail_id) ORDER BY `id` DESC');
+                                        ORDER BY `id` DESC');
 
 $mailing = [];
 
