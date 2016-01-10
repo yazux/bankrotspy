@@ -2,6 +2,30 @@
 
 defined('DS_ENGINE') or die('access denied');
 
+
+if(isset($_GET['action']) && $_GET['action'] === 'test' && isset($_GET['id'])) {
+    $id = intval($_GET['id']);
+    
+    $mailingQuery = core::$db->query('SELECT * FROM `mail_mailing` WHERE `id` = "'.$id.'" LIMIT 1');
+    $mail = $mailingQuery->fetch_assoc();
+       
+    $query = core::$db->query('SELECT * FROM `ds_users` WHERE `rights` = 100 ORDER BY `id` DESC LIMIT 10');
+    while($user = $query->fetch_assoc()) {
+        $body = [
+            'host'  => core::$home,
+            'text'  => $mail['text_compiled'],
+            'hash'  => md5($user['id'])
+        ];
+    
+        $mailer = mailer::factory();
+        $mailer->setSubject($mail['subject']);
+        $mailer->setBody('mailing', $body);
+        $mailer->addAddress($user['mail']);
+        $mailer->send();
+    }
+    exit;
+}
+
 //запуск рассылки
 if(isset($_GET['action']) && $_GET['action'] === 'start' && isset($_GET['id'])) {
     $id = intval($_GET['id']);

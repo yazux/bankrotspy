@@ -413,14 +413,16 @@ class core
         //Добавить возмлжность комментирования.
         $data_arr = file($file);
         $output = array();
-        foreach($data_arr as $key => $value) {
-            if($value and mb_strpos($value, '=')) {
-                $pos = mb_strpos($value, '=');
-                $key = trim(mb_substr($value, 0, $pos));
+        if(is_array($data_arr)) {
+            foreach($data_arr as $key => $value) {
+                if($value and mb_strpos($value, '=')) {
+                    $pos = mb_strpos($value, '=');
+                    $key = trim(mb_substr($value, 0, $pos));
                 
-                if($key) {
-                    $string = trim(mb_substr($value, $pos + 1));
-                    $output[$key] = $string;
+                    if($key) {
+                        $string = trim(mb_substr($value, $pos + 1));
+                        $output[$key] = $string;
+                    }
                 }
             }
         }

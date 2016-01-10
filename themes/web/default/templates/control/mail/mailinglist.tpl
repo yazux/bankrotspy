@@ -9,14 +9,14 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th width="30">ID</th>
                             <th>Тема письма</th>
                             <th width="80">Время создания</th>
                             <th width="80">Статус</th>
                             <th width="100">Получатели: всего / отправлено</th>
                             <th width="80">Начало отправки</th>
                             <th width="80">Завершение отправки</th>
-                            <th width="120">Управление</th>
+                            <th width="140">Управление</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,12 +45,13 @@
                             <?= $mail['end'] ?>
                         </td>
                         <td>
-                            <a href="/control/mail/mailing?action=delete&id=<?= $mail['id'] ?>" class="btn btn-delete"><i class="fa fa-trash"></i></a>
-                            <a href="/control/mail/mailing?action=edit&id=<?= $mail['id'] ?>" class="btn btn-edit"><i class="fa fa-pencil"></i></a>
+                            <a title="Тестировать" href="/control/mail/mailing?action=test&id=<?= $mail['id'] ?>" class="btn btn-test"><i class="fa fa-life-ring"></i></a>
+                            <a title="Удалить" href="/control/mail/mailing?action=delete&id=<?= $mail['id'] ?>" class="btn btn-delete"><i class="fa fa-trash"></i></a>
+                            <a title="Редактировать" href="/control/mail/mailing?action=edit&id=<?= $mail['id'] ?>" class="btn btn-edit"><i class="fa fa-pencil"></i></a>
                             <? if($mail['status_act'] !== '1'): ?>
-                            <a href="/control/mail/mailing?action=start&id=<?= $mail['id'] ?>" class="btn btn-play"><i class="fa fa-play"></i></a> 
+                            <a title="Запустить" href="/control/mail/mailing?action=start&id=<?= $mail['id'] ?>" class="btn btn-play"><i class="fa fa-play"></i></a> 
                             <? else: ?>
-                            <a href="/control/mail/mailing?action=stop&id=<?= $mail['id'] ?>" class="btn btn-play"><i class="fa fa-pause"></i></a>                             
+                            <a title="Остановить" href="/control/mail/mailing?action=stop&id=<?= $mail['id'] ?>" class="btn btn-play"><i class="fa fa-pause"></i></a>                             
                             <? endif; ?>
                         </td>
                     </tr>
@@ -66,6 +67,21 @@
         <? temp::include('control/mail/menu.tpl') ?>
     </tr>
 </table>
+<script>
+$(function(){
+    $('.btn-test').click(function(e){
+        e.preventDefault();
+        var url = $(this).attr('href');
+        $.ajax({
+            url: url,
+            type: 'POST',
+            success: function (result){
+                alert('Письмо отправлено');
+            }
+        });
+    });
+});
+</script>
 <style>
 .table {
     border-collapse:collapse;
@@ -74,7 +90,8 @@
 .table td, .table th {
     border:1px solid #ccc;
     text-align:center;
-    padding:10px;
+    padding:2px 3px;
+    font-size:13px;
 }
 .table th {
     background:#ebebeb;   
@@ -123,5 +140,15 @@
 .btn-edit:hover {
     background-color: #ec971f;
     border-color: #d58512;
+}
+
+.btn-test {
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    color: #fff;
+}
+.btn-test:hover {
+    background-color: #c9302c;
+    border-color: #ac2925;
 }
 </style>
