@@ -26,7 +26,7 @@ $query = core::$db->query('SELECT * FROM `ds_users` WHERE (id) NOT IN
 if (is_array($mail)) {                                        
     while($user = $query->fetch_assoc()) {
     
-        core::$db->insert('INSERT INTO `mail_mailing_log` (mail_id, user_id, created) VALUES ("'.$mailID.'", "'.$user['id'].'")', "'.time().'");
+        core::$db->insert('INSERT INTO `mail_mailing_log` (mail_id, user_id, created) VALUES ("'.$mailID.'", "'.$user['id'].'"), "'.time().'"');
     
         $body = [
             'host'  => $host,

@@ -83,6 +83,10 @@
                     <input type="text" name="interests" value="<?=$interests?>" />
                 </div>
                 <div class="contbody_forms">
+                    <b>Получать рассылки</b><br/>
+                    <input type="checkbox" name="subscribe" <?= ($subscribe == '1') ? 'checked': '' ?> />
+                </div>
+                <div class="contbody_forms">
                     <b><?=lang('about')?></b><br/>
                     <?=func::tagspanel('about');?>
                     <div class="texta"><textarea rows="10" name="about" id="about"><?=$about?></textarea></div>

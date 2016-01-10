@@ -1,5 +1,6 @@
 <?php
 defined('DS_ENGINE') or die('web_demon laughs');
+
 if(core::$user_id)
 {
   $id = intval(abs(GET('id')));
@@ -108,8 +109,14 @@ if(core::$user_id)
         {     
           $change[] = ' `info` = "'.core::$db->res(serialize($getdata)).'" ';
         }
+        
+        if(isset($_POST['subscribe'])) {
+            $change[] = ' `subscribe` = "1" ';
+        } else {
+            $change[] = ' `subscribe` = "0" ';
+        }
           
-        if(!$error and isset($change))
+        if(!$error and isset($change) )
         {
           core::$db->query('UPDATE `ds_users` SET '.implode(',', $change).'  WHERE `id` = "'.core::$db->res($id).'" '); 
           func::notify(core::$user_id == $id ? lang('myprofile') : lang('profile').' '.$data['login'], lang('ch_succ'), core::$home.'/user/profile?id='.$id);  
@@ -128,6 +135,8 @@ if(core::$user_id)
         temp::assign('edit_moder',1);  
       temp::assign('nick',$data['login']);
       temp::assign('sex', $data['sex']);
+      
+      temp::assign('subscribe', $data['subscribe']);
       
       if(isset($user_info['age']) AND $user_info['age'])
       {
