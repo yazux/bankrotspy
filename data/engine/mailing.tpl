@@ -3,7 +3,6 @@
 <head>
     <meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8"/>
 </head>
-
 <body style="background-color:#d3d3d3;padding:25px;margin:0;font-size:14px;">
 <div style="max-width:700px;margin:20px auto;box-shadow: 0 0 14px rgba(0, 0, 0, 0.5);">
 <div style="padding:20px;border-bottom: 1px solid #c7c7c7;background-color:#ffffff;">
