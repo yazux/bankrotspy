@@ -1,12 +1,12 @@
 <?php
 
 if(!isset($_GET['data'])) { 
-   // exit;
+    exit;
 }
 
-$request = json_decode('{"notification_type":"p2p-incoming","operation_id":"1011496739808126017","amount":9.95,"withdraw_amount":10,"currency":null,"datetime":"2016-01-10T13:39:29Z","sender":"410013399813469","codepro":"false","label":"bspy;392;1;1452433156","sha1_hash":"2dcd0fc23fbd663adfe84b2515005f3ab7afdaab"}', true);
+//$request = json_decode('{"notification_type":"p2p-incoming","operation_id":"1011496739808126017","amount":9.95,"withdraw_amount":10,"currency":null,"datetime":"2016-01-10T13:39:29Z","sender":"410013399813469","codepro":"false","label":"bspy;392;1;1452433156","sha1_hash":"2dcd0fc23fbd663adfe84b2515005f3ab7afdaab"}', true);
 
-//$request = json_decode($_GET['data'], true);
+$request = json_decode($_GET['data'], true);
 
 $order_id = $request['operation_id']; // номер платежа
 
@@ -36,7 +36,6 @@ if ($market === core::$set['market_prefix'] && user::exists_id($user_id) && !emp
 
         core::$db->query('UPDATE `ds_users` SET
                                 `rights` = "'.$tariff['rights'].'",
-                                `ordercode` = "'.core::$db->res($order_id).'",
                                 `desttime` = "'.$end_date.'"
                             WHERE `id` = "'.$user_id.'";');
         

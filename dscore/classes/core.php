@@ -296,7 +296,7 @@ class core
     {
         //Функция почти полность взята от johnCMS 4.x  
         $user_id = false;
-        $user_pass = false;  
+        $user_pass = false;
         if (isset($_SESSION['user_id']) && isset($_SESSION['user_pass'])) {
             $user_id = abs(intval($_SESSION['user_id']));
             $user_pass = $_SESSION['user_pass']; 
@@ -464,10 +464,13 @@ class core
             return $web;
     }
 
+    /*
+        проверка срока подписки
+    */
+    
     private static function check_subsc()
     {
-        /*
-        if(core::$user_id AND (core::$rights == 10 OR core::$rights == 11)) {
+        if(core::$user_id && (core::$rights == 10 || core::$rights == 11)) {
             if(core::$dest_time < time()) {
                 core::$db->query('UPDATE `ds_users` SET
                     `rights` = "0",
@@ -479,6 +482,5 @@ class core
                 exit();
             }
         }
-        */
     }
 }

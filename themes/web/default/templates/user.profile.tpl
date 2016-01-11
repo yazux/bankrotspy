@@ -1,13 +1,11 @@
 <table>
     <tr>
         <td valign="top">
-
             <div class="content">
                 <div class="conthead">
                     <h2><i class="icon-user-male"></i> <?=$name_prof?></h2>
                 </div>
                 <div class="contbody_forms">
-
                     <table>
                         <tr>
                             <td style="width: 60px;">
@@ -15,7 +13,7 @@
                             </td>
                             <td>
                                 <div class="ank">
-                                    <b>Должность:</b> <span class="status"><?=$rights?></span><hr style="margin: 4px 0 6px 0"/>
+                                    <b>Статус:</b> <span class="status"><?=$rights?></span><hr style="margin: 4px 0 6px 0"/>
                                     <b><?=lang('now')?></b>  <?if($online):?><span class="us_on"> <?=lang('lang_on_anc')?></span><?else:?><span class="us_off"> <?=lang('lang_off_anc')?></span><?endif?>
 
                                 </div>
