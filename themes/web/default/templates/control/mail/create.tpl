@@ -34,7 +34,6 @@
                     <b>Тема письма</b><br/>
                     <input type="text" name="subject" placeholder="Тема письма" value="<?= $mail['subject'] ?>">
                 </div>
-
                 <div class="contbody_forms">
                         <b>Текст письма</b><br/>
                         <?=func::tagspanel('messarea');?>
