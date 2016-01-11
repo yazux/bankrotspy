@@ -13,14 +13,12 @@ if ($_SERVER['USER'] == 'bsd') {
 $mailingQuery = core::$db->query('SELECT * FROM `mail_mailing` WHERE `status` NOT IN ("0","2","3") LIMIT 1');
 $mail = $mailingQuery->fetch_assoc();
 
-//var_dump($mail);exit;
 $mailID = $mail['id'];
-
 
 // селект кому еще не отправляли
 $query = core::$db->query('SELECT * FROM `ds_users` WHERE (id) NOT IN 
                                         (SELECT user_id FROM `mail_mailing_log` WHERE `mail_id` = '.$mailID.')
-                                        AND `subscribe` = "1" AND `rights` = 100
+                                        AND `subscribe` = "1"
                                         ORDER BY `id` DESC LIMIT 10');
 
 if (is_array($mail)) {                                        
