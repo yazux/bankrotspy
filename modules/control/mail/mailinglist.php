@@ -19,7 +19,6 @@ $statuses = [
 $userQuery = core::$db->query('SELECT count(id) FROM `ds_users` WHERE `subscribe` = "1"');
 $totalUsers = $userQuery->count();
 
-
 $i = 0;
 while ($mail = $query->fetch_assoc()) {
     $mailing[$i]['id'] = $mail['id'];
