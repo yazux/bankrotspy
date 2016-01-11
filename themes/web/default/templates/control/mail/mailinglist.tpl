@@ -67,6 +67,7 @@
         <? temp::include('control/mail/menu.tpl') ?>
     </tr>
 </table>
+
 <script>
 $(function(){
     $('.btn-test').click(function(e){
