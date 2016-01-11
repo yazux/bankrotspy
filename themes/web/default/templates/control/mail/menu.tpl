@@ -5,7 +5,7 @@
                 <div class="elmenu"><a href="<?=$home?>/control/mail/mailinglist">Список рассылок</a></div>
                 <div class="elmenu"><a href="<?=$home?>/control/mail/templates">Шаблоны писем</a></div>
                 <div class="elmenu"><a href="<?=$home?>/control/mail/settings">Настройка отправки</a></div>
-                <div class="elmenu"><a href="<?=$home?>/control/mail/arhive">Отписавшиеся</a></div>
+                <div class="elmenu"><a href="<?=$home?>/control/mail/unsubscribing">Отписавшиеся</a></div>
                 <div class="down_rmenu"> </div>
             </div>
         </td>
