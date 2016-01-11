@@ -467,7 +467,6 @@ class core
     /*
         проверка срока подписки
     */
-    
     private static function check_subsc()
     {
         if(core::$user_id && (core::$rights == 10 || core::$rights == 11)) {
