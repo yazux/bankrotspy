@@ -411,9 +411,15 @@ class core
     {
         //Переписанная функция parse_ini_file
         //Добавить возмлжность комментирования.
-        $data_arr = file($file);
-        $output = array();
-        if(is_array($data_arr)) {
+
+        $data_arr = [];
+        $output = [];
+        
+        if(file_exists($file)) {
+            $data_arr = file($file);
+        }
+
+        if(!empty($data_arr)) {
             foreach($data_arr as $key => $value) {
                 if($value and mb_strpos($value, '=')) {
                     $pos = mb_strpos($value, '=');
