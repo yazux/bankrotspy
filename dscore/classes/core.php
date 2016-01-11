@@ -21,7 +21,7 @@ class core
     public static $user_name;              //Логин пользователя
     public static $user_sex;               //Пол пользователя
     public static $user_mail;
-    public static $ua;                     //UserAgent
+    public static $ua = '';                     //UserAgent
     public static $ip;
     public static $ipl;
     public static $home;
@@ -133,8 +133,11 @@ class core
         if(self::$set['action'])
             self::$action = self::$set['action'];
         self::$set['theme'] = unserialize(self::$set['theme']);
-        self::$ua = htmlentities(substr($_SERVER['HTTP_USER_AGENT'], 0, 100), ENT_QUOTES);
-
+        
+        if(isset($_SERVER['HTTP_USER_AGENT'])) {
+            self::$ua = htmlentities(substr($_SERVER['HTTP_USER_AGENT'], 0, 100), ENT_QUOTES);
+        }
+        
         // Разбираем таблицу ds_smiles
         core::$db->next_result();
         $req = core::$db->store_result();
@@ -437,7 +440,7 @@ class core
 
     private static function detect_devise()
     {
-        $user_agent  = $_SERVER['HTTP_USER_AGENT'];
+        $user_agent  = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
         $accept      = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : '';
 
         $pda = 'pda';
