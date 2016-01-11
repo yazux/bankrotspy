@@ -92,9 +92,7 @@
 </table>
 <script>
 $(function(){
-
     $('input[type=file]').on('change', function(){
-        
         // тип файла изображение или вложение
         var fileType = $(this)[0].name;
         // поле с файлом
