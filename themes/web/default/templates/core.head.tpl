@@ -148,7 +148,7 @@
                                 <td><a href="<?=$home?>">Главная</a></td>
                                 <?if($rmenu):?>
                                 <?foreach($rmenu as $rmenu):?>
-
+                                    <? //if($rmenu['link'] == '/tariffs') continue; ?>
                                    <td>
                                        <a <?if($rmenu['new_tab']):?>target="_blank"<?endif?> href='<?=$rmenu['link']?>'><?=$rmenu['name']?>
 
