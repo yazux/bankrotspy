@@ -38,7 +38,7 @@ if ($market === core::$set['market_prefix'] && user::exists_id($user_id) && !emp
         core::$db->query('UPDATE `ds_users` SET
                                 `rights` = "'.$tariff['rights'].'",
                                 `desttime` = "'.$end_date.'",
-                                `ordercode` = "'.$request['label'].'",
+                                `ordercode` = "'.$request['label'].'"
                             WHERE `id` = "'.$user_id.'";');
         
         core::$db->query('INSERT INTO `ds_paid` SET
