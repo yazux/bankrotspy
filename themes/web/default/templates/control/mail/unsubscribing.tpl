@@ -10,7 +10,7 @@
                 
                 <? if(!empty($users)): ?>
                     <? foreach($users as $user): ?>
-                        <?= $user['login'] ?><br/>
+                        <a href="/user/profile?id=<?= $user['id'] ?>"><?= $user['login'] ?></a><br/>
                     <? endforeach; ?>
                 
                 <? else: ?>
