@@ -10,6 +10,7 @@ $request = json_decode($_GET['data'], true);
 
 $order_id = $request['operation_id']; // номер платежа
 
+
 $order = explode(';', $request['label']);
 
 $market = $order[0];
@@ -37,7 +38,7 @@ if ($market === core::$set['market_prefix'] && user::exists_id($user_id) && !emp
         core::$db->query('UPDATE `ds_users` SET
                                 `rights` = "'.$tariff['rights'].'",
                                 `desttime` = "'.$end_date.'",
-                                `ordercode` = "'.$order.'",
+                                `ordercode` = "'.$request['label'].'",
                             WHERE `id` = "'.$user_id.'";');
         
         core::$db->query('INSERT INTO `ds_paid` SET
