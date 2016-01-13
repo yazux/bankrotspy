@@ -9,8 +9,9 @@
                 <div class="contbody_forms">
                 
                 <? if(!empty($users)): ?>
-                
-                <? var_dump($users); ?>
+                    <? foreach($users as $user): ?>
+                        <?= $user['login'] ?><br/>
+                    <? endforeach; ?>
                 
                 <? else: ?>
                     Нет
