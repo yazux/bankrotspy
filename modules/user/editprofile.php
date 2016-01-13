@@ -136,6 +136,7 @@ if(core::$user_id)
       temp::assign('nick',$data['login']);
       temp::assign('sex', $data['sex']);
       
+      
       temp::assign('subscribe', $data['subscribe']);
       
       if(isset($user_info['age']) AND $user_info['age'])
