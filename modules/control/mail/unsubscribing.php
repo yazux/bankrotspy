@@ -9,6 +9,6 @@ $users = $query->fetch_assoc();
 engine_head('Отписавшиеся');
 
 
-temp::assign('users', $users);
+temp::HTMassign('users', $users);
 temp::display('control/mail/unsubscribing');
 engine_fin();
