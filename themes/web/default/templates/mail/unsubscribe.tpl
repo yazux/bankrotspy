@@ -6,7 +6,8 @@
                 <div class="conthead">
                     <form method="POST" action="/unsubscribe?id=<?= $id ?>">
                         <? temp::formid() /* ЭТА ФУНКЦИЯ ОБЯЗАТЕЛЬНА ДЛЯ ВСЕХ ФОРМ!!! */?>
-                        <input type="submit" value="Отписаться">
+                        <label>Отписать <?= $email ?> от рассылки</label><br/>
+                        <input type="submit" value="Отписаться от рассылки">
                     </form>
                 </div>
             </div>

@@ -25,10 +25,15 @@ if (!empty($_POST) && !empty($_GET['id'])) {
         func::notify('Рассылка', 'Произошла ошибка', core::$home);
     }
 } 
+$userID = getUserFromHash($_GET['id'], $salt);
+
+$query = core::$db->query('SELECT * FROM `ds_users` WHERE id = "'.$userID.'"');
+$user = $query->fetch_assoc();
 
 $id = $_GET['id'];
 
 engine_head('Отписка от рассылки');
 temp::assign('id', $id);
+temp::assign('email', $user['mail']);
 temp::display('mail/unsubscribe');
 engine_fin();
