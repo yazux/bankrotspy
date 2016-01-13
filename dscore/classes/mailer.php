@@ -6,6 +6,7 @@ class Mailer extends Phpmailer
 {
     protected $path;
     protected $template;
+    public  $log;
     
     public static function factory($path = './data/engine/')
     {
@@ -15,7 +16,9 @@ class Mailer extends Phpmailer
     public function __construct($path)
     {
         parent::__construct();
-        //$this->SMTPDebug = 3;
+        $this->SMTPDebug = 3;
+        $this->Debugoutput = [$this, 'log'];
+        
         $this->path = $path;
         
         $this->isSMTP(); 
@@ -30,6 +33,10 @@ class Mailer extends Phpmailer
         $this->isHTML(true);
         $this->CharSet = 'UTF-8';
         $this->setFrom('no-reply@bankrot-spy.ru', 'Bankrot-Spy');
+    }
+    
+    public function log($str, $level) {
+        $this->log .= $str;
     }
     
     public function setBody($template, array $data = array())
@@ -65,5 +72,10 @@ class Mailer extends Phpmailer
     public function clear($str)
     {
         return preg_replace('#{[^}]+}#is', '', $str);
+    }
+    
+    public function debug()
+    {
+        return $this->log;
     }
 }
