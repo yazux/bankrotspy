@@ -30,7 +30,13 @@ if(isset($_GET['action']) && $_GET['action'] === 'test' && isset($_GET['id'])) {
 if(isset($_GET['action']) && $_GET['action'] === 'start' && isset($_GET['id'])) {
     $id = intval($_GET['id']);
     
-    core::$db->query('UPDATE `mail_mailing` SET `status` = "1" WHERE `id` = "'.$id.'"');
+    $query = core::$db->query('SELECT * FROM `mail_mailing` WHERE `start_time` = "0" AND `id` = "'.$id.'"');
+    if($query->num_rows > 0 ) {
+        core::$db->query('UPDATE `mail_mailing` SET `status` = "1", `start_time` = "'.time().'" WHERE `id` = "'.$id.'" AND `start_time` = "0"');
+    } else {
+        core::$db->query('UPDATE `mail_mailing` SET `status` = "1" WHERE `id` = "'.$id.'"');
+    }
+    
     func::notify('Рассылка', 'Рассылка запущена', core::$home . '/control/mail/mailinglist');
 }
 
