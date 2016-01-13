@@ -21,7 +21,7 @@ if (core::$user_id) {
                 $tar_tariff[$dat['id']] = $dat['name'];
             }
             
-            $ord_arr = explode('-', $data['ordercode']);
+            $ord_arr = explode(';', $data['ordercode']);
             $ord_arr[1] = abs(intval($ord_arr[1]));
             $ord_arr[2] = abs(intval($ord_arr[2]));
             $ord_arr[3] = abs(intval($ord_arr[3]));
