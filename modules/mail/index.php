@@ -18,12 +18,12 @@ $mailID = $mail['id'];
 // селект кому еще не отправляли
 $query = core::$db->query('SELECT * FROM `ds_users` WHERE (`id`) NOT IN 
                                         (SELECT user_id FROM `mail_mailing_log` WHERE `mail_id` = "'.$mailID.'")
-                                        AND `subscribe` = "1" ORDER BY `id` DESC LIMIT 10');
+                                        AND `subscribe` = "1" ORDER BY `id` DESC LIMIT 20');
 
 if (is_array($mail)) {
     if ($query->num_rows > 0) {
         while($user = $query->fetch_assoc()) {
-    
+            sleep(2);
             $body = [
                 'host'  => $host,
                 'text'  => $mail['text_compiled'],
