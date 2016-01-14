@@ -6,6 +6,8 @@ $ordertime = time();
 $res = core::$db->query('SELECT * FROM `ds_tariffs` ORDER BY `price` ASC;');
 $rmenu = array();
 
+
+
 while ($data = $res->fetch_array()) {
     $loc = array();
     $loc['id'] = $data['id'];

@@ -11,7 +11,6 @@
                 </div>
 
             </div>
-
             <?if($rmenu):?>
             <?foreach($rmenu as $rmenu): ?>
             <div class="tarbody">
