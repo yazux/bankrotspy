@@ -14,7 +14,8 @@ while ($data = $res->fetch_array()) {
     $loc['name'] =  $data['name'];
     $loc['subtext'] = text::out($data['descr'], 0, $data['id']);
     $loc['longtime'] = $data['longtime'];
-    $loc['price'] = $data['price'];
+    $loc['price_source'] = $data['price'];
+    $loc['price'] = round($data['price'] * 1.020, 2);
     $loc['order'] = core::$set['market_prefix'].';'.core::$user_id.';'.$data['id'].';'.$ordertime;
     $rmenu[] = $loc;
 }

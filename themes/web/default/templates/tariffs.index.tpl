@@ -18,27 +18,16 @@
                     <tr>
                         <td valign="top" width="100%">
                             <h2 class="tarhead"><i class="icon-briefcase"></i> <?=$rmenu['name']?></h2>
-                            <span class="costpt">Стоимость подписки: <?=$rmenu['price']?> руб.</span>
+                            <span class="costpt">Стоимость подписки: <?=$rmenu['price_source']?> руб.</span>
                             <span class="undertartext"><?=$rmenu['subtext']?></span>
                         </td>
-                        <td><!--<img src="<?=$themepath?>/images/PSKB.png"/>--></td>
+                        <td valign="top"><img height="40px" src="<?=$themepath?>/images/ym.png"/></td>
 
                     </tr>
                 </table>
                 <div class="button_div">
                     <hr style="margin-bottom: 13px" />
-                    <?if(core::$user_id AND !CAN('paycontent', 0)):?>
-                    <!--
-                    <form method="post" action="<?=$oos_payment_page?>">
-                        <div style="display:none">
-                            <p> <input name="marketPlace" value="<?=$rmenu['params']['marketPlace']?>"/>    </p>
-                            <p> <input name="message" value="<?=$rmenu['params']['message']?>"/> </p>
-                            <p> <input name="signature" value="<?=$rmenu['params']['signature']?>"/> </p>
-                        </div>
-                        <input style="display:block;margin-left: 0px;margin-top:7px;padding-left: 15px;padding-right: 15px;" class="reg_search_butt" name="submit" type="submit" value="Оплатить" />
-                    </form>-->
-                    
-                    
+                    <?if(core::$user_id && (core::$user_id == 0 || core::$user_id == 100)):?>
                     <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">
                         <input type="hidden" name="receiver" value="410011048401080">
                         <input type="hidden" name="formcomment" value="<?=$rmenu['name']?> bankrot-spy.ru">
@@ -46,6 +35,7 @@
                         <input type="hidden" name="label" value="<?=$rmenu['order']?>">
                         <input type="hidden" name="quickpay-form" value="shop">
                         <input type="hidden" name="targets" value="<?=$rmenu['name']?>">
+                        <input type="hidden" name="sum2" value="<?=$rmenu['price_source']?>" data-type="number">
                         <input type="hidden" name="sum" value="<?=$rmenu['price']?>" data-type="number">
 
                         <input type="hidden" name="need-fio" value="true">
@@ -64,41 +54,6 @@
                     <?endif?>
                 </div>
             </div>
-            
-            <!--
-            <div class="tarbody">
-                <table >
-                    <tr>
-                        <td valign="top" width="100%">
-                            <h2 class="tarhead"><i class="icon-briefcase"></i> <?=$rmenu['name']?></h2>
-                            <span class="costpt">Стоимость подписки: <?=$rmenu['price']?> руб.</span>
-                            <span class="undertartext"><?=$rmenu['subtext']?></span>
-                        </td>
-                        <td><img src="<?=$themepath?>/images/PSKB.png"/></td>
-
-                    </tr>
-                </table>
-                <div class="button_div">
-                    <hr style="margin-bottom: 13px" />
-                    <?if(core::$user_id AND !CAN('paycontent', 0)):?>
-
-                    <form method="post" action="<?=$oos_payment_page?>">
-                        <div style="display:none">
-                            <p> <input name="marketPlace" value="<?=$rmenu['params']['marketPlace']?>"/>    </p>
-                            <p> <input name="message" value="<?=$rmenu['params']['message']?>"/> </p>
-                            <p> <input name="signature" value="<?=$rmenu['params']['signature']?>"/> </p>
-                        </div>
-                        <input style="display:block;margin-left: 0px;margin-top:7px;padding-left: 15px;padding-right: 15px;" class="reg_search_butt" name="submit" type="submit" value="Оплатить" />
-                    </form>
-
-                    <?elseif(!core::$user_id):?>
-                    <a style="margin-left: 0px;margin-top:7px;padding-left: 15px;padding-right: 15px;" class="urlbutton_index" href="<?=$home?>/user/register" >Зарегистрироваться и оплатить</a>
-                    <?else:?>
-                    <span style="color: #a6a4a4;display: block;margin-left: 7px;margin-bottom: 10px;">У вас уже есть подписка.</span>
-                    <?endif?>
-                </div>
-            </div>-->
-
             <?endforeach?>
 
             <?else:?>
@@ -118,3 +73,30 @@
         </td>
     </tr>
 </table>
+<style>
+label {margin-right:10px;}
+label input {
+    margin-right:5px;
+}
+</style>
+<script>
+$(function(){
+    $('body').on('change', 'input[name=paymentType]', function(){
+        var type = $(this).val();
+        var form = $(this).parent().parent();
+        var sum = $(form).find('input[name="sum2"]').val();
+
+        if (type == 'PC') {
+            sum = sum * '1.005';
+            sum = sum.toPrecision(4);
+            $(form).find('input[name=sum]').val(sum);
+        }
+        
+        if (type == 'AC') {
+            sum = sum * '1.020';
+            sum = sum.toPrecision(4);
+            $(form).find('input[name=sum]').val(sum);
+        }
+    });
+});
+</script>
