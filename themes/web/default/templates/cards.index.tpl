@@ -51,12 +51,8 @@
                             <td style="width: 300px;"><b>Рыночная цена:</b><br/></td>
                             <td><i class="icon-rouble"></i> <?=$realprice?></td>
                         </tr>
-                        <? if(!empty($price_average)): ?>
-                        <tr>
-                            <td style="width: 200px;"><b><?= $field_name ?></b><br/></td>
-                            <td><a href="<?= $link ?>" target="_blank"> <?= str_replace('&amp;nbsp;', ' ', $hint) ?></a>
-                            </td>
-                        </tr>
+                        <? if(!empty($market_price)): ?>
+                            <?= $market_price ?>
                         <? endif; ?>
                         <tr>
                             <td style="width: 300px;"><b>Доход:</b><br/></td>
@@ -191,12 +187,31 @@
                             <td><?if($fedlink):?><a target="_blank" href="<?=$fedlink?>"><i class="icon-globe-table"></i>fedresurs.ru</a><?else:?>нет<?endif?></td>
                         </tr>
                     </table>
-                    <? if(!empty($similarDataPrice)): ?>
+                    <? if(!empty($similarDataPrice) && $similarDataPrice !== 'access'): ?>
                     <table class="lottable">
                         <tr>
                         <td>
                             <div id="grapch"></div>
                         </td>
+                        </tr>
+                    </table>
+                    <? elseif($similarDataPrice == 'access'): ?>
+                    <table class="lottable">
+                        <tr>
+                        <td>
+                            <div id="grapch"><center><strong style="font-size:18px;">
+                                <? if($graphType == 1): ?>
+                                Цены на аналогичные товары
+                                <? else: ?>
+                                Цена 1м2 аналогичных предложений
+                                <? endif; ?>
+                            </strong></center></div>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            <center>Информация доступна на тарифном плане VIP</center>
+                            </td>
                         </tr>
                     </table>
                     <? endif; ?>
@@ -213,7 +228,7 @@
         </td>
     </tr>
 </table>
-<? if(!empty($similarDataPrice)): ?>
+<? if(!empty($similarDataPrice) && $similarDataPrice !== 'access'): ?>
 <style>
 #grapch {
 	width		: 100%;

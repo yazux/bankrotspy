@@ -40,11 +40,13 @@ $data = $twr->fetch_assoc();
 $graphType = 1;
 
 // если категория недвижимость берем среднее метр квадратный
-if($data['cat_id'] == 5 || $data['cat_id'] == 6) {
+if(in_array($data['cat_id'], [5,6])) {
     $m2price = $query = core::$db->query('SELECT * FROM `ds_maindata_hint` WHERE `id` = "' . $id . '" LIMIT 1');
     $average = $m2price->fetch_assoc();
     $graphType = 2;//недвижимость
 }
+
+
 
 $query = core::$db->query('SELECT * FROM `lot_prices` WHERE `id` = "' . $id . '" ORDER BY price ASC');
 $countLot = $query->num_rows;
@@ -126,7 +128,7 @@ if($data['cat_id'] != 0 AND $data['cat_id'] != 4 AND $data['cat_id'] != 8 AND $d
     $profitproc = $profitproc['notcolored'];
 }
 
-// стоимость м.кв и ссылка на яндекс
+// стоимость м.кв и ссылка
 
 
 if ($data['cat_id'] == 2) {
@@ -161,19 +163,30 @@ if(isset($customclassdeb))
   temp::HTMassign('customclassdeb', ' class="'.$customclassdeb.'" ');
 
 
-if($data['cat_id'] == 5 || $data['cat_id'] == 1 || $data['cat_id'] == 7 || $data['cat_id'] == 6) {
-    
+if(in_array($data['cat_id'], [1,5,6,7])) {
+    $field = '';
+
     $fields = array(
         '1' => 'Средняя цена на открытом рынке:',
         '5' => 'Средняя цена м.кв на открытом рынке:',
         '6' => 'Средняя цена м.кв на открытом рынке:',
         '7' => 'Средняя цена на открытом рынке:',
     );
+    //var_dump(time() + 1*24*3600);
+    //var_dump(core::$rights);
+    //var_dump(CAN('cost_meter'));
+    if(CAN('cost_meter')) {
+
+        $field = '
+            <td style="width: 200px;"><b>'.$fields[$data['cat_id']].'</b><br/></td>
+            <td><i class="icon-rouble"></i> <a href="'.$data['link'].'" target="_blank">'.str_replace('&amp;nbsp;', ' ', $data['hint']).'</a></td>';
+
+    } else {
+        $field = '<td style="width: 200px;"><b>'.$fields[$data['cat_id']].'</b><br/></td>
+                 <td onmouseout="toolTip()" onmouseover="toolTip(\'Данная функция доступна на тарифном плане VIP\')"><i class="icon-rouble"></i> <i class="fa fa-lock"></i></td>';
+    }
     
-    temp::assign('field_name', $fields[$data['cat_id']]);
-    temp::assign('price_average', $data['price_average']);
-    temp::assign('link', $data['link']);
-    temp::assign('hint', $data['hint']);
+    temp::HTMassign('market_price', $field);
 }
 
 
@@ -204,8 +217,10 @@ temp::assign('fedlink', $data['fedlink']);
 temp::assign('auct_link', $data['auct_link']);
 temp::assign('code_torg', $data['code']);
 
-if(!empty($similarDataPrice)) {
+if(!empty($similarDataPrice) && CAN('histogram_goods')) {
     temp::HTMassign('similarDataPrice', json_encode($similarDataPrice));
+} elseif(!empty($similarDataPrice) && !CAN('histogram_goods')) {
+    temp::HTMassign('similarDataPrice', 'access');
 }
 
 temp::assign('graphType', $graphType);
