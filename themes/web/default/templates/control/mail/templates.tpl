@@ -12,7 +12,7 @@
                 <div class="contbody_forms">
                     <b><?= $item['title'] ?></b><br/>
                     <input type="text" name="template[<?= $item['id'] ?>][subject]" value="<?= $item['subject'] ?>" placeholder="Тема письма">
-                    <div><label>Доступные теги:</label> <?= $item['tags'] ?></div>
+                    <div style="padding:5px 0 10px;"><label>Доступные теги:</label> <?= $item['tags'] ?></div>
                     <div class="texta">
                         <textarea rows="5" name="template[<?= $item['id'] ?>][template]"><?= $item['template'] ?></textarea>
                     </div>

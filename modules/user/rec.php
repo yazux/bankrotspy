@@ -25,19 +25,24 @@ if(!$res->num_rows) {
     }
     
   
+  
     $userID = core::$db->insert('INSERT INTO `ds_users` SET
             `login`="'.core::$db->res($data['login']).'",
             `password`="'.$data['password'].'",
             `mail`="'.core::$db->res($data['mail']).'",
-            `rights`="11",
+            `rights`="0",
             `time`="'.$data['time'].'",
             `subscribe` = "1",
-            `desttime` = "'.$end_date.'",
-            `ordercode` = "'.$pay_date.'",
             `ip`="'.core::$db->res(core::$ipl).'",
             `ua`="'.core::$db->res(core::$ua).'";');
     
+    $orderCode = 'bspy;'.$userID.';'.$tariff['id'].';'.$pay_date;
     
+    core::$db->query('UPDATE `ds_users` SET
+                                `rights` = "'.$tariff['rights'].'",
+                                `desttime` = "'.$end_date.'",
+                                `ordercode` = "'.$orderCode.'"
+                            WHERE `id` = "'.$userID.'";');
     
     core::$db->query('INSERT INTO `ds_paid` SET
                             `tarid` = "'.$tariff['id'].'",
@@ -56,16 +61,16 @@ if(!$res->num_rows) {
     $body = array(
         'name'      => $data['login'],
         'taiff'     => $tariff['name'],
-        'number'    => $pay_date,
+        'orderid'   => $pay_date,
         'date'      => date('d.m.Y', $pay_date),
         'enddate'   => date('d.m.Y', $end_date)
     );
         
-    $mail = mailer::factory();
-    $mail->setSubject($mailTemplate['subject']);
-    $mail->setBody($mailTemplate['template'], $body);
-    $mail->addAddress($data['mail']);
-    $mail->send();
+    $mailer = mailer::factory();
+    $mailer->setSubject($mailTemplate['subject']);
+    $mailer->setBody($mailTemplate['template'], $body);
+    $mailer->addAddress($data['mail']);
+    $mailer->send();
   
     func::notify(lang('activate'), lang('act_succ'), core::$home, lang('home'));  
 }

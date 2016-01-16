@@ -56,7 +56,7 @@ if ($market === core::$set['market_prefix'] && user::exists_id($user_id) && !emp
         $body = array(
             'name'      => $user['login'],
             'taiff'     => $tariff['name'],
-            'number'    => $order_id,
+            'orderid'    => $order_id,
             'date'      => date('d.m.Y', $pay_date),
             'enddate'   => date('d.m.Y', $end_date)
         );
