@@ -39,7 +39,7 @@
                             <input type="hidden" name="quickpay-form" value="shop">
                             <input type="hidden" name="targets" value="<?=$rmenu['name']?>">
                             <input type="hidden" name="sum2" value="<?=$rmenu['price_source']?>" data-type="number">
-                            <input type="hidden" name="sum" value="<?=$rmenu['price']?>" data-type="number">
+                            <input type="hidden" name="sum" value="<?= $rmenu['price']?>" >
                             <input type="hidden" name="need-fio" value="true">
                             <input type="hidden" name="need-email" value="true">
                             <input type="hidden" name="need-phone" value="false">
@@ -88,13 +88,13 @@ $(function(){
 
         if (type == 'PC') {
             sum = sum * '1.006';
-            sum = sum.toPrecision(4);
+            sum = sum.toPrecision(5);
             $(form).find('input[name=sum]').val(sum);
         }
         
         if (type == 'AC') {
             sum = sum * '1.021';
-            sum = sum.toPrecision(4);
+            sum = sum.toPrecision(5);
             $(form).find('input[name=sum]').val(sum);
         }
     });

@@ -55,7 +55,7 @@ if(!$res->num_rows) {
 
     core::$db->query('DELETE FROM `ds_users_inactive` WHERE `id` = "'.$data['id'].'";');
     
-    $query = core::$db->query('SELECT * FROM `mail_templates` WHERE name = "payment"');
+    $query = core::$db->query('SELECT * FROM `mail_templates` WHERE name = "payment_free"');
     $mailTemplate = $query->fetch_assoc();
         
     $body = array(
