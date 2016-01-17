@@ -28,7 +28,7 @@
                     
                     <div class="button_div">
                         <hr style="margin-bottom: 13px" />
-                        <? if(core::$user_id && (core::$user_id == 0 || core::$rights == 100)):?>
+                        <? if(core::$user_id && (core::$rights == 0 || core::$rights == 100)):?>
                         <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">
                             <input type="hidden" name="receiver" value="410011048401080">
                             <input type="hidden" name="formcomment" value="<?=$rmenu['name']?> bankrot-spy.ru">

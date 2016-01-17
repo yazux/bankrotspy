@@ -479,10 +479,11 @@ class core
     private static function check_subsc()
     {
         if(core::$user_id && (core::$rights == 10 || core::$rights == 11)) {
-            if(core::$dest_time < time()) {
+            if(core::$dest_time >0 && core::$dest_time < time()) {
                 core::$db->query('UPDATE `ds_users` SET
                     `rights` = "0",
-                    `desttime` = "0"
+                    `desttime` = "0",
+                    `ordercode` = ""
                     WHERE `id` = "'.core::$user_id.'";'
                 );
 
