@@ -66,7 +66,6 @@ if($countLot > 1 ) {
 }
 
 
-
 $in_favorite = 0;
 if(core::$user_id)
 {
@@ -176,10 +175,12 @@ if(in_array($data['cat_id'], [1,5,6,7])) {
     //var_dump(core::$rights);
     //var_dump(CAN('cost_meter'));
     if(CAN('cost_meter')) {
-
+        var_dump($data);
+        $priceHint = !empty($data['hint']) ? $data['hint'] : number_format($data['price'], 0 , ' ', ' ');
+        //str_replace('&amp;nbsp;', ' ', $data['hint'])
         $field = '
             <td style="width: 200px;"><b>'.$fields[$data['cat_id']].'</b><br/></td>
-            <td><i class="icon-rouble"></i> <a href="'.$data['link'].'" target="_blank">'.str_replace('&amp;nbsp;', ' ', $data['hint']).'</a></td>';
+            <td><i class="icon-rouble"></i> <a href="'.$data['link'].'" target="_blank">'.$priceHint.'</a></td>';
 
     } else {
         $field = '<td style="width: 200px;"><b>'.$fields[$data['cat_id']].'</b><br/></td>
