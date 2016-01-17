@@ -37,6 +37,7 @@ if ($market === core::$set['market_prefix'] && user::exists_id($user_id) && !emp
 
         core::$db->query('UPDATE `ds_users` SET
                                 `rights` = "'.$tariff['rights'].'",
+                                `ordertimeid` = "'.$pay_date.'",
                                 `desttime` = "'.$end_date.'",
                                 `ordercode` = "'.$request['label'].'"
                             WHERE `id` = "'.$user_id.'";');
@@ -72,7 +73,7 @@ if ($market === core::$set['market_prefix'] && user::exists_id($user_id) && !emp
         $mail->setSubject('Оплата подписки');
         $mail->setBody('Клиент: {$name}<br/>Тариф: {$taiff}<br/>Дата: {$date}', $body);
         $mail->addAddress('ak@i-tt.ru');
-        //$mail->addAddress('sales@i-tt.ru');
+        $mail->addAddress('sales@i-tt.ru');
         $mail->send();
     }
 }

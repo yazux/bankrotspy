@@ -18,6 +18,12 @@ if(isset($_GET['search']) && !empty($_GET['search'])) {
         $where = ' login = "'.$search.'"';
     }
     
+    $query = core::$db->query('SELECT * FROM `ds_tariffs`');
+    
+    while ($item = $query->fetch_assoc()) {
+        $tariffs[] = $item;
+    }
+    
     $res = core::$db->query('SELECT * FROM `ds_users` WHERE ' . $where);
     if($res->num_rows > 0 ) {
         
@@ -29,6 +35,7 @@ if(isset($_GET['search']) && !empty($_GET['search'])) {
         $user['rights'] =   $eng_right[$user['rights']];
         $user['online'] =   user::is_online($user['lastvisit']);
         $user['avatar'] =   user::get_avatar($user['id'], $user['avtime'], 1);
+        $user['tariffs'] = $tariffs;
         $arr[] = $user;
     }
 } else {

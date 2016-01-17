@@ -29,12 +29,26 @@
                                 <?else:?>
                                 <b><?=$out['login']?></b>
                                 <?endif?>
-                                <hr/>
-                                <span class="status"><?=$out['rights']?></span><br/>
+                                <br/>
+                                Статус: <span class="status"><?=$out['rights']?></span><br/>
                                 <?=lang('now')?> <?if($out['online']):?><span class="us_on"> <?=lang('lang_on_anc')?></span><?else:?><span class="us_off"> <?=lang('lang_off_anc')?></span><?endif?>
                             </div>
                             <a href="/user/editprofile?id=<?=$out['id']?>">Редактировать</a>
                         </td>
+                        <? if(!empty($out['tariffs'])): ?>
+                        <td valign="top">
+                            <form id="tariff" method="POST">
+                                <? temp::formid() /* ЭТА ФУНКЦИЯ ОБЯЗАТЕЛЬНА ДЛЯ ВСЕХ ФОРМ!!! */?>
+                                <input type="hidden" name="user_id" value="<?= $out['id'] ?>">
+                                <select name="tariff_id">
+                                    <? foreach($out['tariffs'] as $tariff): ?>
+                                    <option value="<?= $tariff['id'] ?>"><?= $tariff['name'] ?></option>
+                                    <? endforeach; ?>
+                                </select>
+                                <input type="submit" value="Активировать"/>
+                            </form>
+                        </td>
+                        <? endif; ?>
                     </tr>
                 </table>
                 </div>
@@ -54,3 +68,19 @@
         </td>
     </tr>
 </table>
+<script>
+$(function(){
+    $('#tariff').on('submit', function(e){
+        e.preventDefault();
+        
+        $.ajax({
+            type: 'POST',
+            url: '/payment/create',
+            data: $(this).serialize(),
+            success: function(result){
+                window.location.reload();
+            }
+        });
+    });
+});
+</script>
