@@ -45,7 +45,6 @@
                 <div class="contfin_forms" style="padding: 9px 20px">
                     Всего: <?=$total_in?>
                 </div>
-
             </div>
 
             <?if($navigation):?><div class="navig"><?=$navigation?></div><?endif?>

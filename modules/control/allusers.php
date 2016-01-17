@@ -63,7 +63,3 @@ temp::HTMassign('navigation', nav::display($total, core::$home.'/control/alluser
 
 temp::display('control.allusers');
 engine_fin();
-
-
-
-
