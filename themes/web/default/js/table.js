@@ -319,7 +319,7 @@ function action_favorite(lot, action, item, hide) {
                     $('.data_table').find('[data-lotid='+lot+']').remove();
                 }
             } else {
-                create_notify('Ошибка! Только для зарегистрированных пользователей!');
+                create_notify('Данная функция доступна на платной подписке!');
                 $(item).find('i').attr('class', 'icon-star-clicked');
                 $(item).find('i').attr('title', 'Удалить лот из избранного');
             }
@@ -330,7 +330,7 @@ function action_favorite(lot, action, item, hide) {
             if (data == 'ok') {
                 create_notify('Лот был добавлен в избранное!');
             } else {
-                create_notify('Ошибка! Только для зарегистрированных пользователей!');
+                create_notify('Данная функция доступна на платной подписке!');
                 $(item).find('i').attr('class', 'icon-star-empty');
                 $(item).find('i').attr('title', 'Добавить лот в избранное');
             }

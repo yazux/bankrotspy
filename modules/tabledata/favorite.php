@@ -1,7 +1,7 @@
 <?php
 defined('DS_ENGINE') or die('web_demon laughs');
 
-if(!core::$user_id)
+if(!in_array(core::$rights, [10, 11, 100]))
   exit('only registered users');
 
 $item = abs(intval(POST('itemid')));
