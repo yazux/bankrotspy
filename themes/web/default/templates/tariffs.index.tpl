@@ -13,7 +13,9 @@
             </div>
             <? if($rmenu): ?>
             <? foreach($rmenu as $rmenu): ?>
-                <? if(intval($rmenu['price_source']) > 100): ?>
+                <? if(intval($rmenu['price_source']) < 100 && core::$rights < 100): ?>
+                    <? continue; ?>
+                <? endif; ?>
                 <div class="tarbody">
                     <table >
                         <tr>
@@ -53,7 +55,6 @@
                         <? endif; ?>
                     </div>
                 </div>
-                <? endif; ?>
             <?endforeach?>
 
             <?else:?>
