@@ -5,10 +5,10 @@ $id = abs(intval(GET('id')));
 if(!$id)
   denied();
 
-$access = true;
+$access = false;
         
-if(!core::$user_id) {
-    $access = false;
+if(in_array(core::$rights, [10,11,100])) {
+    $access = true;
 }
 
 $twr = core::$db->query('SELECT

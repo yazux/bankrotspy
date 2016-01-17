@@ -334,7 +334,7 @@ if ($res->num_rows) {
         $access = false;
         $vipAccess = false;
         
-        if (core::$user_id) {
+        if (in_array(core::$rights, [10,11,100])) {
             $access = true;
         }
         

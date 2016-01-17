@@ -74,10 +74,10 @@ class column_profitrub
             if($access) {
                 $out_price = '<i onmouseover="toolTip(\'Не рассчитывается, т.к. цена определяется вручную\')" onmouseout="toolTip()" class="icon-help"></i>';
             } else {
-                $addition = ' onmouseover="toolTip(\'Информация доступна для зарегистрированных пользователей\')" onmouseout="toolTip()" ';
+                $addition = ' onmouseover="toolTip(\'Информация доступна на платной подписке\')" onmouseout="toolTip()" ';
             }
         } elseif(!$access) {
-            $addition = ' onmouseover="toolTip(\'Информация доступна для зарегистрированных пользователей\')" onmouseout="toolTip()" ';
+            $addition = ' onmouseover="toolTip(\'Информация доступна на платной подписке\')" onmouseout="toolTip()" ';
         }
     
         return array(

@@ -63,11 +63,11 @@ class column_profitproc
                 $price = '<i onmouseover="toolTip(\'Не рассчитывается, т.к. цена определяется вручную\')" onmouseout="toolTip()" class="icon-help"></i>';
                 $not_colored = $price;
             } else {
-                $addition = 'onmouseover="toolTip(\'Информация доступна для зарегистрированных пользователей\')" onmouseout="toolTip()"';
+                $addition = 'onmouseover="toolTip(\'Информация доступна на платной подписке\')" onmouseout="toolTip()"';
                 $not_colored = $price;
             }
         } elseif(!$access) {
-            $addition = 'onmouseover="toolTip(\'Информация доступна для зарегистрированных пользователей\')" onmouseout="toolTip()"';
+            $addition = 'onmouseover="toolTip(\'Информация доступна на платной подписке\')" onmouseout="toolTip()"';
             $not_colored = $price;
         }
     
