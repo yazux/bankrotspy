@@ -175,7 +175,7 @@ if(in_array($data['cat_id'], [1,5,6,7])) {
     //var_dump(core::$rights);
     //var_dump(CAN('cost_meter'));
     if(CAN('cost_meter')) {
-        var_dump($data);
+        //var_dump($data);
         $priceHint = !empty($data['hint']) ? $data['hint'] : number_format($data['price'], 0 , ' ', ' ');
         //str_replace('&amp;nbsp;', ' ', $data['hint'])
         $field = '
