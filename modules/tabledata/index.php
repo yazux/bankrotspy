@@ -132,8 +132,18 @@ if ($category == '-1') {
 }
 
 if ($svalue) {
-    $selects['search'] = ' MATCH (`ds_maindata`.`name`, `ds_maindata`.`description`) AGAINST ("' . core::$db->res($svalue) . '" IN BOOLEAN MODE) as `rel` ';
-    $conditions['search'] = ' MATCH (`ds_maindata`.`name`, `ds_maindata`.`description`) AGAINST ("' . core::$db->res($svalue) . '" IN BOOLEAN MODE) ';
+    
+    // костыль для более точного поиска, надо будет потетировать лучший вариант
+    
+    $search = explode(' ', $svalue);
+    $query = '';
+    foreach($search as $word) {
+        $query .= '+' . $word . ' ';
+    }
+    $query = $svalue;
+    //var_dump($query);
+    $selects['search'] = ' MATCH (`ds_maindata`.`name`, `ds_maindata`.`description`) AGAINST ("' . core::$db->res($query) . '" IN BOOLEAN MODE) as `rel` ';
+    $conditions['search'] = ' MATCH (`ds_maindata`.`name`, `ds_maindata`.`description`) AGAINST ("' . core::$db->res($query) . '" IN BOOLEAN MODE) ';
     $order_conditions['search'] = '`rel` DESC ';
 }
 

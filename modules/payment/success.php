@@ -21,9 +21,10 @@ $pay_date = time();
 $query = core::$db->query('SELECT * FROM `ds_tariffs` WHERE `id` = "'.$tariff_id.'"');
 $tariff = $query->fetch_assoc();
 
+/*
 if(floor($request['amount']) < intval($tariff['price'])) {
     die('incorrect sum: ' . $request['amount']);
-}
+}*/
 
 if ($market === core::$set['market_prefix'] && user::exists_id($user_id) && !empty($tariff)) {
     

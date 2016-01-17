@@ -87,13 +87,13 @@ $(function(){
         var sum = $(form).find('input[name="sum2"]').val();
 
         if (type == 'PC') {
-            sum = sum * '1.005';
+            sum = sum * '1.006';
             sum = sum.toPrecision(4);
             $(form).find('input[name=sum]').val(sum);
         }
         
         if (type == 'AC') {
-            sum = sum * '1.020';
+            sum = sum * '1.021';
             sum = sum.toPrecision(4);
             $(form).find('input[name=sum]').val(sum);
         }

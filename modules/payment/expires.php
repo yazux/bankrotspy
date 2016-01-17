@@ -9,10 +9,10 @@ $time = time();
 $query = core::$db->query('SELECT * FROM `mail_templates` WHERE name = "payment_end"');
 $mailTemplate = $query->fetch_assoc();
 
-$query = core::$db->query('SELECT * FROM `ds_users` WHERE `rights` IN (10, 11) AND `desttime` > "0" AND `desttime` < "'.$time.'"');
+$query = core::$db->query('SELECT * FROM `ds_users` WHERE `rights` IN (10, 11) AND `desttime` > "0" AND `desttime` < "'.$time.'" LIMIT 10');
 
 while($row = $query->fetch_assoc()) {
-    var_dump($row);
+    //var_dump($row);
     core::$db->query('UPDATE `ds_users` SET
                         `rights` = "0",
                         `desttime` = "0",
