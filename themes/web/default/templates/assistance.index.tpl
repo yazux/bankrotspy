@@ -17,7 +17,7 @@
     </div>
 
     <div class="contbody_forms">
-         <?= $text ?>
+         <?= $page_text ?>
     </div>
 
   <div class="contbody_forms">

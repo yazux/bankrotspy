@@ -105,7 +105,7 @@ $textData =  $textQuery->fetch_assoc();
 
 engine_head(lang('title'));
 temp::HTMassign('error',$error);
-temp::HTMassign('text',$textData);
+temp::HTMassign('page_text',$textData);
 
 temp::assign('name',$name);
 temp::assign('email',$email);
