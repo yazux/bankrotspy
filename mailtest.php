@@ -1,6 +1,10 @@
 <?php
 
-phpinfo();exit;
+echo date('d.m.Y h:i:s', time());
+echo '<br/>';
+echo date('d.m.Y h:i:s', '1452966715');
+exit;
+//phpinfo();exit;
 
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');

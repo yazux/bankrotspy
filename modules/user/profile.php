@@ -85,8 +85,10 @@ if(core::$user_id)
     temp::assign('us_from','profile');
     temp::assign('name_prof', core::$user_id == $id ? lang('myprofile') : lang('anketa').' '.$data['login']);
     temp::assign('username',$data['login']);
+    temp::assign('endtime', date('d.m.Y h:i:s', $data['desttime']));
+    temp::assign('rights', $data['rights']);
     temp::assign('age',$age);
-    temp::assign('rights',$eng_right[$data['rights']]);
+    temp::assign('status',$eng_right[$data['rights']]);
     temp::assign('user_prof',$id);
     temp::assign('comm_plus', $data['comm_plus']);
     temp::assign('comm_minus', $data['comm_minus']);
