@@ -103,9 +103,12 @@ if (GET('act')) {
 $textQuery = core::$db->query('SELECT * FROM `ds_pages` WHERE `id` = "10" LIMIT 1;');
 $textData =  $textQuery->fetch_assoc();
 
-engine_head(lang('title'));
+engine_head($textData['name'], $textData['keywords'], $textData['description']);
+
+temp::assign('title', $textData['name']);
+
 temp::HTMassign('error',$error);
-temp::HTMassign('page_text',$textData);
+temp::HTMassign('page_text', text::out($textData['text'], 0));
 
 temp::assign('name',$name);
 temp::assign('email',$email);
