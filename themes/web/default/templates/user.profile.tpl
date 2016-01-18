@@ -15,7 +15,7 @@
                                 <div class="ank">
                                     <b>Статус: </b> <span class="status"><?=$status?></span><hr style="margin: 4px 0 6px 0"/>
                                     <? if(core::$rights == 100 && $rights > 0): ?>
-                                    <b>Подписка истекает: </b><?= $endtime; ?><br/>
+                                    <b>Подписка истекает: </b><?= $endtime; ?><hr style="margin: 4px 0 6px 0"/>
                                     <? endif; ?>
                                     <b><?=lang('now')?></b>  <?if($online):?><span class="us_on"> <?=lang('lang_on_anc')?></span><?else:?><span class="us_off"> <?=lang('lang_off_anc')?></span><?endif?>
 
