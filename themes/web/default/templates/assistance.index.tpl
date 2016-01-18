@@ -8,7 +8,7 @@
             <?endforeach?>
             </div>
         <?endif?>
-  
+
 <form action="?act=send" method="post">
 <? temp::formid() /* ЭТА ФУНКЦИЯ ОБЯЗАТЕЛЬНА ДЛЯ ВСЕХ ФОРМ!!! */?>
 <div class="content">
@@ -17,7 +17,7 @@
     </div>
 
     <div class="contbody_forms">
-        Если Вам нужна помощь для участия в торгах и подачи заявок в нужное время, тогда отправьте нам заявку.
+         <?= $text ?>
     </div>
 
   <div class="contbody_forms">
