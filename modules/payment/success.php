@@ -52,7 +52,7 @@ if ($market === core::$set['market_prefix'] && user::exists_id($user_id) && !emp
                             `userid` = "'.$user_id.'",
                             `username` = "'.core::$db->res($user['login']).'",
                             `paidid` = "'.core::$db->res($order_id).'",
-                            `summ` = "'.$tariff['price'].'",
+                            `summ` = "'.$request['amount'].'",
                             `paytime` = "'.$pay_date.'",
                             `comm` = "'.core::$db->res($tariff['name']).'";');
         
