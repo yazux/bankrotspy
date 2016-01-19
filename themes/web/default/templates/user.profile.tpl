@@ -83,7 +83,7 @@
                 <div class="elmenu"><a href="<?=$home?>/user/editprofile?id=<?=$user_prof?>"> Редактировать профиль</a></div>
                 <div class="elmenu"><a href="<?=$home?>/user/avedit?id=<?=$user_prof?>"> <?=lang('av_edit')?></a></div>
                     <?if($can_del_user):?>
-                <div class="elmenu"><a href="<?=$home?>/user/delete?id=<?=$user_prof?>"> <?=lang('delete')?></a></div>
+                <div class="elmenu"><a href="<?=$home?>/user/delete?id=<?=$user_prof?>"> Заблокировать</a></div>
                     <?endif?>
                 <?endif?>
                 <div class="elmenu"><a href="<?=$home?>">На главную</a></div>

@@ -13,9 +13,10 @@ if($id and core::$user_id)
     {
       if(POST('delete'))
       {
-        core::$db->query('INSERT INTO `ds_depr_emails` SET `mail` = "'.core::$db->res($data['mail']).'";');  
-        core::$db->query('DELETE FROM `ds_users` WHERE `id` = "'.$id.'" LIMIT 1;');
-        core::$db->query('DELETE FROM `ds_maindata_favorive` WHERE `user_id` = "'.$id.'";');
+           core::$db->query('UPDATE `ds_users` SET `active` = "0" WHERE `id` = "'.$id.'" LIMIT 1;');
+        //core::$db->query('INSERT INTO `ds_depr_emails` SET `mail` = "'.core::$db->res($data['mail']).'";');  
+        //core::$db->query('DELETE FROM `ds_users` WHERE `id` = "'.$id.'" LIMIT 1;');
+        //core::$db->query('DELETE FROM `ds_maindata_favorive` WHERE `user_id` = "'.$id.'";');
         func::notify(lang('del_user'), lang('stat_deleted'), core::$home, lang('continue'));
       }    
         
