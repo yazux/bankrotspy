@@ -4,20 +4,30 @@ defined('DS_ENGINE') or die('web_demon laughs');
 
 $search = GET('search');
 
-$sql_calc = 'SQL_CALC_FOUND_ROWS';
+$sql_calc = 'SQL_CALC_FOUND_ROWS ';
 
 
 // поиск
 if (!empty($search) && strlen($search) >= 4 && $access === true) {
     $s = core::$db->res(GET('search'));
     
-    $query = core::$db->query('SELECT ' . $sql_calc . ' * FROM `ds_maindata_organizers` WHERE 
-                                `org_name` LIKE "%'.$s.'%" OR 
-                                `contact_person` LIKE "%'.$s.'%" OR 
-                                `inn` = "'.$s.'" OR
-                                `phone` LIKE "%'.$s.'%" OR 
-                                `mail` = "'.$s.'" ORDER BY bal DESC');
+    $select = '* ';
+    $order = '`bal` DESC';
+    if(is_numeric($s)) {
+        $where = '`inn` = "'.$s.'" OR phone = "'.$s.'"';
+    } elseif (filter_var($s, FILTER_VALIDATE_EMAIL)) {
+        $where = 'mail = "'.$s.'"';
+    } else {
+        $select = '*, MATCH (`ds_maindata_organizers`.`org_name`, `ds_maindata_organizers`.`contact_person`, `ds_maindata_organizers`.`manager`) AGAINST ("»' . $s . '»" IN BOOLEAN MODE) as `rel` ';
+        $where = ' MATCH (`ds_maindata_organizers`.`org_name`, `ds_maindata_organizers`.`contact_person`, `ds_maindata_organizers`.`manager`) AGAINST ("»' . $s . '»" IN BOOLEAN MODE) ';
+        $order = '`rel` DESC, `bal` DESC';
+    }
+    
+    $query = core::$db->query('SELECT ' . $sql_calc . $select .' FROM `ds_maindata_organizers` WHERE 
+                                '.$where.'
+                                ORDER BY ' . $order);
     $total = $query->num_rows;
+    
     
 } else {
 
@@ -28,11 +38,12 @@ if (!empty($search) && strlen($search) >= 4 && $access === true) {
     $offset = !empty($limit) ? ($limit * ($page - 1)) : 0;
     
     $query = core::$db->query('SELECT ' . $sql_calc . ' * FROM `ds_maindata_organizers` ORDER BY bal DESC LIMIT '.$limit.' OFFSET ' . core::$db->res($offset));
-    $_SESSION['hash'] = md5($query->num_rows);
+    $total = $query->num_rows;
 }
 
 $data = [];
 $i = 0;
+
 while($row = $query->fetch_assoc()) {
     
     if ($row['totaldoc'] > 0 && $row['totaldoc'] < 3) {
