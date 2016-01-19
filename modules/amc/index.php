@@ -38,7 +38,8 @@ if (!empty($search) && strlen($search) >= 4 && $access === true) {
     $offset = !empty($limit) ? ($limit * ($page - 1)) : 0;
     
     $query = core::$db->query('SELECT ' . $sql_calc . ' * FROM `ds_maindata_organizers` ORDER BY bal DESC LIMIT '.$limit.' OFFSET ' . core::$db->res($offset));
-    $total = $query->num_rows;
+    
+    $_SESSION['hash'] = md5($query->num_rows);
 }
 
 $data = [];
