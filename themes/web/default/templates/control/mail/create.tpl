@@ -14,19 +14,19 @@
                 <div class="contbody_forms">
                     <b>Группы подписчиков</b><br/>
                     <label>
-                        <input type="checkbox" name="groups[-1]" checked="checked">
+                        <input type="radio" name="groups" value="1" <?= ($mail['groups'] == 1) ? 'checked="checked"' : ''?>>
                         Все
                     </label>
                     <label>
-                        <input type="checkbox" name="groups[0]">
+                        <input type="radio" name="groups" value="0" <?= ($mail['groups'] == 0) ? 'checked="checked"' : ''?>>
                         Пользователь
                     </label>
                     <label>
-                        <input type="checkbox" name="groups[10]">
+                        <input type="radio" name="groups" value="10" <?= ($mail['groups'] == 10) ? 'checked="checked"' : ''?>>
                         Клиент
                     </label>
                     <label>
-                        <input type="checkbox" name="groups[11]">
+                        <input type="radio" name="groups" value="11" <?= ($mail['groups'] == 11) ? 'checked="checked"' : ''?>>
                         VIP-клиент
                     </label>
                 </div>

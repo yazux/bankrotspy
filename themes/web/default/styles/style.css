@@ -61,12 +61,12 @@ img.logo{
 }
 
 .headmenu {
-    height: 30px;
-    border-top: #d2d2d2 1px solid;
+    
+    /*border-top: #d2d2d2 1px solid;*/
 }
 
 .und_head_cont{
-    border-bottom: 1px #c3c3c3 solid;
+    /*border-bottom: 1px #c3c3c3 solid;*/
 }
 
 .topbutton {
@@ -81,7 +81,7 @@ img.logo{
     text-align: center;
     font-size: 13px;
     width: 150px;
-    border-right: 1px solid #dbdbdb;
+    border: 1px solid #d2d2d2;
 }
 
 .topbutton tr td a {

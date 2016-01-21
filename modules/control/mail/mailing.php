@@ -88,7 +88,7 @@ if (!empty($_POST)) {
     
     $subject = $_POST['subject'];
     $text = $_POST['text_source'];
-    $groups = json_encode($_POST['groups']);
+    $groups = $_POST['groups'];
     $mailId = !empty($_POST['id']) ? intval($_POST['id']) : 0;
     
     // обновляем рассылку
@@ -165,7 +165,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['id'])) 
     
     $query = core::$db->query('SELECT * FROM `mail_mailing` WHERE `id` = "'.$id.'"');
     $mail = $query->fetch_assoc();
-    $mail['groups'] = json_decode($mail['groups'], true);
+    $mail['groups'] = $mail['groups'];
     
     $query = core::$db->query('SELECT * FROM `mail_mailing_files` WHERE type="image" AND `mail_id` = "'.$id.'"');
     $images = $query->fetch_all();
