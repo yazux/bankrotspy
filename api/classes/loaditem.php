@@ -52,6 +52,9 @@ class loaditem
     $sourse['inn']             = $dataarr[21];
     $sourse['key']             = $dataarr[22];
     $sourse['platform_id']     = $dataarr[23];
+    
+    $sourse['fedlink']         = $dataarr[24];
+    $sourse['tbanlink']        = $dataarr[25];
 
     //Лоадер файлов-функций
     $load = new bcdata();
@@ -89,6 +92,14 @@ class loaditem
     $outdata['price_dif'] = $load->pricedif($outdata['price'], $outdata['now_price']);
     $outdata['debpoints'] = -1;
     $outdata['loadtime'] = time();
+    
+    if(!empty($sourse['fedlink'])) {
+        $outdata['fedlink']     = trim($sourse['fedlink']);
+    }
+    
+    if(!empty($sourse['tbanlink'])) {
+        $outdata['tbanlink']     = trim($sourse['tbanlink']);
+    }
 
     //Забиваем id-шку
     self::$id = $outdata['item_key'];

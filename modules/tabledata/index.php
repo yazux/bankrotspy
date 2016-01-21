@@ -319,7 +319,7 @@ if ($res->num_rows) {
         $loc['begindate'] = $tabledata->begindate($data['start_time']);
         $loc['closedate'] = $tabledata->closedate($data['end_time']);
         $loc['beforedate'] = $tabledata->beforedate($data['start_time'], $data['end_time'], $data['status_name'], $data['status']);
-        $loc['beginprice'] = $tabledata->beginprice($data['price']);
+        $loc['beginprice'] = $tabledata->beginprice(float($data['price']));
         $loc['nowprice'] = $tabledata->nowprice($data['now_price'], $data['platform_id'], $data['type'], $data['grafik1']);
 
         

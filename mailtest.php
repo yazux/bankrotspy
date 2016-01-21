@@ -1,8 +1,7 @@
 <?php
 
-echo date('d.m.Y h:i:s', time());
-echo '<br/>';
-echo date('d.m.Y h:i:s', '1444725063');
+var_dump(10.00/1.1);
+var_dump(round(10.00/1.1, 2));
 exit;
 //phpinfo();exit;
 

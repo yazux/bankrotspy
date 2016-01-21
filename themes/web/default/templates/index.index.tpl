@@ -593,9 +593,6 @@
 </div>
 
 <div style="text-align: center; cursor:pointer;">
-    <a href="https://vk.com/money_mihalchenco">
-        <img src="http://bankrot-spy.ru/themes/web/default/images/banners/banner-bankrot.gif">
-    </a>
 </div>
 
 <div class="content" style="margin:8px 0 8px 16px;">
