@@ -3,14 +3,18 @@
 <?endif?>
 
 <div class="contbody_und" id="comm<?=$com['id']?>">
-
+<? $bg = ''; ?>
+        <? if(core::$rights == 100 && $com['visible'] == 0): ?>
+            <? $bg = 'style="background:#fcf3e8"'; ?>
+        <? endif;?>
 <table>
-  <tr>
+  <tr <?= $bg ?>>
     <td valign="top" width="50px">
        <a href="<?=$home?>/user/profile?id=<?=$com['id_user']?>"><img class="avatar" src="<?=$com['avatar']?>"/></a>
     </td>
     <td>
        <table style="margin-bottom:8px">
+        
          <tr>
             <td width="100%">
              <a class="comm_username" href="<?=$home?>/user/profile?id=<?=$com['id_user']?>"><b><?=$com['from_login']?></b></a>

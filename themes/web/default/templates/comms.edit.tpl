@@ -37,6 +37,15 @@
             <?=func::tagspanel('messarea');?>
             <div class="texta"><textarea id="messarea" name="post" rows="15"><?=$text?></textarea></div>
         </div>
+        <? if(core::$rights == 100): ?>
+        <div class="contbody_forms">
+            <label>Статус: </label>
+            <select name="visible">
+                <option value="0" <?= ($visible ==0) ? 'selected': '' ?>>Скрыт</option>
+                <option value="1" <?= ($visible ==1) ? 'selected': '' ?>>Виден</option>
+            </select>
+        </div>
+        <? endif; ?>
         <div class="contfin_forms">
             <input name="submit" type="submit" value="<?=lang('save')?>"/> &nbsp;
             <?if($comm_prev):?>

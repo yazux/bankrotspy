@@ -21,7 +21,7 @@ class comm
      self::$action = $action;
      self::$post_long = 2000;
      
-     self::$total_mess = core::$db->query('SELECT COUNT(*) FROM `ds_comm` WHERE `module`="'.self::$module.'" AND `mid` = "'.self::$mid.'" ;')->count();
+     self::$total_mess = core::$db->query('SELECT COUNT(*) FROM `ds_comm` WHERE `module`="'.self::$module.'" AND visible = "1" AND `mid` = "'.self::$mid.'" ;')->count();
      if(nav::$kmess)
        self::$page = ceil(self::$total_mess/nav::$kmess);
 
@@ -79,7 +79,13 @@ class comm
     else
       $sort = 'DESC';
 
-    $res = core::$db->query('SELECT `ds_comm`.*, `ds_users`.`lastvisit`, `ds_users`.`avtime`, `ds_users`.`sex`, `ds_users`.`rights` FROM `ds_comm` LEFT JOIN `ds_users` ON `ds_comm`.`userid` = `ds_users`.`id` WHERE `ds_comm`.`module`="'.self::$module.'" AND `ds_comm`.`mid` = "'.self::$mid.'" ORDER BY `ds_comm`.`time` '.$sort.' LIMIT '.$start.', '.$limit.';');
+    $visible = ' AND `ds_comm`.`visible` = "1" ';
+    
+    if(core::$rights == 100) {
+       $visible = ''; 
+    }
+    
+    $res = core::$db->query('SELECT `ds_comm`.*, `ds_users`.`lastvisit`, `ds_users`.`avtime`, `ds_users`.`sex`, `ds_users`.`rights` FROM `ds_comm` LEFT JOIN `ds_users` ON `ds_comm`.`userid` = `ds_users`.`id` WHERE `ds_comm`.`module`="'.self::$module.'" '.$visible.' AND `ds_comm`.`mid` = "'.self::$mid.'" ORDER BY `ds_comm`.`time` '.$sort.' LIMIT '.$start.', '.$limit.';');
     
     $eng_right = user::get_rights();
     
@@ -121,6 +127,7 @@ class comm
       $out['time'] = ds_time($data['time']);
       $out['id_user'] =  $data['userid'];
       $out['from_login'] =  $data['username'];
+      $out['visible'] =  $data['visible'];
 
       $out['avatar'] = user::get_avatar($data['userid'], $data['avtime'], 1);
       
@@ -158,6 +165,7 @@ class comm
      `cache`="'.core::$db->res(text::presave($text)).'",
      `username`="'.core::$user_name.'",
      `userid`="'.core::$user_id.'",
+     `visible`= "0",
      `time`="'.time().'";
     ');
     

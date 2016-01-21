@@ -58,6 +58,9 @@ elseif(POST('submit'))
   $error = comm::check_post($post);
   if(!$error)
   {
+      if(isset($_POST['visible'])) {
+          $visible = ', `visible` = "'.$_POST['visible'].'"';
+      }
     core::$db->query('UPDATE `ds_comm` SET
              `useredit` = "' . core::$db->res(core::$user_name) . '",
              `editid` = "' . core::$user_id . '",
@@ -65,6 +68,7 @@ elseif(POST('submit'))
              `numedit` = "' . ($data['numedit'] + 1) . '",
              `text` = "' . core::$db->res($post) . '",
              `cache` = "' . core::$db->res(text::presave($post)) . '"
+             '.$visible.'
               WHERE `id`="' . $id . '" LIMIT 1;');
 
     if(text::st(GET('mod')) == 'articles')
@@ -98,6 +102,7 @@ temp::assign('burl', $backurl);
 temp::assign('id', $data['id']);
 //temp::HTMassign('error', $error);
 temp::assign('text', ($post ? $post : $data['text']));
+temp::assign('visible', $data['visible']);
 temp::assign('mid', $mid);
 temp::assign('page', $page);
 temp::assign('module', GET('mod'));

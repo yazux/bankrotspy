@@ -62,7 +62,7 @@ if ($user['rights'] == 0 && !empty($tariff)) {
     $mail->setSubject('Оплата подписки');
     $mail->setBody('Клиент: {$name}<br/>Тариф: {$taiff}<br/>Дата: {$date}', $body);
     $mail->addAddress('ak@i-tt.ru');
-    //$mail->addAddress('sales@i-tt.ru');
+    $mail->addAddress('sales@i-tt.ru');
     $mail->send();
 } /*else {
     $responce = [
