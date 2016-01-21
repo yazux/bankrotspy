@@ -59,7 +59,7 @@ class column_marketprice
             $out_price = '-';
         } else {
             $out_price = '<i class="fa fa-lock"></i>';
-            $addition = ' onmouseover="toolTip(\'Информация доступна на платной подписке\')" onmouseout="toolTip()" ';
+            $addition = ' onmouseover="toolTip(\'Информация доступна на тарифном плане VIP\')" onmouseout="toolTip()" ';
         }
 
         return array(

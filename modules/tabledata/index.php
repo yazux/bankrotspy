@@ -343,6 +343,9 @@ if ($res->num_rows) {
         */
         if ($category != 0 AND $category != 4 AND $category != 8 AND $category != 2) {
             if ($category === 5 || $category === 1 || $category === 7 || $category === 6) {
+                if($vipAccess == false) {
+                    $data['hint_text'] = 'Информация доступна на тарифном плане VIP';
+                }
                 $loc['marketprice'] = $tabledata->marketprice($data['market_price'], $access, $data['hint_text']);
             } else {
                 $loc['marketprice'] = $tabledata->marketprice($data['market_price'], $access);
