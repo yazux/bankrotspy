@@ -150,7 +150,9 @@
                                 <?foreach($rmenu as $rmenu):?>
                                     <? //if($rmenu['link'] == '/tariffs') continue; ?>
                                    <td>
-                                       <a <?if($rmenu['new_tab']):?>target="_blank"<?endif?> <?= ($rmenu['link']== '/tariffs') ? 'style="font-weight:bold;color:#ff9b24;"' : ''?>href='<?=$rmenu['link']?>'><?=$rmenu['name']?>
+                                       <a <?if($rmenu['new_tab']):?>target="_blank"<?endif?> <?= ($rmenu['link']== '/tariffs') ? 'style="font-weight:bold;color:#ff9b24;"' : ''?>href='<?=$rmenu['link']?>'>
+                                       <?= ($rmenu['link']== '/tariffs') ? '<i class="icon-rouble"></i>' : '' ?>
+                                       <?=$rmenu['name']?>
 
                                             <?if($rmenu['one_cnt'] AND core::$user_id):?>
                                             <?if(counts::get($rmenu['one_cnt'])):?>
