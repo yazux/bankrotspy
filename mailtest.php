@@ -2,7 +2,7 @@
 
 echo date('d.m.Y h:i:s', time());
 echo '<br/>';
-echo date('d.m.Y h:i:s', '1452966715');
+echo date('d.m.Y h:i:s', '1444725063');
 exit;
 //phpinfo();exit;
 

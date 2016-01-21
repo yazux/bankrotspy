@@ -72,6 +72,7 @@ img.logo{
 .topbutton {
     height: 30px;
     background: #f4f4f4;
+    border:none;
 }
 
 .topbutton tr td {

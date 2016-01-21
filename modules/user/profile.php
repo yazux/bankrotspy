@@ -86,6 +86,7 @@ if(core::$user_id)
     temp::assign('name_prof', core::$user_id == $id ? lang('myprofile') : lang('anketa').' '.$data['login']);
     temp::assign('username',$data['login']);
     temp::assign('endtime', date('d.m.Y h:i:s', $data['desttime']));
+    temp::assign('reg_date', date('d.m.Y',$data['time']));
     temp::assign('rights', $data['rights']);
     temp::assign('age',$age);
     temp::assign('status',$eng_right[$data['rights']]);
