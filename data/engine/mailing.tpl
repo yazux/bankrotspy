@@ -29,6 +29,7 @@
 </div>
 </div>
 <div style="max-width: 700px;margin:0 auto;margin:25px auto;text-align:center;">
+ВНИМАНИЕ! Просим не отвечать на это письмо, пишите на : <a href="mailto:help@i-tt.ru">help@i-tt.ru</a><br/>
 <a style="text-decoration:none;" href="{$host}/unsubscribe?id={$hash}">Отключить рассылку</a>
 </div>
 </body>
