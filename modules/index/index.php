@@ -54,6 +54,39 @@ $bold_places = array();
 $places_def = array();
 $places = array();
 $res = core::$db->query('SELECT * FROM  `ds_maindata_regions` ORDER BY `name` ASC;');
+
+while($data = $res->fetch_assoc()) {
+    if ($data['number'] == 0) continue;
+    $regions[] = $data;
+}
+
+
+$regions_intop = [77, 78, 50, 47];
+$regions_top_tmp = [];
+$regions_top = [];
+$regions_result = [];
+
+foreach($regions as $region) {
+    if (in_array($region['number'], $regions_intop)) {
+        $regions_top_tmp[$region['number']] = $region['name'];
+    } elseif ($region['parent_id'] == 0) {
+        $regions_result[$region['id']]['name'] = $region['name'];
+        foreach($regions as $subregion) {
+            if($subregion['parent_id'] == $region['id'] && !in_array($subregion['number'], $regions_intop)) {
+                $regions_result[$region['id']]['sub'][$subregion['number']] = $subregion['name'];
+            }
+        }
+    }
+}
+foreach ($regions_intop as $key) {
+    $regions_top[$key] = $regions_top_tmp[$key];
+}
+
+
+
+//var_dump($regions_top);
+//var_dump($regions_result);
+
 while ($data = $res->fetch_array()) {
   
     $places_def[$data['number']] = 1;
@@ -84,6 +117,7 @@ while($i <= $half)
     $now_places[$places[$i+$half][0]] = $places[$i+$half][1];
   $i++;
 }
+
 
 $places = $now_places;
 
@@ -130,7 +164,7 @@ if(core::$user_id AND isset(core::$user_set['tabledata']) AND core::$user_set['t
     $new_lots = $save_set['new_lots'];
     $places_used = $user_tset['places'];
     $platforms_used = $user_tset['platforms'];
-    
+    //var_dump($places_used);
     //Текущий профиль
     $now_profile_name = $pdata['pname'];
     $now_profile_id = $pdata['id'];
@@ -175,6 +209,11 @@ $article['time'] = ds_time($articleData['time']);
 
 
 engine_head();
+
+
+// закрепленные области
+temp::HTMassign('regions_top', $regions_top);
+temp::HTMassign('regions_result', $regions_result);
 
 temp::HTMassign('article', $article);
 

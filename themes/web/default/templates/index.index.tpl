@@ -413,61 +413,77 @@
         </div>
         <div class="main_pop_body" id="place_table">
             <table width="100%">
-                <?$i = 1;?>
-
-                <?foreach($bold_places as $pkey=>$pvalue): ?>
-                <?if($i % 2):?><tr><?endif?>
+                <? $i = 1; ?>
+                <? foreach($regions_top as $pkey=>$pvalue): ?>
+                <? if($i % 2): ?> <tr> <?endif?>
                     <td width="50%">
-                        <label><input type="checkbox" <?if($places_used[$pkey] == 1):?> checked="checked" <?endif?> name="place_number_<?=$pkey?>"/> <span style="font-weight: bold;"><?=$pvalue?></span></label><br/>
+                        <label><input type="checkbox" <?if($places_used[$pkey] == 1):?> checked="checked" <?endif?> name="place_number_<?=$pkey?>"/> <span style="font-weight: bold;color:#4a4a4a;"><?=$pvalue?></span></label><br/>
                     </td>
-                    <?if($i % 2):?>
-                    <?$last_tr = 0;?>
-                    <?else:?>
-                    <?$last_tr = 1;?>
+                    <?if($i % 2): ?>
+                    <? $last_tr = 0; ?>
+                    <? else: ?>
+                    <? $last_tr = 1; ?>
                 </tr>
-                <?endif?>
-                <?$i++;?>
-                <?endforeach?>
+                <? endif; ?>
+                <? $i++; ?>
+                <? endforeach; ?>
 
-                <?if(!$last_tr):?>
+                <? if(!$last_tr): ?>
                 <td>&nbsp;</td></tr>
-                <?endif?>
-
+                <? endif ?>
+                <tr>
+                    <td colspan="2">
+                        <label style="font-weight:bold;">
+                            <input type="checkbox" name="place_number_0" checked>
+                            Не определен
+                        </label>
+                    </td>
+                </tr>
             </table>
 
             <hr class="reg_delimiter" />
-
+            <script>
+                $(function(){
+                    $('[data-region]').on('click', function(){
+                        var places = $(this).parent().find('table input');
+                        console.log(places);
+                    });
+                });
+            </script>
             <table width="100%">
-            <?$i = 1;?>
-
-            <?foreach($places as $pkey=>$pvalue): ?>
-                <?if($i % 2):?><tr><?endif?>
-                    <td width="50%">
-                       <label><input type="checkbox" <?if($places_used[$pkey] == 1):?> checked="checked" <?endif?> name="place_number_<?=$pkey?>"/> <?=$pvalue?></label><br/>
+            <?
+                $i = 0;
+                $half = ceil(count($regions_result)/2);
+            ?>
+                <tr>
+                    <td width="50%" valign="top">
+                    <? foreach($regions_result as $root_id => $data): ?>
+                    <? if($half == $i): ?>
                     </td>
-                    <?if($i % 2):?>
-                    <?$last_tr = 0;?>
-                    <?else:?>
-                    <?$last_tr = 1;?>
+                    <td width="50%" valign="top">
+                    <? endif; ?>
+                        <div>
+                        <label style="font-weight:bold;color:#4a4a4a;">
+                        <input type="checkbox" data-region="[<?= $root_id ?>]" />
+                        <?= $data['name'] ?>
+                        </label>
+                        <table>
+                        <? foreach($data['sub'] as $key => $region): ?>
+                            <tr>
+                                <td style="padding-left:20px;">
+                                <label>
+                                <input type="checkbox" name="regions[<?= $root_id ?>][<?= $key ?>]" />
+                                <?= $region ?>
+                                </label>
+                                </td>
+                            </tr>
+                        <? endforeach; ?>
+                        </table>
+                    <? $i++ ?>
+                        </div>
+                    <?endforeach?>
+                    </td>
                 </tr>
-                <?endif?>
-                <?$i++;?>
-            <?endforeach?>
-            <tr>
-             <td>&nbsp;</td>
-            <td width="50%" style="font-weight:bold;">
-                <label>
-                    <input type="checkbox" name="place_number_0" checked>
-                    Не определен
-                </label>
-                <br>
-            </td>
-            </tr>
-            <?if(!$last_tr):?>
-            <td>&nbsp;</td>
-            </tr>
-            <?endif?>
-            
             </table>
         </div>
         <div class="main_pop_bottom">

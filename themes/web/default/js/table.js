@@ -744,24 +744,29 @@ $(document).ready(function(){
   });
 
   //Редактирование регионов
-  place_set_listener();
-  $(document).on('click', '#region_popup_close', function(){
-    $('#popup_overlay_region').fadeOut(200);
-  });
-  $(document).on('click', '#region_set', function(){
-    $('#popup_overlay_region').fadeIn(200);
-  });
-  $(document).on('click', '#place_table tr td label', function(){
     place_set_listener();
-  });
-  $(document).on('click', '#region_mark_all', function(){
-    $('#place_table input[type="checkbox"]').prop('checked', true);
-    place_set_listener();
-  });
-  $(document).on('click', '#region_delete_all', function(){
-    $('#place_table input[type="checkbox"]').prop('checked', false);
-    place_set_listener();
-  });
+    
+    $(document).on('click', '#region_popup_close', function(){
+        $('#popup_overlay_region').fadeOut(200);
+    });
+  
+    $(document).on('click', '#region_set', function(){
+        $('#popup_overlay_region').fadeIn(200);
+    });
+  
+    $(document).on('click', '#place_table tr td label', function(){
+        place_set_listener();
+    });
+    
+    $(document).on('click', '#region_mark_all', function(){
+        $('#place_table input[type="checkbox"]').prop('checked', true);
+        place_set_listener();
+    });
+  
+    $(document).on('click', '#region_delete_all', function(){
+        $('#place_table input[type="checkbox"]').prop('checked', false);
+        place_set_listener();
+    });
 
   //профили
   $(document).click(function(e)
