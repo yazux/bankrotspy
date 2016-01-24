@@ -532,7 +532,7 @@ function search_listener()
   //Регионы
   var choosen_regions = 0;
   $.each(default_settings.places, function(key, val) {
-    if($('[name="place_number_' + key + '"]').prop('checked'))
+    if($('[name="regions[' + key + ']"]').prop('checked'))
     {
       choosen_regions++;
     }
@@ -692,6 +692,7 @@ function listen_namepop(item)
 
 function place_set_listener()
 {
+
     'use strict';
     //Регионы
     var new_places = {};
@@ -699,7 +700,7 @@ function place_set_listener()
     
     if(typeof default_settings !== 'undefined') {
         $.each(default_settings.places, function(key, val) {
-            if ($('[name="place_number_' + key + '"]').prop('checked')) {
+            if ($('[name="regions[' + key + ']"]').prop('checked')) {
                 new_places[key] = 1;
                 choosen++;
             }

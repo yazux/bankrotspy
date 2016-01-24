@@ -185,7 +185,7 @@
         </tr>
     </table>
 </div>
-
+<script src="/themes/web/default/js/bs.js"></script>
 <div class="content bs_index_table">
     <div class="contbody" style="padding: 0; border:0;">
 
@@ -417,7 +417,7 @@
                 <? foreach($regions_top as $pkey=>$pvalue): ?>
                 <? if($i % 2): ?> <tr> <?endif?>
                     <td width="50%">
-                        <label><input type="checkbox" <?if($places_used[$pkey] == 1):?> checked="checked" <?endif?> name="place_number_<?=$pkey?>"/> <span style="font-weight: bold;color:#4a4a4a;"><?=$pvalue?></span></label><br/>
+                        <label><input type="checkbox" <?if($places_used[$pkey] == 1):?> checked="checked" <?endif?> name="regions[<?=$pkey?>]"/> <span style="font-weight: bold;color:#4a4a4a;"><?=$pvalue?></span></label><br/>
                     </td>
                     <?if($i % 2): ?>
                     <? $last_tr = 0; ?>
@@ -431,22 +431,23 @@
                 <? if(!$last_tr): ?>
                 <td>&nbsp;</td></tr>
                 <? endif ?>
-                <tr>
-                    <td colspan="2">
-                        <label style="font-weight:bold;">
-                            <input type="checkbox" name="place_number_0" checked>
-                            Не определен
-                        </label>
-                    </td>
-                </tr>
+
             </table>
 
             <hr class="reg_delimiter" />
             <script>
                 $(function(){
                     $('[data-region]').on('click', function(){
-                        var places = $(this).parent().find('table input');
-                        console.log(places);
+                        var regions = $(this).parent().parent().find('input[name^="regions"]');
+                        if($(this).is(':checked')) {
+                            $(regions).each(function(){
+                                $(this).prop('checked',true);
+                            });
+                        } else {
+                            $(regions).each(function(){
+                                $(this).removeAttr('checked');
+                            });
+                        }
                     });
                 });
             </script>
@@ -472,7 +473,7 @@
                             <tr>
                                 <td style="padding-left:20px;">
                                 <label>
-                                <input type="checkbox" name="regions[<?= $root_id ?>][<?= $key ?>]" />
+                                <input type="checkbox" <?= ($places_used[$key] == 1) ? 'checked="checked"' : '' ?> name="regions[<?= $key ?>]" />
                                 <?= $region ?>
                                 </label>
                                 </td>

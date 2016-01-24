@@ -49,24 +49,32 @@ $platforms = $now_platforms;
 
 //Список регионов
 $bold_regions_set = array(77, 78, 50, 47); //Регионы в топе (выделены жирным)
-$bold_places = array();
+$bold_places = [];
 //Достаем регионы
-$places_def = array();
-$places = array();
+$places_def = [];
+$places = [];
 $res = core::$db->query('SELECT * FROM  `ds_maindata_regions` ORDER BY `name` ASC;');
 
 while($data = $res->fetch_assoc()) {
-    if ($data['number'] == 0) continue;
+    
+    
+    
+    if($data['parent_id'] !== 0 && (int)$data['number'] != -1) {
+        $places_def[$data['number']] = 1;
+    }
+    
+    //if ($data['number'] == 0) continue;
+    
     $regions[] = $data;
 }
 
-
-$regions_intop = [77, 78, 50, 47];
+$regions_intop = [77, 78, 50, 47, 0];
 $regions_top_tmp = [];
 $regions_top = [];
 $regions_result = [];
 
 foreach($regions as $region) {
+    
     if (in_array($region['number'], $regions_intop)) {
         $regions_top_tmp[$region['number']] = $region['name'];
     } elseif ($region['parent_id'] == 0) {
@@ -82,44 +90,6 @@ foreach ($regions_intop as $key) {
     $regions_top[$key] = $regions_top_tmp[$key];
 }
 
-
-
-//var_dump($regions_top);
-//var_dump($regions_result);
-
-while ($data = $res->fetch_array()) {
-  
-    $places_def[$data['number']] = 1;
-    
-    if($data['number'] == 0) continue;
-    
-    if(in_array($data['number'], $bold_regions_set))
-        $bold_places[$data['number']] = $data['name'];
-    else
-        $places[] = array($data['number'], $data['name']);
-}
-
-//Произвольная сортировка регионов вначале
-$new_bold_places = array();
-foreach ($bold_regions_set  AS $val)
-  $new_bold_places[$val] = $bold_places[$val];
-$bold_places = $new_bold_places;
-
-//Раскидываем по колонкам
-$half = ceil(count($places)/2);
-$now_places = array();
-$i = 0;
-while($i <= $half)
-{
-  if(isset($places[$i]))
-    $now_places[$places[$i][0]] = $places[$i][1];
-  if(isset($places[$i+$half]))
-    $now_places[$places[$i+$half][0]] = $places[$i+$half][1];
-  $i++;
-}
-
-
-$places = $now_places;
 
 //Типы предложений в таблице
 $types = array();
@@ -162,6 +132,7 @@ if(core::$user_id AND isset(core::$user_set['tabledata']) AND core::$user_set['t
         $save_set[$key] = $value;
     }
     $new_lots = $save_set['new_lots'];
+    
     $places_used = $user_tset['places'];
     $platforms_used = $user_tset['platforms'];
     //var_dump($places_used);
@@ -214,6 +185,9 @@ engine_head();
 // закрепленные области
 temp::HTMassign('regions_top', $regions_top);
 temp::HTMassign('regions_result', $regions_result);
+temp::HTMassign('places_used', isset($places_used) ? $places_used : $places_def);
+temp::HTMassign('places_def', $places_def);
+
 
 temp::HTMassign('article', $article);
 
@@ -223,11 +197,7 @@ temp::assign('table_set', (isset($save_set) ? json_encode($save_set) : json_enco
 temp::HTMassign('types_set', $types);
 temp::HTMassign('types_def', $types_def);
 temp::HTMassign('categories', $categories);
-temp::HTMassign('places', $places);
-temp::HTMassign('places_used', isset($places_used) ? $places_used : $places_def);
 
-temp::HTMassign('bold_places', $bold_places);
-temp::HTMassign('places_def', $places_def);
 
 if(isset($now_profile_id))
 {
