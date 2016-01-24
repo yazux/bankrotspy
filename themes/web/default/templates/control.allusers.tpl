@@ -30,6 +30,8 @@
                                 <b><?=$out['login']?></b>
                                 <?endif?>
                                 <br/>
+                                Дата регистрации: <?= $out['registered'] ?>
+                                <br/>
                                 Статус: <span class="status"><?=$out['rights']?></span><br/>
                                 <?=lang('now')?> <?if($out['online']):?><span class="us_on"> <?=lang('lang_on_anc')?></span><?else:?><span class="us_off"> <?=lang('lang_off_anc')?></span><?endif?>
                             </div>

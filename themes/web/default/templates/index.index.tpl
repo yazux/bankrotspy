@@ -408,8 +408,8 @@
           Выбор регионов
         </div>
         <div class="main_pop_body">
-          <span class="action_span" id="region_mark_all"><i class="icon-ok"></i> Отметить все</span><br/>
-          <span class="action_span" id="region_delete_all"><i class="icon-cancel"></i> Снять все</span>
+          <span class="action_span" id="region_mark_all"><i class="icon-ok"></i>Отметить все</span>
+          <span class="action_span" id="region_delete_all"><i class="icon-cancel"></i>Снять все</span>
         </div>
         <div class="main_pop_body" id="place_table">
             <table width="100%">
@@ -463,7 +463,7 @@
                     </td>
                     <td width="50%" valign="top">
                     <? endif; ?>
-                        <div>
+                        <div style="padding:3px 0;">
                         <label style="font-weight:bold;color:#4a4a4a;">
                         <input type="checkbox" data-region="[<?= $root_id ?>]" />
                         <?= $data['name'] ?>
@@ -500,8 +500,8 @@
             Выбор площадок
         </div>
         <div class="main_pop_body">
-            <span class="action_span" id="platform_mark_all"><i class="icon-ok"></i> Отметить все</span><br/>
-            <span class="action_span" id="platform_delete_all"><i class="icon-cancel"></i> Снять все</span>
+            <span class="action_span" id="platform_mark_all"><i class="icon-ok"></i>Отметить все</span>
+            <span class="action_span" id="platform_delete_all"><i class="icon-cancel"></i>Снять все</span>
         </div>
         <div class="main_pop_body" id="platform_table">
 

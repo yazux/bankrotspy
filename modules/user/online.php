@@ -21,6 +21,7 @@ while($data = $res->fetch_assoc())
 
     $out['avatar'] = user::get_avatar($data['id'], $data['avtime'], 1);
   
+    $out['registered'] = date('d.m.Y', $data['time']);
     $arr[] = $out; 
     $i++;
 }

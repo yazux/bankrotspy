@@ -54,9 +54,10 @@ if(isset($_GET['search']) && !empty($_GET['search'])) {
         $out['rights'] = $eng_right[$data['rights']];
         $out['sex'] = $data['sex'];
         $out['online'] = user::is_online($data['lastvisit']);
-
+        
         $out['avatar'] = user::get_avatar($data['id'], $data['avtime'], 1);
     
+        $out['registered'] = date('d.m.Y', $data['time']);
         $arr[] = $out;
         $i++;
     }
