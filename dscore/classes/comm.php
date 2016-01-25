@@ -156,16 +156,22 @@ class comm
       return FALSE;
   }
 
-  static function add_post($text)
-  {
+    static function add_post($text, $hide = 0)
+    {
+      
+        if($hide == 0)
+            $visible = ',`visible`= "0",';
+        else
+             $visible = ',`visible`= "1",';
+    
     core::$db->query('INSERT INTO `ds_comm` SET
      `module` = "'.self::$module.'",
      `mid` = "'.self::$mid.'",
      `text`="'.core::$db->res($text).'",
      `cache`="'.core::$db->res(text::presave($text)).'",
      `username`="'.core::$user_name.'",
-     `userid`="'.core::$user_id.'",
-     `visible`= "0",
+     `userid`="'.core::$user_id.'"
+     '.$visible.'
      `time`="'.time().'";
     ');
     

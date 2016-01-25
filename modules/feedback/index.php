@@ -26,6 +26,7 @@ $total = comm::total();
         $warn[] = lang('comm_added');
       
         //Добавляем пост    
+        
         comm::add_post($post);
         //Обьявляем всем что в статье есть новые комменты
         core::$db->query('UPDATE `ds_feedback` SET `comtime` = "' . time() . '" WHERE `id` = "' . $id . '";');

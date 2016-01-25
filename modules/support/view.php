@@ -41,7 +41,7 @@ if($res->num_rows)
            core::$db->query('UPDATE `ds_support` SET `newtime` = "' . time() . '", `read` = "0", `usread` = "0" WHERE `id` = "' . $id . '";'); 
         }
             
-        comm::add_post($post);
+        comm::add_post($post, 1);
         
         uscache::rem('mess_head', lang('support'));
         uscache::rem('mess_body', lang('mess_body'));

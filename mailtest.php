@@ -1,5 +1,15 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
+$s = new SphinxClient;
+$s->setServer("localhost", 6000);
+$s->setMatchMode(SPH_MATCH_EXTENDED2);
+$s->setMaxQueryTime(3);
+
+$result = $s->query("квартира москва");
+var_dump($result);
+/*
 $regions = [
     //Центральный федеральный округ
     '1' => [
@@ -99,3 +109,4 @@ if(!$mail->send()) {
 } else {
     echo 'Message has been sent';
 }
+*/
