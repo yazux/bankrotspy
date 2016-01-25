@@ -185,7 +185,7 @@
         </tr>
     </table>
 </div>
-<script src="/themes/web/default/js/bs.js"></script>
+
 <div class="content bs_index_table">
     <div class="contbody" style="padding: 0; border:0;">
 

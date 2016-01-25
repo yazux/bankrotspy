@@ -6,9 +6,32 @@ $s = new SphinxClient;
 $s->setServer("localhost", 6000);
 $s->setMatchMode(SPH_MATCH_EXTENDED2);
 $s->setMaxQueryTime(3);
+$s->SetLimits (0, 1500, 1500 );
 
-$result = $s->query("квартира москва");
+$result = $s->query("квартира");
+
+
 var_dump($result);
+
+$link = mysql_connect('localhost', 'bankrotspy','E80KbRS8');
+mysql_select_db('bankrotspy', $link);
+
+mysql_query("SET character_set_results = 'utf8', character_set_client = 'utf8', character_set_connection = 'utf8', character_set_database = 'utf8', character_set_server = 'utf8'");
+
+//var_dump($result);
+
+foreach($result['matches'] as $key => $item) {
+    var_dump($key);
+    
+    $query = mysql_query('SELECT name FROM ds_maindata WHERE id = "' . $key . '"');
+    
+    $row = mysql_fetch_assoc($query);
+    
+    //var_dump($row);
+}
+
+
+
 /*
 $regions = [
     //Центральный федеральный округ
