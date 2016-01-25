@@ -437,6 +437,7 @@
             <hr class="reg_delimiter" />
             <script>
                 $(function(){
+                   
                     $('[data-region]').on('click', function(){
                         var regions = $(this).parent().parent().find('input[name^="regions"]');
                         if($(this).is(':checked')) {
@@ -445,10 +446,18 @@
                             });
                         } else {
                             $(regions).each(function(){
-                                $(this).removeAttr('checked');
+                                $(this).prop('checked', false);
                             });
                         }
                     });
+                    
+                    $('[data-group]').on('click', function(){
+                        var id = $(this).attr('data-group');
+                        
+                        if(!$(this).is(':checked')) {
+                           $('[data-region="'+id+'"]').prop('checked', false);
+                        }
+                    })
                 });
             </script>
             <table width="100%">
@@ -464,8 +473,20 @@
                     <td width="50%" valign="top">
                     <? endif; ?>
                         <div style="padding:3px 0;">
+                        <? 
+                            $total = count($data['sub']);
+                            $selected = 0;
+                            foreach($data['sub'] as $key => $region) {
+                                if($places_used[$key] == 1) {
+                                    $selected++;
+                                }
+                            }
+                            $checked = '';
+                            if($total === $selected) $checked = 'checked="checked"';
+                        
+                        ?>
                         <label style="font-weight:bold;color:#4a4a4a;">
-                        <input type="checkbox" data-region="[<?= $root_id ?>]" />
+                        <input type="checkbox" <?= $checked ?> data-region="<?= $root_id ?>" />
                         <?= $data['name'] ?>
                         </label>
                         <table>
@@ -473,7 +494,7 @@
                             <tr>
                                 <td style="padding-left:20px;">
                                 <label>
-                                <input type="checkbox" <?= ($places_used[$key] == 1) ? 'checked="checked"' : '' ?> name="regions[<?= $key ?>]" />
+                                <input type="checkbox" data-group="<?= $root_id ?>" <?= ($places_used[$key] == 1) ? 'checked="checked"' : '' ?> name="regions[<?= $key ?>]" />
                                 <?= $region ?>
                                 </label>
                                 </td>
