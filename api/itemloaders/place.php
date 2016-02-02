@@ -13,7 +13,7 @@ class loader_place
   private function get_regions()
   {
     $allplaces = array();
-    $res = core::$db->query('SELECT * FROM  `ds_maindata_regions` `number` != "-1" ORDER BY `id` DESC ;');
+    $res = core::$db->query('SELECT * FROM  `ds_maindata_regions` WHERE `number` != "-1" ORDER BY `id` DESC ;');
     while($data = $res->fetch_array())
     {
       $allplaces[$data['number']] = $data['genitive'];
