@@ -174,20 +174,22 @@ if(in_array($data['cat_id'], [1,5,6,7])) {
     //var_dump(time() + 1*24*3600);
     //var_dump(core::$rights);
     //var_dump(CAN('cost_meter'));
-    if(CAN('cost_meter')) {
-        //var_dump($data);
-        $priceHint = !empty($data['hint']) ? $data['hint'] : number_format($data['price'], 0 , ' ', ' ');
-        //str_replace('&amp;nbsp;', ' ', $data['hint'])
-        $field = '
-            <td style="width: 200px;"><b>'.$fields[$data['cat_id']].'</b><br/></td>
-            <td><i class="icon-rouble"></i> <a href="'.$data['link'].'" target="_blank">'.$priceHint.'</a></td>';
-
-    } else {
-        $field = '<td style="width: 200px;"><b>'.$fields[$data['cat_id']].'</b><br/></td>
-                 <td onmouseout="toolTip()" onmouseover="toolTip(\'Данная функция доступна на тарифном плане VIP\')"><i class="icon-rouble"></i> <i class="fa fa-lock"></i></td>';
-    }
     
-    temp::HTMassign('market_price', $field);
+    if (!empty($data['hint'])) {
+        if(CAN('cost_meter')) {
+            //var_dump($data);
+            $priceHint = !empty($data['hint']) ? $data['hint'] : '';
+            //str_replace('&amp;nbsp;', ' ', $data['hint'])
+            $field = '
+                <td style="width: 200px;"><b>'.$fields[$data['cat_id']].'</b><br/></td>
+                <td><i class="icon-rouble"></i> <a href="'.$data['link'].'" target="_blank">'.$priceHint.'</a></td>';
+
+        } else {
+            $field = '<td style="width: 200px;"><b>'.$fields[$data['cat_id']].'</b><br/></td>
+                    <td onmouseout="toolTip()" onmouseover="toolTip(\'Данная функция доступна на тарифном плане VIP\')"><i class="icon-rouble"></i> <i class="fa fa-lock"></i></td>';
+        }
+    temp::HTMassign('market_price', $field);    
+    }
 }
 
 
