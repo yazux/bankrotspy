@@ -142,10 +142,10 @@ if ($svalue) {
                 ->select()
                 ->from('bs')
                 ->match('description', $_POST['svalue']);*/
-   // $query = SphinxQL::create($conn)->query("SELECT * FROM bs WHERE MATCH('@* ".$svalue."') 
+    $query = SphinxQL::create($conn)->query("SELECT * FROM bs WHERE MATCH('@* ".$svalue."') 
                                        
                                         
-      //                                  LIMIT 100000");
+                                        LIMIT 100000");
   /*
     if($types)            
         $query->where('type', 'IN', array_flip($types));
@@ -166,7 +166,6 @@ if ($svalue) {
 
 
     // Массив с полученными результатами
-    /*
     $result = $query->execute();
     if(!empty($result)) {
         foreach($result as $item) {
@@ -176,7 +175,7 @@ if ($svalue) {
         $conditions['search'] = '`ds_maindata`.`id` IN ('.$items.') ';
     } else {
         $conditions['search'] = '`ds_maindata`.`id` IN (0) ';
-    }*/
+    }
 }
 
 
