@@ -1,6 +1,14 @@
 <?php
 defined('DS_ENGINE') or die('web_demon laughs');
 
+use Foolz\SphinxQL\Connection;
+use Foolz\SphinxQL\SphinxQL;
+
+$conn = new Connection();
+$conn->setParams(array('host' => '127.0.0.1', 'port' => 9306));
+
+
+
 //Ключ, скорее для виду, сесcия доставит гораздо больше проблем =)
 $somevar = 'tvybunwedowhduw2397ey9hd8ybhb83wecugwvevct';
 if($somevar != POST('somevar'))
@@ -85,7 +93,7 @@ if (in_array(3, $status_item)) {
 //echo POST('status').'|'.$status_need_future.'-'.$status_need_now.'-'.$status_need_last;
 
 $svalue = POST('svalue');
-if (mb_strlen($svalue) < 2) {
+if (mb_strlen($svalue) < 3) {
     $svalue = '';
 }
 
@@ -97,6 +105,14 @@ $kmess = abs(intval(POST('kmess')));
 if($kmess > 40)
   $kmess = 40;
 $start =  $now_page ? $now_page * $kmess - $kmess : 0;
+
+
+
+
+
+
+
+
 
 //Условия для WHERE (компилятся через AND)
 $conditions = array();
@@ -118,6 +134,52 @@ $sort = $tabledata->get_sort_order();
 if($sort)
   $order_conditions['sort'] = $sort;
 
+
+
+
+if ($svalue) {
+    /*$query = SphinxQL::create($conn)
+                ->select()
+                ->from('bs')
+                ->match('description', $_POST['svalue']);*/
+    $query = SphinxQL::create($conn)->query("SELECT * FROM bs WHERE MATCH('@* ".$svalue."') 
+                                       
+                                        
+                                        LIMIT 100000");
+  /*
+    if($types)            
+        $query->where('type', 'IN', array_flip($types));
+    
+    //регионы
+    if(count(get_places(true)) != count($places) AND $places)            
+        $query->where('place', 'IN', array_flip($places));
+    //платформы
+    if(count(get_platforms(true)) != count($platforms) AND $platforms)            
+        $query->where('platform_id', 'IN', array_flip($platforms));
+*/
+    
+    //$before_close = [3, 4, 5, 6];
+    //$query->where('status', 'NOT IN', $before_close);
+    
+    //$query->offset($start)
+                //$query->limit('9999999');
+
+
+    // Массив с полученными результатами
+    $result = $query->execute();
+    if(!empty($result)) {
+        foreach($result as $item) {
+            $items[] = $item['id'];
+        }
+        $items = implode(', ', $items);
+        $conditions['search'] = '`ds_maindata`.`id` IN ('.$items.') ';
+    } else {
+        $conditions['search'] = '`ds_maindata`.`id` IN (0) ';
+    }
+}
+
+
+
 //выборка по категориям
 if ($category == '-1') {
     $conditions['fav_sql'] = '`ds_maindata_favorive`.`user_id` = "'.core::$user_id.'" ';
@@ -131,14 +193,6 @@ if ($category == '-1') {
     $conditions['category'] = ' `ds_maindata`.`cat_id` = "'.$category.'" ';
 }
 
-if ($svalue) {
-    
-    // костыль для более точного поиска, надо будет потетировать лучший вариант
-
-    $selects['search'] = ' MATCH (`ds_maindata`.`name`, `ds_maindata`.`description`) AGAINST ("»' . core::$db->res($svalue) . '»" IN BOOLEAN MODE) as `rel` ';
-    $conditions['search'] = ' MATCH (`ds_maindata`.`name`, `ds_maindata`.`description`) AGAINST ("»' . core::$db->res($svalue) . '»" IN BOOLEAN MODE) ';
-    $order_conditions['search'] = '`rel` DESC ';
-}
 
 //Фильтрация по типам
 if($types)
@@ -151,7 +205,6 @@ if(count(get_places(true)) != count($places) AND $places)
 //Фильтрация по платформам
 if(count(get_platforms(true)) != count($platforms) AND $platforms)
   $conditions['platforms'] = ' `ds_maindata`.`platform_id` IN ('.implode(', ', $platforms).') ';
-
 
 //Дата начала и окончания торгов
 if(!$first_alt AND !$second_alt)
@@ -249,6 +302,7 @@ if($order_conditions && $category == 2) {
     $order_cond = ' ORDER BY `ds_maindata`.`profit_proc` DESC ';
 //$order_cond = ' ORDER BY `ds_maindata`.`id` ASC ';
 }
+
 
 //Счетчик
 $count = core::$db->query('SELECT

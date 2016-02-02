@@ -18,3 +18,5 @@
 /bankrotspy.sql
 /data/tmp/*
 /data/mailing/*
+/vendor/*
+/composer.*

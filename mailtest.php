@@ -2,24 +2,41 @@
 
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
+/*
 $s = new SphinxClient;
 $s->setServer("localhost", 6000);
 $s->setMatchMode(SPH_MATCH_EXTENDED2);
 $s->setMaxQueryTime(3);
-$s->SetLimits (0, 1500, 1500 );
+//$s->SetLimits (0, 1500, 1500 );
 
-$result = $s->query("квартира");
+$query = 'SELECT * FROM ds_maindata LIMIT 0, 20';
+  $s->setSelect($query);
+//$result = $s->query("квартира москва");
+
+$s->AddQuery("квартира москва"); 
+$result = $s->runQueries(); // поисковый запрос 
 
 
-var_dump($result);
+*/
 
-$link = mysql_connect('localhost', 'bankrotspy','E80KbRS8');
-mysql_select_db('bankrotspy', $link);
-
-mysql_query("SET character_set_results = 'utf8', character_set_client = 'utf8', character_set_connection = 'utf8', character_set_database = 'utf8', character_set_server = 'utf8'");
 
 //var_dump($result);
 
+$conn= new mysqli('localhost', 'bankrotspy', 'E80KbRS8', 'bankrotspy', 6000);//'bankrotspy','E80KbRS8');
+if ($conn->connect_error) {
+throw new Exception('Connection Error: ['.$conn->connect_errno.'] '.$conn->connect_error, $conn->connect_errno);
+}
+
+$resource = $conn->query('SELECT * FROM ds_maindata WHERE MATCH(\'@description квартира москва\') LIMIT 10');
+var_dump($resource);
+
+//mysql_select_db('bankrotspy', $link);
+
+//mysql_query("SET character_set_results = 'utf8', character_set_client = 'utf8', character_set_connection = 'utf8', character_set_database = 'utf8', character_set_server = 'utf8'");
+
+//var_dump($result);
+
+/*
 foreach($result['matches'] as $key => $item) {
     var_dump($key);
     
@@ -29,7 +46,7 @@ foreach($result['matches'] as $key => $item) {
     
     //var_dump($row);
 }
-
+*/
 
 
 /*

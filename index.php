@@ -15,6 +15,7 @@ define('DS_ENGINE', 1);
 
 //Основные функции
 require_once('dscore/bazefunc.php');
+require_once('vendor/autoload.php');
 
 //Ядро
 new core();
