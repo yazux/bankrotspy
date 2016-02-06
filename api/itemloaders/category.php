@@ -25,103 +25,115 @@ class loader_category
         } else {
             $name = $data_name;
         }
-        return $name;
+        return mb_strtolower($name);
     }
 
-    private function get_keys_category()
+    private function get_categories()
     {
         $outarr = array();
-        $res = core::$db->query('SELECT * FROM `ds_main_cat_spec` ;');
-        while ($data = $res->fetch_array()) {
+        $res = mysqli_query($mysqli,'SELECT * FROM `ds_main_cat_spec` ORDER BY sort ASC;');
+        $i = 0;
+  
+        while ($data = mysqli_fetch_array($res)) {
+        
+            $outarr[$i]['id'] = $data['id'];
+            
             $data['slova'] = mb_strtolower(str_replace('*', '', $data['slova']));
-            $outarr[$data['id']] = explode("\n", str_replace("\r\n", "\n", $data['slova']));
+            $outarr[$i]['include'] = explode("\n", str_replace("\r\n", "\n", $data['slova']));
+            
+            $exclude = !empty($data['exclude']) ? explode("\n", str_replace("\r\n", "\n", $data['exclude'])) : '';
+            $outarr[$i]['exclude'] = $exclude;
+            
+            $i++;
         }
         return $outarr;
     }
 
     public function process()
     {
-        //Сшиваем название и описание для лучшего поиска
-        $resname = mb_strtolower($this->merge_name($this->name, $this->descr));
-
-        //Получаем список ключевых слов
-        $catarr = $this->get_keys_category();
-
-        //удаляем некоторые символы
-        $replace_arr = [
-            '(' => '',
-            ')' => '',
-            '.' => '',
-            ',' => ''
-        ];
+        $categories = $this->get_categories();
+        $lot = merge_name($$this->name, $this->descr);
+        
+        $all = [];
+        
+        $replace_arr = ['.', ',', ':', ';', '?', '/', '\\'];
+        $lotdata = str_replace($replace_arr, ' ', $lot);
     
-        $resname = strtr($resname, $replace_arr);
-
-        $resname_arr = explode(' ', $resname);
-
-        //Пытаемся определить категорию.
-        $categories = array();
+        $replace_arr = ['«', '»', '(', ')'];
+        $lotdata = str_replace($replace_arr, '', $lot);
+        //$estateCategory = $categories[5];unset($categories[5]);
+    
+        $estateExclude = [];
+    
+        //var_dump($categories);exit;
+        foreach($categories as $category) {
+               
+            $id = $category['id'];
         
-        foreach ($catarr as $key_category => $val_category) {
-            //Проверяем по полному совпадению
-            foreach ($resname_arr as $value) {
-                if (mb_strlen($value) > 1 && in_array($value, $val_category)) {
-                    if (!isset($categories[$key_category])) {
-                        $categories[$key_category] = 0;
-                    }
-                    $categories[$key_category]++;
-                }
-            }
-
-            //Проверяем по составным ключевым словам
-            foreach ($val_category as $keycat) {
-                $keycat = trim($keycat);
-                //Если в слове-ключе пробелы
-                if (mb_substr_count($keycat, ' ') > 0) {
-                    if (mb_substr_count($resname, $keycat) > 0) {
-                        if (!isset($categories[$key_category])) {
-                            $categories[$key_category] = 0;
+            if($id == 5) {
+                foreach ($categories as $cat) {
+                    if ($cat['id'] != $id) {
+                        foreach ($cat['include'] as $word) {
+                            $lot = preg_replace_callback('/\b('.mb_strtolower($word).')\b/ui', function($m) use(&$all, &$id) {
+                                $all[$id]['exclude'][] = $m[0];
+                                return ' ';
+                            }, $lotdata);
                         }
-                        $categories[$key_category]++;
                     }
                 }
+            } elseif(!empty($category['exclude'])) {        
+                foreach($category['exclude'] as $word) { 
+                    $lot = preg_replace_callback('/('.mb_strtolower($word).')/ui', function($m) use(&$all, &$id) {
+                            $all[$id]['exclude'][] = $m[0];
+                            return ' ';
+                        }, $lotdata);
+                }
             }
-        }
-
-        $cat_id = 0;
         
-        if (count($categories) > 0) {
-            //Если попала одна категория
-            if (count($categories) == 1) {
-                foreach ($categories as $key => $val) {
-                    $cat_id = $key;
-                }
-            } else {
-                //Если совпадения по нескольким категориям пытаемся выбрать ту, у которой большинство
-                $max_val = 0;
-                $max_idval = 0;
-                //Находим наибольшее значение
-                foreach ($categories as $key => $val) {
-                    if ($val > $max_val) {
-                        $max_val = $val;
-                        $max_idval = $key;
-                    }
-                }
-
-                //Находим число совпедений
-                $max_count = 0;
-                foreach ($categories as $key => $val) {
-                    if ($max_val == $val) {
-                        $max_count ++;
-                    }
-                }
-
-                //Если макс значение одно - выбираем его за катеорию.
-                if ($max_count == 1) {
-                    $cat_id = $max_idval;
+            //определяем точное совпадение по ключевым словам
+            foreach($category['include'] as $word) {
+                $estateExclude[] = $word;
+                if (preg_match('#\b('.mb_strtolower($word).')\b#ui', $lot, $matches)) {
+                    $all[$id]['include'][] = $matches[1];
+                } elseif (preg_match('#('.mb_strtolower($word).')\b#ui', $lot, $matches)) {
+                    $all[$id]['include'][] = $matches[1];
                 }
             }
         }
-        return $cat_id;
+    
+        if(!empty($all)) {
+            $count = 0;
+            $cat = 0;
+            $a = [];
+            
+            foreach($all as $i => $data) {
+                $include = count($data['include']);
+                $exclude = count($data['exclude']);
+                if($i == 5) {
+                    if($include > $count && $exclude <= 1) {
+                        $count = $include;
+                        $cat = $i;
+                        $a = $data;
+                    }
+                } else {
+                    if($include > $count) {
+                        $count = $include;
+                        $cat = $i;
+                        $a = $data;
+                    }
+                }
+            }
+            $result[$cat] = $a;
+        }
+    
+        // var_dump($all);
+        foreach($result as $id => $r) {
+            if(isset($r['include'])) {
+                $data['id'] = $id;
+                $data['include'] = $r['include'];
+                $data['exclude'] = $r['exclude'];
+            }
+        }
+        return $data['id'];
     }
 }
