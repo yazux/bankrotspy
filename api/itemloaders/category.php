@@ -31,10 +31,10 @@ class loader_category
     private function get_categories()
     {
         $outarr = array();
-        $res = mysqli_query($mysqli,'SELECT * FROM `ds_main_cat_spec` ORDER BY sort ASC;');
+        $res = core::$db->query('SELECT * FROM `ds_main_cat_spec` ORDER BY sort ASC;');
         $i = 0;
   
-        while ($data = mysqli_fetch_array($res)) {
+        while ($data = $res->fetch_array()($res)) {
         
             $outarr[$i]['id'] = $data['id'];
             
