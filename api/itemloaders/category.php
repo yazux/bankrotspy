@@ -60,7 +60,7 @@ class loader_category
         $lotdata = str_replace($replace_arr, ' ', $lot);
     
         $replace_arr = ['«', '»', '(', ')'];
-        $lotdata = str_replace($replace_arr, '', $lot);
+        $lotdata = str_replace($replace_arr, '', $lotdata);
         //$estateCategory = $categories[5];unset($categories[5]);
     
         $estateExclude = [];

@@ -53,8 +53,8 @@ class loaditem
     $sourse['key']             = $dataarr[22];
     $sourse['platform_id']     = $dataarr[23];
     
-    $sourse['fedlink']         = $dataarr[24];
-    $sourse['tbanlink']        = $dataarr[25];
+    $sourse['fedlink']         = isset($dataarr[24]) ? $dataarr[24] : '';
+    $sourse['tbanlink']        = isset($dataarr[25]) ? $dataarr[25] : '';
 
     //Лоадер файлов-функций
     $load = new bcdata();
