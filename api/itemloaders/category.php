@@ -52,7 +52,7 @@ class loader_category
     public function process()
     {
         $categories = $this->get_categories();
-        $lot = merge_name($$this->name, $this->descr);
+        $lot = $this->merge_name($$this->name, $this->descr);
         
         $all = [];
         
