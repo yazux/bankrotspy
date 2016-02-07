@@ -34,7 +34,7 @@ class loader_category
         $res = core::$db->query('SELECT * FROM `ds_main_cat_spec` ORDER BY sort ASC;');
         $i = 0;
   
-        while ($data = $res->fetch_array()($res)) {
+        while ($data = $res->fetch_array()) {
         
             $outarr[$i]['id'] = $data['id'];
             
