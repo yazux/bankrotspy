@@ -52,12 +52,12 @@ class loader_category
     public function process()
     {
         $categories = $this->get_categories();
-        $lot = $this->merge_name($this->name, $this->descr);
+        $lotdata = $this->merge_name($this->name, $this->descr);
         
         $all = [];
         
         $replace_arr = ['.', ',', ':', ';', '?', '/', '\\'];
-        $lotdata = str_replace($replace_arr, ' ', $lot);
+        $lotdata = str_replace($replace_arr, ' ', $lotdata);
     
         $replace_arr = ['«', '»', '(', ')'];
         $lotdata = str_replace($replace_arr, '', $lotdata);
@@ -74,7 +74,7 @@ class loader_category
                 foreach ($categories as $cat) {
                     if ($cat['id'] != $id) {
                         foreach ($cat['include'] as $word) {
-                            $lot = preg_replace_callback('/\b('.mb_strtolower($word).')\b/ui', function($m) use(&$all, &$id) {
+                            $lotdata = preg_replace_callback('/\b('.mb_strtolower($word).')\b/ui', function($m) use(&$all, &$id) {
                                 $all[$id]['exclude'][] = $m[0];
                                 return ' ';
                             }, $lotdata);
@@ -83,7 +83,7 @@ class loader_category
                 }
             } elseif(!empty($category['exclude'])) {        
                 foreach($category['exclude'] as $word) { 
-                    $lot = preg_replace_callback('/('.mb_strtolower($word).')/ui', function($m) use(&$all, &$id) {
+                    $lotdata = preg_replace_callback('/('.mb_strtolower($word).')/ui', function($m) use(&$all, &$id) {
                             $all[$id]['exclude'][] = $m[0];
                             return ' ';
                         }, $lotdata);
@@ -93,9 +93,9 @@ class loader_category
             //определяем точное совпадение по ключевым словам
             foreach($category['include'] as $word) {
                 $estateExclude[] = $word;
-                if (preg_match('#\b('.mb_strtolower($word).')\b#ui', $lot, $matches)) {
+                if (preg_match('#\b('.mb_strtolower($word).')\b#ui', $lotdata, $matches)) {
                     $all[$id]['include'][] = $matches[1];
-                } elseif (preg_match('#('.mb_strtolower($word).')\b#ui', $lot, $matches)) {
+                } elseif (preg_match('#('.mb_strtolower($word).')\b#ui', $lotdata, $matches)) {
                     $all[$id]['include'][] = $matches[1];
                 }
             }
