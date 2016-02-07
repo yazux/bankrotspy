@@ -92,7 +92,7 @@ class loader_category
         
             //определяем точное совпадение по ключевым словам
             foreach($category['include'] as $word) {
-                $estateExclude[] = $word;
+               
                 if (preg_match('#\b('.mb_strtolower($word).')\b#ui', $lotdata, $matches)) {
                     $all[$id]['include'][] = $matches[1];
                 } elseif (preg_match('#('.mb_strtolower($word).')\b#ui', $lotdata, $matches)) {
@@ -102,7 +102,7 @@ class loader_category
         }
     
         $cat = 0;
-        if(!empty($all)) {
+        if(!empty($all['include'])) {
             $count = 0;
             
             $a = [];
