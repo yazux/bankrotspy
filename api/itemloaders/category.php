@@ -101,9 +101,10 @@ class loader_category
             }
         }
     
+        $cat = 0;
         if(!empty($all)) {
             $count = 0;
-            $cat = 0;
+            
             $a = [];
             
             foreach($all as $i => $data) {
@@ -127,13 +128,13 @@ class loader_category
         }
     
         // var_dump($all);
-        foreach($result as $id => $r) {
+        /*foreach($result as $id => $r) {
             if(isset($r['include'])) {
                 $data['id'] = $id;
                 $data['include'] = $r['include'];
                 $data['exclude'] = $r['exclude'];
             }
-        }
-        return $data['id'];
+        }*/
+        return $cat;
     }
 }
