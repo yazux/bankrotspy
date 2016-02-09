@@ -2,6 +2,19 @@
 
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
+
+
+$str = '1;Кран козловой ККС 10 инвентарный номер № 492 Шаг аукциона5.00 %;693000;Суд: Арбитражный суд Ульяно
+вской области;Аукцион;Приём заявок;Кран козловой ККС 10 инвентарный номер № 492 Шаг аукциона5.00 %;17
+.01.2016 19:00;19.02.2016 19:00;693000;;;;;Чупринская Валентина Александровна  645311171793;http://bankrot
+.fedresurs.ru/ArbitrManagerCard.aspx?ID=9422;Торги№887-ОАОФ-2лот№2;http://www.aukcioncenter.ru/trade
+/view/purchase/general.html?id=101032357;А72-8329/2014;1;777;887-ОАОФ-1-1-aukcioncenter.ru;24;http:/
+/bankrot.fedresurs.ru/TradeCard.aspx?ID=517731;http://tbankrot.ru/item?id=1742291;';
+
+var_dump(explode(';', $str));
+
+exit;
+
 /*
 $s = new SphinxClient;
 $s->setServer("localhost", 6000);

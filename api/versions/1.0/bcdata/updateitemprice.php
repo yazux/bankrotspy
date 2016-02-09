@@ -36,7 +36,7 @@ while($data = $result->fetch_array()) {
             }
         }
         
-        if ($price > 0 && $price !== $data['price']) {
+        if (intval($price) > 0 && $price !== $data['price']) {
             core::$db->query('UPDATE `ds_maindata` SET now_price = "'.$price_now.'" WHERE `id` = "'.$data['id'].'";');
         }
     }
