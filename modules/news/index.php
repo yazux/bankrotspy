@@ -19,6 +19,8 @@ $total = core::$db->query('SELECT COUNT(*) FROM `ds_news` ;')->count();
     $out['name'] = text::st($data['name']);
     text::add_cache($data['cache']); 
     $out['text'] = text::out(text::auto_cut($data['text'], 300), 0);
+    $out['text'] = fload::replace_files($out['text'], $out['id'], core::$module);
+    
     $out['date'] = ds_time($data['time']);
     $out['time'] = $data['time'];
     $out['comtime'] = $data['comtime'];

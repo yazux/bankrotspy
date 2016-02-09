@@ -35,6 +35,25 @@
                         <?=func::tagspanel('messarea');?>
                         <div class="texta"><textarea id="messarea" name="mess" rows="15"><?=$text?></textarea></div>
                     </div>
+                    
+                    <div class="contbody_forms">
+                        <b>Файлы</b><br/>
+                        <input type="file" name="file" />
+                        <input type="submit" name="add_attachment" value="Загрузить"/>
+                    </div>
+                    <?if($att_true):?>
+
+                    <div class="contbody_forms">
+                        <b>Файлы</b><br/>
+                        <?foreach($out as $data):?>
+                        <hr/>
+                        <i class="icon-attach"></i>
+                        <input type="text" value="[<?=$data['type']?>=<?=$data['filename']?>]<?=$data['name']?>[/<?=$data['type']?>]"/>
+                        <input type="submit" name="del_attachment[<?=$data['id']?>]" value="Удалить"/>
+                        <b><a target="_blank" href="<?=$home?>/load/file<?=$data['id']?>/<?=$data['nameraw']?>"><?=$data['name']?></a></b>           
+                        <?endforeach?>
+                    </div>
+                    <?endif?>
 
                     <div class="contfintext">
                         <input name="submit" type="submit" value="Сохранить" />

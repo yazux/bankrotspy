@@ -297,14 +297,14 @@ class fload
          $fname=self::gename($file);
          
          if(ceil($_FILES['file']['size']/1024) > self::$max_file_size)
-           self::message(lang('file_too_big_now').' <b>'.self::$max_file_size.'</b> '.lang('kb'));  //файл слишком большой
+           self::message('Файл слишком большой, максимум <b>'.self::$max_file_size.'</b> килобайт');  //файл слишком большой
        
          $loaded_files =  self::files_att();
          if(in_array($fname,$loaded_files))
-           self::message(lang('file_p_one').' <b>'.htmlentities($fname, ENT_QUOTES, 'UTF-8').'</b> '.lang('file_p_two'));  //файл существует
+           self::message('Файл <b>'.htmlentities($fname, ENT_QUOTES, 'UTF-8').'</b> уже загружен!');  //файл существует
          
          if(count($loaded_files) >= self::$max_files)
-           self::message(lang('too_much_files').' <b>'.self::$max_files.'</b> '.lang('too_much_files_2'));  //Слишком много файлов
+           self::message('Слишком много файлов! Разрешено максимум  <b>'.self::$max_files.'</b> файлов(а).');  //Слишком много файлов
        
          if(self::$stat_id)
          {
@@ -330,11 +330,11 @@ class fload
           
          $filename = core::$db->insert_id;
          move_uploaded_file($_FILES['file']['tmp_name'], 'data/att_post/'.$filename.'.dat');
-         self::message(lang('file_added'));   
+         self::message('Файл загружен');   
   
      }
      else
-       self::message(lang('no_file'));
+       self::message('Нет файла!');
    }
 
    static function del_file($file_del)
@@ -356,13 +356,13 @@ class fload
           core::$db->query("DELETE FROM `ds_post_files` WHERE `id` = '".$file_del."' LIMIT 1");
           if(file_exists('data/att_post/' . $fd['id'].'.dat'))
             unlink('data/att_post/' . $fd['id'].'.dat');
-          self::message(lang('file_deleted'));  
+          self::message('Файл удален!');  
         }
         else
-          self::message(lang('wrong_del'));
+          self::message('Ошибка удаления! Обратитесь к администратору!');
       }
       else
-        self::message(lang('wrong_del'));
+        self::message('Ошибка удаления! Обратитесь к администратору!');
    }
 
 

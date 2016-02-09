@@ -125,7 +125,11 @@ if($res->num_rows)
   if(core::$user_id and CAN('create_comm', 0))
       temp::assign('its_user',core::$user_id);
   temp::assign('newname', $rs['name']);
-  temp::HTMassign('text', text::out($rs['text'], 0));
+  
+  $text = text::out($rs['text'], 0);
+  $text = fload::replace_files($text, $id, core::$module);
+  
+  temp::HTMassign('text', $text);
   temp::assign('time', ds_time($rs['time']));
   temp::assign('login', $rs['login']);
   temp::assign('user_st_id', $rs['user_id']);

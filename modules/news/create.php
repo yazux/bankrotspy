@@ -3,7 +3,27 @@ defined('DS_ENGINE') or die('web_demon laughs');
 
 if(CAN('news_create', 0))
 {
-    
+
+$save_data = array();
+$save_data['name'] = POST('newshead');
+$save_data['text'] = POST('mess');
+$save_data['keywords'] = POST('keywords');
+$save_data['description'] = POST('description');
+
+new fload(
+  $save_data,                           //Указываем что сохранять
+  core::$module,                        // Модуль 'articles'
+  core::$module . '-' . core::$action,  //uid по нему восстанавливаются данные.
+  core::$home . '/news/create',     // Устанавливаем куда возвращаться
+  'create'
+);
+
+if(isset($_POST['add_attachment']))
+  fload::load_file();
+
+if(isset($_POST['del_attachment']))
+  fload::del_file(POST('del_attachment'));
+
 $n_error = array();
 
 if(POST('submit'))
@@ -33,6 +53,8 @@ if(POST('submit'))
     
       $insert_id = core::$db->insert_id;
     
+        fload::save_files($insert_id);
+    
       uscache::rem('mess_head', lang('admin_news'));
       uscache::rem('mess_body', lang('news_succ'));
       header('Location: '.core::$home.'/news/view?id='.$insert_id);
@@ -40,8 +62,32 @@ if(POST('submit'))
   }
 }
 
-
 engine_head(lang('admin_news'));
+$out = fload::get_loaded();
+
+if($out)
+  temp::assign('att_true', 1);
+
+$rem = array();
+if(uscache::ex('fload_create_uinid') AND uscache::ex('fload_create_save_data') AND (uscache::get('fload_create_uinid') == core::$module . '-' . core::$action))
+{
+    $rem = unserialize(uscache::get('fload_create_save_data'));
+  
+    if(isset($rem['name']))
+        temp::assign('name', $rem['name']);
+
+    if(isset($rem['keywords']))
+        temp::assign('keywords', $rem['keywords']);
+
+    if(isset($rem['description']))
+        temp::assign('description', $rem['description']);
+
+    if(isset($rem['text']))
+        temp::assign('text', $rem['text']);
+}
+
+
+temp::HTMassign('out', $out);
 temp::HTMassign('error', $n_error);
 temp::display('news.create');
 engine_fin();
