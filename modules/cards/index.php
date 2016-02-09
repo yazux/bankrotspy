@@ -193,6 +193,10 @@ if(in_array($data['cat_id'], [1,5,6,7])) {
 }
 
 
+if(in_array($data['platform_id'], [24,28,34,35,37,40,41,49]) && $data['type'] == 2 && strlen($data['grafik1']) > 10) {
+    //temp::HTMassign('schedule', $data['grafik1']);
+}
+
 temp::assign('id', $data['id']);
 temp::assign('category', $data['catname']);
 temp::HTMassign('lotdescr', $lotname);

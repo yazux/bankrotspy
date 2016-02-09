@@ -51,6 +51,14 @@
                             <td style="width: 300px;"><b>Рыночная цена:</b><br/></td>
                             <td><i class="icon-rouble"></i> <?=$realprice?></td>
                         </tr>
+                        <tr>
+                            <td style="width: 300px;"><b>Шаг цены:</b><br/></td>
+                            <td>5%</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 300px;"><b> Задаток:</b><br/></td>
+                            <td>10%</td>
+                        </tr>
                         <? if(!empty($market_price)): ?>
                             <?= $market_price ?>
                         <? endif; ?>
@@ -96,6 +104,22 @@
                             <td><?=$lotendtime?></td>
                         </tr>
                     </table>
+                    <? if(!empty($schedule)): ?>
+                    <hr/>
+                    <table>
+                    <?= $schedule ?>
+                    </table>
+                    <style>
+                    .data.inner {
+                        
+                        border-collapse:collapse;
+                    }
+                    .data.inner td {
+                        border:1px solid #ebebeb;
+                        text-align:center;
+                    }
+                    </style>
+                    <? endif; ?>
                     <hr/>
                     <table class="lottable">
                         <tr>
