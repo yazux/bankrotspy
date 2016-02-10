@@ -1187,3 +1187,53 @@ padding: 10px 0px 10px 10px;
 .export-table .all{
     vertical-align:bottom;
 }
+#note_window {
+    position:absolute;
+    top:50%;
+    left:50%;
+    display:none;
+    width:300px;
+    padding:10px;
+    border:1px solid #ebebeb;
+    background:#fff;
+  
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
+    z-index:999999999;
+    margin-left:-300px;
+    
+}
+#note_window textarea {
+    background:#fff;
+    margin:0;
+    box-sizing: border-box;
+    width:100%;
+    resize:none;
+    padding:5px;
+    margin-bottom:5px;
+}
+#note_window i {
+    color:#dd8b00;
+}
+
+#note_window  .fa-floppy-o {
+    margin-right:8px;
+}
+
+#note_window .fa-times {
+    float:right;
+    margin-top:3px;
+}
+#note_window i:hover {
+    cursor:pointer;
+    border-style:solid;
+    border-width: 0px 0px 1px 0px;
+    padding-bottom:2px;
+}
+
+#note {
+    color:#ff9b24;
+}
+#note:hover {
+    color: rgba(255, 155, 36, 0.76);
+    cursor: pointer;
+}

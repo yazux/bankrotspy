@@ -30,9 +30,11 @@ if(!$action)
 else
 {
   //Удаляем из избранного
-  if(!$item_added)
-    exit('item already not in favorites');
-  core::$db->query('DELETE FROM `ds_maindata_favorive` WHERE `item` = "'.$item.'" AND `user_id` = "'.core::$user_id.'" LIMIT 1;');
+    if(!$item_added)
+        exit('item already not in favorites');
+    
+    core::$db->query('DELETE FROM `ds_maindata_favorive` WHERE `item` = "'.$item.'" AND `user_id` = "'.core::$user_id.'" LIMIT 1;');
+    core::$db->query('DELETE FROM `lot_notes` WHERE `lot_id` = "'.$item.'" AND `user_id` = "'.core::$user_id.'" LIMIT 1;');
 }
 
 echo 'ok';

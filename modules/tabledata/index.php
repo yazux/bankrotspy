@@ -178,8 +178,6 @@ if ($svalue) {
     }
 }
 
-
-
 //выборка по категориям
 if ($category == '-1') {
     $conditions['fav_sql'] = '`ds_maindata_favorive`.`user_id` = "'.core::$user_id.'" ';
@@ -192,6 +190,9 @@ if ($category == '-1') {
 } elseif ($category >= 0) {
     $conditions['category'] = ' `ds_maindata`.`cat_id` = "'.$category.'" ';
 }
+
+$selects['note'] = ' `lot_notes`.`text` AS note';
+$join_conditions['note']= 'LEFT JOIN `lot_notes` ON `lot_notes`.`lot_id` = `ds_maindata`.`id` AND `lot_notes`.`user_id` = "' . core::$user_id.'"';
 
 
 //Фильтрация по типам
@@ -440,7 +441,10 @@ if ($res->num_rows) {
 
         $loc['platform'] = $tabledata->platform($data['platform_id'], $data['auct_link'], $data['fedlink'], $access);
         //var_dump($data);
-        $loc['favorite'] = $tabledata->favorite($data['id'], $data['item']);
+        
+        //$loc['favorite'] = $tabledata->favorite($data['id'], $data['item']);
+        //var_dump($data);
+        $loc['favorite'] = $tabledata->addition($data['id'], $data['item'], $data['note']);
         $out2[] = $loc;
     }
 

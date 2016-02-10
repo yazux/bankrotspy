@@ -370,6 +370,76 @@
             listen_to_favorite(this, false);
         }
     });
+    
+    $('#note_window .fa-times').on('click', function(){
+        $(this).parent().parent().fadeOut();
+    });
+    $(document).on('mouseover', '#note', function(){
+        var tab = $('.active_tab').attr('attr');
+        if(tab != '-1') {
+            var text = $(this).attr('data-note');
+            toolTip(text);
+        }
+    });
+    
+    $(document).on('mouseout', '#note', function(){
+        toolTip();
+    });
+    
+    $('#note_window .fa-floppy-o').on('click', function(){
+        var id = $(this).parent().find('input[name=id]').val();
+        var data = $(this).parent().serialize();
+        var text = $(this).parent().find('textarea').val();
+        
+        $.ajax({
+            method: 'POST',
+            url: '/tabledata/note?action=save',
+            dataType: 'json',
+            data: data,
+            success: function(result){
+                
+            }
+        });
+        $(document).find('[data-id='+id+']').attr('data-note', text);
+        $(document).find('[data-id='+id+']').children('i').removeClass('fa-sticky-note-o').addClass('fa-sticky-note');
+        $(this).parent().parent().fadeOut();
+    });
+    
+    $('#note_window .fa-trash').on('click', function(){
+        var id = $(this).parent().find('input[name=id]').val();
+        var data = $(this).parent().serialize();
+        var text = $(this).parent().find('textarea').val();
+        $.ajax({
+            method: 'POST',
+            url: '/tabledata/note?action=delete',
+            dataType: 'json',
+            data: data,
+            success: function(result){
+               
+            }
+        });
+        $(document).find('[data-id='+id+']').attr('data-note', '');
+        $(document).find('[data-id='+id+']').children('i').removeClass('fa-sticky-note').addClass('fa-sticky-note-o');
+        $(this).parent().parent().fadeOut();
+        
+    });
+    
+    $(document).on('click', '.data_table #note', function(){
+        var tab = $('.active_tab').attr('attr');
+        if(tab == '-1') {
+            var note = $(this).attr('data-note');
+            var top = $(this).offset().top;
+            var left = $(this).offset().left;
+        
+            $('#note_window').css('top', top - 90);
+            $('#note_window').css('left', left);
+        
+            $('#note_window').find('textarea').val(note)
+            $('#note_window').find('input[name=id]').val($(this).attr('data-id'));
+            $('#note_window').fadeIn();
+        }
+    });
+    
 
     $(document).on('click', '#search_in_table', function(){
         search_listener();

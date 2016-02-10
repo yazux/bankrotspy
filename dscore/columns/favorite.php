@@ -34,7 +34,7 @@ class column_favorite
             $star = '<i title="Удалить лот из избранного" class="icon-star-clicked"></i>';
         else
             $star = '<i title="Добавить лот в избранное" class="icon-star-empty"></i>';
-        
+
         return array(
             'col' => '<span class="icon_to_click" attr="'.$this->attr.'">'.$star.'</span>',
             'style' => 'text-align:center;'
