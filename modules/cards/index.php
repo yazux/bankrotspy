@@ -224,10 +224,12 @@ if($access) {
     $platform_url = $data['platform_url'];
     $fedlink_url = $data['fedlink'];
     $auct_url  = $data['auct_link'];
+    $code_torg = $data['code'];
 } else {
     $platform_url = '';
     $fedlink_url = -1;
     $auct_url = -1;
+    $code_torg = '-1';
 }
 
 temp::assign('platform_url', $platform_url);
@@ -235,7 +237,7 @@ temp::assign('fedlink', $fedlink_url);
 
 
 temp::assign('auct_link', $auct_url);
-temp::assign('code_torg', $data['code']);
+temp::assign('code_torg', $code_torg);
 
 if(!empty($similarDataPrice) && CAN('histogram_goods')) {
     temp::HTMassign('similarDataPrice', json_encode($similarDataPrice));

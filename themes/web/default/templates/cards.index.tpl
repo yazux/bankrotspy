@@ -200,7 +200,13 @@
                     <table class="lottable">
                         <tr>
                             <td style="width: 300px;"><b>Номер торгов:</b><br/></td>
-                            <td><?=$code_torg?></td>
+                            <td>
+                                <? if($code_torg !== '-1'): ?>
+                                    <?=$code_torg?>
+                                <? else: ?>
+                                    <i class="fa fa-lock"></i>
+                                <? endif; ?>
+                            </td>
                         </tr>
                         <tr>
                             <td style="width: 300px;"><b>Торги на площадке:</b><br/></td>
