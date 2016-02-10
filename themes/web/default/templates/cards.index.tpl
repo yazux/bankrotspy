@@ -204,11 +204,27 @@
                         </tr>
                         <tr>
                             <td style="width: 300px;"><b>Торги на площадке:</b><br/></td>
-                            <td><a target="_blank" href="<?=$auct_link?>"><i class="icon-globe-table"></i><?=$platform_url?></a></td>
+                            <td>
+                                <? if($auct_link !== '-1'): ?>
+                                <a target="_blank" href="<?=$auct_link?>"><i class="icon-globe-table"></i><?=$platform_url?></a>
+                                <? else: ?>
+                                <i class="fa fa-lock"></i>
+                                <? endif; ?>
+                            </td>
                         </tr>
                         <tr>
                             <td style="width: 300px;"><b>Лот на федресурсе:</b><br/></td>
-                            <td><?if($fedlink):?><a target="_blank" href="<?=$fedlink?>"><i class="icon-globe-table"></i>fedresurs.ru</a><?else:?>нет<?endif?></td>
+                            <td>
+                                <? if($fedlink !== '-1'): ?>
+                                    <? if($fedlink): ?>
+                                    <a target="_blank" href="<?= $fedlink ?>"><i class="icon-globe-table"></i>fedresurs.ru</a>
+                                    <? else: ?>
+                                    нет
+                                    <? endif; ?>
+                                <? else: ?>
+                                    <i class="fa fa-lock"></i>
+                                <? endif; ?>
+                            </td>
                         </tr>
                     </table>
                     <? if(!empty($similarDataPrice) && $similarDataPrice !== 'access'): ?>

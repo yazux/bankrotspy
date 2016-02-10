@@ -219,9 +219,22 @@ temp::assign('lotstatus', $status);
 temp::assign('lotstarttime', ds_time($data['start_time']));
 temp::assign('lotendtime', ds_time($data['end_time']));
 temp::HTMassign('lotprice', $lotprice);
-temp::assign('platform_url', $data['platform_url']);
-temp::assign('fedlink', $data['fedlink']);
-temp::assign('auct_link', $data['auct_link']);
+
+if($access) {
+    $platform_url = $data['platform_url'];
+    $fedlink_url = $data['fedlink'];
+    $auct_url  = $data['auct_link'];
+} else {
+    $platform_url = '';
+    $fedlink_url = -1;
+    $auct_url = -1;
+}
+
+temp::assign('platform_url', $platform_url);
+temp::assign('fedlink', $fedlink_url);
+
+
+temp::assign('auct_link', $auct_url);
 temp::assign('code_torg', $data['code']);
 
 if(!empty($similarDataPrice) && CAN('histogram_goods')) {

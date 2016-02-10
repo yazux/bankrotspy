@@ -1,7 +1,7 @@
 document.onmousemove = moveTip;
 		function moveTip(e) {
 		  floatTipStyle = document.getElementById("floatTip").style;
-		  w = 250;
+		  w = 0;
 
 		  if (document.all)  { 
 			x = event.clientX + document.body.scrollLeft; 
@@ -12,6 +12,7 @@ document.onmousemove = moveTip;
 			y = e.pageY;
 		  }
 
+          console.log(document.body.clientWidth);
 		  if ((x + w + 10) < document.body.clientWidth) { 
 			floatTipStyle.left = x + 'px';
 		  } else { 

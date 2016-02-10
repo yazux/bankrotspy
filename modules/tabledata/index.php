@@ -438,7 +438,7 @@ if ($res->num_rows) {
             $loc['debpoints'] = $tabledata->debpoints($data['debpoints'], $data['debnotice'], $vipAccess);
         }
 
-        $loc['platform'] = $tabledata->platform($data['platform_id'], $data['auct_link'], $data['fedlink']);
+        $loc['platform'] = $tabledata->platform($data['platform_id'], $data['auct_link'], $data['fedlink'], $access);
         //var_dump($data);
         $loc['favorite'] = $tabledata->favorite($data['id'], $data['item']);
         $out2[] = $loc;
