@@ -12,7 +12,6 @@ document.onmousemove = moveTip;
 			y = e.pageY;
 		  }
 
-          console.log(document.body.clientWidth);
 		  if ((x + w + 10) < document.body.clientWidth) { 
 			floatTipStyle.left = x + 'px';
 		  } else { 
