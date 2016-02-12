@@ -20,9 +20,11 @@ $twr = core::$db->query('SELECT
    `ds_maindata_category`.`name` AS `catname`,
    `ds_maindata_hint`.`link` AS `link`,
    `ds_maindata_hint`.`price` AS `price_average`,
-   `ds_maindata_hint`.`text` AS `hint`
+   `ds_maindata_hint`.`text` AS `hint`,
+   `lot_notes`.`text` AS `note`
     FROM
    `ds_maindata`
+    LEFT JOIN `lot_notes` ON `lot_notes`.`lot_id` = `ds_maindata`.`id` AND `lot_notes`.`user_id` = "'.core::$user_id.'"
     LEFT JOIN `ds_maindata_regions` ON `ds_maindata`.`place` = `ds_maindata_regions`.`number`
     LEFT JOIN `ds_maindata_type` ON `ds_maindata`.`type` = `ds_maindata_type`.`id`
     LEFT JOIN `ds_maindata_status` ON `ds_maindata`.`status` = `ds_maindata_status`.`id`
@@ -196,6 +198,8 @@ if(in_array($data['cat_id'], [1,5,6,7])) {
 if(in_array($data['platform_id'], [24,28,34,35,37,40,41,49]) && $data['type'] == 2 && strlen($data['grafik1']) > 10) {
     //temp::HTMassign('schedule', $data['grafik1']);
 }
+
+temp::HTMassign('note', $data['note']);
 
 temp::assign('id', $data['id']);
 temp::assign('category', $data['catname']);

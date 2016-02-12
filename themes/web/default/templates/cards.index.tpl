@@ -25,6 +25,69 @@
                     <a href="<?= core::$home ?>/control/edititem?id=<?= $id ?>" class="edit aright">Изменить</a>
                     <? endif; ?>
                 </div>
+                
+                <div class="contbody_forms">
+                     <table class="lottable">
+                        <tr>
+                            <td style="width: 60px;"><b>Комментарий:</b><br/></td>
+                            <td width="100%"><textarea class="nostyle"><?= $note ?></textarea></td>
+                        </tr>
+                     </table>
+                 </div>
+                 <style>
+
+                    .fa {
+                        color:#d27600;
+                    }
+                    .fa:hover {
+                        color:red;
+                        cursor:pointer;
+                    }
+                    textarea {
+                        background:none;
+                        height:20px;
+                    }
+                    .style{
+                        border:1px solid #ebebeb;
+                        resize:vertical;
+                    }
+                    .nostyle {
+                        border:none;
+                        resize:none;
+                    }
+                 </style>
+                 <script>
+                    $('.lottable').on('click', 'textarea', function(){
+                        $(this).removeClass('nostyle');
+                        $(this).addClass('style');
+                    });
+                    $('.lottable').on('change', 'textarea', function(){
+                        $(this).removeClass('style');
+                        $(this).addClass('nostyle');
+
+                        if ($(this).val().length > 0) {
+                            var action = 'save';
+                        } else {
+                            var action = 'delete';
+                        }
+                        
+                        var data = {
+                            formid:<?= core::$formid ?>,
+                            id:<?= $id ?>,
+                            text:$(this).val()
+                        };
+                        $.ajax({
+                            method: 'POST',
+                            url: '/tabledata/note?action='+action,
+                            dataType: 'json',
+                            data: data,
+                            success: function(result){
+                                console.log(result);
+                            }
+                        });
+                    });
+                 </script>
+
                 <div class="contfin_forms_delimiter">
 
                 </div>

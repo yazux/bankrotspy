@@ -126,7 +126,7 @@ class temp
   }  
   
   public static function formid()
-  {
+  { 
     echo '<input type="hidden" name="formid" value="'.core::$formid.'" />';  
   }  
 }   
