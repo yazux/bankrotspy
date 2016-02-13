@@ -14,7 +14,7 @@ if(strlen($text) > 400) {
 
 if($_GET['action'] == 'save') {
     
-    $text = core::$db->res(htmlentities($text, ENT_QUOTES));
+    $text = core::$db->res(htmlentities(strip_tags($text), ENT_QUOTES));
     
     $query = core::$db->query('SELECT * FROM `lot_notes` WHERE `lot_id` = "'.$id.'" AND `user_id` = "'.core::$user_id.'" LIMIT 1');
     if ($query->num_rows > 0) {
