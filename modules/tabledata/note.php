@@ -6,9 +6,15 @@ if(!in_array(core::$rights, [10, 11, 100]))
 if(!isset($_GET['action'])) exit;
 
 $id = intval($_POST['id']);
-$text = core::$db->res($_POST['text']);
+$text = $_POST['text'];
+
+if(strlen($text) > 255) {
+    ajax_response(['error' => '1']);
+}
 
 if($_GET['action'] == 'save') {
+    
+    $text = core::$db->res(htmlentities($text, ENT_QUOTES));
     
     $query = core::$db->query('SELECT * FROM `lot_notes` WHERE `lot_id` = "'.$id.'" AND `user_id` = "'.core::$user_id.'" LIMIT 1');
     if ($query->num_rows > 0) {
@@ -21,4 +27,6 @@ if($_GET['action'] == 'save') {
 } elseif ($_GET['action'] == 'delete') {
     core::$db->query('DELETE FROM `lot_notes` WHERE `lot_id` = "'.$id.'" AND `user_id` = "'.core::$user_id.'" LIMIT 1');
 }
+
+ajax_response(['error' => '0']);
 

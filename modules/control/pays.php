@@ -6,7 +6,7 @@ new nav; //Постраничная навигация
 //nav::$kmess = 50;
 
 $total = core::$db->query('SELECT COUNT(*) FROM `ds_paid`;')->count();
-$res = core::$db->query('SELECT * FROM `ds_paid` ORDER BY `paytime` DESC ;');
+$res = core::$db->query('SELECT * FROM `ds_paid` WHERE `summ` > 0 ORDER BY `paytime` DESC ;');
 
 $i = 0;
 $arr = array();
@@ -35,6 +35,7 @@ while($data = $res->fetch_assoc())
   $out['username'] = $data['username'];
   $out['paidid'] =  $data['paidid'];
   $out['paytime'] =  ds_time($data['paytime'], '%d %B2 %Y');
+  $out['time'] =  date('h:m:s', $data['paytime']);
   $out['summ'] =  $data['summ'];
   $out['comm'] =  $data['comm'];
 

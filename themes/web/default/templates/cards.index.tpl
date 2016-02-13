@@ -25,12 +25,13 @@
                     <a href="<?= core::$home ?>/control/edititem?id=<?= $id ?>" class="edit aright">Изменить</a>
                     <? endif; ?>
                 </div>
-                
+                <? if($lotfav): ?>
                 <div class="contbody_forms">
                      <table class="lottable">
                         <tr>
-                            <td style="width: 60px;"><b>Комментарий:</b><br/></td>
+                            <td style="width: 60px;"><b contenteditable="true">Комментарий:</b><br/></td>
                             <td width="100%"><textarea class="nostyle"><?= $note ?></textarea></td>
+                            <td><a class="button">Сохранить</a></td>
                         </tr>
                      </table>
                  </div>
@@ -55,17 +56,24 @@
                         border:none;
                         resize:none;
                     }
+                    .lottable .button {
+                        display:none;
+                    }
                  </style>
                  <script>
                     $('.lottable').on('click', 'textarea', function(){
                         $(this).removeClass('nostyle');
                         $(this).addClass('style');
+                        $('.lottable .button').show();
                     });
-                    $('.lottable').on('change', 'textarea', function(){
-                        $(this).removeClass('style');
-                        $(this).addClass('nostyle');
+                    $('.lottable').on('click', '.button', function(){
+                        $(this).hide();
+                        var input = $('.lottable textarea');
+                        
+                        $(input).removeClass('style');
+                        $(input).addClass('nostyle');
 
-                        if ($(this).val().length > 0) {
+                        if ($(input).val().length > 0) {
                             var action = 'save';
                         } else {
                             var action = 'delete';
@@ -74,7 +82,7 @@
                         var data = {
                             formid:<?= core::$formid ?>,
                             id:<?= $id ?>,
-                            text:$(this).val()
+                            text:$(input).val()
                         };
                         $.ajax({
                             method: 'POST',
@@ -87,7 +95,7 @@
                         });
                     });
                  </script>
-
+                <? endif; ?>
                 <div class="contfin_forms_delimiter">
 
                 </div>

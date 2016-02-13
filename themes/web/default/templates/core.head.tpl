@@ -48,7 +48,7 @@
             <? temp::formid() /* ЭТА ФУНКЦИЯ ОБЯЗАТЕЛЬНА ДЛЯ ВСЕХ ФОРМ!!! */?>
             <input type="hidden" value="" name="id"/>
             <textarea name="text"></textarea>
-            <i class="fa fa-floppy-o"> Сохранить</i><i class="fa fa-trash"> Удалить</i>
+            <i class="fa fa-floppy-o"> Сохранить</i><!--<i class="fa fa-trash"> Удалить</i>-->
             <i class="fa fa-times"></i>
             </form>
         </div>

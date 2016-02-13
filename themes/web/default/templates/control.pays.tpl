@@ -39,6 +39,7 @@
                     <td style="text-align:left;"><?=$data['summ']?> р.</td>
                     <td style="text-align:left;"><?=$data['paidid']?></td>
                     <td style="text-align:left;"><?=$data['paytime']?></td>
+                    <td style="text-align:left;"><?=$data['time']?></td>
                     <td style="text-align:left;"><?=$data['comm']?></td>
                 </tr>
                 <?endforeach?>
