@@ -444,7 +444,7 @@ if ($res->num_rows) {
         
         //$loc['favorite'] = $tabledata->favorite($data['id'], $data['item']);
         //var_dump($data);
-        $loc['favorite'] = $tabledata->addition($data['id'], $data['item'], $data['note']);
+        $loc['favorite'] = $tabledata->addition($data['id'], $data['item'], $data['note'], $category);
         $out2[] = $loc;
     }
 

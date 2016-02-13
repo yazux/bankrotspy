@@ -6,7 +6,7 @@ class column_addition
     private $id;
     private $note;
     private $favorite;
-    
+    public $category;
 
     public function __construct($data)
     {
@@ -14,6 +14,7 @@ class column_addition
         $this->id = $data[0];
         $this->favorite = $data[1];
         $this->note = $data[2];
+        $this->category = $data[3];
        
     }
 
@@ -42,8 +43,10 @@ class column_addition
         
         if($this->note)
             $note = '<i title="Комментарий к лоту" class="fa fa-sticky-note"></i>';
-        else
+        elseif($this->category == '-1' && $this->favorite)
             $note = '<i title="Комментарий к лоту" class="fa fa-sticky-note-o"></i>';
+        else 
+            $note = '';
         
         $coldata = [
             '<span class="icon_to_click" attr="'.$this->id.'">'.$star.'</span>',
