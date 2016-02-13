@@ -30,11 +30,20 @@
                     <h2><?=$marr[$key_month]?> <?=$key_year?></h2>
                 </div>
                 <div class="contbody_forms">
+                <style>
+                .pays_t td {
+                    /*border-bottom:1px solid #eee;*/
+                }
+                .pays_t tr:hover{
+                    background:#f9f8f8;
+                }
+                </style>
                 <table class="pays_t">
 
                 <?if($month):?>
-                <?foreach($month as $data): ?>
+                <?foreach($month as $id => $data): ?>
                 <tr>
+                    <td width="10" style="text-align:center; pading:0 3px;"><?= $id+1 ?></td>
                     <td style="text-align:left;"><b><a href="<?=$home?>/user/profile?id=<?=$data['userid']?>"><?=$data['username']?></a></b></td>
                     <td style="text-align:left;"><?=$data['summ']?> р.</td>
                     <td style="text-align:left;"><?=$data['paidid']?></td>
@@ -44,8 +53,7 @@
                 </tr>
                 <?endforeach?>
                 <tr style="border-top: 1px solid #dbd5d7;">
-                    <td><b>Итого за месяц:</b></td>
-                    <td colspan="4" ><b><?=$msumm[$key_month]?> p.</b></td>
+                    <td colspan="6"><b>Итого за месяц:</b> <b><?=$msumm[$key_month]?> p.</b></td>
                 </tr>
                 <?endif?>
 
