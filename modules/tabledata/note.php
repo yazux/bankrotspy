@@ -8,7 +8,7 @@ if(!isset($_GET['action'])) exit;
 $id = intval($_POST['id']);
 $text = $_POST['text'];
 
-if(strlen($text) > 255) {
+if(strlen($text) > 400) {
     ajax_response(['error' => '1']);
 }
 
