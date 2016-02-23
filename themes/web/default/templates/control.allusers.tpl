@@ -5,8 +5,8 @@
                 <div class="conthead"><h2><i class="icon-user-male"></i> <?=lang('u_online')?></h2></div>
                     
                 <div class="contbody_forms">
-                    <form style="display:block;margin-bottom:20px;">
-                        <input type="text" placeholder="id, логин или e-mail" name="search">
+                    <form style="display:block;margin-bottom:20px;" method="get">
+                        <input type="text" placeholder="логин или e-mail" name="search" value="<?=$search?>">
                         <input class="urlbutton_index button_no_top_index" type="submit" value="искать">
                     </form>
                </div> 

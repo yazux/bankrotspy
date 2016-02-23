@@ -3,27 +3,47 @@ defined('DS_ENGINE') or die('web_demon laughs');
 
 class nav
 {
-  public static $start;
-  public static $page;
-  public static $kmess;
-  public static $rewrite;
-  public static $postfix;
-    
-  function __construct($colp = 0)
-  {
-    if(!$colp)  
-      self::$kmess = 10;
-    else
-      self::$kmess = $colp;
-      
-    self::$page = intval(abs(GET('page')));
-    if(!self::$page)
-      self::$page = 1;  
-    self::$start = GET('page') ? self::$page * self::$kmess - self::$kmess : 0; 
-  }
+    public static $start;
+    public static $page;
+    public static $kmess;
+    public static $rewrite;
+    public static $postfix;
 
-  static function display($all, $path, $text_back = '', $text_ret = '')
-  {
+    function __construct($colp = 0) {
+        if(!$colp)  
+            self::$kmess = 10;
+        else
+            self::$kmess = $colp;
+
+        self::$page = intval(abs(GET('page')));
+        if(!self::$page)
+            self::$page = 1;  
+        self::$start = GET('page') ? self::$page * self::$kmess - self::$kmess : 0; 
+    }
+
+    /**
+     * Выдает контролы навигации:
+     *
+     * @param int $all Количество элементов всего.
+     * @param string $path Ссылка.
+     * @param string $text_back Тест ссылки "Назад".
+     * @param string $text_ret Тест ссылки "Вперед".
+     * @param array $params Дополнительные параметры в виде массива, которые передаются гетом при переходе на страницы.
+     * 
+     * @return string Навигация в виде html.
+     */
+    static function display($all, $path, $text_back = '', $text_ret = '', $params = array()) {
+        
+        $strParams = "";
+        if ( $params ) {
+            $temp = array();
+            foreach ( $params as $key=>$val) {
+                $temp[] = $key . "=" . $val;
+            }
+            $strParams = implode('&', $temp);
+        }
+//        var_dump($strParams);
+        
     $out = '';
     $orpath = $path;
     if(self::$rewrite)
@@ -43,8 +63,8 @@ class nav
       else
       { 
         if($pages > 2) 
-          $out .= '<a class="navpg" href="'.$orpath.self::$postfix.'">1</a>';
-        $out .= '<a class="navpg" href="'.$path.(self::$page-1).self::$postfix.'">'.($text_back ? $text_back : lang('nav_back')).'</a>';
+          $out .= '<a class="navpg" href="'.$orpath.self::$postfix.($strParams?'&'.$strParams:'').'">1</a>';
+        $out .= '<a class="navpg" href="'.$path.(self::$page-1).self::$postfix.($strParams?'&'.$strParams:'').'">'.($text_back ? $text_back : lang('nav_back')).'</a>';
       }
       
       if(self::$rewrite)
@@ -62,7 +82,7 @@ class nav
         
         for($i=1;$i<=$pages;$i++)
         {
-          $out .= '<option value="'.$orpath.self::$rewrite.$i.self::$postfix.'" '.($i == self::$page ? 'selected="selected"' : '' ).' >'.$i.'</option>';
+          $out .= '<option value="'.$orpath.self::$rewrite.$i.self::$postfix.($strParams?'&'.$strParams:'').'" '.($i == self::$page ? 'selected="selected"' : '' ).' >'.$i.'</option>';
         }
         $out .= '</select></form>'; 
       }
@@ -82,7 +102,11 @@ class nav
             $out .= '<input type="hidden" name="'.$val_pt[0].'" value="'.$val_pt[1].'" />';
           }
         }
-      
+        if( $params ) {
+            foreach( $params as $key => $val ) {
+                $out .= '<input type="hidden" name="'.$key.'" value="'.$val.'" />';
+            }
+        }
         $out .= '<select class="navselect" name="page" onchange="this.form.submit()">'; 
         for($i=1;$i<=$pages;$i++)
         {
@@ -98,9 +122,9 @@ class nav
       }
       else
       {  
-        $out .= '<a class="navpg" href="'.$path.(self::$page+1).self::$postfix.'">'.($text_ret ? $text_ret : lang('nav_to')).'</a>';
+        $out .= '<a class="navpg" href="'.$path.(self::$page+1).self::$postfix.($strParams?'&'.$strParams:'').'">'.($text_ret ? $text_ret : lang('nav_to')).'</a>';
         if($pages > 2)  
-          $out .= '<a class="navpg" href="'.$path.$pages.self::$postfix.'">'.$pages.'</a>';
+          $out .= '<a class="navpg" href="'.$path.$pages.self::$postfix.($strParams?'&'.$strParams:'').'">'.$pages.'</a>';
       }
       return $out; 
     }
