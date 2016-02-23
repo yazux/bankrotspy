@@ -356,10 +356,12 @@
     var engine_now_profile = '<?=$now_profile_id?>';
 
     
-    $(document).ready(function()
-    {
+    $(document).ready(function() {
         restore_settings();
         load_table();
+
+        $('[name="begin_set_date"]').jdPicker();
+        $('[name="end_set_date"]').jdPicker();
     });
 
     $(document).on('click', '.data_table .icon_to_click', function(){
@@ -469,12 +471,6 @@
         engine_settings.page = 1;
         save_settings_and_load();
     });
-
-    $(document).ready(function(){
-        $('[name="begin_set_date"]').jdPicker();
-        $('[name="end_set_date"]').jdPicker();
-    });
-
 
 </script>
 

@@ -319,7 +319,13 @@ jdPicker.prototype = {
     this.input.unbind("focus", this.show);
 	this.input.attr('readonly', true);
     $(document.body).keydown(this.keydownHandler);
-    this.setPosition();
+    
+    var offset = this.input.offset();
+    this.rootLayers.css({
+      top: this.input.top + this.input.outerHeight(),
+      left: this.input.left
+    });
+    //this.setPosition();
   },
   
   hide: function() {
@@ -413,12 +419,12 @@ jdPicker.prototype = {
       left: offset.left
     });
     
-    if (this.ieframe) {
-      this.ieframe.css({
-        width: this.dateSelector.outerWidth(),
-        height: this.dateSelector.outerHeight()
-      });
-    };
+//    if (this.ieframe) {
+//      this.ieframe.css({
+//        width: this.dateSelector.outerWidth(),
+//        height: this.dateSelector.outerHeight()
+//      });
+//    };
   },
   
   moveDateBy: function(amount) {
