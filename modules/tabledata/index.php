@@ -283,27 +283,43 @@ if($conditions OR $conditions_or)
   $where_cond = ' WHERE '.$where_and.' '.(($where_and AND $where_or) ? ' AND ' : '').' '.$where_or;
 }
 
-$join_cond = '';
-if($join_conditions)
-  $join_cond = ' '.implode(' ', $join_conditions);
+// Для сортировки по ручному выставлению цены добавим платформу
+$join_conditions['platform']= 'LEFT JOIN `ds_maindata_platforms` ON `ds_maindata_platforms`.`id` = `ds_maindata`.`platform_id`';
+$selects['platform'] = ' `ds_maindata_platforms`.`manual_price` AS `platform_manual_price`';
 
-$select_cond = '';
-if($selects)
-  $select_cond = ' , '.implode(' , ', $selects);
+// Вычисление падения цены в процентах для выведения значения в колонку и сортировки
+$selects['price_diff'] = ' IF(`ds_maindata`.`now_price`>0 AND `ds_maindata`.`price`>0 AND `ds_maindata`.`price`<>`ds_maindata`.`now_price`, ROUND((`ds_maindata`.`price`-`ds_maindata`.`now_price`)/`ds_maindata`.`price`*100, 0), 0) AS `price_diff`';
 
-$order_cond = '`ds_maindata`.`id` ASC';
-
-if($order_conditions && $category == 2) {
-   $order_cond = ' ORDER BY '.implode(' , ', $order_conditions).' , `ds_maindata`.`debpoints` DESC ';
-} elseif($category == 2) { 
-    $order_cond = ' ORDER BY `ds_maindata`.`debpoints` DESC ';
-} elseif($order_conditions) {
-    $order_cond = ' ORDER BY '.implode(' , ', $order_conditions).' , `ds_maindata`.`id` ASC ';
+if($order_conditions) {
+    // Если есть выбранные пользователем условия сортировки
+    $order_cond = ' ORDER BY ' . implode(' , ', $order_conditions);
+} elseif( ($category == 1) || ($category == 3) || ($category == 5) || ($category == 6) || ($category == 7)) {
+    // Если категория Авто, Спецтехника, Недвижимость, Зем. участки, то  сортируем по "Доходность, %" от большого к меньшему
+    $order_cond = ' ORDER BY (IF(`platform_manual_price`=1 AND `type`=2,1,0)) ASC, (IF(`ds_maindata`.`profit_proc`=0,1,0)) ASC, `ds_maindata`.`profit_proc` DESC';
 } else {
-    $order_cond = ' ORDER BY `ds_maindata`.`profit_proc` DESC ';
-//$order_cond = ' ORDER BY `ds_maindata`.`id` ASC ';
+    // Сортировка по Падению цены в %
+    $order_cond = " ORDER BY (IF(`platform_manual_price`=1 AND `ds_maindata`.`type`=2 AND LENGTH(`ds_maindata`.`grafik1`)<10,1,0)) ASC, (IF(`price_diff`=0,1,0)) ASC, `price_diff` DESC";
 }
 
+// Старая версия сортировок
+//if($order_conditions && $category == 2) {
+//   $order_cond = ' ORDER BY '.implode(' , ', $order_conditions).' , `ds_maindata`.`debpoints` DESC ';
+//} elseif($category == 2) { 
+//    $order_cond = ' ORDER BY `ds_maindata`.`debpoints` DESC ';
+//} elseif($order_conditions) {
+//    $order_cond = ' ORDER BY '.implode(' , ', $order_conditions).' , `ds_maindata`.`id` ASC ';
+//} else {
+//    $order_cond = ' ORDER BY `ds_maindata`.`profit_proc` DESC ';
+////$order_cond = ' ORDER BY `ds_maindata`.`id` ASC ';
+//}
+
+$join_cond = '';
+if($join_conditions)
+    $join_cond = ' '.implode(' ', $join_conditions);
+
+$select_cond = '';
+if( $selects )
+    $select_cond = ' , '.implode(' , ', $selects);
 
 //Счетчик
 $count = core::$db->query('SELECT
@@ -425,14 +441,14 @@ if ($res->num_rows) {
        
       
         // разница между текущей и начальной ценой
-        if($data['now_price'] > 0 && $data['price'] > 0 && $data['price'] != $data['now_price']) {   
+//        if($data['now_price'] > 0 && $data['price'] > 0 && $data['price'] != $data['now_price']) {   
+//        
+//            $percent = ($data['price'] - $data['now_price']) / $data['price'] * 100;
+//            $data['price_dif'] = floor($percent); 
+//            
+//        }
         
-            $percent = ($data['price'] - $data['now_price']) / $data['price'] * 100;
-            $data['price_dif'] = floor($percent); 
-            
-        }
-        
-        $loc['pricediff'] = $tabledata->pricediff($data['price_dif'], $data['platform_id'], $data['type'], $data['grafik1']);
+        $loc['pricediff'] = $tabledata->pricediff($data['price_diff'], $data['platform_id'], $data['type'], $data['grafik1']);
         //}
         if ($category == 2) {
             //$loc['pricediff'] = $tabledata->pricediff($data['price_dif'], $data['platform_id'], $data['type']);
