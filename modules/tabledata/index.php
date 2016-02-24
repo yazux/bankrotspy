@@ -293,6 +293,9 @@ $selects['price_diff'] = ' IF(`ds_maindata`.`now_price`>0 AND `ds_maindata`.`pri
 if($order_conditions) {
     // Если есть выбранные пользователем условия сортировки
     $order_cond = ' ORDER BY ' . implode(' , ', $order_conditions);
+} elseif( $category == -2 ) {
+    // Если категория "Все", то сортируем по дате
+    $order_cond = ' ORDER BY `ds_maindata`.`loadtime` DESC';
 } elseif( ($category == 1) || ($category == 3) || ($category == 5) || ($category == 6) || ($category == 7)) {
     // Если категория Авто, Спецтехника, Недвижимость, Зем. участки, то  сортируем по "Доходность, %" от большого к меньшему
     $order_cond = ' ORDER BY (IF(`platform_manual_price`=1 AND `type`=2,1,0)) ASC, (IF(`ds_maindata`.`profit_proc`=0,1,0)) ASC, `ds_maindata`.`profit_proc` DESC';
