@@ -65,3 +65,6 @@ function get_scroll(a)
   return /CSS/.test(d.compatMode)? (e[c]< e[a]) : (b[c]< b[a])
 }
 
+// hello world
+// sti
+// mov ecx, edx
