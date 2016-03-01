@@ -14,6 +14,12 @@ else
 }
 header('Expires: ' . date('r',  time() + 60));
 
+// Проверка на активность пользователя. Если не активен, то вылогиниваем его и перенаправляем на главную
+if ( core::$user_id && (core::$user_active == 0) ) {
+    core::user_unset();
+    header( "Location: /" );
+    exit();
+} 
 
 $query = 'SELECT COUNT(*) FROM `ds_users` WHERE `lastvisit` > "' . (time() - core::$set['onlinetime']) . '";';
 $query .= 'SELECT COUNT(*) FROM `ds_guests` WHERE `lastdate` > "' . (time() - core::$set['onlinetime']) . '";';

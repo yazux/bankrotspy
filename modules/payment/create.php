@@ -2,17 +2,21 @@
 
 defined('DS_ENGINE') or die('web_demon laughs');
 
+// Если это не админ, выходим из скрипта
 if (core::$rights < 100) denied();
 
-$user_id = $_POST['user_id'];
-$tariff_id = $_POST['tariff_id'];
+$user_id = (int)$_POST['user_id'];
+$tariff_id = (int)$_POST['tariff_id'];
 
+// Получаем тариф по ID
 $query = core::$db->query('SELECT * FROM `ds_tariffs` WHERE id = "'.$tariff_id.'" LIMIT 1');
 $tariff = $query->fetch_assoc();
 
+// Получаем пользователя
 $query = core::$db->query('SELECT * FROM `ds_users` WHERE id = "'.$user_id.'" LIMIT 1');
 $user = $query->fetch_assoc();
 
+// Если пользователь имеет права и такой тариф существует
 if ($user['rights'] == 0 && !empty($tariff)) {
     $pay_date = time();
     
