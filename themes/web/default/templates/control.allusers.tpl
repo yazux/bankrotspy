@@ -58,25 +58,25 @@
                             <td valign="top">
                                 <form id="tariffForm">
                                     <input type="hidden" name="user_id_<?= $out['id'] ?>" value="<?= $out['id'] ?>">
-                                    <select name="tariff_id_<?= $out['id'] ?>" id="tariff_id_<?= $out['id'] ?>" style="width: 300px;">
+                                    <select name="tariff_id_<?= $out['id'] ?>" id="tariff_id_<?= $out['id'] ?>" style="width: 300px;" title="Выставляет подписку согласно тарифа.">
                                         <? foreach($out['tariffs'] as $tariff): ?>
                                             <option value="<?= $tariff['id'] ?>"><?= $tariff['name'] ?></option>
                                         <? endforeach; ?>
                                         <option value="-1">Подписки отключены</option>
                                     </select>
                                     <br />
-                                    <input type="text" name="pay_<?= $out['id'] ?>" value="" style="width: 60px; height: 15px;"> &nbsp;&nbsp;Сумма оплаты
-                                    <input type="checkbox" name="message_<?= $out['id'] ?>" value="1" style="margin-left: 10px;"> Уведомить
+                                    <input type="text" name="pay_<?= $out['id'] ?>" value="" style="width: 60px; height: 15px;" title="Сумма оплаты, которую можно установить вне зависимости от цены пакета."> &nbsp;&nbsp;Сумма оплаты
+                                    <input type="checkbox" name="message_<?= $out['id'] ?>" value="1" style="margin-left: 10px;" title="Уведомить пользователя об установке тарифа."> Уведомить
                             </td>
                             <td style="vertical-align: top;">
-                                    <input type="button" value="Активировать" onclick="activate(<?= $out['id'] ?>, 0)" style="width: 150px;" /><br />
-                                    <input type="button" value="Как своему" onclick="activate(<?= $out['id'] ?>, 1)" style="width: 150px;"/>
+                                    <input type="button" title="Устанавливает клиенту доступ к материалам согласно выставленному тарифу и создает транзакцию про оплату" value="Назначить" onclick="activate(<?= $out['id'] ?>, 0)" style="width: 150px;" /><br />
+                                    <input type="button" title="Устанавливает пользователю доступ согласно выставленному тарифу без создания транзакции про оплату." value="Как своему" onclick="activate(<?= $out['id'] ?>, 1)" style="width: 150px;"/>
                                 </form>
                             </td>
                             <td style="vertical-align: top;">
                                 <form id="rightsForm_<?= $out['id'] ?>">
                                     <input type="hidden" name="user_id_<?= $out['id'] ?>" value="<?= $out['id'] ?>">
-                                    <select name="right_id_<?= $out['id'] ?>" id="right_id_<?= $out['id'] ?>" style="width: 150px; margin-top: 3px;" onchange="changeStatus(<?= $out['id'] ?>)">
+                                    <select name="right_id_<?= $out['id'] ?>" id="right_id_<?= $out['id'] ?>" style="width: 150px; margin-top: 3px;" onchange="changeStatus(<?= $out['id'] ?>)" title="Выставляет пользователю права. Можно заблокировать.">
                                         <? foreach($rights as $key => $right): ?>
                                             <option value="<?= $key ?>" <?if ($key==$out['rights']):?>selected<?endif?>><?= $right ?></option>
                                         <? endforeach; ?>
