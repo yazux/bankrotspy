@@ -909,3 +909,27 @@ $(document).ready(function(){
   });
 
 });
+
+$(function(){
+    $('body').on('click', '.query_param_id', function(e){
+        e.preventDefault();
+        var _this = $(this);
+        var param_id = $(this).parent().parent().attr('data-lotid');
+        $.ajax({
+            url:"tabledata/mp",
+            method: "POST",
+            data: {
+                formid:engine_formid,
+                id: param_id
+            },
+            success: function(html){
+            //alert(html);
+                if(html==""){
+                    html="не определено";
+                }
+                $(_this).html(html);
+            }
+        });
+    });
+    
+});

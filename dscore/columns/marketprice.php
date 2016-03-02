@@ -56,7 +56,7 @@ class column_marketprice
             }
             
         } elseif($access) {
-            $out_price = '-';
+            $out_price = '<a class="query_param_id">Узнать</a>';
         } else {
             $out_price = '<i class="fa fa-lock"></i>';
             $addition = ' onmouseover="toolTip(\'Информация доступна на тарифном плане VIP\')" onmouseout="toolTip()" ';
