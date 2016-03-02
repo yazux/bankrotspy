@@ -20,6 +20,7 @@ class core
     public static $rights;                 //Массив с правами пользователя
     public static $user_name;              //Логин пользователя
     public static $user_sex;               //Пол пользователя
+    public static $user_active;            //Активность пользователя
     public static $user_mail;
     public static $ua = '';                     //UserAgent
     public static $ip;
@@ -335,6 +336,7 @@ class core
                 self::$user_md_pass = $data['password'];
                 self::$avtime = $data['avtime'];
                 self::$dest_time = $data['desttime'];
+                self::$user_active = $data['active'];
                 
                 //записываем данные юзера в базу
                 self::$db->query('UPDATE `ds_users` SET
