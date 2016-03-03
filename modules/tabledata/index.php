@@ -420,7 +420,11 @@ if ($res->num_rows) {
                 if($vipAccess == false) {
                     $data['hint_text'] = 'Информация доступна на тарифном плане VIP';
                 }
-                $loc['marketprice'] = $tabledata->marketprice($data['market_price'], $access, $data['hint_text']);
+                if (CAN('get_lot_price') && empty($data['market_price'])) {
+                    $loc['marketprice'] = $tabledata->marketprice($data['market_price'], $access, $data['hint_text'], true);
+                } else {
+                    $loc['marketprice'] = $tabledata->marketprice($data['market_price'], $access, $data['hint_text']);
+                }
             } else {
                 
                 if (CAN('get_lot_price') && empty($data['market_price'])) {
