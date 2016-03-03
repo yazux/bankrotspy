@@ -15,46 +15,50 @@ if($id > 99)
   
 $query = core::$db->query('SELECT * FROM `ds_rights` WHERE `id` = "'.$id.'";');
 
+// получаем права для группы
 if ($query->num_rows) {
     $result = $query->fetch_assoc();  
     $group_rights = unserialize($result['rights']);
 } else {
     $group_rights = $defaultRights;
 }
-    //var_dump($group_rights);
+
     $current_rights = array();
-    
+
+    //текущие общие права на сайте
     foreach ($group_rights['common'] as $key => $value) {
         $current_rights['common'][] = $key;  
     }
 
+    //текущие права на платный контент
     foreach ($group_rights['paid'] as $key => $value) {
         $current_rights['paid'][] = $key;  
     }    
 
+    //описание прав
     $names_r =  core::parse_lang('data/lang_rights/descr.lang');
     $nr =  core::parse_lang('data/lang_rights/rights.lang');
 
-    $query = core::$db->query('SELECT * FROM `ds_rights` WHERE `id` = "100";');
-    $result = $query->fetch_array();
-    $rights = unserialize($result['rights']);
+    //$query = core::$db->query('SELECT * FROM `ds_rights` WHERE `id` = "100";');
+    //$result = $query->fetch_array();
+    //$rights = unserialize($result['rights']);
     
     
     $right_description = array(); //описание каждого поля
     $all_rights = array(); // все права
   
     //общие права на сайте
-    foreach($rights['common'] as $key => $value) {
+    foreach($defaultRights['common'] as $key => $value) {
         $right_description['common'][$key] = $names_r[$key];
         $all_rights['common'][] = $key;
     }
     
     //платный контент
-    foreach($rights['paid'] as $key => $value) {
+    foreach($defaultRights['paid'] as $key => $value) {
         $right_description['paid'][$key] = $names_r[$key];
         $all_rights['paid'][] = $key;
     }
-  
+ 
     $res = core::$db->query('SELECT * FROM `ds_rights` ORDER BY `id` DESC;');
     $rmenu = array();
     $all_ids = array();

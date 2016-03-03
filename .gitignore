@@ -20,3 +20,4 @@
 /data/mailing/*
 /vendor/*
 /composer.*
+/themes/web/default/images/*

@@ -1259,3 +1259,19 @@ padding: 10px 0px 10px 10px;
     color: rgba(255, 155, 36, 0.76);
     cursor: pointer;
 }
+
+a.get_lot_price {
+    text-align:center;
+}
+
+a.get_lot_price:hover {
+    cursor:pointer;
+}
+
+.loading {
+    display:block;
+    margin: auto;
+    background:url(/themes/web/default/images/loading.gif) center center no-repeat;
+    height:20px;
+    width:20px;
+}
