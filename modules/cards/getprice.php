@@ -33,7 +33,7 @@ if(isset($_SESSION['mp_cache'][$_POST['id']])){
 
 
 
-$res = core::$db->query("SELECT * FROM `ds_maindata` WHERE `id`='".$_POST['id']."' AND `market_price`='0'");
+$res = core::$db->query("SELECT * FROM `ds_maindata` WHERE `id`='".core::$db->res($_POST['id'])."' AND `market_price`='0'");
 while($data = $res->fetch_array()){
 	$loc=$data;
 }
