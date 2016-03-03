@@ -711,6 +711,31 @@ function place_set_listener()
 }
 
 $(document).ready(function(){
+    
+    $('.bs_index_table').on('click', '.get_lot_price', function(e){
+        e.preventDefault();
+        var _this = $(this);
+        var param_id = $(this).parent().parent().attr('data-lotid');
+        $.ajax({
+            url: 'cards/getprice',
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                formid:engine_formid,
+                id: param_id
+            },
+            success: function(response){
+                if(response.access == "1"){
+                   $(_this).find('span').removeClass('loading').html(response.price);
+                }
+            },
+            beforeSend: function( xhr ) {
+                $(_this).find('span').html('').addClass('loading');
+            }
+        });
+    });
+    
+    
   $(document).on('click', '.show_span', function(){
     listen_namepop(this);
   });
@@ -908,28 +933,4 @@ $(document).ready(function(){
 
   });
 
-});
-
-$(function(){
-    $('body').on('click', '.query_param_id', function(e){
-        e.preventDefault();
-        var _this = $(this);
-        var param_id = $(this).parent().parent().attr('data-lotid');
-        $.ajax({
-            url:"tabledata/mp",
-            method: "POST",
-            data: {
-                formid:engine_formid,
-                id: param_id
-            },
-            success: function(html){
-            //alert(html);
-                if(html==""){
-                    html="не определено";
-                }
-                $(_this).html(html);
-            }
-        });
-    });
-    
 });

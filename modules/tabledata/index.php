@@ -415,14 +415,19 @@ if ($res->num_rows) {
             5 - Недвиж. жилая
             8 - Обор. Инст. Мат.
         */
-        if ($category != 0 AND $category != 4 AND $category != 8 AND $category != 2) {
+        if ($category != 0 & $category != 4 & $category != 8 & $category != 2) {
             if ($category === 5 || $category === 1 || $category === 7 || $category === 6) {
                 if($vipAccess == false) {
                     $data['hint_text'] = 'Информация доступна на тарифном плане VIP';
                 }
                 $loc['marketprice'] = $tabledata->marketprice($data['market_price'], $access, $data['hint_text']);
             } else {
-                $loc['marketprice'] = $tabledata->marketprice($data['market_price'], $access);
+                
+                if (CAN('get_lot_price') && empty($data['market_price'])) {
+                    $loc['marketprice'] = $tabledata->marketprice($data['market_price'], true, '', true);
+                } else {
+                    $loc['marketprice'] = $tabledata->marketprice($data['market_price'], $access);
+                }
             }
             
             // расчет прибыли в рублях и в процентах

@@ -1,7 +1,14 @@
-<?
-session_start();
-header("Content-Type: text/html; charset=utf-8");
+<?php
+
 defined('DS_ENGINE') or die('web_demon laughs');
+
+//если нет доступа
+if (!CAN('get_lot_price')) {
+    $response = [
+        'access' => 0
+    ];
+    ajax_response($response);
+}
 
 if(!isset($_SESSION['mp_count'])){
 	$_SESSION['mp_count']=0;
@@ -10,63 +17,21 @@ if(!isset($_SESSION['mp_count'])){
 	$_SESSION['mp_count']++;
 }
 
-if(!empty($_POST) AND isset($_POST['id']) AND $_SESSION['mp_count']<5){
+if(!empty($_POST) AND isset($_POST['id']) /*AND $_SESSION['mp_count']<5*/){
 
 if(isset($_SESSION['mp_cache'][$_POST['id']])){
-	echo $_SESSION['mp_cache'][$_POST['id']];
+    
+    $response = [
+        'access'    => 1,
+        'price'     => number_format($_SESSION['mp_cache'][$_POST['id']], 0, '.', ' ')
+    ];
+    
+    ajax_response($response);
+    
 }else{
 
-function function_parce_page_tru($array){
-	$baseurl='https://www.yandex.ru/';
-	$ch = curl_init($url);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_HEADER, 0);
-	$thispage = curl_exec($ch);
-	curl_close($ch);
-	sleep(3);
-	
-	$url=$array['query'];
-	$ch = curl_init($url);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_HEADER, 0);
-	//curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)");
-	$thispage = curl_exec($ch);
-	curl_close($ch);
-	//echo '<textarea style="width:1200px; height:500px;">'.htmlspecialchars($thispage).'</textarea>';
-	return $thispage;
-}
-function function_parce_page($array){
-	$url=$array['query'];
-	$ch = curl_init($url);
-	//curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	//curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/45.0.2454.101 Chrome/45.0.2454.101 Safari/537.36');
-	//curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-	curl_setopt($ch, CURLOPT_HEADER, 0);
-	$thispage = curl_exec($ch);
-	curl_close($ch);
-	return $thispage;
-}
-function function_page_short($array){
-	$result='';
-	$page=explode($array['start'],$array['page']);
-	$result=$page[$array['mode']];
-	return $result;
-}
-function function_page_div_search($array){
-	$result='';
-	//echo '<textarea style="width:1200px; height:500px;">'.htmlspecialchars($array['page']).'</textarea>';
-	$page=explode($array['start'],$array['page']);
-	//echo count($page);
-	return $page;
-}
-function function_page_div_search_vals($array){
-	$result='';
-	//echo '<textarea style="width:1200px; height:500px;">'.htmlspecialchars($array['page']).'</textarea>';
-	$page=explode($array['val'],$array['page']);
-	//echo count($page);
-	return $page;
-}
+
+
 
 $res = core::$db->query("SELECT * FROM `ds_maindata` WHERE `id`='".$_POST['id']."' AND `market_price`='0'");
 while($data = $res->fetch_array()){
@@ -150,12 +115,21 @@ $price_values_sum='';
 if(!empty($price_values)){
 	rsort($price_values);
 }
-echo $price_values[0];//это значение отправляем обратно
+
+$response = [
+        'access'    => 1,
+        'price'     => number_format($price_values[0], 0, '.', ' ')
+    ];
+ajax_response($response);
+
+
 $_SESSION['mp_cache'][$_POST['id']]=$price_values[0];
 }else{
 	echo 0;//все возникшие ошибки, или запрос цены у товара где ее не может быть - 0
 	$_SESSION['mp_cache'][$_POST['id']]=0;
 }
+
+
 }
 }
 ?>

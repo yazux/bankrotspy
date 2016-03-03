@@ -6,12 +6,14 @@ class column_marketprice
     private $price;
     private $access;
     private $hint;
+    private $getPrice = false;
     
     public function __construct($params)
     {
         $this->price = isset($params[0]) ? $params[0] : '';
         $this->access = !empty($params[1]) ? true : false;
         $this->hint = !empty($params[2]) ? $params[2] : false;
+        $this->getPrice = !empty($params[3]) ? $params[3] : false;
     }
 
     public function before_load()
@@ -41,6 +43,7 @@ class column_marketprice
             $out_price = '';
 
             $i = 1;
+            // переделать на number_format
             foreach($chars AS $val) {
                 $out_price .= $val;
                 if($i == 3) {
@@ -55,8 +58,13 @@ class column_marketprice
                 $addition = ' onmouseover="toolTip(\''.$this->hint.'\')" onmouseout="toolTip()" ';
             }
             
-        } elseif($access) {
-            $out_price = '<a class="query_param_id">Узнать</a>';
+        } elseif(!$price && $access) { 
+            if ($this->getPrice) {
+                $out_price = '<a class="get_lot_price"><span>Узнать</span></a>';
+            } else {
+                $out_price = 'Узнать';
+                $addition = ' onmouseover="toolTip(\'Информация доступна на тарифном плане VIP\')" onmouseout="toolTip()" ';
+            }
         } else {
             $out_price = '<i class="fa fa-lock"></i>';
             $addition = ' onmouseover="toolTip(\'Информация доступна на тарифном плане VIP\')" onmouseout="toolTip()" ';

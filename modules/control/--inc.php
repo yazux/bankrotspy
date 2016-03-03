@@ -32,6 +32,7 @@ $defaultRights = array (
         'histogram_goods' => 0,
         'cost_meter' => 0,
         'planner_lots' => 0,
-        'document_creation' => 0
+        'document_creation' => 0,
+        'get_lot_price' => 0
     )
 );
