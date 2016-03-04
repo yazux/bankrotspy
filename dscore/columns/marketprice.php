@@ -63,8 +63,8 @@ class column_marketprice
                 $out_price = '<a class="get_lot_price"><span>Узнать</span></a>';
             } else {
                 $out_price = 'Узнать';
-                //$addition = ' onmouseover="toolTip(\'Информация доступна на тарифном плане VIP\')" onmouseout="toolTip()" ';
-                $addition = ' onmouseover="toolTip(\'Данный функционал в стадии тестирования\')" onmouseout="toolTip()" ';
+                $addition = ' onmouseover="toolTip(\'Информация доступна на тарифном плане VIP\')" onmouseout="toolTip()" ';
+                //$addition = ' onmouseover="toolTip(\'Данный функционал в стадии тестирования\')" onmouseout="toolTip()" ';
             }
         } else {
             $out_price = '<i class="fa fa-lock"></i>';
