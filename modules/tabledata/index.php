@@ -106,14 +106,6 @@ if($kmess > 40)
   $kmess = 40;
 $start =  $now_page ? $now_page * $kmess - $kmess : 0;
 
-
-
-
-
-
-
-
-
 //Условия для WHERE (компилятся через AND)
 $conditions = array();
 
@@ -133,9 +125,6 @@ $order_conditions = array();
 $sort = $tabledata->get_sort_order();
 if($sort)
   $order_conditions['sort'] = $sort;
-
-
-
 
 if ($svalue) {
     /*$query = SphinxQL::create($conn)
@@ -234,12 +223,9 @@ if(!$begin_date AND !$end_date)
 }
 
 //Статусы
-if($status_need_future AND $status_need_now AND $status_need_last)
-{
+if($status_need_future AND $status_need_now AND $status_need_last) {
   //Ничего не делаем, облегчаем работу для базы, выводится все
-}
-else
-{
+} else {
   $before_close = array(3, 4, 5, 6);
   $edtime = time();//strtotime(date('Y').'-'.date('n').'-'.date('j'));
   if($status_need_future)
@@ -250,15 +236,13 @@ else
     $conditions_or['status_last'] = ' ( `ds_maindata`.`status` IN ('.implode(', ', $before_close).') OR `ds_maindata`.`end_time` < "' . $edtime . '") ';
 }
 
-
 if($price_start)
   $conditions['price_start'] = ' `ds_maindata`.`'.$price_search.'` > "' . $price_start . '" ';
 
 if($price_end)
   $conditions['price_end'] = ' `ds_maindata`.`'.$price_search.'` < "' . $price_end . '" ';
 
-if($price_start OR $price_end)
-{
+if($price_start OR $price_end) {
   if($type_price == 3)
     $conditions['price_end_third'] = ' `ds_maindata`.`' . $price_search . '` > "0" ';
 }
@@ -271,8 +255,7 @@ if(!empty($new_lots)) {
 
 //Компилим условия
 $where_cond = '';
-if($conditions OR $conditions_or)
-{
+if($conditions OR $conditions_or) {
   $where_and = '';
   $where_or = '';
   if($conditions)
@@ -355,7 +338,6 @@ $res = core::$db->query($main_sql);
 
 //echo core::$db->debugRawQuery();
 
-
 $item_arr = [];
 
 if($svalue) {
@@ -394,10 +376,8 @@ if ($res->num_rows) {
         $loc['closedate'] = $tabledata->closedate($data['end_time']);
         $loc['beforedate'] = $tabledata->beforedate($data['start_time'], $data['end_time'], $data['status_name'], $data['status']);
         $loc['beginprice'] = $tabledata->beginprice(round($data['price']));
-        $loc['nowprice'] = $tabledata->nowprice($data['now_price'], $data['platform_id'], $data['type'], $data['grafik1']);
+        $loc['nowprice'] = $tabledata->nowprice($data['now_price'], $data['platform_id'], $data['type'], $data['grafik1'], $data['calc_n_time']);
 
-        
-        
         $access = false;
         $vipAccess = false;
         
@@ -536,13 +516,11 @@ function get_platforms($only_keys = false)
     return $platforms;
 }
 
-function check_places($places)
-{
+function check_places($places) {
   $in_places = get_places();
   $arr = explode('|', $places);
   $out = array();
-  foreach($arr AS $val)
-  {
+  foreach($arr AS $val) {
     if(isset($in_places[$val]))
       $out[] = $val;
   }

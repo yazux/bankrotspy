@@ -35,15 +35,21 @@ class column_platform
     {
         $this->get_platforms();
 
-        $addout = '';
+        $links = array();
         
         if ($this->access === true) {
-            if($this->fedlink)
-                $addout = ', <a style="color:green;white-space:nowrap;" target="_blank" href="'.$this->fedlink.'"><i class="icon-globe-table"></i>fedresurs.ru</a>';
+            if( $this->fedlink && (strlen($this->fedlink) > 6) ) {
+                $links[] = '<a style="color:green;white-space:nowrap;" target="_blank" href="' . $this->fedlink . '"><i class="icon-globe-table"></i>fedresurs.ru</a>';
+            }
+
+            if( $this->url && (strlen($this->url) > 6) ) {
+                $links[] = '<a style="color:green;white-space:nowrap;" target="_blank" href="' . $this->url . '"><i class="icon-globe-table"></i>' . $this->platforms[$this->pid] . '</a>';
+            }
 
             $col = [
-                'col' => '<a style="color:green;white-space:nowrap;" target="_blank" href="'.$this->url.'"><i class="icon-globe-table"></i>'.$this->platforms[$this->pid].'</a>'.$addout,
-                'style' => 'text-align:center;'
+                'col' => implode('<br />', $links),
+                'style' => 'text-align:center;',
+                'addition' => ' onmouseover="toolTip(\'Если переход по ссылке ведет на страницу с ошибкой на площадке, значит торги завершены досрочно. Сделайте поиск на площадке по коду торгов.\')" onmouseout="toolTip()" '
             ];
         } else {
             $col = [
