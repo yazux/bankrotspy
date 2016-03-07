@@ -338,26 +338,73 @@ function action_favorite(lot, action, item, hide) {
     }
 }
 
-function listen_to_favorite(item, hide)
-{
-    
-  var item_id = $(item).attr('attr');
-  var now_class = $(item).find('i').attr('class');
+function listen_to_favorite(item, hide) {
+    var item_id = $(item).attr('attr');
+    var now_class = $(item).find('i').attr('class');
 
-  if(now_class == 'icon-star-clicked')
-  {
-    //Кнопка уже нажата
-    $(item).find('i').attr('class', 'icon-star-empty');
-    $(item).find('i').attr('title', 'Добавить лот в избранное');
-    action_favorite(item_id, 1, item, hide);
-  }
-  else
-  {
-    //Кнопка не нажата
-    $(item).find('i').attr('class', 'icon-star-clicked');
-    $(item).find('i').attr('title', 'Удалить лот из избранного');
-    action_favorite(item_id, 0, item, hide);
-  }
+    if(now_class == 'icon-star-clicked') {
+      //Кнопка уже нажата
+      $(item).find('i').attr('class', 'icon-star-empty');
+      $(item).find('i').attr('title', 'Добавить лот в избранное');
+      action_favorite(item_id, 1, item, hide);
+    } else {
+      //Кнопка не нажата
+      $(item).find('i').attr('class', 'icon-star-clicked');
+      $(item).find('i').attr('title', 'Удалить лот из избранного');
+      action_favorite(item_id, 0, item, hide);
+    }
+}
+
+function action_hide(lot, action, item, hide) {
+    var data = {
+        itemid: lot,
+        actionid: action,
+        formid: engine_formid
+    };
+
+    if(action == 1) {
+        //Удаляем из скрытого
+        $.post("/tabledata/hide", data, function(data) {
+            if (data == 'ok') {
+                create_notify('Лот был удален из скрытых!');
+                if( hide == true ) {
+                    $('.data_table').find('[data-lotid='+lot+']').remove();
+                }
+            } else {
+                create_notify('Данная функция доступна на платной подписке!');
+                $(item).find('i').attr('class', 'icon-graystar-clicked');
+                $(item).find('i').attr('title', 'Удалить лот из скрытых');
+            }
+        });
+    } else {
+        //добавляем в скрытое
+        $.post("/tabledata/hide", data, function(data) {
+            if (data == 'ok') {
+                create_notify('Лот был добавлен в скрытые!');
+            } else {
+                create_notify('Данная функция доступна на платной подписке!');
+                $(item).find('i').attr('class', 'icon-star-empty');
+                $(item).find('i').attr('title', 'Добавить лот в скрытые');
+            }
+        });
+    }
+}
+
+function listen_to_hide(item, hide) {
+    var item_id = $(item).attr('hide_attr');
+    var now_class = $(item).find('i').attr('class');
+
+    if(now_class == 'icon-graystar-clicked') {
+      //Кнопка уже нажата
+      $(item).find('i').attr('class', 'icon-star-empty');
+      $(item).find('i').attr('title', 'Добавить лот в скрытые');
+      action_hide(item_id, 1, item, hide);
+    } else {
+      //Кнопка не нажата
+      $(item).find('i').attr('class', 'icon-graystar-clicked');
+      $(item).find('i').attr('title', 'Удалить лот из скрытых');
+      action_hide(item_id, 0, item, hide);
+    }
 }
 
 function connection_keeper() {
@@ -443,7 +490,9 @@ function load_table() {
         places: compile_arr_set(engine_settings.places),
         platforms: compile_arr_set(engine_settings.platforms),
         status: compile_arr_set(engine_settings.status),
-        new_lots: engine_settings.new_lots
+        new_lots: engine_settings.new_lots,
+        favorite: engine_settings.favorite,
+        hide: engine_settings.hide
     }
     
     $.post("/tabledata", data, answer_load);
@@ -505,8 +554,17 @@ function search_listener()
     if($('[name="new_lots"]').prop('checked')) {
         engine_settings.new_lots = 1;
     }
+    
+    engine_settings.favorite = 0;
+    if($('[name="favorite"]').prop('checked')) {
+        engine_settings.favorite = 1;
+    }
       
-  
+    engine_settings.hide = 0;
+    if($('[name="hide"]').prop('checked')) {
+        engine_settings.hide = 1;
+    }
+      
   engine_settings.begin_date = begin_d;
   engine_settings.end_date = end_d;
 
@@ -630,6 +688,12 @@ function clean_set_listener()
     
     $('[name="new_lots"]').prop('checked',false);
     engine_settings.new_lots = 0;
+    
+    $('[name="favorite"]').prop('checked',false);
+    engine_settings.favorite = 0;
+  
+    $('[name="hide"]').prop('checked',false);
+    engine_settings.hide = 0;
   
     $('[name="altintconf"]').val('');
     engine_settings.altint = '';

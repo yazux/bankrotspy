@@ -26,7 +26,7 @@ class column_platform
     public function name()
     {
         return array(
-            'name' => 'Площадка, Федресурс',
+            'name' => 'Федресурс, Площадка',
             'nosort' => 1
         );
     }
@@ -49,7 +49,7 @@ class column_platform
             $col = [
                 'col' => implode('<br />', $links),
                 'style' => 'text-align:center;',
-                'addition' => ' onmouseover="toolTip(\'Если переход по ссылке ведет на страницу с ошибкой на площадке, значит торги завершены досрочно. Сделайте поиск на площадке по коду торгов.\')" onmouseout="toolTip()" '
+                //'addition' => ' onmouseover="toolTip(\'Если переход по ссылке ведет на страницу с ошибкой на площадке, значит торги завершены досрочно. Сделайте поиск на площадке по коду торгов.\')" onmouseout="toolTip()" '
             ];
         } else {
             $col = [

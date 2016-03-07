@@ -56,9 +56,10 @@ class column_nowprice {
         if(in_array($this->platform_id, $man_plf) && $this->type == 2 && strlen($this->schedule) < 10) {
             $out_price = "Уточните цену на площадке";
             //$out_price = "<span onmouseout=\"toolTip()\" onmouseover=\"toolTip('Уточните цену на площадке')\">Определяется вручную</span>";
-        } elseif( $this->calcNTime > 0 ) {
-            $out_price = "<span onmouseout=\"toolTip()\" onmouseover=\"toolTip('Уточните цену на площадке')\">" . $out_price . "</span>";
-            $style .= ' color: #feab2e;';
+            $style .= ' color: #d27600;';
+        } elseif( ($this->type == 2) && ($this->calcNTime > 0) ) {
+            $out_price = "<span onmouseout=\"toolTip()\" onmouseover=\"toolTip('Расчетная цена, уточните на площадке')\">" . $out_price . "</span>";
+            $style .= ' color: #d27600;';
         }
 
         return array(

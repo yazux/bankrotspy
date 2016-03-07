@@ -20,6 +20,9 @@ $sortcolumn = POST('sortcolumn');
 $sorttype = intval(abs(POST('sorttype')));
 $tabledata = new tabledata($sortcolumn, $sorttype);
 $new_lots = (bool)POST('new_lots');
+$favoriteFlag = (int)POST('favorite');
+//exit($favoriteFlag);
+$hideFlag = (int)POST('hide');
 
 $first_alt = 0;
 $second_alt = 0;
@@ -253,6 +256,18 @@ if(!empty($new_lots)) {
     $order_cond = ' ORDER BY `ds_maindata`.`loadtime` DESC ';
 }
 
+// Для для выборки только избранных
+if ( isset($favoriteFlag) && ($favoriteFlag == 1) ) {
+    $join_conditions['favorite']= 'INNER JOIN `ds_maindata_favorive` ON `ds_maindata_favorive`.`item` = `ds_maindata`.`id`';
+    $conditions['favorite'] = " `ds_maindata_favorive`.`user_id` = " . core::$user_id;
+}
+
+// Для для выборки только скрытых
+if ( isset($hideFlag) && ($hideFlag == 1) ) {
+    $join_conditions['hide']= 'INNER JOIN `ds_maindata_hide` ON `ds_maindata_hide`.`item` = `ds_maindata`.`id`';
+    $conditions['hide'] = " `ds_maindata_hide`.`user_id` = " . core::$user_id;
+}
+
 //Компилим условия
 $where_cond = '';
 if($conditions OR $conditions_or) {
@@ -346,6 +361,7 @@ if($svalue) {
 
 $all_statuses = get_all_status();
 $fav_array = get_fav_array();
+$hide_array = get_hide_array();
 
 $out = array();
 $out2 = array();
@@ -359,6 +375,11 @@ if ($res->num_rows) {
             $loc['item'] = 1;
         } else {
             $loc['item'] = 0;
+        }
+        if (in_array($loc['id'], $hide_array)) {
+            $loc['hide'] = 1;
+        } else {
+            $loc['hide'] = 0;
         }
         $out[] = $loc;
     }
@@ -452,7 +473,7 @@ if ($res->num_rows) {
         
         //$loc['favorite'] = $tabledata->favorite($data['id'], $data['item']);
         //var_dump($data);
-        $loc['favorite'] = $tabledata->addition($data['id'], $data['item'], $data['note'], $category);
+        $loc['favorite'] = $tabledata->addition($data['id'], $data['item'], $data['note'], $category, $data['hide']);
         $out2[] = $loc;
     }
 
@@ -612,18 +633,26 @@ function get_all_status()
   return $out;
 }
 
-function get_fav_array()
-{
-  $out = array();
-  if(core::$user_id)
-  {
-    $req = core::$db->query('SELECT * FROM `ds_maindata_favorive` WHERE `user_id` = "'.core::$user_id.'" ;');
-    while($data = $req->fetch_assoc())
-    {
-      $out[] = $data['item'];
+function get_fav_array() {
+    $out = array();
+    if(core::$user_id) {
+        $req = core::$db->query('SELECT * FROM `ds_maindata_favorive` WHERE `user_id` = "' . core::$user_id . '" ;');
+        while($data = $req->fetch_assoc()) {
+            $out[] = $data['item'];
+        }
     }
-  }
-  return $out;
+    return $out;
+}
+
+function get_hide_array() {
+    $out = array();
+    if(core::$user_id) {
+        $req = core::$db->query('SELECT * FROM `ds_maindata_hide` WHERE `user_id` = "' . core::$user_id . '" ;');
+        while($data = $req->fetch_assoc()) {
+            $out[] = $data['item'];
+        }
+    }
+    return $out;
 }
 
 echo json_encode($outdata);

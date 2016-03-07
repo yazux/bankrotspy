@@ -565,6 +565,24 @@ text-decoration: underline;
     cursor: pointer;
 }
 
+.icon_to_click_hide {
+    color: #ee9400;
+}
+
+.icon_to_click_hide:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.icon_to_click_complaint {
+    color: #ee9400;
+}
+
+.icon_to_click_complaint:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .show_span{
     color: #8f8f92;
     display: block;
