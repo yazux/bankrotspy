@@ -48,8 +48,6 @@ if(in_array($data['cat_id'], [5,6])) {
     $graphType = 2;//недвижимость
 }
 
-
-
 $query = core::$db->query('SELECT * FROM `lot_prices` WHERE `id` = "' . $id . '" ORDER BY price ASC');
 $countLot = $query->num_rows;
 $similarDataPrice = array();
@@ -67,18 +65,30 @@ if($countLot > 1 ) {
     }
 }
 
-
 $in_favorite = 0;
-if(core::$user_id)
-{
-  $res = core::$db->query('SELECT COUNT(*) FROM `ds_maindata_favorive` WHERE `item` = "' . $id . '" AND `user_id` = "' . core::$user_id . '" ')->count();
-  if($res > 0)
-    $in_favorite = 1;
+if( core::$user_id ) {
+    $res = core::$db->query('SELECT COUNT(*) FROM `ds_maindata_favorive` WHERE `item` = "' . $id . '" AND `user_id` = "' . core::$user_id . '" ')->count();
+    if($res > 0)
+        $in_favorite = 1;
+}
+
+$in_hide = 0;
+if( core::$user_id ) {
+    $res = core::$db->query('SELECT COUNT(*) FROM `ds_maindata_hide` WHERE `item` = "' . $id . '" AND `user_id` = "' . core::$user_id . '" ')->count();
+    if($res > 0)
+        $in_hide = 1;
+}
+
+$in_complaint = 0;
+if( core::$user_id ) {
+    $res = core::$db->query('SELECT COUNT(*) FROM `ds_maindata_complaint` WHERE `item` = "' . $id . '" AND `user_id` = "' . core::$user_id . '" ')->count();
+    if($res > 0)
+        $in_complaint = 1;
 }
 
 $req = core::$db->query('SELECT * FROM `ds_maindata_debtors` WHERE `id` = "'.core::$db->res($data['debtor']).'"');
 if($req->num_rows)
-  $data_debt = $req->fetch_assoc();
+    $data_debt = $req->fetch_assoc();
 
 $req = core::$db->query('SELECT * FROM `ds_maindata_organizers` WHERE `id` = "'.core::$db->res($data['organizer']).'"');
 if($req->num_rows)
@@ -103,9 +113,9 @@ $status = $status['col'];
 $pricediff = $tabledata->pricediff($data['price_dif'], $data['platform_id'], $data['type'], $data['grafik1']);
 $pricediff = $pricediff['col'];
 if($pricediff > 0)
-  $pricediff = '-'.$pricediff;
+    $pricediff = '-'.$pricediff;
 elseif($pricediff < 0)
-  $pricediff = '+'.abs($pricedif);
+    $pricediff = '+'.abs($pricedif);
 
 if($data['cat_id'] != 0 AND $data['cat_id'] != 4 AND $data['cat_id'] != 8 AND $data['cat_id'] != 2) {
     
@@ -159,9 +169,9 @@ core::$page_description = mb_substr($data['name'], 0, 200);
 engine_head(lang('card_n').''.$id);
 
 if(isset($additionhtmldeb))
-  temp::HTMassign('additionhtmldeb', $additionhtmldeb);
+    temp::HTMassign('additionhtmldeb', $additionhtmldeb);
 if(isset($customclassdeb))
-  temp::HTMassign('customclassdeb', ' class="'.$customclassdeb.'" ');
+    temp::HTMassign('customclassdeb', ' class="'.$customclassdeb.'" ');
 
 
 if(in_array($data['cat_id'], [1,5,6,7])) {
@@ -190,7 +200,7 @@ if(in_array($data['cat_id'], [1,5,6,7])) {
             $field = '<td style="width: 200px;"><b>'.$fields[$data['cat_id']].'</b><br/></td>
                     <td onmouseout="toolTip()" onmouseover="toolTip(\'Данная функция доступна на тарифном плане VIP\')"><i class="icon-rouble"></i> <i class="fa fa-lock"></i></td>';
         }
-    temp::HTMassign('market_price', $field);    
+        temp::HTMassign('market_price', $field);    
     }
 }
 
@@ -204,17 +214,15 @@ temp::HTMassign('note', $data['note']);
 temp::assign('id', $data['id']);
 temp::assign('category', $data['catname']);
 temp::HTMassign('lotdescr', $lotname);
-if(isset($needshow_add_price))
-{
-  temp::assign('needshow_add_price', $needshow_add_price);
-  temp::HTMassign('realprice', $realprice);
-  temp::HTMassign('profitrub', $profitrub);
-  temp::HTMassign('profitproc', $profitproc);
+if(isset($needshow_add_price)) {
+    temp::assign('needshow_add_price', $needshow_add_price);
+    temp::HTMassign('realprice', $realprice);
+    temp::HTMassign('profitrub', $profitrub);
+    temp::HTMassign('profitproc', $profitproc);
 }
-if(isset($needshow_deb_points))
-{
-  temp::assign('needshow_deb_points', $needshow_deb_points);
-  temp::HTMassign('debpoints', $debpoints);
+if(isset($needshow_deb_points)) {
+    temp::assign('needshow_deb_points', $needshow_deb_points);
+    temp::HTMassign('debpoints', $debpoints);
 }
 temp::HTMassign('pricediff', $pricediff);
 temp::assign('lotregion', $data['regionname']);
@@ -287,5 +295,7 @@ temp::assign('case_number', $data['case_number']);
 temp::HTMassign('nowprice', $nowprice);
 temp::assign('lotnumber', $data['code']);
 temp::assign('lotfav', $in_favorite);
+temp::assign('lothide', $in_hide);
+temp::assign('lotcomplaint', $in_complaint);
 temp::display('cards.index');
 engine_fin();

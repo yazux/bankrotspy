@@ -6,6 +6,7 @@ class column_addition
     private $id;
     private $note;
     private $favorite;
+    private $hide;
     public $category;
 
     public function __construct($data)
@@ -15,6 +16,7 @@ class column_addition
         $this->favorite = $data[1];
         $this->note = $data[2];
         $this->category = $data[3];
+        $this->hide = $data[4];
        
     }
 
@@ -37,9 +39,14 @@ class column_addition
     public function process()
     {
         if($this->favorite)
-            $star = '<i title="Удалить лот из избранного" class="icon-star-clicked"></i>';
+            $favStar = '<i title="Удалить лот из избранного" class="icon-star-clicked"></i>';
         else
-            $star = '<i title="Добавить лот в избранное" class="icon-star-empty"></i>';
+            $favStar = '<i title="Добавить лот в избранное" class="icon-star-empty"></i>';
+        
+        if( $this->hide )
+            $hideStar = '<i title="Удалить лот из скрытых" class="icon-graystar-clicked"></i>';
+        else
+            $hideStar = '<i title="Добавить лот в скрытые" class="icon-star-empty"></i>';
         
         if($this->note)
             $note = '<i title="Комментарий к лоту" class="fa fa-sticky-note"></i>';
@@ -49,7 +56,8 @@ class column_addition
             $note = '';
         
         $coldata = [
-            '<span class="icon_to_click" attr="'.$this->id.'">'.$star.'</span>',
+            '<span class="icon_to_click_fav" attr="'.$this->id.'">'.$favStar.'</span>',
+            '<span class="icon_to_click_hide" hide_attr="'.$this->id.'">'.$hideStar.'</span>',
             '<span data-note="'.$this->note.'" data-id="'.$this->id.'" id="note">'.$note.'</span>'
         ];
         

@@ -20,6 +20,9 @@ $sortcolumn = POST('sortcolumn');
 $sorttype = intval(abs(POST('sorttype')));
 $tabledata = new tabledata($sortcolumn, $sorttype);
 $new_lots = (bool)POST('new_lots');
+$favoriteFlag = (int)POST('favorite');
+//exit($favoriteFlag);
+$hideFlag = (int)POST('hide');
 
 $first_alt = 0;
 $second_alt = 0;
@@ -106,14 +109,6 @@ if($kmess > 40)
   $kmess = 40;
 $start =  $now_page ? $now_page * $kmess - $kmess : 0;
 
-
-
-
-
-
-
-
-
 //Условия для WHERE (компилятся через AND)
 $conditions = array();
 
@@ -133,9 +128,6 @@ $order_conditions = array();
 $sort = $tabledata->get_sort_order();
 if($sort)
   $order_conditions['sort'] = $sort;
-
-
-
 
 if ($svalue) {
     /*$query = SphinxQL::create($conn)
@@ -234,12 +226,9 @@ if(!$begin_date AND !$end_date)
 }
 
 //Статусы
-if($status_need_future AND $status_need_now AND $status_need_last)
-{
+if($status_need_future AND $status_need_now AND $status_need_last) {
   //Ничего не делаем, облегчаем работу для базы, выводится все
-}
-else
-{
+} else {
   $before_close = array(3, 4, 5, 6);
   $edtime = time();//strtotime(date('Y').'-'.date('n').'-'.date('j'));
   if($status_need_future)
@@ -250,15 +239,13 @@ else
     $conditions_or['status_last'] = ' ( `ds_maindata`.`status` IN ('.implode(', ', $before_close).') OR `ds_maindata`.`end_time` < "' . $edtime . '") ';
 }
 
-
 if($price_start)
   $conditions['price_start'] = ' `ds_maindata`.`'.$price_search.'` > "' . $price_start . '" ';
 
 if($price_end)
   $conditions['price_end'] = ' `ds_maindata`.`'.$price_search.'` < "' . $price_end . '" ';
 
-if($price_start OR $price_end)
-{
+if($price_start OR $price_end) {
   if($type_price == 3)
     $conditions['price_end_third'] = ' `ds_maindata`.`' . $price_search . '` > "0" ';
 }
@@ -269,10 +256,21 @@ if(!empty($new_lots)) {
     $order_cond = ' ORDER BY `ds_maindata`.`loadtime` DESC ';
 }
 
+// Для для выборки только избранных
+if ( isset($favoriteFlag) && ($favoriteFlag == 1) ) {
+    $join_conditions['favorite']= 'INNER JOIN `ds_maindata_favorive` ON `ds_maindata_favorive`.`item` = `ds_maindata`.`id`';
+    $conditions['favorite'] = " `ds_maindata_favorive`.`user_id` = " . core::$user_id;
+}
+
+// Для для выборки только скрытых
+if ( isset($hideFlag) && ($hideFlag == 1) ) {
+    $join_conditions['hide']= 'INNER JOIN `ds_maindata_hide` ON `ds_maindata_hide`.`item` = `ds_maindata`.`id`';
+    $conditions['hide'] = " `ds_maindata_hide`.`user_id` = " . core::$user_id;
+}
+
 //Компилим условия
 $where_cond = '';
-if($conditions OR $conditions_or)
-{
+if($conditions OR $conditions_or) {
   $where_and = '';
   $where_or = '';
   if($conditions)
@@ -355,7 +353,6 @@ $res = core::$db->query($main_sql);
 
 //echo core::$db->debugRawQuery();
 
-
 $item_arr = [];
 
 if($svalue) {
@@ -364,6 +361,7 @@ if($svalue) {
 
 $all_statuses = get_all_status();
 $fav_array = get_fav_array();
+$hide_array = get_hide_array();
 
 $out = array();
 $out2 = array();
@@ -377,6 +375,11 @@ if ($res->num_rows) {
             $loc['item'] = 1;
         } else {
             $loc['item'] = 0;
+        }
+        if (in_array($loc['id'], $hide_array)) {
+            $loc['hide'] = 1;
+        } else {
+            $loc['hide'] = 0;
         }
         $out[] = $loc;
     }
@@ -394,10 +397,8 @@ if ($res->num_rows) {
         $loc['closedate'] = $tabledata->closedate($data['end_time']);
         $loc['beforedate'] = $tabledata->beforedate($data['start_time'], $data['end_time'], $data['status_name'], $data['status']);
         $loc['beginprice'] = $tabledata->beginprice(round($data['price']));
-        $loc['nowprice'] = $tabledata->nowprice($data['now_price'], $data['platform_id'], $data['type'], $data['grafik1']);
+        $loc['nowprice'] = $tabledata->nowprice($data['now_price'], $data['platform_id'], $data['type'], $data['grafik1'], $data['calc_n_time']);
 
-        
-        
         $access = false;
         $vipAccess = false;
         
@@ -472,7 +473,7 @@ if ($res->num_rows) {
         
         //$loc['favorite'] = $tabledata->favorite($data['id'], $data['item']);
         //var_dump($data);
-        $loc['favorite'] = $tabledata->addition($data['id'], $data['item'], $data['note'], $category);
+        $loc['favorite'] = $tabledata->addition($data['id'], $data['item'], $data['note'], $category, $data['hide']);
         $out2[] = $loc;
     }
 
@@ -536,13 +537,11 @@ function get_platforms($only_keys = false)
     return $platforms;
 }
 
-function check_places($places)
-{
+function check_places($places) {
   $in_places = get_places();
   $arr = explode('|', $places);
   $out = array();
-  foreach($arr AS $val)
-  {
+  foreach($arr AS $val) {
     if(isset($in_places[$val]))
       $out[] = $val;
   }
@@ -634,18 +633,26 @@ function get_all_status()
   return $out;
 }
 
-function get_fav_array()
-{
-  $out = array();
-  if(core::$user_id)
-  {
-    $req = core::$db->query('SELECT * FROM `ds_maindata_favorive` WHERE `user_id` = "'.core::$user_id.'" ;');
-    while($data = $req->fetch_assoc())
-    {
-      $out[] = $data['item'];
+function get_fav_array() {
+    $out = array();
+    if(core::$user_id) {
+        $req = core::$db->query('SELECT * FROM `ds_maindata_favorive` WHERE `user_id` = "' . core::$user_id . '" ;');
+        while($data = $req->fetch_assoc()) {
+            $out[] = $data['item'];
+        }
     }
-  }
-  return $out;
+    return $out;
+}
+
+function get_hide_array() {
+    $out = array();
+    if(core::$user_id) {
+        $req = core::$db->query('SELECT * FROM `ds_maindata_hide` WHERE `user_id` = "' . core::$user_id . '" ;');
+        while($data = $req->fetch_assoc()) {
+            $out[] = $data['item'];
+        }
+    }
+    return $out;
 }
 
 echo json_encode($outdata);
