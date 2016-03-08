@@ -7,9 +7,10 @@
                 </div>
                 
                 <div class="contbody_forms">
-                    <form style="display:block;margin-bottom:20px;" method="get">
+                    <form style="display:block;margin-bottom:20px;" method="get" id="searchForm">
                         <input type="text" placeholder="логин" name="search" value="<?=$search?>" style="height: 15px;">
-                        <input class="urlbutton_index button_no_top_index" type="submit" value="искать">
+                        <input type="text" name="date" value="<?=$date?>" style="margin-left: 10px; margin-right: 10px;width:100px; height: 15px;">
+                        <input class="button_no_top_index" type="submit" value="искать">
                     </form>
                 </div>
                 
@@ -80,7 +81,23 @@
     </tr>
 </table>
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/jquery-ui.css">
+
 <script>
+    $(document).ready(function() {
+        $('[name="date"]').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'yy-mm-dd',
+            onSelect: function(dateText, inst){
+                //alert(dateText);
+                $('#searchForm').submit();
+            }
+        });
+    });
+    
     function confirmDelete( id ) {
 	    if (confirm("Вы действительно хотите удалить транзакцию с ID="+id+"?")) {
 	        $.get(
