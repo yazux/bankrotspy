@@ -45,8 +45,9 @@
 
                         <?if($month):?>
                         <?foreach($month as $id => $data): ?>
-                        <tr>
+                        <tr id="<?=$data['id']?>">
                             <td width="10" style="text-align:center; pading:0 3px;"><?= $id+1 ?></td>
+                            <td><a class="icon-cancel" onclick="return confirmDelete(<?=$data['id']?>);" title="Удалить транзакцию."></a></td>
                             <td style="text-align:left;"><b><a href="<?=$home?>/user/profile?id=<?=$data['userid']?>"><?=$data['username']?></a></b></td>
                             <td style="text-align:left;"><?=$data['summ']?> р.</td>
                             <td style="text-align:left;"><?=$data['paidid']?></td>
@@ -78,3 +79,27 @@
         </td>
     </tr>
 </table>
+
+<script>
+    function confirmDelete( id ) {
+	    if (confirm("Вы действительно хотите удалить транзакцию с ID="+id+"?")) {
+	        $.get(
+                "/control/paydelete",
+                {
+                    id: id
+                },
+                function(data) {
+                    if ( data == 'ok' ) {
+                        create_notify( "Транзакция с ID" + id + " успешно удалена." );
+                        //$("#"+id).remove();
+                        location.reload();
+                    } else {
+                        create_notify( data );
+                    }
+                }
+            );
+	    } else {
+	        return false;
+	    }
+	}
+</script>
