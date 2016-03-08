@@ -2,6 +2,7 @@
     <tr>
         <td class="right_back_menu_index_set">
             <span id="on_load_new_page"></span>
+            <form id="search_form">
             <div class="right_panel_conf">
                 <div class="menu_rt_index">Настройка:</div>
                 <div class="news_back" id="bs_set_container">
@@ -109,7 +110,9 @@
                                 </td>
                                 <td  style="border: 0px;white-space: nowrap">
                                     <div class="set_button_cont">
-                                    <span id="search_in_table" class="urlbutton_index button_no_top_index">Искать</span> &nbsp; <span id="clear_set_table" class="urlbutton_index button_no_top_index">Очистить</span>
+                                        <span id="search_in_table" class="urlbutton_index button_no_top_index">Искать</span> 
+                                        &nbsp; 
+                                        <span id="clear_set_table" class="urlbutton_index button_no_top_index">Очистить</span>
                                     </div>
                                 </td>
                             </tr>
@@ -119,6 +122,7 @@
                 </div>
 
             </div>
+            </form>
         </td>
         <td class="right_back_menu_index">
             <div class="right_panel_conf_index">
@@ -462,11 +466,16 @@
         }
     });
     
-
+    $(document).keypress(function(e) {
+        if(e.which == 13) {
+            search_listener();
+        }
+    });
+    
     $(document).on('click', '#search_in_table', function(){
         search_listener();
     });
-
+    
     $(document).on('click', '#clear_set_table', function(){
         clean_set_listener();
     });
