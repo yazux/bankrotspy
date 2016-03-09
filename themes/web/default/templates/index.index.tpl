@@ -407,10 +407,8 @@
         var text = $(this).parent().find('textarea').val();
         if(text.length > 0) {
             var action = 'save';
-            $(document).find('[data-id='+id+']').children('i').removeClass('fa-sticky-note-o').addClass('fa-sticky-note');
         } else {
             var action = 'delete';
-            $(document).find('[data-id='+id+']').children('i').removeClass('fa-sticky-note').addClass('fa-sticky-note-o');
         }
         
         $.ajax({
@@ -419,7 +417,16 @@
             dataType: 'json',
             data: data,
             success: function(result){
-                
+                if (result.error == 1) {
+                    create_notify(result.message);
+                } else {
+                    if (action == 'save') {
+                        $(document).find('[data-id='+id+']').children('i').removeClass('fa-sticky-note-o').addClass('fa-sticky-note');
+                    } else {
+                        $(document).find('[data-id='+id+']').children('i').removeClass('fa-sticky-note').addClass('fa-sticky-note-o');
+                    }
+                    create_notify(result.message);
+                }
             }
         });
         $(document).find('[data-id='+id+']').attr('data-note', text);

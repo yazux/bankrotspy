@@ -21,3 +21,4 @@
 /vendor/*
 /composer.*
 /themes/web/default/images/*
+dscore/libs/*

@@ -2,8 +2,14 @@
 
 defined('DS_ENGINE') or die('web_demon laughs');
 
-if(!core::$user_id)
-  exit('denied');
+// доступ опционально для групп
+if(!CAN('export_favorites')) {
+    $response = array(
+        'status'    => 1,
+        'message'   => 'Данная функция доступна на тарифном плане VIP.'
+    );
+    ajax_response($response);
+}
 
 /*
 //статусы ответа
@@ -22,16 +28,7 @@ if(empty($_POST)) {
     ajax_response($response);
 }
 
-
-// доступ только для вип и пробная подписка
-if(!CAN('export_favorites')) {
-    $response = array(
-        'status'    => 1,
-        'message'   => 'Данная функция доступна на тарифном плане VIP.'
-    );
-    ajax_response($response);
-}
-
+// подключать через композер, переделать
 require_once 'dscore/libs/PHPExcel.php';
 require_once 'dscore/libs/phpmailer/PHPMailerAutoload.php';
 

@@ -25,14 +25,17 @@ $defaultRights = array (
         'news_edit' => 0,
         'news_delete' => 0,
     ),
+    // платный контент, управление доступом в админке у групп пользователей
     'paid' => array(
-        'export_favorites' => 0,
-        'rating_arbitration' => 0,
-        'scores_debtor' => 0,
-        'histogram_goods' => 0,
-        'cost_meter' => 0,
-        'planner_lots' => 0,
-        'document_creation' => 0,
-        'get_lot_price' => 0
+        'export_favorites'      => 0, // экспорт избранных лотов
+        'add_favorites'         => 0, // добавление в избранные лоты
+        'rating_arbitration'    => 0, // рейтинг АУ
+        'scores_debtor'         => 0, // Баллы в деб. задолжности
+        'histogram_goods'       => 0, // Гистограмма аналогичных товаров
+        'cost_meter'            => 0, // Стоимость М2
+        'planner_lots'          => 0, // Планировщик избранных лотов
+        'document_creation'     => 0, // Заявка на участие в торгах
+        'get_lot_price'         => 0, // Поиск цены для лотов без РЦ
+        'lot_note'              => 0, // комментарии к избранным лотам
     )
 );

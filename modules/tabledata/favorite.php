@@ -1,8 +1,11 @@
 <?php
+
+// перевести ответы на json
 defined('DS_ENGINE') or die('web_demon laughs');
 
-if(!in_array(core::$rights, [10, 11, 100]))
-  exit('access denied');
+if (!CAN('add_favorites')) {
+    exit('access denied');
+}
 
 $item = abs(intval(POST('itemid')));
 $action = abs(intval(POST('actionid')));
