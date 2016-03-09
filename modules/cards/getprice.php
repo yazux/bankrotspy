@@ -2,6 +2,8 @@
 
 defined('DS_ENGINE') or die('web_demon laughs');
 
+//SR - прогнать код через VS, что бы Алеандро не ругался на синтаксис!
+
 //если нет доступа
 if (!CAN('get_lot_price')) {
     $response = [
@@ -17,7 +19,8 @@ if(!isset($_SESSION['mp_count'])){
 	$_SESSION['mp_count']++;
 }
 
-if(!empty($_POST) AND isset($_POST['id']) /*AND $_SESSION['mp_count']<5*/){
+//ограничение на сессию не снимать!!
+if(!empty($_POST) AND isset($_POST['id']) AND $_SESSION['mp_count']<5){
 
 if(isset($_SESSION['mp_cache'][$_POST['id']])){
     
@@ -30,9 +33,59 @@ if(isset($_SESSION['mp_cache'][$_POST['id']])){
     
 }else{
 
+//тут список адресов где искать ненадо
+$block_array=array(
+	'bankrot-spy.ru',
+	'tbankrot.ru',
+	'bankrot.pro',
+	'bankrot-pro.com',
+	'ktobankrot.ru',
+	'банкротинфо.рф',
+	'probankrot.ru',
+	'utender.ru',
+	'bankrupt.centerr',
+	'etp.kartoteka',
+	'alfalot.ru',
+	'bepspb.ru',
+	'utpl.ru',
+	'bankrupt.electro-torgi.ru',
+	'arbitat.ru',
+	'torgibankrot.ru',
+	'meta-invest.ru',
+	'bankrupt.etpu.ru',
+	'bankrupt.etp-agenda.ru',
+	'tenderstandart.ru',
+	'propertytrade.ru',
+	'tendergarant.com',
+	'uralbidin.ru',
+	'lot-online',
+	'fabrikant.ru',
+	'm-ets.ru',
+	'b2b-center.ru',
+	'sberbank-ast.ru',
+	'nistp.ru',
+	'ausib.ru',
+	'aukcioncenter.ru',
+	'akosta.info',
+	'sibtoptrade.ru',
+	'atctrade.ru',
+	'selt-online.ru',
+	'regtorg.com',
+	'etp-profit.ru',
+	'seltim.ru',
+	'cdtrf.ru',
+	'el-torg.com',
+	'eksystems.ru',
+	'torgidv.ru',
+	'auction63.ru',
+	'promkonsalt.ru',
+	'eurtp.ru',
+	'торговая-площадка-вэтп.рф',
+	'vtb-center.ru',
+	'etp1.ru',
+);
 
-
-
+//уточтить у Алеандро, правильно ли работает кнопка (она на всех лотах, а надо только на market_price!=0)
 $res = core::$db->query("SELECT * FROM `ds_maindata` WHERE `id`='".core::$db->res($_POST['id'])."' AND `market_price`='0'");
 while($data = $res->fetch_array()){
 	$loc=$data;
@@ -67,10 +120,6 @@ if(!empty($links)){
 	foreach($links as $key => $val){
 		$val=explode('://',$val);$val=$val[1];
 		$val=explode('/',$val);$val=$val[0];
-		$block_array=array(
-			'bankrot-spy.ru',
-			'bankrot.pro',
-		);
 		if(!in_array($val,$block_array)){
 		$thispage=function_parce_page(array('query'=>$val,'type'=>'normal',));
 		$thispage_vals=function_page_div_search_vals(array('page'=>$thispage,'val'=>'Цена',));
@@ -83,7 +132,7 @@ if(!empty($links)){
 					$val1=implode('',explode(' ',$val1));
 					$val1=implode('',explode('&amp;',$val1));
 					$val1=implode('',explode('#160;',$val1));
-					$auctionstep=rand(25,110)/100;
+					$auctionstep=rand(0,100)/100;
 					$loc['tmp_price']=round($loc['price']*$auctionstep,0);
 					if(strlen($loc['tmp_price'])>3){
 						$loc['tmp_price']=round($loc['tmp_price'],3);
@@ -98,7 +147,7 @@ if(!empty($links)){
 					$val1=implode('',explode('.00',$val1));
 					$val1 = preg_replace("/[^0-9]/", '', $val1);
 					//echo '<textarea style="width:1200px; height:100px;">'.htmlspecialchars($val1).'</textarea>';
-					if($val1>$loc['now_price'] AND $val1<($loc['price']*10)){
+					if($val1>$loc['now_price'] AND $val1<($loc['price'])){
 						$price_values[]=$val1;
 					}else{
 						$price_values[]=$loc['tmp_price'];
@@ -107,6 +156,7 @@ if(!empty($links)){
 			}
 		}
 		}else{
+		    $price_values=array(0);
 		}
 	}
 }
@@ -115,7 +165,11 @@ $price_values_sum='';
 if(!empty($price_values)){
 	rsort($price_values);
 }
-
+$_SESSION['mp_cache'][$_POST['id']]=$price_values[0];
+if($price_values[0]!=0){
+    //спросить у А.Петренко - можно ли делать UPDATE (локально все готово)
+	//core::$db->query("UPDATE `ds_maindata` SET `market_price`='".$price_values[0]."' WHERE `id`='".core::$db->res($_POST['id'])."'");
+}
 $response = [
         'access'    => 1,
         'price'     => number_format($price_values[0], 0, '.', ' ')
@@ -123,7 +177,7 @@ $response = [
 ajax_response($response);
 
 
-$_SESSION['mp_cache'][$_POST['id']]=$price_values[0];
+
 }else{
 	echo 0;//все возникшие ошибки, или запрос цены у товара где ее не может быть - 0
 	$_SESSION['mp_cache'][$_POST['id']]=0;
