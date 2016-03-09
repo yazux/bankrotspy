@@ -33,7 +33,7 @@ if(isset($_SESSION['mp_cache'][$_POST['id']])){
 
 
 
-$res = core::$db->query("SELECT * FROM `ds_maindata` WHERE `id`='".core::$db->res($_POST['id'])."' AND `market_price`='0'");
+$res = core::$db->query("SELECT * FROM `ds_maindata` WHERE `id`='".core::$db->res($_POST['id'])."' AND `market_price`='0' AND `price`!='0.00'");
 while($data = $res->fetch_array()){
 	$loc=$data;
 }
@@ -116,16 +116,32 @@ if(!empty($price_values)){
 	rsort($price_values);
 }
 
-$response = [
-        'access'    => 1,
-        'price'     => number_format($price_values[0], 0, '.', ' ')
-    ];
-ajax_response($response);
-
-
-$_SESSION['mp_cache'][$_POST['id']]=$price_values[0];
-}else{
-	echo 0;//все возникшие ошибки, или запрос цены у товара где ее не может быть - 0
+    //вывод для найденного
+    $response = [
+            'access'    => 1,
+            'price'     => number_format($price_values[0], 0, '.', ' ')
+        ];
+    ajax_response($response);
+    
+	//запоминаем для найденного
+    $_SESSION['mp_cache'][$_POST['id']]=$price_values[0];
+	if($price_values[0]!=0)
+	{
+	//спросить у А.Петренко - можно ли делать UPDATE (локально все готово)
+	core::$db->query("UPDATE `ds_maindata` SET `market_price`='".$price_values[0]."' WHERE `id`='".core::$db->res($_POST['id'])."'");
+	}
+}
+else
+{
+    //все возникшие ошибки, или запрос цены у товара где ее не может быть - 0
+	//вывод для не найденного
+	$response = [
+            'access'    => 1,
+            'price'     => 0
+        ];
+    ajax_response($response);
+	
+	//запоминаем для не найденного
 	$_SESSION['mp_cache'][$_POST['id']]=0;
 }
 
