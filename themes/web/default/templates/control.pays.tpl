@@ -9,7 +9,7 @@
                 <div class="contbody_forms">
                     <form style="display:block;margin-bottom:20px;" method="get" id="searchForm">
                         <input type="text" placeholder="логин" name="search" value="<?=$search?>" style="height: 15px;">
-                        <input type="text" name="date" value="<?=$date?>" style="margin-left: 10px; margin-right: 10px;width:100px; height: 15px;">
+                        <!--input type="text" name="date" value="<?=$date?>" style="margin-left: 10px; margin-right: 10px;width:100px; height: 15px;"-->
                         <input class="button_no_top_index" type="submit" value="искать">
                     </form>
                 </div>

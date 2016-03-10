@@ -5,11 +5,11 @@ defined('DS_ENGINE') or die('web_demon laughs');
 $where = "`summ` > 0";
 
 // Перехватываем дату
-$date = $_GET['date'];
-if ( !$date ) {
-    $date = date("Y-m-d");
-}
-$where .= " AND EXTRACT(YEAR_MONTH FROM FROM_UNIXTIME(paytime))=EXTRACT(YEAR_MONTH FROM '$date')";
+//$date = $_GET['date'];
+//if ( !$date ) {
+//    $date = date("Y-m-d");
+//}
+//$where .= " AND EXTRACT(YEAR_MONTH FROM FROM_UNIXTIME(paytime))=EXTRACT(YEAR_MONTH FROM '$date')";
 
 // Перехватываем поисковый запрос
 if(isset($_GET['search']) && !empty(trim(strip_tags($_GET['search'])))) {
@@ -20,11 +20,12 @@ if(isset($_GET['search']) && !empty(trim(strip_tags($_GET['search'])))) {
 }
 
 // Постраничная навигация. 20 на странице.
-new nav(20);
+//new nav(20);
 
 // Подсует и выборка транзакций
 $total = core::$db->query('SELECT COUNT(*) FROM `ds_paid` WHERE ' . $where . ';')->count();
-$res = core::$db->query('SELECT * FROM `ds_paid` WHERE ' . $where . ' ORDER BY `paytime` DESC LIMIT '.nav::$start.', '.nav::$kmess.';');
+//$res = core::$db->query('SELECT * FROM `ds_paid` WHERE ' . $where . ' ORDER BY `paytime` DESC LIMIT '.nav::$start.', '.nav::$kmess.';');
+$res = core::$db->query('SELECT * FROM `ds_paid` WHERE ' . $where . ' ORDER BY `paytime` DESC');
 
 $i = 0;
 $arr = array();
@@ -73,9 +74,10 @@ temp::assign('search', $search);
 temp::HTMassign('out', $arr);
 temp::HTMassign('marr', $month_names);
 temp::HTMassign('msumm', $month_summ);
-temp::HTMassign('date', $date);
+//temp::HTMassign('date', $date);
 temp::assign('uall', $total);
-temp::HTMassign('navigation', nav::display($total, core::$home.'/control/pays?', '', '', array('search'=>$search,'date'=>$date)));
+temp::HTMassign('navigation', nav::display($total, core::$home.'/control/pays?', '', '', array('search'=>$search)));
+//temp::HTMassign('navigation', nav::display($total, core::$home.'/control/pays?', '', '', array('search'=>$search,'date'=>$date)));
 
 temp::display('control.pays');
 engine_fin();
