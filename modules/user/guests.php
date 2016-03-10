@@ -1,7 +1,6 @@
 <?php
 defined('DS_ENGINE') or die('web_demon laughs');
 
-
 new nav; //Постраничная навигация
 //nav::$kmess = 10;
 
@@ -11,22 +10,21 @@ $res = core::$db->query('SELECT * FROM `ds_guests` WHERE `lastdate` > "' . (time
 $i = 0;
 $arr = array();
 
-if($total)
-{
-$eng_right = user::get_rights();
-while($data = $res->fetch_assoc())
-{
-  $out = array();  
-  
-  $out['id'] =  $data['id'];
-  $out['login'] = lang('guest_u');
-  $out['usagent'] = $data['ua'];
-  $out['avatar'] = user::get_avatar(0, 0, 1);
-  
-  $arr[] = $out;  
-  $i++;  
+if( $total ) {
+    $eng_right = user::get_rights();
+    while( $data = $res->fetch_assoc() ) {
+        $out = array();  
+
+        $out['id'] =  $data['id'];
+        $out['login'] = lang('guest_u');
+        $out['usagent'] = $data['ua'];
+        $out['avatar'] = user::get_avatar(0, 0, 1);
+
+        $arr[] = $out;  
+        $i++;  
+    }
 }
-}
+
 engine_head(lang('gues_onl'));
 temp::assign('total_in', $total);
 temp::HTMassign('out', $arr);
