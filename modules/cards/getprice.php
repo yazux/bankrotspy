@@ -13,7 +13,8 @@ if (!CAN('get_lot_price')) {
 if(!isset($_SESSION['mp_count'])){
 	$_SESSION['mp_count']=0;
 	$_SESSION['mp_cache']=array();
-}else{
+}
+else{
 	$_SESSION['mp_count']++;
 }
 
@@ -28,7 +29,60 @@ if(isset($_SESSION['mp_cache'][$_POST['id']])){
     
     ajax_response($response);
     
-}else{
+}
+else{
+
+$block_array=array(
+    'bankrot-spy.ru',
+    'bankrot.pro',
+	'tbankrot.ru',
+	'bankrot-pro.com',
+	'ktobankrot.ru',
+	'банкротинфо.рф',
+	'probankrot.ru',
+	'utender.ru',
+	'bankrupt.centerr',
+	'etp.kartoteka',
+	'alfalot.ru',
+	'bepspb.ru',
+	'utpl.ru',
+	'bankrupt.electro-torgi.ru',
+	'arbitat.ru',
+	'torgibankrot.ru',
+	'meta-invest.ru',
+	'bankrupt.etpu.ru',
+	'bankrupt.etp-agenda.ru',
+	'bankrupt.etp-agenda.ru',
+	'tenderstandart.ru',
+	'propertytrade.ru',
+	'tendergarant.com',
+	'uralbidin.ru',
+	'lot-online',
+	'fabrikant.ru',
+	'm-ets.ru',
+	'b2b-center.ru',
+	'sberbank-ast.ru',
+    'nistp.ru',
+	'ausib.ru',
+	'aukcioncenter.ru',
+	'akosta.info',
+	'sibtoptrade.ru',
+	'atctrade.ru',
+	'selt-online.ru',
+	'regtorg.com',
+	'etp-profit.ru',
+	'seltim.ru',
+	'cdtrf.ru',
+	'el-torg.com',
+	'eksystems.ru',
+	'torgidv.ru',
+	'auction63.ru',
+	'promkonsalt.ru',
+	'eurtp.ru',
+	'торговая-площадка-вэтп.рф',
+	'vtb-center.ru',
+	'etp1.ru',
+);
 
 
 
@@ -67,10 +121,6 @@ if(!empty($links)){
 	foreach($links as $key => $val){
 		$val=explode('://',$val);$val=$val[1];
 		$val=explode('/',$val);$val=$val[0];
-		$block_array=array(
-			'bankrot-spy.ru',
-			'bankrot.pro',
-		);
 		if(!in_array($val,$block_array)){
 		$thispage=function_parce_page(array('query'=>$val,'type'=>'normal',));
 		$thispage_vals=function_page_div_search_vals(array('page'=>$thispage,'val'=>'Цена',));
@@ -80,33 +130,13 @@ if(!empty($links)){
 			$thispage_vals=function_page_div_search_vals(array('page'=>$thispage,'val'=>'Руб',));
 			if(!empty($links)){
 				foreach($thispage_vals as $key1 => $val1){
-					$val1=implode('',explode(' ',$val1));
-					$val1=implode('',explode('&amp;',$val1));
-					$val1=implode('',explode('#160;',$val1));
-					$auctionstep=rand(25,110)/100;
-					$loc['tmp_price']=round($loc['price']*$auctionstep,0);
-					if(strlen($loc['tmp_price'])>3){
-						$loc['tmp_price']=round($loc['tmp_price'],3);
-					}
-					//$val1 = preg_replace('/(<([^>]+)>)/U', '', $val1);//удалить тэги
-					$val1 = preg_replace('#<script[^>]*>.*?</script>#is', '', $val1);
-					$val1=explode('руб',$val1);
-					//$val1=count($val1);
-					$val1=$val1[0];
-					$val1=substr($val1,strlen($val1)-10,strlen($val1));
-					$val1=implode('',explode(',00',$val1));
-					$val1=implode('',explode('.00',$val1));
-					$val1 = preg_replace("/[^0-9]/", '', $val1);
-					//echo '<textarea style="width:1200px; height:100px;">'.htmlspecialchars($val1).'</textarea>';
-					if($val1>$loc['now_price'] AND $val1<($loc['price']*10)){
-						$price_values[]=$val1;
-					}else{
-						$price_values[]=$loc['tmp_price'];
-					}
+					$val1=function_vals_new_correct(array('value'=>$val1,'now_price'=>$loc['now_price'],'price'=>$loc['price'],));
+					$price_values[]=$val1;
 				}
 			}
 		}
-		}else{
+		}
+		else{
 		}
 	}
 }
