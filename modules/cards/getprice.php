@@ -2,6 +2,50 @@
 
 defined('DS_ENGINE') or die('web_demon laughs');
 
+//перекинуть function это в файл INC, как будет доступ
+function function_vals_new_correct($array){
+	$return=0;
+	$val1=$array['value'];
+	$loc['now_price']=$array['now_price'];
+	$loc['price']=$array['price'];
+	$calcprice=0;
+	if($loc['now_price']!=0)
+	{
+	    $calcprice=$loc['now_price'];
+	}
+	elseif($loc['price']!=0)
+	{
+	    $calcprice=$loc['price'];
+	}
+	$val1=implode('',explode(' ',$val1));
+	$val1=implode('',explode('&amp;',$val1));
+	$val1=implode('',explode('#160;',$val1));
+	$auctionstep=rand(100,125)/100;
+	$loc['tmp_price']=round($calcprice*$auctionstep,0);
+	$val1=preg_replace('#<script[^>]*>.*?</script>#is', '', $val1);
+	$val1=explode('руб',$val1);
+	$val1=$val1[0];
+	$val1=substr($val1,strlen($val1)-10,strlen($val1));
+	$val1=implode('',explode(',00',$val1));
+	$val1=implode('',explode('.00',$val1));
+	$val1=preg_replace("/[^0-9]/", '', $val1);
+	if($loc['now_price']!=0 AND $loc['now_price']<$val1)
+	{
+	    
+	}
+	elseif($loc['price']!=0 AND $loc['price']<$val1)
+	{
+	    
+	}
+	else
+	{
+	    $val1=$loc['tmp_price'];
+	}
+	$return=$val1;
+	return $return;
+}
+
+
 //если нет доступа
 if (!CAN('get_lot_price')) {
     $response = [
