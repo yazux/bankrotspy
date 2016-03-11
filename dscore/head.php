@@ -86,15 +86,16 @@ if (CAN('tech_support', 0)){
 counts::cnew('unread_news' ,'SELECT COUNT(*) FROM `ds_news` LEFT JOIN `ds_news_rdm` ON `ds_news`.`id` = `ds_news_rdm`.`artid` AND `ds_news_rdm`.`userid` = "' . core::$user_id . '" WHERE `ds_news_rdm`.`userid` IS NULL AND `ds_news`.`time` > "'.(time() - (3 * 24 * 3600)).'";',  '/news');
 //counts::cnew('unread_art_comms' ,'SELECT COUNT(*) FROM `ds_article` LEFT JOIN `ds_art_comm_rdm` ON `ds_article`.`id` = `ds_art_comm_rdm`.`modid` AND `ds_art_comm_rdm`.`userid` = "' . core::$user_id . '" WHERE (`ds_art_comm_rdm`.`userid` IS NULL OR `ds_art_comm_rdm`.`rdmtime` < `ds_article`.`comtime`) AND `ds_article`.`type` = "0" AND `ds_article`.`comtime` > "'.(time() - (3 * 24 * 3600)).'";', '/articles/newcomm');
 //
-if(core::$rights == 100)
-  counts::cnew('unread_feedback','SELECT COUNT(*) FROM `ds_comm` WHERE `module`="feedback" AND `mid` = "1" AND  `time` > "'.$dta['rdmtime'].'" AND `time` > '.(time() - (3 * 24 * 3600)).';','/feedback');
+if (core::$rights == 100) {
+    counts::cnew('unread_feedback','SELECT COUNT(*) FROM `ds_comm` WHERE `module`="feedback" AND `mid` = "1" AND  `time` > "'.$dta['rdmtime'].'" AND `time` > '.(time() - (3 * 24 * 3600)).';','/feedback');
+}
+
 counts::cnew('unread_articles' ,'SELECT COUNT(*) FROM `ds_article` LEFT JOIN `ds_art_rdm` ON `ds_article`.`id` = `ds_art_rdm`.`artid` AND `ds_art_rdm`.`userid` = "' . core::$user_id . '" WHERE `ds_art_rdm`.`userid` IS NULL AND `ds_article`.`type` = "0" AND `ds_article`.`time` > "'.(time() - (3 * 24 * 3600)).'";',  '/articles/new');
 counts::cnew('unread_art_comms' ,'SELECT COUNT(*) FROM `ds_article` LEFT JOIN `ds_art_comm_rdm` ON `ds_article`.`id` = `ds_art_comm_rdm`.`modid` AND `ds_art_comm_rdm`.`userid` = "' . core::$user_id . '" WHERE (`ds_art_comm_rdm`.`userid` IS NULL OR `ds_art_comm_rdm`.`rdmtime` < `ds_article`.`comtime`) AND `ds_article`.`type` = "0" AND `ds_article`.`comtime` > "'.(time() - (3 * 24 * 3600)).'";', '/articles/newcomm');
 
-/*
-if(CAN('stats_moderate', 0))
-  counts::cnew('onmoder_articles' ,'SELECT COUNT(*) FROM `ds_article` WHERE `type` = "2";', '/articles/onmoder');
-*/
+if (CAN('stats_moderate', 0)) {
+    counts::cnew('onmoder_articles' ,'SELECT COUNT(*) FROM `ds_article` WHERE `type` = "2";', '/articles/onmoder');
+}
 
 //Смотрим, если ли сообщения
 if(uscache::ex('mess_head'))
