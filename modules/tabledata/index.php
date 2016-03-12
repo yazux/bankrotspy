@@ -122,6 +122,9 @@ $selects = array();
 //Условия для сортировки
 $order_conditions = array();
 
+// Веса по ID для каждого найденного лота
+$weights = array();
+
 //Ностройки сортировки
 $sort = $tabledata->get_sort_order();
 if($sort)
@@ -131,15 +134,15 @@ if ( $svalue ) {
     
     $svalue = str_replace ( array('-', '_', '/', '\\'), " ", $svalue );
     $svalue =  preg_replace( "/\s{2,}/", ' ', $svalue );
-    $sArray = explode(" ", $svalue);
-    $svalue = implode(" | ", $sArray);
+//    $sArray = explode(" ", $svalue);
+//    $svalue = implode(" | ", $sArray);
     //exit($svalue);
     /*$query = SphinxQL::create($conn)
                 ->select()
                 ->from('bs')
                 ->match('description', $_POST['svalue']);*/
     $sphinx = SphinxQL::create($conn);
-    $query = $sphinx->query("SELECT * FROM bs WHERE MATCH(' " . $svalue . " ') LIMIT 0,1000000 OPTION ranker = matchany, max_matches=100000");
+    $query = $sphinx->query("SELECT id, WEIGHT() AS w FROM bs WHERE MATCH('\"" . $svalue . "\"/1') LIMIT 0,1000000 OPTION max_matches=100000");
   /*
     if($types)            
         $query->where('type', 'IN', array_flip($types));
@@ -161,12 +164,17 @@ if ( $svalue ) {
 
     // Массив с полученными результатами
     $result = $query->execute();
+    core::$db->query("CREATE TEMPORARY TABLE `weights` (`id` INT(11), `w` INT(11))");
     if(!empty($result)) {
-        foreach($result as $item) {
+        foreach($result as $key => $item) {
             $items[] = $item['id'];
+            $weights[$item['id']] = $item['w'];
+            core::$db->query("INSERT INTO `weights` VALUES (".$item['id'].",".$item['w'].")");
         }
         $items = implode(', ', $items);
         $conditions['search'] = '`ds_maindata`.`id` IN ('.$items.') ';
+        $join_conditions['weight']= 'LEFT JOIN `weights` ON `weights`.`id` = `ds_maindata`.`id`';
+        $selects['weight'] = ' `weights`.`w` AS `weight`';
     } else {
         $conditions['search'] = '`ds_maindata`.`id` IN (0) ';
     }
@@ -187,7 +195,6 @@ if ($category == '-1') {
 
 $selects['note'] = ' `lot_notes`.`text` AS note';
 $join_conditions['note']= 'LEFT JOIN `lot_notes` ON `lot_notes`.`lot_id` = `ds_maindata`.`id` AND `lot_notes`.`user_id` = "' . core::$user_id.'"';
-
 
 //Фильтрация по типам
 if($types)
@@ -290,7 +297,11 @@ if($order_conditions) {
     $order_cond = ' ORDER BY ' . implode(' , ', $order_conditions);
 } elseif( $category == -2 ) {
     // Если категория "Все", то сортируем по дате
-    $order_cond = ' ORDER BY `ds_maindata`.`loadtime` DESC';
+    if ( $weights ) { 
+        $order_cond = ' ORDER BY `weight` DESC';
+    } else {
+        $order_cond = ' ORDER BY `ds_maindata`.`loadtime` DESC';
+    }
 } elseif( ($category == 1) || ($category == 3) || ($category == 5) || ($category == 6) || ($category == 7)) {
     // Если категория Авто, Спецтехника, Недвижимость, Зем. участки, то  сортируем по "Доходность, %" от большого к меньшему
     $order_cond = ' ORDER BY (IF(`platform_manual_price`=1 AND `type`=2,1,0)) ASC, (IF(`ds_maindata`.`profit_proc`=0,1,0)) ASC, `ds_maindata`.`profit_proc` DESC';
@@ -320,31 +331,22 @@ if( $selects )
     $select_cond = ' , '.implode(' , ', $selects);
 
 //Счетчик
-$count = core::$db->query('SELECT
-  COUNT(*)
-  FROM
-  `ds_maindata`
- '.$join_cond.'
-
-  '.$where_cond.'
-
-  ORDER BY `ds_maindata`.`id`
-  ;')->count();
+$count = core::$db->query('
+    SELECT COUNT(*)
+    FROM `ds_maindata`
+    ' . $join_cond . '
+    ' . $where_cond . '
+    ORDER BY `ds_maindata`.`id`
+    ;')->count();
 
 //Основной запрос
-$main_sql = 'SELECT
-  `ds_maindata`.*
-
-  ' . $select_cond . '
-  FROM
-  `ds_maindata`
- '.$join_cond.'
-
-  '.$where_cond.'
-
-  ' . $order_cond . '
-
-  LIMIT '.$start.', '.$kmess.' ;';
+$main_sql = '
+    SELECT `ds_maindata`.* ' . $select_cond . '
+    FROM `ds_maindata`
+    ' . $join_cond . '
+    ' . $where_cond . '
+    ' . $order_cond . '
+    LIMIT '.$start.', '.$kmess.' ;';
 
 $res = core::$db->query($main_sql);
 
@@ -473,12 +475,10 @@ if ($res->num_rows) {
         $loc['favorite'] = $tabledata->addition($data['id'], $data['item'], $data['note'], $category, $data['hide']);
         $out2[] = $loc;
     }
-
-    $out = $out2;
-
+    
     $outdata = array(
         'columns' => $tabledata->get_names(),
-        'maindata' => $out,
+        'maindata' => $out2,
         'count' => $count
     );
 } else {
