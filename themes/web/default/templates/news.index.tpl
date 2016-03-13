@@ -8,16 +8,25 @@
 
                 <div class="contbody_forms">
                     <div class="news_cont">
-                        <a href="<?=$home?>/news/view?id=<?=$narr['id']?>"><h2><?=$narr['name']?></h2></a><?if($narr['new_news']):?><sup style="color:red;font-weight:bold;">[new]</sup><?endif?> <a href="<?=$home?>/news/view?id=<?=$narr['id']?><?if($narr['page_to_go']):?>&amp;page=<?=$narr['page_to_go']?>#ncm<?else:?>#comms<?endif?>"><i class="icon-comment-1"></i><?=$narr['comm_count']?>  <?if($narr['new_comm_count']):?><span class="newred">+ <?=$narr['new_comm_count']?></span><?endif?></a>
-                    <hr/>
-                    <?=$narr['text']?> ...
-                    <hr/>
-                    <table>
-                        <tr>
-                            <td><a class="urlbutton_index button_no_top_index" href="<?=$home?>/news/view?id=<?=$narr['id']?>">Далее</a></td>
-                            <td width="170px;"><div class='newsdown' style="font-size:13px;color:#a2a3a2;"> <?=$narr['date']?></div></td>
-                        </tr>
-                    </table>
+                        <div class='newsdown' style=" margin-top: 5px;font-size:13px;color:#a2a3a2;float:right;"> <?=$narr['date']?></div>
+                        <div style="float: left; margin-top: 8px;">
+                            <a href="<?=$home?>/user/profile?id=<?=$narr['user_id']?>"><img class="avatar" src="<?=$avatar?>"/></a>
+                        </div>
+                        <div style="float: left; margin-left: 20px;">
+                            <a href="<?=$home?>/news/view?id=<?=$narr['id']?>"><h2><?=$narr['name']?></h2></a>
+                            <?if($narr['new_news']):?><sup style="color:red;font-weight:bold;">[new]</sup><?endif?>
+                            <a href="<?=$home?>/news/view?id=<?=$narr['id']?><?if($narr['page_to_go']):?>&amp;page=<?=$narr['page_to_go']?>#ncm<?else:?>#comms<?endif?>">
+                                <i class="icon-comment-1"></i><?=$narr['comm_count']?>  
+                                <?if($narr['new_comm_count']):?><span class="newred">+ <?=$narr['new_comm_count']?></span><?endif?>
+                            </a>
+                            <br />
+                            <span style="color: #d27600; font-style: italic;"><?=$narr['keywords']?></span>
+                        </div>
+                        <div style="clear: both;"></div>
+                        <hr/>
+                        <?=$narr['text']?> ...
+                        <hr/>
+                        <a class="urlbutton_index button_no_top_index" href="<?=$home?>/news/view?id=<?=$narr['id']?>">Далее</a>
                     </div>
                 </div>
 

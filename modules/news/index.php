@@ -5,7 +5,13 @@ new nav; //Постраничная навигация
 
 $total = core::$db->query('SELECT COUNT(*) FROM `ds_news` ;')->count();
 
-  $res = core::$db->query('SELECT `ds_news`.*, `ds_news_comm_rdm`.`rdmtime` FROM `ds_news` LEFT JOIN `ds_news_comm_rdm` ON `ds_news`.`id` = `ds_news_comm_rdm`.`modid` AND `ds_news_comm_rdm`.`userid` = "' . core::$user_id . '" ORDER BY `ds_news`.`id` DESC LIMIT '.nav::$start.', '.nav::$kmess.';');
+  $res = core::$db->query(''
+          . 'SELECT `ds_news`.*, `ds_news_comm_rdm`.`rdmtime`, `ds_users`.`avtime` '
+          . 'FROM `ds_news` '
+          . 'LEFT JOIN `ds_news_comm_rdm` ON `ds_news`.`id` = `ds_news_comm_rdm`.`modid` AND `ds_news_comm_rdm`.`userid` = "' . core::$user_id . '" '
+          . 'LEFT JOIN `ds_users` ON `ds_news`.`user_id` = `ds_users`.`id` '
+          . 'ORDER BY `ds_news`.`id` DESC LIMIT '.nav::$start.', '.nav::$kmess.';'
+        );
   $narr = array();
   
   $sql = ''; 
@@ -26,6 +32,9 @@ $total = core::$db->query('SELECT COUNT(*) FROM `ds_news` ;')->count();
     $out['comtime'] = $data['comtime'];
     $out['keywords'] = $data['keywords'];
     $out['description'] = $data['description'];
+    
+    //Аватарка
+    $avatar = user::get_avatar( $data['user_id'], $data['avtime'], 1 );
     
     $sql .= 'SELECT COUNT(*) FROM `ds_comm` WHERE `module`="news" AND `mid` = "'.$data['id'].'" ;';
     if($out['comtime'] > 0)
@@ -80,10 +89,10 @@ core::$db->multi_free();
 $narr = $out2;
   
 engine_head(lang('news'));
-  if(CAN('news_create', 0))
-      temp::assign('can_cr_news', 1);
+if(CAN('news_create', 0))
+    temp::assign('can_cr_news', 1);
 temp::HTMassign('narr', $narr);
-
+temp::assign('avatar', $avatar);
 temp::HTMassign('navigation', nav::display($total, core::$home.'/news?'));
 
 temp::display('news.index');

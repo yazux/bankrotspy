@@ -106,5 +106,6 @@ if (!core::$user_id) {
     }
     
 } else {
-    denied();
+    header('Location:'.core::$home);
+    exit();
 }

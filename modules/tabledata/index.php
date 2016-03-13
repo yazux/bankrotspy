@@ -7,8 +7,6 @@ use Foolz\SphinxQL\SphinxQL;
 $conn = new Connection();
 $conn->setParams(array('host' => '127.0.0.1', 'port' => 9306));
 
-
-
 //Ключ, скорее для виду, сесcия доставит гораздо больше проблем =)
 $somevar = 'tvybunwedowhduw2397ey9hd8ybhb83wecugwvevct';
 if($somevar != POST('somevar'))
@@ -124,20 +122,27 @@ $selects = array();
 //Условия для сортировки
 $order_conditions = array();
 
+// Веса по ID для каждого найденного лота
+$weights = array();
+
 //Ностройки сортировки
 $sort = $tabledata->get_sort_order();
 if($sort)
   $order_conditions['sort'] = $sort;
 
-if ($svalue) {
+if ( $svalue ) {
+    
+    $svalue = str_replace ( array('-', '_', '/', '\\'), " ", $svalue );
+    $svalue =  preg_replace( "/\s{2,}/", ' ', $svalue );
+//    $sArray = explode(" ", $svalue);
+//    $svalue = implode(" | ", $sArray);
+    //exit($svalue);
     /*$query = SphinxQL::create($conn)
                 ->select()
                 ->from('bs')
                 ->match('description', $_POST['svalue']);*/
-    $query = SphinxQL::create($conn)->query("SELECT * FROM bs WHERE MATCH('@* ".$svalue."') 
-                                       
-                                        
-                                        LIMIT 100000");
+    $sphinx = SphinxQL::create($conn);
+    $query = $sphinx->query("SELECT id, WEIGHT() AS w FROM bs WHERE MATCH('\"" . $svalue . "\"/1') LIMIT 0,1000000 OPTION max_matches=100000");
   /*
     if($types)            
         $query->where('type', 'IN', array_flip($types));
@@ -159,12 +164,17 @@ if ($svalue) {
 
     // Массив с полученными результатами
     $result = $query->execute();
+    core::$db->query("CREATE TEMPORARY TABLE `weights` (`id` INT(11), `w` INT(11))");
     if(!empty($result)) {
-        foreach($result as $item) {
+        foreach($result as $key => $item) {
             $items[] = $item['id'];
+            $weights[$item['id']] = $item['w'];
+            core::$db->query("INSERT INTO `weights` VALUES (".$item['id'].",".$item['w'].")");
         }
         $items = implode(', ', $items);
         $conditions['search'] = '`ds_maindata`.`id` IN ('.$items.') ';
+        $join_conditions['weight']= 'LEFT JOIN `weights` ON `weights`.`id` = `ds_maindata`.`id`';
+        $selects['weight'] = ' `weights`.`w` AS `weight`';
     } else {
         $conditions['search'] = '`ds_maindata`.`id` IN (0) ';
     }
@@ -186,68 +196,62 @@ if ($category == '-1') {
 $selects['note'] = ' `lot_notes`.`text` AS note';
 $join_conditions['note']= 'LEFT JOIN `lot_notes` ON `lot_notes`.`lot_id` = `ds_maindata`.`id` AND `lot_notes`.`user_id` = "' . core::$user_id.'"';
 
-
 //Фильтрация по типам
 if($types)
-  $conditions['types'] = ' `type` IN ('.implode(', ', $types).') ';
+    $conditions['types'] = ' `type` IN ('.implode(', ', $types).') ';
 
 //Фильтрация по регионам
 if(count(get_places(true)) != count($places) AND $places)
-  $conditions['places'] = ' `ds_maindata`.`place` IN ('.implode(', ', $places).') ';
+    $conditions['places'] = ' `ds_maindata`.`place` IN ('.implode(', ', $places).') ';
 
 //Фильтрация по платформам
 if(count(get_platforms(true)) != count($platforms) AND $platforms)
-  $conditions['platforms'] = ' `ds_maindata`.`platform_id` IN ('.implode(', ', $platforms).') ';
+    $conditions['platforms'] = ' `ds_maindata`.`platform_id` IN ('.implode(', ', $platforms).') ';
 
 //Дата начала и окончания торгов
-if(!$first_alt AND !$second_alt)
-{
-  if($begin_date)
-    $conditions['starttime'] = ' `ds_maindata`.`start_time` > "' . $begin_date . '" ';
+if(!$first_alt AND !$second_alt) {
+    if($begin_date)
+        $conditions['starttime'] = ' `ds_maindata`.`start_time` > "' . $begin_date . '" ';
 
-  if($end_date)
-    $conditions['endtime'] = ' `ds_maindata`.`start_time` < "' . $end_date . '" ';
+    if($end_date)
+        $conditions['endtime'] = ' `ds_maindata`.`start_time` < "' . $end_date . '" ';
 }
 
-if(!$begin_date AND !$end_date)
-{
-  $nowtime = time();//strtotime(date('Y').'-'.date('n').'-'.date('j'));
+if(!$begin_date AND !$end_date) {
+    $nowtime = time();//strtotime(date('Y').'-'.date('n').'-'.date('j'));
 
-  if($first_alt AND $second_alt)
-  {
-    $conditions['starttime'] = ' `ds_maindata`.`start_time` > "' . ($nowtime + ($first_alt*24*3600)) . '" ';
-    $conditions['endtime'] = ' `ds_maindata`.`start_time` < "' . (($nowtime + ($second_alt*24*3600))+((3600*24)-1)) . '" ';
-  }
-  elseif($first_alt)
-  {
-    $conditions['starttime'] = ' `ds_maindata`.`start_time` > "' . ($nowtime + ($first_alt*24*3600)) . '" ';
-    $conditions['endtime'] = ' `ds_maindata`.`start_time` < "' . (($nowtime + ($first_alt*24*3600))+((3600*24)-1)) . '" ';
-  }
+    if($first_alt AND $second_alt) {
+        $conditions['starttime'] = ' `ds_maindata`.`start_time` > "' . ($nowtime + ($first_alt*24*3600)) . '" ';
+        $conditions['endtime'] = ' `ds_maindata`.`start_time` < "' . (($nowtime + ($second_alt*24*3600))+((3600*24)-1)) . '" ';
+    } elseif($first_alt) {
+        $conditions['starttime'] = ' `ds_maindata`.`start_time` > "' . ($nowtime + ($first_alt*24*3600)) . '" ';
+        $conditions['endtime'] = ' `ds_maindata`.`start_time` < "' . (($nowtime + ($first_alt*24*3600))+((3600*24)-1)) . '" ';
+    }
 }
 
 //Статусы
 if($status_need_future AND $status_need_now AND $status_need_last) {
   //Ничего не делаем, облегчаем работу для базы, выводится все
 } else {
-  $before_close = array(3, 4, 5, 6);
-  $edtime = time();//strtotime(date('Y').'-'.date('n').'-'.date('j'));
-  if($status_need_future)
-    $conditions_or['status_start'] = ' `ds_maindata`.`start_time` > "' . $edtime . '" AND `ds_maindata`.`status` NOT IN ('.implode(', ', $before_close).')';
-  if($status_need_now)
-    $conditions_or['status_now'] = ' ( `ds_maindata`.`status` NOT IN ('.implode(', ', $before_close).') AND ( `ds_maindata`.`start_time` <= "' . $edtime . '" AND `ds_maindata`.`end_time` >= "' . $edtime . '" ) ) ';
-  if($status_need_last)
-    $conditions_or['status_last'] = ' ( `ds_maindata`.`status` IN ('.implode(', ', $before_close).') OR `ds_maindata`.`end_time` < "' . $edtime . '") ';
+    $before_close = array(3, 4, 5, 6);
+    $edtime = time();//strtotime(date('Y').'-'.date('n').'-'.date('j'));
+    if($status_need_future)
+        $conditions_or['status_start'] = ' `ds_maindata`.`start_time` > "' . $edtime . '" AND `ds_maindata`.`status` NOT IN ('.implode(', ', $before_close).')';
+    if($status_need_now)
+        $conditions_or['status_now'] = ' ( `ds_maindata`.`status` NOT IN ('.implode(', ', $before_close).') AND ( `ds_maindata`.`start_time` <= "' . $edtime . '" AND `ds_maindata`.`end_time` >= "' . $edtime . '" ) ) ';
+    if($status_need_last)
+        $conditions_or['status_last'] = ' ( `ds_maindata`.`status` IN ('.implode(', ', $before_close).') OR `ds_maindata`.`end_time` < "' . $edtime . '") ';
 }
 
 if($price_start)
-  $conditions['price_start'] = ' `ds_maindata`.`'.$price_search.'` > "' . $price_start . '" ';
+    $conditions['price_start'] = ' `ds_maindata`.`'.$price_search.'` > "' . $price_start . '" ';
 
 if($price_end)
-  $conditions['price_end'] = ' `ds_maindata`.`'.$price_search.'` < "' . $price_end . '" ';
+    $conditions['price_end'] = ' `ds_maindata`.`'.$price_search.'` < "' . $price_end . '" ';
 
 if($price_start OR $price_end) {
-  if($type_price == 3)
-    $conditions['price_end_third'] = ' `ds_maindata`.`' . $price_search . '` > "0" ';
+    if($type_price == 3)
+        $conditions['price_end_third'] = ' `ds_maindata`.`' . $price_search . '` > "0" ';
 }
 //выборка новых лотов за последние 48 часов
 //var_dump($new_lots);
@@ -293,7 +297,11 @@ if($order_conditions) {
     $order_cond = ' ORDER BY ' . implode(' , ', $order_conditions);
 } elseif( $category == -2 ) {
     // Если категория "Все", то сортируем по дате
-    $order_cond = ' ORDER BY `ds_maindata`.`loadtime` DESC';
+    if ( $weights ) { 
+        $order_cond = ' ORDER BY `weight` DESC';
+    } else {
+        $order_cond = ' ORDER BY `ds_maindata`.`loadtime` DESC';
+    }
 } elseif( ($category == 1) || ($category == 3) || ($category == 5) || ($category == 6) || ($category == 7)) {
     // Если категория Авто, Спецтехника, Недвижимость, Зем. участки, то  сортируем по "Доходность, %" от большого к меньшему
     $order_cond = ' ORDER BY (IF(`platform_manual_price`=1 AND `type`=2,1,0)) ASC, (IF(`ds_maindata`.`profit_proc`=0,1,0)) ASC, `ds_maindata`.`profit_proc` DESC';
@@ -323,31 +331,22 @@ if( $selects )
     $select_cond = ' , '.implode(' , ', $selects);
 
 //Счетчик
-$count = core::$db->query('SELECT
-  COUNT(*)
-  FROM
-  `ds_maindata`
- '.$join_cond.'
-
-  '.$where_cond.'
-
-  ORDER BY `ds_maindata`.`id`
-  ;')->count();
+$count = core::$db->query('
+    SELECT COUNT(*)
+    FROM `ds_maindata`
+    ' . $join_cond . '
+    ' . $where_cond . '
+    ORDER BY `ds_maindata`.`id`
+    ;')->count();
 
 //Основной запрос
-$main_sql = 'SELECT
-  `ds_maindata`.*
-
-  ' . $select_cond . '
-  FROM
-  `ds_maindata`
- '.$join_cond.'
-
-  '.$where_cond.'
-
-  ' . $order_cond . '
-
-  LIMIT '.$start.', '.$kmess.' ;';
+$main_sql = '
+    SELECT `ds_maindata`.* ' . $select_cond . '
+    FROM `ds_maindata`
+    ' . $join_cond . '
+    ' . $where_cond . '
+    ' . $order_cond . '
+    LIMIT '.$start.', '.$kmess.' ;';
 
 $res = core::$db->query($main_sql);
 
@@ -476,12 +475,10 @@ if ($res->num_rows) {
         $loc['favorite'] = $tabledata->addition($data['id'], $data['item'], $data['note'], $category, $data['hide']);
         $out2[] = $loc;
     }
-
-    $out = $out2;
-
+    
     $outdata = array(
         'columns' => $tabledata->get_names(),
-        'maindata' => $out,
+        'maindata' => $out2,
         'count' => $count
     );
 } else {

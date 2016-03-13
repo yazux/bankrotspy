@@ -8,8 +8,7 @@ $res = core::$db->query('SELECT * FROM `ds_users` WHERE `lastvisit` > "' . (time
 $i = 0;
 $arr = array();
 $eng_right = user::get_rights();
-while($data = $res->fetch_assoc())
-{
+while($data = $res->fetch_assoc()) {
     $out = array();
     $out['i'] = $i;
     $out['id'] = $data['id'];
@@ -33,7 +32,3 @@ temp::HTMassign('navigation', nav::display($total, core::$home.'/user/online?'))
 
 temp::display('user.online');
 engine_fin();
-
-
-
-
