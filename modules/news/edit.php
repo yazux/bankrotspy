@@ -8,7 +8,7 @@ if(!$id) denied();
 $save_data['newshead'] = $nn_name = POST('newshead');
 $save_data['mess'] = $nn_text = POST('mess');
 $save_data['keywords'] = $keywords = POST('keywords');
-$save_data['description'] = $keywords = POST('description');
+$save_data['description'] = $description = POST('description');
 
 new fload(
   $save_data,                           //Указываем что сохранять
