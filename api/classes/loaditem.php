@@ -111,6 +111,8 @@ class loaditem
       $error[] = 'Can\'t detect place for '.$outdata['item_key'];*/
     if(!$outdata['type'])
       $error[] = 'Can\'t detect type for '.$outdata['item_key'];
+    if( ($outdata['start_time'] < 1) || ($outdata['end_time'] < 1) )
+        $error[] = 'Error lot time ID '.$outdata['item_key'];
     if(!$outdata['status'])
       $error[] = 'Can\'t detect status for '.$outdata['item_key'];
     if(!$outdata['platform_id'])
