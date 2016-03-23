@@ -91,6 +91,7 @@
                 <div class="elmenu"><a href="<?=$home?>/user/profile"><b>Мой профиль</b></a></div>
                 <div class="elmenu"><a href="<?=$home?>/user/chpass"><?=lang('ch_pass')?></a></div>
                 <div class="elmenu"><a href="<?=$home?>/user/chmail"><?=lang('ch_mail')?></a></div>
+                <div class="elmenu"><a href="<?=$home?>/zayavka">Заявка</a></div>
                 <div class="elmenu"><a href="<?=$home?>">На главную</a></div>
                 <div class="down_rmenu"> </div>
             </div>
