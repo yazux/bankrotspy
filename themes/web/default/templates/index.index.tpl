@@ -1,28 +1,59 @@
+<script type="text/javascript">
+    
+    function simple(){
+        $(".right_panel_conf").css('width', '868px');
+        $(".right_back_menu_index").css('display', 'block');
+        $("#extend_td").css('display', 'none');
+        $("#simple").css('font-weight', 'bold');
+        $("#extend").css('font-weight', 'normal');
+        $("#search_form_extend").val('0');
+    }
+
+    function extend(){
+        $(".right_panel_conf").css('width', '1300px');        
+        $(".right_back_menu_index").css('display', 'none');
+        $("#extend_td").css('display', 'block');
+        $("#extend_td").css('width', '320px;');
+        $("#simple").css('font-weight', 'normal');
+        $("#extend").css('font-weight', 'bold');
+        $("#extend").css('font-weight', 'bold');
+        $("#search_form_extend").val('1');
+    }
+</script>
+<form id="search_form">
+    
+<input type="hidden" name="search_form_extend" id="search_form_extend" value="0">
+
 <table>
     <tr>
         <td class="right_back_menu_index_set">
             <span id="on_load_new_page"></span>
-            <form id="search_form">
+            
             <div class="right_panel_conf">
-                <div class="menu_rt_index">Настройка:</div>
+                <div class="menu_rt_index">
+                    Настройки поиска:
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="#" onclick="simple();" id="simple" style="font-weight: bold;">Простой</a> /
+                    <a href="#" onclick="extend();" id="extend" style="font-weight: normal;">Расширенный</a>
+                </div>
                 <div class="news_back" id="bs_set_container">
                     <table>
                         <tr>
                             <td valign="top">
-                                <i class="icon-location"></i> <b>Регионы:</b> выбрано <span id="total_places_set"><?=count($places_used)?></span> из <?=count($places_def)?> <span id="region_set" class="change_block_set"><i class="icon-edit-orange"></i>Изменить</span>
-                            </td>
-                            <td valign="top" style="border-right: 0">
-                                <i class="icon-globe-set"></i> <b>Площадки:</b> выбрано <span id="total_platforms_set"><?=count($platforms_used)?></span> из <?=count($platforms_def)?> <span id="platform_set" class="change_block_set"><i class="icon-edit-orange"></i>Изменить</span>
+                                <i class="icon-location"></i> <b>Регионы:</b> выбрано <span id="total_places_set"><?=count($places_used)?></span> из <?=count($places_def)?> <span id="region_set" class="change_block_set" style="padding-right: 200px; border-right: 1px solid #e9e9e9;"><i class="icon-edit-orange"></i>Изменить</span>
+                                <i style="margin-left: 10px;" class="icon-globe-set"></i> <b>Площадки:</b> выбрано <span id="total_platforms_set"><?=count($platforms_used)?></span> из <?=count($platforms_def)?> <span id="platform_set" class="change_block_set"><i class="icon-edit-orange"></i>Изменить</span>
                             </td>
                         </tr>
                     </table>
 
                     <hr class="super_hr"/>
+                    
                     <table>
                         <tr>
                            <td valign="top">
-                               <i class="icon-search"></i> Поиск по названию:<br/>
-                               <input type="text" name="svalname"/>
+                               <i class="icon-search"></i> Поиск по названию: 
+                               <a style="font-size: 13px; margin-left: 60px;" href="http://bankrot-spy.ru/articles/post35">Как искать?</a>
+                               <input type="text" name="svalname" id="svalname" style="width: 95%;"/>
 
                                <hr/>
                                <table>
@@ -65,6 +96,25 @@
                                </label>
                                
                            </td>
+                           
+                           <td valign="top" id="extend_td" style="display: none; width: 320px;">
+                               <i class="icon-search"></i> Дополнительные поля:<br/>
+                               <table class="nomarginnews">
+                                   <tr>
+                                       <td style="width: 90px;">Должник: </td><td style="white-space: nowrap;"><input type="text" name="inn"/></td>
+                                   </tr>
+                                   <tr>
+                                       <td style="width: 90px;">Арбитр. управ. и Организатор: </td><td style="white-space: nowrap;"><input type="text" name="au"/></td>
+                                   </tr>
+                                   <tr>
+                                       <td style="width: 90px;">Номер дела: </td><td style="white-space: nowrap;"><input type="text" name="case_number"/></td>
+                                   </tr>
+                                   <tr>
+                                       <td style="width: 90px;">Номер торгов: </td><td style="white-space: nowrap;"><input type="text" name="trade_number"/></td>
+                                   </tr>
+                               </table>
+                           </td>
+                           
                            <td valign="top" style="border-right: 0">
                                <i class="icon-rouble"></i> Цена лота:<br/>
                                <table class="nomarginnews">
@@ -87,12 +137,13 @@
                      <hr class="news_back_hr" />
                         <table class="ch_profile_menu">
                             <tr>
-                                <td style="border: 0px;padding-right: 0px;">
+                                <td style="border: 0px; padding-right: 0px; width: 300px; vertical-align: middle;">
 
-                                    <span  class="search_profile_area">
-                                        <span class="icon_in_range" id="icon_s_status"><i class="icon-right-dir"></i></span><span class="pfame"><?=$now_profile_name ? $now_profile_name : 'Стандартный профиль'?></span> <span class="icon_in_range" ><i id="del_now_ch_profile" title="Удалить этот профиль" class="icon-cancel-2"></i></span>
+                                    <span style="float:left;" class="search_profile_area">
+                                        <span class="icon_in_range" id="icon_s_status"><i class="icon-right-dir"></i></span>
+                                        <span class="pfame"><?=$now_profile_name ? $now_profile_name : 'Стандартный профиль'?></span> <span class="icon_in_range" ><i id="del_now_ch_profile" title="Удалить этот профиль" class="icon-cancel-2"></i></span>
                                     </span>
-                                    <div class="profiles_container">
+                                    <div style="float:left;" class="profiles_container">
                                         <?if($outprofiles):?>
                                         <?foreach($outprofiles as $pval): ?>
                                           <div attrid="<?=$pval['id']?>"><?=$pval['name']?></div>
@@ -101,16 +152,37 @@
                                           <div attrid="">Стандартный профиль</div>
                                         <?endif?>
                                     </div>
+                                    <div style="float: left; margin-top: 4px; width: 100px;">
+                                        <span id="newprofile_set" class="new_s_profile"><i title="Новый профиль" class="icon-plus"></i></span>
+                                        <a style="font-size: 13px;" class="q_search_link" onmouseover="toolTip('<b>Поисковые профили</b> - это инструмент для отслеживания большого количества лотов по заданным поисковым параметрам.<hr/>Более подробное описание по ссылке:')" onmouseout="toolTip()" href="<?=$home?>/pages/8">Что это?</a>
+                                    </div>
                                 </td>
-                                <td style="border: 0px;padding-left: 5px;">
+                                <!--td style="width: 100px; border: 0px;padding-left: 5px;">
                                     <span id="newprofile_set" class="new_s_profile"><i title="Новый профиль" class="icon-plus"></i></span>
                                     <a style="font-size: 13px;" class="q_search_link" onmouseover="toolTip('<b>Поисковые профили</b> - это инструмент для отслеживания большого количества лотов по заданным поисковым параметрам.<hr/>Более подробное описание по ссылке:')" onmouseout="toolTip()" href="<?=$home?>/pages/8">Что это?</a>
-                                </td>
-                                <td style="border: 0px;">
-
-                                </td>
-                                <td  style="border: 0px;white-space: nowrap">
+                                </td-->
+                                
+                                
+                                <style>
+                                    .search_type_style{
+                                        margin-top: 5px;
+                                        padding-top: 4px;
+                                        text-align: center;
+                                        width: 130px;
+                                        height: 28px;
+                                        color: #4a4a4a;
+                                        font-size: 13px;
+                                    }
+                                </style>
+                                
+                                <td  style="width: 400px; border: 0px; white-space: nowrap">
                                     <div class="set_button_cont">
+                                        <select name="search_type" id="search_type" class="search_type_style">
+                                            <option value="any">Любое из слов</option>
+                                            <option value="all">Все слова</option>
+                                            <option value="phrase">Точная фраза</option>
+                                      </select>
+                                        &nbsp; 
                                         <span id="search_in_table" class="urlbutton_index button_no_top_index">Искать</span> 
                                         &nbsp; 
                                         <span id="clear_set_table" class="urlbutton_index button_no_top_index">Очистить</span>
@@ -118,12 +190,9 @@
                                 </td>
                             </tr>
                         </table>
-
-
                 </div>
-
             </div>
-            </form>
+            
         </td>
         <td class="right_back_menu_index">
             <div class="right_panel_conf_index">
@@ -354,6 +423,8 @@
 
 <div id="navigation_container"></div>
 
+</form>
+
 <script type="text/javascript">
     
     var engine_formid = <?=core::$formid?>;
@@ -364,13 +435,29 @@
     var engine_home = '<?=$home?>';
     var engine_now_profile = '<?=$now_profile_id?>';
 
-    
     $(document).ready(function() {
+        // Запретить сабмит формы
+        $("#search_form").submit(function(){return false;});
+        
         restore_settings();
         load_table();
-
+        
+        // Какую форму показывать, расширенную или сокращенную
+        var sfe = $('#search_form_extend').val();
+        if ( sfe == 1 ) {
+            extend();
+        } else {
+            simple();
+        }
+        
         $('[name="begin_set_date"]').jdPicker();
         $('[name="end_set_date"]').jdPicker();
+        
+        // Если меняется значение лотов на страницу, то повторить поиск
+        $(document).on('change', '#kmess', function(){
+            //engine_settings.kmess = $('#kmess option:selected').val();
+            search_listener();
+        });
     });
 
     $(document).on('click', '.data_table .icon_to_click_fav', function(){
@@ -485,6 +572,7 @@
     });
     
     $(document).on('click', '#clear_set_table', function(){
+        simple();
         clean_set_listener();
     });
 
@@ -734,6 +822,12 @@
 </div>
 
 <div style="text-align: center; cursor:pointer;">
+</div>
+
+<div style="width: 100%; text-align: center;">
+    <a href="http://torgi-bankrotov.com/webinar/?index.php?utm_source=spyru" target="_blank">
+        <img src="/themes/web/default/images/banners/adv-banner.gif">
+    </a>
 </div>
 
 <div class="content" style="margin:8px 0 8px 16px;">
