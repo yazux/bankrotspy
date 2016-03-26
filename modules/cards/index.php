@@ -213,6 +213,7 @@ temp::HTMassign('note', $data['note']);
 
 temp::assign('id', $data['id']);
 temp::assign('category', $data['catname']);
+temp::assign('categoryId', $data['cat_id']);
 temp::HTMassign('lotdescr', $lotname);
 if(isset($needshow_add_price)) {
     temp::assign('needshow_add_price', $needshow_add_price);

@@ -37,7 +37,7 @@
 
         </td>
         <td class="right_back_menu">
-            <? temp::include('control.index.right.tpl') ?>
+            <? temp::include('control.categories.right.tpl') ?>
         </td>
     </tr>
 </table>

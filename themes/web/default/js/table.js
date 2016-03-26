@@ -113,57 +113,51 @@ function build_page_navigation(page, total, kmess)
       outdata += '<span class="navpg"  onclick="load_table_page(' + numpages + ')">' + numpages + '</span>';
   }
 
-  if(numpages > 1)
-  {
-    outdata = '<div class="navig bs_index_table">' + outdata + '</div>';
-    $('#navigation_container').html(outdata);
-  }
-  else
-  {
-    $('#navigation_container').html(' ');
-  }
+    if(numpages > 1) {
+        outdata = '<div class="navig bs_index_table">' + outdata + '<span style="margin-left:100px;"><select name="kmess" id="kmess" style="width:70px;"><option value="20">20</option><option value="50">50</option><option value="100">100</option></select></span></div>';
+        $('#navigation_container').html(outdata);
+    } else {
+        $('#navigation_container').html(' ');
+    }
+    $('#kmess option[value="'+engine_settings.kmess+'"]').prop('selected', true);
 }
 
 //Работа с данными
-function begin_loader()
-{
-  if (engine_global_loader) {
-    var mess = '<i class="icon-spin5"></i> Загрузка...';
-    var el = $('#loadmess');
-    
-    var window_height = $(window).height();
-    var window_width = $(window).width();
-    var el_width = $(el).width();
-    var el_height = $(el).height();
-    
-    var left = (window_width / 2) - (el_width / 2);
-    var top = (window_height / 2) - (el_height / 2);
-    
-    $(el).css('left', left);
-    $(el).css('bottom', top);
-    
-    $(el).clearQueue();
-    $(el).stop();
-    $(el).fadeOut(1);
+function begin_loader() {
+    if (engine_global_loader) {
+        var mess = '<i class="icon-spin5"></i> Загрузка...';
+        var el = $('#loadmess');
 
-    $(el).html(mess);
-    $(el).fadeIn(100);
-  } else {
-    engine_global_loader = 1;
-  }
+        var window_height = $(window).height();
+        var window_width = $(window).width();
+        var el_width = $(el).width();
+        var el_height = $(el).height();
+
+        var left = (window_width / 2) - (el_width / 2);
+        var top = (window_height / 2) - (el_height / 2);
+
+        $(el).css('left', left);
+        $(el).css('bottom', top);
+
+        $(el).clearQueue();
+        $(el).stop();
+        $(el).fadeOut(1);
+
+        $(el).html(mess);
+        $(el).fadeIn(100);
+    } else {
+        engine_global_loader = 1;
+    }
 }
 
-function end_loader()
-{
+function end_loader() {
     $('#loadmess').fadeOut(700);
     $('.data_table').stickyTableHeaders('destroy');
     $(".data_table").stickyTableHeaders();
 }
 
-function answer_load(data)
-{
-    if(data)
-    {
+function answer_load(data) {
+    if(data) {
         var obj = jQuery.parseJSON(data);
 
         //Заголовок таблицы
@@ -271,10 +265,8 @@ function answer_load(data)
         build_page_navigation(engine_settings.page, obj.count, engine_settings.kmess);
 
         end_loader();
-    }
-    else
-    {
-      end_loader();
+    } else {
+        end_loader();
     }
 }
 
@@ -416,44 +408,37 @@ function connection_keeper() {
 }
 
 function save_settings_and_load() {
-    
     var json_set = JSON.stringify(engine_settings);
     var data = {
         jsettings: json_set,
         formid: engine_formid
     }
-    
     $.post("/tabledata/savesettings", data, function(data) { });
     load_table();
 }
 
-function compile_arr_set(obj)
-{
-  var string = '';
-  var i =0;
-  $.each(obj, function(key, val) {
-    if(val == 1)
-    {
-      if(i != 0)
-        string += '|';
-      string += key;
-      i++;
-    }
-  });
-  return string;
+function compile_arr_set(obj) {
+    var string = '';
+    var i =0;
+    $.each(obj, function(key, val) {
+        if(val == 1) {
+            if(i != 0)
+                string += '|';
+            string += key;
+            i++;
+        }
+    });
+    return string;
 }
 
-function date_to_int(date)
-{
-  if(date)
-  {
-    var date_sourse = date + '';
-    var myDate = date_sourse.split('.');
-    var newDate = myDate[1] + "/" + myDate[0] + "/" + myDate[2];
-    return (new Date(newDate).getTime())/1000;
-  }
-  else
-    return '';
+function date_to_int(date) {
+    if(date) {
+        var date_sourse = date + '';
+        var myDate = date_sourse.split('.');
+        var newDate = myDate[1] + "/" + myDate[0] + "/" + myDate[2];
+        return (new Date(newDate).getTime())/1000;
+    } else
+        return '';
 }
 
 function load_table() {
@@ -492,63 +477,63 @@ function load_table() {
         status: compile_arr_set(engine_settings.status),
         new_lots: engine_settings.new_lots,
         favorite: engine_settings.favorite,
-        hide: engine_settings.hide
+        hide: engine_settings.hide,
+        inn: engine_settings.inn,
+        au: engine_settings.au,
+        case_number: engine_settings.case_number,
+        trade_number: engine_settings.trade_number,
+        search_type: engine_settings.search_type,
+        search_form_extend: engine_settings.search_form_extend
     }
     
     $.post("/tabledata", data, answer_load);
-
 }
 
-function search_listener()
-{
-  var error = 0;
-  var str_err = '';
+function search_listener() {
+    var error = 0;
+    var str_err = '';
 
-  //Поиск
-  var svalue = $('[name="svalname"]').val();
-  if(svalue.length > 0 && svalue.length < 2)
-    str_err += 'Длина строки должна быть больше 2-х символов!' + '<br/>';
-  else
-    engine_settings.svalue = svalue;
+    //Поиск
+    var svalue = $('[name="svalname"]').val();
+    if(svalue.length > 0 && svalue.length < 2)
+        str_err += 'Длина строки должна быть больше 2-х символов!' + '<br/>';
+    else
+        engine_settings.svalue = svalue;
 
-  //Типы
-  var new_types = {};
-  var choosen = 0;
-  $.each(default_settings.types, function(key, val) {
-    if($('[name="type_auct_' + key + '"]').prop('checked'))
-    {
-      new_types[key] = 1;
-      choosen++;
+    //Типы
+    var new_types = {};
+    var choosen = 0;
+    $.each(default_settings.types, function(key, val) {
+        if($('[name="type_auct_' + key + '"]').prop('checked')) {
+            new_types[key] = 1;
+            choosen++;
+        }
+    });
+    engine_settings.types = new_types;
+
+    //Статус торгов
+    var new_status = {};
+    var choosen_st = 0;
+    $.each(default_settings.status, function(key, val) {
+        if($('[name="status_auct_' + key + '"]').prop('checked')) {
+            new_status[key] = 1;
+            choosen_st++;
+        }
+    });
+    engine_settings.status = new_status;
+    if(choosen_st < 1)
+        str_err += 'Выберите хотя бы один статус торгов!'+ '<br/>';
+
+    //Дата начала конца торгов
+    var begin_d = $('[name="begin_set_date"]').val();
+    var end_d = $('[name="end_set_date"]').val();
+    var begin_int_d = date_to_int(begin_d);
+    var end_int_d = date_to_int(end_d);
+
+    if(begin_int_d && end_int_d) {
+        if(end_int_d < begin_int_d)
+            str_err += 'Дата окончания не должна быть меньше даты начала!'+ '<br/>';
     }
-  });
-  engine_settings.types = new_types;
-
-  //Статус торгов
-  var new_status = {};
-  var choosen_st = 0;
-  $.each(default_settings.status, function(key, val) {
-    if($('[name="status_auct_' + key + '"]').prop('checked'))
-    {
-      new_status[key] = 1;
-      choosen_st++;
-    }
-  });
-  engine_settings.status = new_status;
-  if(choosen_st < 1)
-    str_err += 'Выберите хотя бы один статус торгов!'+ '<br/>';
-
-
-  //Дата начала конца торгов
-  var begin_d = $('[name="begin_set_date"]').val();
-  var end_d = $('[name="end_set_date"]').val();
-  var begin_int_d = date_to_int(begin_d);
-  var end_int_d = date_to_int(end_d);
-
-  if(begin_int_d && end_int_d)
-  {
-    if(end_int_d < begin_int_d)
-      str_err += 'Дата окончания не должна быть меньше даты начала!'+ '<br/>';
-  }
 
     engine_settings.new_lots = 0;
     if($('[name="new_lots"]').prop('checked')) {
@@ -565,27 +550,35 @@ function search_listener()
         engine_settings.hide = 1;
     }
       
-  engine_settings.begin_date = begin_d;
-  engine_settings.end_date = end_d;
+    engine_settings.begin_date = begin_d;
+    engine_settings.end_date = end_d;
 
-  //Дней до торгов
-  var altint = $('[name="altintconf"]').val();
-  engine_settings.altint = altint;
+    //Дней до торгов
+    var altint = $('[name="altintconf"]').val();
+    engine_settings.altint = altint;
 
-  if((begin_d || end_d) && altint)
-    str_err += 'Нельзя одновременно использовать "Дату подачи" и функцию "Дней до подачи заявок"!' + '<br/>';
+    if((begin_d || end_d) && altint)
+        str_err += 'Нельзя одновременно использовать "Дату подачи" и функцию "Дней до подачи заявок"!' + '<br/>';
 
-  //Минимальная и максимальная цены
-  var price_start = parseInt(unformat_number($('[name="price_start"]').val()));
-  var price_end = parseInt(unformat_number($('[name="price_end"]').val()));
-  engine_settings.price_start = price_start;
-  engine_settings.price_end = price_end;
+    //Минимальная и максимальная цены
+    var price_start = parseInt(unformat_number($('[name="price_start"]').val()));
+    var price_end = parseInt(unformat_number($('[name="price_end"]').val()));
+    engine_settings.price_start = price_start;
+    engine_settings.price_end = price_end;
 
-  if(price_start && price_end)
-  {
-    if(price_end < price_start)
-      str_err += 'Конечная цена не может быть меньше начальной!'+ '<br/>';
-  }
+    if(price_start && price_end) {
+        if(price_end < price_start)
+            str_err += 'Конечная цена не может быть меньше начальной!'+ '<br/>';
+    }
+
+  //Дополнительные поля
+  engine_settings.inn = $('[name="inn"]').val();
+  engine_settings.au = $('[name="au"]').val();
+  engine_settings.case_number = $('[name="case_number"]').val();
+  engine_settings.trade_number = $('[name="trade_number"]').val();
+  engine_settings.search_type = $('#search_type option:selected').val();
+  engine_settings.kmess = $('#kmess option:selected').val();
+  engine_settings.search_form_extend = $('#search_form_extend').val();
 
   //Регионы
   var choosen_regions = 0;
@@ -612,54 +605,60 @@ function search_listener()
   //По какой цене искать
   engine_settings.type_price = $('[name="type_price"]:checked').val();
 
-  if(choosen < 1)
-    str_err += 'Отметьте хотя бы один тип торгов!'+ '<br/>';
+    if(choosen < 1)
+        str_err += 'Отметьте хотя бы один тип торгов!'+ '<br/>';
 
-  if(!str_err)
-  {
-    engine_settings.page = 1;
-    save_settings_and_load();
-  }
-  else
-    create_notify(str_err);
+    if(!str_err) {
+        engine_settings.page = 1;
+        save_settings_and_load();
+    } else
+        create_notify(str_err);
 }
 
-function restore_settings()
-{
-  $('[name="svalname"]').val(engine_settings.svalue);
+function restore_settings() {
+    
+    $('[name="svalname"]').val(engine_settings.svalue);
 
-  $.each(default_settings.types, function(key, val) {
-    $('[name="type_auct_' + key + '"]').prop('checked', false);
-  });
-  $.each(engine_settings.types, function(key, val) {
-    $('[name="type_auct_' + key + '"]').prop('checked', true);
-  });
+    $.each(default_settings.types, function(key, val) {
+      $('[name="type_auct_' + key + '"]').prop('checked', false);
+    });
+    $.each(engine_settings.types, function(key, val) {
+      $('[name="type_auct_' + key + '"]').prop('checked', true);
+    });
 
-  $.each(default_settings.status, function(key, val) {
-    $('[name="status_auct_' + key + '"]').prop('checked', false);
-  });
-  $.each(engine_settings.status, function(key, val) {
-    if(val==1)
-       $('[name="status_auct_' + key + '"]').prop('checked', true);
-  });
+    $.each(default_settings.status, function(key, val) {
+      $('[name="status_auct_' + key + '"]').prop('checked', false);
+    });
+    $.each(engine_settings.status, function(key, val) {
+      if(val==1)
+         $('[name="status_auct_' + key + '"]').prop('checked', true);
+    });
 
-  $('[name="begin_set_date"]').val(engine_settings.begin_date);
-  $('[name="end_set_date"]').val(engine_settings.end_date);
+    $('[name="begin_set_date"]').val(engine_settings.begin_date);
+    $('[name="end_set_date"]').val(engine_settings.end_date);
 
-  $('[name="altintconf"]').val(engine_settings.altint);
+    $('[name="altintconf"]').val(engine_settings.altint);
 
-  $('[name="price_start"]').val(engine_settings.price_start);
-  $('[name="price_end"]').val(engine_settings.price_end);
-  //Разделяем разряды
-  number_format('price_start_forid');
-  number_format('price_end_forid');
+    $('[name="inn"]').val(engine_settings.inn);
+    $('[name="au"]').val(engine_settings.au);
+    $('[name="case_number"]').val(engine_settings.case_number);
+    $('[name="trade_number"]').val(engine_settings.trade_number);
 
-  $("input[name=type_price][value='" + engine_settings.type_price + "']").prop("checked",true);
+    $('#search_type option[value="'+engine_settings.search_type+'"]').prop('selected', true);
+    $('#kmess option[value="'+engine_settings.kmess+'"]').prop('selected', true);
+    $('#search_form_extend').val(engine_settings.search_form_extend);
+
+    $('[name="price_start"]').val(engine_settings.price_start);
+    $('[name="price_end"]').val(engine_settings.price_end);
+    //Разделяем разряды
+    number_format('price_start_forid');
+    number_format('price_end_forid');
+
+    $("input[name=type_price][value='" + engine_settings.type_price + "']").prop("checked",true);
 }
 
-
-function clean_set_listener()
-{
+function clean_set_listener() {
+    
     engine_settings.svalue = '';
     $('[name="svalname"]').val('');
 
@@ -697,6 +696,21 @@ function clean_set_listener()
   
     $('[name="altintconf"]').val('');
     engine_settings.altint = '';
+    
+    $('[name="inn"]').val('');
+    engine_settings.inn='';
+    $('[name="au"]').val('');
+    engine_settings.au = '';
+    $('[name="case_number"]').val('');
+    engine_settings.case_number = '';
+    $('[name="trade_number"]').val('');
+    engine_settings.trade_number = '';
+    
+    $('#search_type option[value="any"]').prop('selected', true);
+    engine_settings.search_type = 'any';
+
+    $('#search_form_extend').val('0');
+    engine_settings.search_form_extend = 0;
 
     $('[name="price_start"]').val('');
     $('[name="price_end"]').val('');
@@ -716,6 +730,9 @@ function clean_set_listener()
 
     //Cбрасываем страницу
     engine_settings.page = 1;
+    engine_settings.kmess = 20;
+    // Устанавливаем число страниц по умолчанию 20
+    $('#kmess option[value="20"]').prop('selected', true);
 
     save_settings_and_load();
 }
@@ -754,9 +771,7 @@ function listen_namepop(item)
    }
 }
 
-function place_set_listener()
-{
-
+function place_set_listener() {
     'use strict';
     //Регионы
     var new_places = {};
@@ -775,7 +790,6 @@ function place_set_listener()
 }
 
 $(document).ready(function(){
-    
     $('.bs_index_table').on('click', '.get_lot_price', function(e){
         e.preventDefault();
         var _this = $(this);
@@ -907,17 +921,16 @@ $(document).ready(function(){
     }
   }
 
-  function answer_new_profile(data)
-  {
+function answer_new_profile(data) {
     end_loader();
     var answer = data.substr(0, 2);
     var loadid = data.substr(2);
 
     if(answer == 'ok')
-      location.href = engine_home;
+        location.href = engine_home;
     else
-      create_notify('Ошибка создания профиля!');
-  }
+        create_notify('Ошибка создания профиля!');
+}
 
   $(document).on('click', '#newprofile_popup_close', function(){
     $('#error_newprofile_log').text('');

@@ -57,8 +57,6 @@ $res = core::$db->query('SELECT * FROM  `ds_maindata_regions` ORDER BY `name` AS
 
 while($data = $res->fetch_assoc()) {
     
-    
-    
     if($data['parent_id'] !== 0 && (int)$data['number'] != -1) {
         $places_def[$data['number']] = 1;
     }
@@ -90,7 +88,6 @@ foreach ($regions_intop as $key) {
     $regions_top[$key] = $regions_top_tmp[$key];
 }
 
-
 //Типы предложений в таблице
 $types = array();
 $types_def = array();
@@ -107,7 +104,6 @@ while($data = $res->fetch_array())
 {
   $categories[$data['id']] = text::st($data['name']);
 }
-
 
 //Настройки по умолчанию
 $set_table_array = defaultset::get(array($types_def, $places_def, $platforms_def));
@@ -157,17 +153,15 @@ if(core::$user_id AND isset(core::$user_set['tabledata']) AND core::$user_set['t
 //Новости по лотам
 $outnews = array();
 $res = core::$db->query('SELECT * FROM `ds_platform_news` ORDER BY `time` DESC LIMIT 10;');
-while($data = $res->fetch_array())
-{
-  $loc = array();
-  $loc['id'] = $data['id'];
-  $loc['time'] = ds_time($data['time'], '%H:%M');
-  $loc['data'] = ds_time($data['time'], '%d %B2 %Y');
-  text::add_cache($data['cache']);
-  $loc['text'] = text::out($data['text'], 0);
-  $outnews[] = $loc;
+while($data = $res->fetch_array()) {
+    $loc = array();
+    $loc['id'] = $data['id'];
+    $loc['time'] = ds_time($data['time'], '%H:%M');
+    $loc['data'] = ds_time($data['time'], '%d %B2 %Y');
+    text::add_cache($data['cache']);
+    $loc['text'] = text::out($data['text'], 0);
+    $outnews[] = $loc;
 }
-
 
 // костыль вывода статьи на лавной
 $articleData = core::$db->query('SELECT `ds_article`.*, `ds_users`.`lastvisit`, `ds_users`.`avtime`, `ds_users`.`sex`, `ds_users`.`rights` FROM `ds_article` LEFT JOIN `ds_users` ON `ds_article`.`userid` = `ds_users`.`id` WHERE `ds_article`.`id` = "8" ;');
@@ -178,19 +172,14 @@ $article['text'] = text::out($articleData['text'], 0, $articleData['id']);
 $article['text'] = fload::replace_files($article['text'], $articleData['id'], core::$module);
 $article['time'] = ds_time($articleData['time']);
 
-
 engine_head();
-
 
 // закрепленные области
 temp::HTMassign('regions_top', $regions_top);
 temp::HTMassign('regions_result', $regions_result);
 temp::HTMassign('places_used', isset($places_used) ? $places_used : $places_def);
 temp::HTMassign('places_def', $places_def);
-
-
 temp::HTMassign('article', $article);
-
 temp::HTMassign('outnews', $outnews);
 temp::assign('table_default_set', json_encode($set_table_array));
 temp::assign('table_set', (isset($save_set) ? json_encode($save_set) : json_encode($set_table_array)));
@@ -198,20 +187,17 @@ temp::HTMassign('types_set', $types);
 temp::HTMassign('types_def', $types_def);
 temp::HTMassign('categories', $categories);
 
-
-if(isset($now_profile_id))
-{
-  temp::assign('now_profile_id', $now_profile_id);
-  temp::assign('now_profile_name', $now_profile_name);
-  temp::assign('default_profile_id', $default_profile_id);
-  temp::HTMassign('outprofiles', $outprofiles);
+if(isset($now_profile_id)) {
+    temp::assign('now_profile_id', $now_profile_id);
+    temp::assign('now_profile_name', $now_profile_name);
+    temp::assign('default_profile_id', $default_profile_id);
+    temp::HTMassign('outprofiles', $outprofiles);
 }
-temp::HTMassign('new_lots', $new_lots);
 
+temp::HTMassign('new_lots', $new_lots);
 temp::HTMassign('platforms', $platforms);
 temp::HTMassign('platforms_def', $platforms_def);
 temp::HTMassign('platforms_used', isset($platforms_used) ? $platforms_used : $platforms_def);
-
 temp::assign('type_price', $set_table_array['type_price']);
 temp::display('index.index');
 engine_fin();

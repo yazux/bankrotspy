@@ -93,18 +93,36 @@ if (in_array(3, $status_item)) {
 
 //echo POST('status').'|'.$status_need_future.'-'.$status_need_now.'-'.$status_need_last;
 
-$svalue = POST('svalue');
-if (mb_strlen($svalue) < 3) {
-    $svalue = '';
+$queryStr = POST('svalue');
+if (mb_strlen( $queryStr ) < 3) {
+    $queryStr = '';
 }
+
+//$inn = trim(strip_tags(POST('inn')));
+//if ( isset($inn) && ($inn != '') ) {
+    //$queryStr .= " @(debtor_name, debtors_inn) \"" . $inn . "\""; 
+//    $queryStr .= " " . $inn; 
+//}
+
+//$au = trim(strip_tags(POST('au')));
+//if ( isset($au) && ($au != '') ) {
+    //$queryStr .= " @(organizer_name, organizer_inn) \"" . $au . "\""; 
+//    $queryStr .= " " . $au; 
+//}
+
+//$queryStr .= " @*";
 
 //Постраничная навигация
 $now_page = abs(intval(POST('page')));
 if(!$now_page)
-  $now_page = 1;
+    $now_page = 1;
 $kmess = abs(intval(POST('kmess')));
-if($kmess > 40)
-  $kmess = 40;
+//if ( $kmess ) {
+//    if( ($kmess < 20) || ($kmess > 100) )
+//        $kmess = 20;
+//} else {
+//    $kmess = 20;
+//}
 $start =  $now_page ? $now_page * $kmess - $kmess : 0;
 
 //Условия для WHERE (компилятся через AND)
@@ -130,38 +148,47 @@ $sort = $tabledata->get_sort_order();
 if($sort)
   $order_conditions['sort'] = $sort;
 
-if ( $svalue ) {
+if ( $queryStr != '' ) {
     
-    $svalue = str_replace ( array('-', '_', '/', '\\'), " ", $svalue );
-    $svalue =  preg_replace( "/\s{2,}/", ' ', $svalue );
-//    $sArray = explode(" ", $svalue);
-//    $svalue = implode(" | ", $sArray);
-    //exit($svalue);
-    /*$query = SphinxQL::create($conn)
-                ->select()
-                ->from('bs')
-                ->match('description', $_POST['svalue']);*/
+//    $newQuery = '';
+    
+    $queryStr = str_replace ( array('~', '>', '<', '?', ')', '(', '}', '{', '&', '^', '$', '#', '|', '_', '/', '\\'), " ", $queryStr );
+    $queryStr =  preg_replace( "/\s{2,}/", ' ', $queryStr );
+    //$queryStr = " " . $queryStr . " ";
+    
+    // Попытаемся определить не указано ли стоп-слово
+    //preg_match_all('/\-.+?\s/i', $queryStr, $m);
+    
+//    foreach ( $m[0] as $val ) {
+//        $newQuery .= "!" . trim( str_replace( '-', " ", $val ));
+//    }
+    
+//    var_dump($queryStr);
+//    var_dump($newQuery);
+//    die();
+    
+    // Запоминаем запрос
+    $res = core::$db->query("SELECT * FROM search_queries WHERE query='".core::$db->res($queryStr)."'");
+    if ( !$res->num_rows ) { 
+        core::$db->query("INSERT INTO search_queries VALUES(0, '".core::$db->res($queryStr)."')");
+    }
+    
     $sphinx = SphinxQL::create($conn);
-    $query = $sphinx->query("SELECT id, WEIGHT() AS w FROM bs WHERE MATCH('\"" . $svalue . "\"/1') LIMIT 0,1000000 OPTION max_matches=100000");
-  /*
-    if($types)            
-        $query->where('type', 'IN', array_flip($types));
     
-    //регионы
-    if(count(get_places(true)) != count($places) AND $places)            
-        $query->where('place', 'IN', array_flip($places));
-    //платформы
-    if(count(get_platforms(true)) != count($platforms) AND $platforms)            
-        $query->where('platform_id', 'IN', array_flip($platforms));
-*/
+    // Какой тип запроса? 
+    $searchType = POST('search_type');
+    //var_dump($searchType);die();
+    if ( $searchType == 'all' ) {
+        // All
+        $query = $sphinx->query("SELECT id, WEIGHT() AS w FROM bs WHERE MATCH('" . $queryStr . "') LIMIT 0,1000000 OPTION max_matches=100000");
+    } elseif ( $searchType == 'phrase' ) {
+        // Phrase
+        $query = $sphinx->query("SELECT id, WEIGHT() AS w FROM bs WHERE MATCH('\"" . $queryStr . "\"') LIMIT 0,1000000 OPTION max_matches=100000");
+    } else {
+        // ANY
+        $query = $sphinx->query("SELECT id, WEIGHT() AS w FROM bs WHERE MATCH('\"" . $queryStr . "\"/1') LIMIT 0,1000000 OPTION max_matches=100000");
+    }
     
-    //$before_close = [3, 4, 5, 6];
-    //$query->where('status', 'NOT IN', $before_close);
-    
-    //$query->offset($start)
-                //$query->limit('9999999');
-
-
     // Массив с полученными результатами
     $result = $query->execute();
     core::$db->query("CREATE TEMPORARY TABLE `weights` (`id` INT(11), `w` INT(11))");
@@ -179,6 +206,46 @@ if ( $svalue ) {
         $conditions['search'] = '`ds_maindata`.`id` IN (0) ';
     }
 }
+
+// Номер дела
+$caseNumber = trim(strip_tags(POST('case_number')));
+if ( isset($caseNumber) && ($caseNumber != '') ) {
+    $conditions['case_number'] = " `ds_maindata`.`case_number` = '" . core::$db->res($caseNumber) . "'"; 
+}
+
+// Номер торгов
+$tradeNumber = trim(strip_tags(POST('trade_number')));
+if ( isset($tradeNumber) && ($tradeNumber != '') ) {
+    $conditions['code'] = " `ds_maindata`.`code` = '" . core::$db->res($tradeNumber) . "'"; 
+}
+
+// ИНН или ФИО должника
+$inn = trim(strip_tags(POST('inn')));
+if ( isset($inn) && ($inn != '') ) {
+    $join_conditions['inn']= 'LEFT JOIN `ds_maindata_debtors` ON `ds_maindata`.`debtor` = `ds_maindata_debtors`.`id`';
+    if ( is_numeric($inn) ) {
+        $conditions['inn'] = " `ds_maindata_debtors`.`inn` = '" . core::$db->res($inn) . "'";
+    } else {
+        $conditions['inn'] = " `ds_maindata_debtors`.`dept_name` LIKE '%" . core::$db->res($inn) . "%'";
+    }
+}
+
+// ИНН или ФИО арганизатора или управляющего
+$au = trim(strip_tags(POST('au')));
+if ( isset($au) && ($au != '') ) {
+    $join_conditions['au']= 'LEFT JOIN `ds_maindata_organizers` ON `ds_maindata`.`organizer` = `ds_maindata_organizers`.`id`';
+    if ( is_numeric($au) ) {
+        $conditions['au'] = " `ds_maindata_organizers`.`inn` = '" . core::$db->res($au) . "'";
+    } else {
+        //$conditions['au'] = ' MATCH (`ds_maindata_organizers`.`org_name`, `ds_maindata_organizers`.`contact_person`, `ds_maindata_organizers`.`manager`) AGAINST ("»' . core::$db->res($au) . '»" IN BOOLEAN MODE) ';
+        $conditions['au'] = " CONCAT(`ds_maindata_organizers`.`org_name`, `ds_maindata_organizers`.`contact_person`, `ds_maindata_organizers`.`manager`) LIKE '%" . core::$db->res($au) . "%'";
+    }
+}
+
+//var_dump($conditions);
+//var_dump($join_conditions);
+//var_dump($selects);
+//die();
 
 //выборка по категориям
 if ($category == '-1') {

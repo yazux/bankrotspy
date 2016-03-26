@@ -37,13 +37,13 @@
                     
                     &nbsp;&nbsp;&nbsp;
                     
-                    <span class="icon_to_click_complaint" complaint_attr="<?=$id?>">
+                    <!--span class="icon_to_click_complaint" complaint_attr="<?=$id?>">
                         <?if($lotcomplaint):?>
                             <i class="icon-redstar-clicked"></i><span id="complaint_info">Снять жалобу с лота</span>
                         <?else:?>
                             <i class="icon-star-empty"></i><span id="complaint_info">Пожаловаться на лот</span>
                         <?endif?>
-                    </span>
+                    </span-->
                     
                     <? if( core::$rights == 100 ): ?>
                         <a href="<?= core::$home ?>/control/edititem?id=<?= $id ?>" class="edit aright">Изменить</a>
@@ -154,6 +154,15 @@
                             <td style="width: 300px;"><b> Задаток:</b><br/></td>
                             <td>10%</td>
                         </tr>
+                        <?if(($categoryId == 5) || ($categoryId == 6)):?>
+                        <tr>
+                            <td colspan="2">
+                                <p style="color: #ff0000; margin: 10px 30px 10px 30px; text-align: center;">
+                                    ВАЖНО! Источник данных меняет ссылку, поэтому аналоги могут быть из других городов, это не влияет на качество расчета рыночной цены.
+                                </p>
+                            </td>
+                        </tr>
+                        <?endif;?>
                         <? if(!empty($market_price)): ?>
                             <?= $market_price ?>
                         <? endif; ?>
