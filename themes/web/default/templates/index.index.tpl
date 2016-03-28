@@ -264,6 +264,8 @@
     </table>
 </div>
 
+</form>
+
 <div class="content bs_index_table">
     <div class="contbody" style="padding: 0; border:0;">
 
@@ -281,7 +283,7 @@
         <span class="export"><i class="fa fa-long-arrow-down"></i> Сохранить избранное в файл</span>
         </div>
         <script>
-            $(function(){
+            $(document).ready(function(){
                 $('.export').click(function(){
                     var arrow = $(this).find('i');
                     $('.export-block').slideToggle(function() {
@@ -422,8 +424,6 @@
 </div>
 
 <div id="navigation_container"></div>
-
-</form>
 
 <script type="text/javascript">
     
