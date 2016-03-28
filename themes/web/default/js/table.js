@@ -114,7 +114,7 @@ function build_page_navigation(page, total, kmess)
   }
 
     if(numpages > 1) {
-        outdata = '<div class="navig bs_index_table">' + outdata + '<span style="margin-left:100px;"><select name="kmess" id="kmess" style="width:70px;"><option value="20">20</option><option value="50">50</option><option value="100">100</option></select></span></div>';
+        outdata = '<div class="navig bs_index_table">' + outdata + '<span style="margin-left:100px;"><select name="kmess" id="kmess" style="width:70px;"><option value="20">20</option><option value="50">50</option><option value="100">100</option><option value="200">200</option></select></span></div>';
         $('#navigation_container').html(outdata);
     } else {
         $('#navigation_container').html(' ');
