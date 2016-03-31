@@ -478,6 +478,48 @@
         }
     });
     
+    $(document).on('click', '#all_favorite', function(){
+        var now_class = $('#all_favorite').attr('class');
+        var action = 'add';
+        var ids = [];
+        var i;
+        
+        if(now_class == 'icon-star-clicked') {
+            //Кнопка уже нажата
+            $('.icon_to_click_fav').each(function() {
+                $(this).find('.icon-star-clicked').attr('class', 'icon-star-empty');
+                $(this).find('.icon-star-clicked').attr('title', 'Добавить лоты в избранное');
+                i = $(this).attr('attr');
+                ids[i] = i;
+            });
+            action = 'delete';
+            
+            $('#all_favorite').attr('class', 'icon-star-empty');
+            $('#all_favorite').attr('title', 'Добавить все лоты в избранное');
+        } else {
+            //Кнопка не нажата
+            $('.icon_to_click_fav').each(function() {
+                $(this).find('.icon-star-empty').attr('class', 'icon-star-clicked');
+                $(this).find('.icon-star-empty').attr('title', 'Удалить лоты из избранного');
+                i = $(this).attr('attr');
+                ids[i] = i;
+            });
+            action = 'add';
+          
+            $('#all_favorite').attr('class', 'icon-star-clicked');
+            $('#all_favorite').attr('title', 'Удалить все лоты из избранного');
+        }
+        $.ajax({
+            method: 'POST',
+            url: '/tabledata/favorite_mass?action='+action,
+            //dataType: 'json',
+            data: ids,
+            success: function(result){
+                alert('ok');
+            }
+        });
+    });
+    
     $('#note_window .fa-times').on('click', function(){
         $(this).parent().parent().fadeOut();
     });
@@ -572,7 +614,7 @@
     });
     
     $(document).on('click', '#clear_set_table', function(){
-        simple();
+        //simple();
         clean_set_listener();
     });
 

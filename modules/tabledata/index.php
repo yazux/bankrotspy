@@ -34,7 +34,6 @@ if($type_price == 2) {
     $price_search = 'market_price';
 }
 
-
 $price_start = abs(intval(POST('price_start')));
 $price_end = abs(intval(POST('price_end')));
 
@@ -421,8 +420,8 @@ $res = core::$db->query($main_sql);
 
 $item_arr = [];
 
-if($svalue) {
-    $item_arr = explode(' ', $svalue);
+if($queryStr) {
+    $item_arr = explode(' ', $queryStr);
 }
 
 $all_statuses = get_all_status();

@@ -709,8 +709,8 @@ function clean_set_listener() {
     $('#search_type option[value="any"]').prop('selected', true);
     engine_settings.search_type = 'any';
 
-    $('#search_form_extend').val('0');
-    engine_settings.search_form_extend = 0;
+    //$('#search_form_extend').val('0');
+    //engine_settings.search_form_extend = 0;
 
     $('[name="price_start"]').val('');
     $('[name="price_end"]').val('');
