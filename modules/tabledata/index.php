@@ -92,7 +92,7 @@ if (in_array(3, $status_item)) {
 
 //echo POST('status').'|'.$status_need_future.'-'.$status_need_now.'-'.$status_need_last;
 
-$queryStr = POST('svalue');
+$queryStr = trim(POST('svalue'));
 if (mb_strlen( $queryStr ) < 3) {
     $queryStr = '';
 }
@@ -116,12 +116,13 @@ $now_page = abs(intval(POST('page')));
 if(!$now_page)
     $now_page = 1;
 $kmess = abs(intval(POST('kmess')));
-//if ( $kmess ) {
-//    if( ($kmess < 20) || ($kmess > 100) )
-//        $kmess = 20;
-//} else {
-//    $kmess = 20;
-//}
+if ( isset( $kmess )  ) {
+    if( ($kmess < 20) || ($kmess > 200) ) {
+            $kmess = 20;
+    }
+} else {
+    $kmess = 20;
+}
 $start =  $now_page ? $now_page * $kmess - $kmess : 0;
 
 //Условия для WHERE (компилятся через AND)
@@ -416,7 +417,7 @@ $main_sql = '
 
 $res = core::$db->query($main_sql);
 
-//echo core::$db->debugRawQuery();
+//echo core::$db->debugRawQuery();die();
 
 $item_arr = [];
 
