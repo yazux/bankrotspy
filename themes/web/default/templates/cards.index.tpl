@@ -29,9 +29,9 @@
                     
                     <span class="icon_to_click_hide" hide_attr="<?=$id?>">
                         <?if($lothide):?>
-                            <i class="icon-forward"></i><span id="hide_info">Удалить лот из скрытых</span>
+                            <i class="icon-forward"></i><span id="hide_info">Достать лот из мусора</span>
                         <?else:?>
-                            <i class="icon-delete"></i><span id="hide_info">Добавить лот в скрытые</span>
+                            <i class="icon-delete"></i><span id="hide_info">Отправить лот в мусор</span>
                         <?endif?>
                     </span>
                     
@@ -563,11 +563,11 @@
                     },
                     function(data) {
                         if(data == 'ok')
-                            create_notify('Лот был удален из скрытого!');
+                            create_notify('Лот восстановлен из мусора!');
                         else {
                             create_notify('Ошибка! Только для зарегистрированных пользователей!');
                             $(item).find('i').attr('class', 'icon-forward');
-                            $('#hide_info').text('Удалить лот из скрытого');
+                            $('#hide_info').text('Достать лот из мусора');
                         }
                     }
             );
@@ -582,12 +582,12 @@
                     },
                     function(data) {
                         if(data == 'ok')
-                            create_notify('Лот был добавлен в скрытое!');
+                            create_notify('Лот отправлен в мусор!');
                         else
                         {
                             create_notify('Ошибка! Только для зарегистрированных пользователей!');
                             $(item).find('i').attr('class', 'icon-delete');
-                            $('#hide_info').text('Добавить лот в скрытое');
+                            $('#hide_info').text('Отправить лот в мусор');
                         }
                     }
             );
