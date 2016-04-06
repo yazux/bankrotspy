@@ -30,7 +30,7 @@ class column_addition
     public function name()
     {
         return array(
-            'name' => '<i title="Дополнительно" class="">#</i>', //А, че, оказывается можно и иконку засунуть
+            'name' => '<i title="Дополнительно" class=""><i title="Добавить все лоты в избранное" class="icon-star-empty" id="all_favorite"></i></i>', //А, че, оказывается можно и иконку засунуть
             'style' => 'max-width: 50px;min-width: 40px;',
             'nosort' => 1
         );
@@ -44,9 +44,9 @@ class column_addition
             $favStar = '<i title="Добавить лот в избранное" class="icon-star-empty"></i>';
         
         if( $this->hide )
-            $hideStar = '<i title="Удалить лот из скрытых" class="icon-graystar-clicked"></i>';
+            $hideStar = '<i title="Достать лот из мусора" class="icon-forward"></i>';
         else
-            $hideStar = '<i title="Добавить лот в скрытые" class="icon-star-empty"></i>';
+            $hideStar = '<i title="Отправить лот в мусор" class="icon-delete"></i>';
         
         if($this->note)
             $note = '<i title="Комментарий к лоту" class="fa fa-sticky-note"></i>';

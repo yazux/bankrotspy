@@ -26,13 +26,13 @@ else
 if( !$action ) {
     //добавляем в скрытые
     if($item_added)
-        exit('Лот добавлен в скрытые.');
+        exit('Лот отправлен в мусор.');
   
     core::$db->query('INSERT INTO `ds_maindata_hide` SET `item` = "' . $item . '", `user_id` = "' . core::$user_id . '", `hidetime` = "'.time().'";');
 } else {
     //Удаляем из скрытого
     if(!$item_added)
-        exit('Лот удален из скрытых.');
+        exit('Лот восстановлен из мусора.');
     
     core::$db->query('DELETE FROM `ds_maindata_hide` WHERE `item` = "' . $item . '" AND `user_id` = "' . core::$user_id . '" LIMIT 1;');
     //core::$db->query('DELETE FROM `lot_notes` WHERE `lot_id` = "' . $item . '" AND `user_id` = "' . core::$user_id . '" LIMIT 1;');

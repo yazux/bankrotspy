@@ -337,6 +337,10 @@ if ( isset($favoriteFlag) && ($favoriteFlag == 1) ) {
 if ( isset($hideFlag) && ($hideFlag == 1) ) {
     $join_conditions['hide']= 'INNER JOIN `ds_maindata_hide` ON `ds_maindata_hide`.`item` = `ds_maindata`.`id`';
     $conditions['hide'] = " `ds_maindata_hide`.`user_id` = " . core::$user_id;
+} else {
+    $selects['hide'] = ' `ds_maindata_hide`.`hidetime` AS `hidetime`';
+    $join_conditions['hide']= 'LEFT JOIN `ds_maindata_hide` ON `ds_maindata_hide`.`item` = `ds_maindata`.`id`';
+    $conditions['hide'] = " `hidetime` IS NULL ";
 }
 
 //Компилим условия

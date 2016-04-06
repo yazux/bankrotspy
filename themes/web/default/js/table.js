@@ -119,7 +119,7 @@ function build_page_navigation(page, total, kmess)
     } else {
         $('#navigation_container').html(' ');
     }
-    $('#kmess option[value="'+engine_settings.kmess+'"]').prop('selected', true);
+    $('#kmess option[value="'+kmess+'"]').prop('selected', true);
 }
 
 //Работа с данными
@@ -240,6 +240,9 @@ function answer_load(data) {
         var all_data = '<thead><tr>' + head_table + '</tr></thead><tbody>'+ body_table+'</tbody>';
         $('.data_table').html(all_data);
 
+        if (engine_settings.kmess === undefined) {
+            engine_settings.kmess = 20;
+        }
         var start_int = ((engine_settings.page * engine_settings.kmess) - engine_settings.kmess)+1;
         var fin_int = (start_int + parseInt(engine_settings.kmess) - 1);
         if(fin_int > obj.count)
@@ -358,25 +361,25 @@ function action_hide(lot, action, item, hide) {
         //Удаляем из скрытого
         $.post("/tabledata/hide", data, function(data) {
             if (data == 'ok') {
-                create_notify('Лот был удален из скрытых!');
+                create_notify('Лот восстановлен из мусора!');
                 if( hide == true ) {
                     $('.data_table').find('[data-lotid='+lot+']').remove();
                 }
             } else {
                 create_notify('Данная функция доступна на платной подписке!');
-                $(item).find('i').attr('class', 'icon-graystar-clicked');
-                $(item).find('i').attr('title', 'Удалить лот из скрытых');
+                $(item).find('i').attr('class', 'icon-forward');
+                $(item).find('i').attr('title', 'Достать лот из мусора');
             }
         });
     } else {
         //добавляем в скрытое
         $.post("/tabledata/hide", data, function(data) {
             if (data == 'ok') {
-                create_notify('Лот был добавлен в скрытые!');
+                create_notify('Лот отправлен в мусор!');
             } else {
                 create_notify('Данная функция доступна на платной подписке!');
-                $(item).find('i').attr('class', 'icon-star-empty');
-                $(item).find('i').attr('title', 'Добавить лот в скрытые');
+                $(item).find('i').attr('class', 'icon-delete');
+                $(item).find('i').attr('title', 'Отправить лот в мусор');
             }
         });
     }
@@ -386,15 +389,15 @@ function listen_to_hide(item, hide) {
     var item_id = $(item).attr('hide_attr');
     var now_class = $(item).find('i').attr('class');
 
-    if(now_class == 'icon-graystar-clicked') {
+    if(now_class == 'icon-forward') {
       //Кнопка уже нажата
-      $(item).find('i').attr('class', 'icon-star-empty');
-      $(item).find('i').attr('title', 'Добавить лот в скрытые');
+      $(item).find('i').attr('class', 'icon-delete');
+      $(item).find('i').attr('title', 'Отправить лот в мусор');
       action_hide(item_id, 1, item, hide);
     } else {
       //Кнопка не нажата
-      $(item).find('i').attr('class', 'icon-graystar-clicked');
-      $(item).find('i').attr('title', 'Удалить лот из скрытых');
+      $(item).find('i').attr('class', 'icon-forward');
+      $(item).find('i').attr('title', 'Достать лот из мусора');
       action_hide(item_id, 0, item, hide);
     }
 }
@@ -571,14 +574,14 @@ function search_listener() {
             str_err += 'Конечная цена не может быть меньше начальной!'+ '<br/>';
     }
 
-  //Дополнительные поля
-  engine_settings.inn = $('[name="inn"]').val();
-  engine_settings.au = $('[name="au"]').val();
-  engine_settings.case_number = $('[name="case_number"]').val();
-  engine_settings.trade_number = $('[name="trade_number"]').val();
-  engine_settings.search_type = $('#search_type option:selected').val();
-  engine_settings.kmess = $('#kmess option:selected').val();
-  engine_settings.search_form_extend = $('#search_form_extend').val();
+    //Дополнительные поля
+    engine_settings.inn = $('[name="inn"]').val();
+    engine_settings.au = $('[name="au"]').val();
+    engine_settings.case_number = $('[name="case_number"]').val();
+    engine_settings.trade_number = $('[name="trade_number"]').val();
+    engine_settings.search_type = $('#search_type option:selected').val();
+    engine_settings.kmess = $('#kmess option:selected').val();
+    engine_settings.search_form_extend = $('#search_form_extend').val();
 
   //Регионы
   var choosen_regions = 0;

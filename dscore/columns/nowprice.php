@@ -31,6 +31,9 @@ class column_nowprice {
     public function process() {
         
         $price = $this->price;
+        if ( $price < 1 ) {
+            $price = 1;
+        }
 
         $price = strrev($price);
         $chars = preg_split('//', $price, -1, PREG_SPLIT_NO_EMPTY);

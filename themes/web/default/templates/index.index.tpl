@@ -87,7 +87,7 @@
                                <hr/>
                                <input style="width: 37px;" onmouseover="toolTip('Число или интервал,<br/> например: 2-5<hr/>Нельзя одновременно использовать Дату подачи и эту функцию.')" onmouseout="toolTip()" type="text" name="altintconf"/>
                                <span style="font-size: 13px">Дней до подачи</span>
-                               <input type="checkbox" name="hide" value="1" style="margin-left: 9px;"/> <span style="font-size: 13px">Скрытые</span>
+                               <input type="checkbox" name="hide" value="1" style="margin-left: 9px;"/> <span style="font-size: 13px">Мусор</span>
                                <!--input type="checkbox" name="favorite" value="1"/> <span style="font-size: 13px">Избранные</span-->
                                <br/>
                                
@@ -481,7 +481,7 @@
     $(document).on('click', '#all_favorite', function(){
         var now_class = $('#all_favorite').attr('class');
         var action = 'add';
-        var ids = [];
+        var ids = new Array();
         var i;
         
         if(now_class == 'icon-star-clicked') {
@@ -490,7 +490,9 @@
                 $(this).find('.icon-star-clicked').attr('class', 'icon-star-empty');
                 $(this).find('.icon-star-clicked').attr('title', 'Добавить лоты в избранное');
                 i = $(this).attr('attr');
-                ids[i] = i;
+                ids.push(i);
+                //console.log(i);
+                //ids.push(i);
             });
             action = 'delete';
             
@@ -502,20 +504,24 @@
                 $(this).find('.icon-star-empty').attr('class', 'icon-star-clicked');
                 $(this).find('.icon-star-empty').attr('title', 'Удалить лоты из избранного');
                 i = $(this).attr('attr');
-                ids[i] = i;
+                ids.push(i);
             });
+            //console.log(ids);
             action = 'add';
           
             $('#all_favorite').attr('class', 'icon-star-clicked');
             $('#all_favorite').attr('title', 'Удалить все лоты из избранного');
         }
+        
+        //console.log(action);
+        
         $.ajax({
-            method: 'POST',
-            url: '/tabledata/favorite_mass?action='+action,
-            //dataType: 'json',
-            data: ids,
+            method: 'GET',
+            url: '/tabledata/favoritemass?action='+action+'&ids='+ids,
+            dataType: 'json',
+            //data: 'act=add',
             success: function(result){
-                alert('ok');
+                create_notify(result.message);
             }
         });
     });

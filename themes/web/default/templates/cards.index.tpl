@@ -29,9 +29,9 @@
                     
                     <span class="icon_to_click_hide" hide_attr="<?=$id?>">
                         <?if($lothide):?>
-                            <i class="icon-graystar-clicked"></i><span id="hide_info">Удалить лот из скрытых</span>
+                            <i class="icon-forward"></i><span id="hide_info">Удалить лот из скрытых</span>
                         <?else:?>
-                            <i class="icon-star-empty"></i><span id="hide_info">Добавить лот в скрытые</span>
+                            <i class="icon-delete"></i><span id="hide_info">Добавить лот в скрытые</span>
                         <?endif?>
                     </span>
                     
@@ -132,10 +132,19 @@
                         </tr>
                         <tr>
                             <td style="width: 300px;"><b>Текущая цена:</b><br/></td>
-                            <td><i class="icon-rouble"></i> <?=$nowprice?>
+                            <td>
+                                <? 
+                                    if ($nowprice == 'Уточните цену на площадке'){
+                                        echo "<span style=\"color: #ff0000;\">";
+                                        echo "ВНИМАНИЕ! Расчетная цена, уточните цену на площадке";
+                                        echo "</span>";
+                                    } else {
+                                        echo "<i class=\"icon-rouble\"></i> " . $nowprice;
+                                    }
+                                ?>
 
                                 <?if($pricediff AND $pricediff != '-'):?>
-                                (<?=$pricediff?>%)
+                                    (<?=$pricediff?>%)
                                 <?endif?>
                             </td>
                         </tr>
@@ -557,7 +566,7 @@
                             create_notify('Лот был удален из скрытого!');
                         else {
                             create_notify('Ошибка! Только для зарегистрированных пользователей!');
-                            $(item).find('i').attr('class', 'icon-graystar-clicked');
+                            $(item).find('i').attr('class', 'icon-forward');
                             $('#hide_info').text('Удалить лот из скрытого');
                         }
                     }
@@ -577,7 +586,7 @@
                         else
                         {
                             create_notify('Ошибка! Только для зарегистрированных пользователей!');
-                            $(item).find('i').attr('class', 'icon-star-empty');
+                            $(item).find('i').attr('class', 'icon-delete');
                             $('#hide_info').text('Добавить лот в скрытое');
                         }
                     }
@@ -589,15 +598,15 @@
         var item_id = $(item).attr('hide_attr');
         var now_class = $(item).find('i').attr('class');
 
-        if( now_class == 'icon-graystar-clicked' ) {
+        if( now_class == 'icon-forward' ) {
             //Кнопка уже нажата
-            $(item).find('i').attr('class', 'icon-star-empty');
-            $('#hide_info').text('Добавить лот в скрытые');
+            $(item).find('i').attr('class', 'icon-delete');
+            $('#hide_info').text('Отправить лот в мусор');
             action_hide_cards(item_id, 1, item);
         } else {
             //Кнопка не нажата
-            $(item).find('i').attr('class', 'icon-graystar-clicked');
-            $('#hide_info').text('Удалить лот из скрытых');
+            $(item).find('i').attr('class', 'icon-forward');
+            $('#hide_info').text('Достать из мусора');
             action_hide_cards(item_id, 0, item);
         }
     }
