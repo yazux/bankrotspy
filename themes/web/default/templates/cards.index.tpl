@@ -136,6 +136,8 @@
                                 <? 
                                     if ($isCalculated == 1){
                                         echo "<span style=\"color: #ff0000;\">ВНИМАНИЕ! Расчетная цена, уточните цену на площадке</span>";
+                                    } elseif ($isCalculated == 2) {
+                                        echo "<i class=\"icon-rouble\"></i> " . $nowprice . " <span style=\"color: #ff0000;\">ВНИМАНИЕ! Расчетная цена, уточните цену на площадке</span>";
                                     } else {
                                         echo "<i class=\"icon-rouble\"></i> " . $nowprice;
                                     }

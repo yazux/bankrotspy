@@ -104,11 +104,10 @@ $lotprice = $lotprice['col'];
 $lotname = $tabledata->name($data['name'], 40, $data['id'], array(), $data['description']);
 $lotname = $lotname['onlydata'];
 
-$nowprice = $tabledata->nowprice($data['now_price'], $data['platform_id'], $data['type'], $data['grafik1']);
-//var_dump($nowprice);die();
+$nowprice = $tabledata->nowprice($data['now_price'], $data['platform_id'], $data['type'], $data['grafik1'], $data['calc_n_time']);
+//var_dump($nowprice);//die();
 $isCalculated = $nowprice['isCalculated'];
 $nowprice = $nowprice['col'];
-
 
 $status = $tabledata->beforedate($data['start_time'], $data['end_time'], $data['status_name'], $data['status']);
 $status = $status['col'];

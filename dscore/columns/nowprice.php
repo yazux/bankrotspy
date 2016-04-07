@@ -65,7 +65,7 @@ class column_nowprice {
         } elseif( ($this->type == 2) && ($this->calcNTime > 0) ) {
             $out_price = "<span onmouseout=\"toolTip()\" onmouseover=\"toolTip('Расчетная цена, уточните на площадке')\">" . $out_price . "</span>";
             $style .= ' color: #d27600;';
-            $isCalculated = 1;
+            $isCalculated = 2;
         }
 
         return array(
