@@ -134,10 +134,8 @@
                             <td style="width: 300px;"><b>Текущая цена:</b><br/></td>
                             <td>
                                 <? 
-                                    if ($nowprice == 'Уточните цену на площадке'){
-                                        echo "<span style=\"color: #ff0000;\">";
-                                        echo "ВНИМАНИЕ! Расчетная цена, уточните цену на площадке";
-                                        echo "</span>";
+                                    if ($isCalculated == 1){
+                                        echo "<span style=\"color: #ff0000;\">ВНИМАНИЕ! Расчетная цена, уточните цену на площадке</span>";
                                     } else {
                                         echo "<i class=\"icon-rouble\"></i> " . $nowprice;
                                     }

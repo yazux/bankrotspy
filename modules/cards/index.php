@@ -105,7 +105,10 @@ $lotname = $tabledata->name($data['name'], 40, $data['id'], array(), $data['desc
 $lotname = $lotname['onlydata'];
 
 $nowprice = $tabledata->nowprice($data['now_price'], $data['platform_id'], $data['type'], $data['grafik1']);
+//var_dump($nowprice);die();
+$isCalculated = $nowprice['isCalculated'];
 $nowprice = $nowprice['col'];
+
 
 $status = $tabledata->beforedate($data['start_time'], $data['end_time'], $data['status_name'], $data['status']);
 $status = $status['col'];
@@ -294,6 +297,7 @@ if (isset($data_org['org_name'])) {
 
 temp::assign('case_number', $data['case_number']);
 temp::HTMassign('nowprice', $nowprice);
+temp::assign('isCalculated', $isCalculated);
 temp::assign('lotnumber', $data['code']);
 temp::assign('lotfav', $in_favorite);
 temp::assign('lothide', $in_hide);
