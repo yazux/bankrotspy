@@ -9,14 +9,14 @@ class column_addition
     private $hide;
     public $category;
 
-    public function __construct($data)
+    public function __construct( $data = array() )
     {
         
-        $this->id = $data[0];
-        $this->favorite = $data[1];
-        $this->note = $data[2];
-        $this->category = $data[3];
-        $this->hide = $data[4];
+        $this->id = isset($data[0]) ? $data[0] : null;
+        $this->favorite = isset($data[1]) ? $data[1] : null;
+        $this->note = isset($data[2]) ? $data[2] : null;
+        $this->category = isset($data[3]) ? $data[3] : null;
+        $this->hide = isset($data[4]) ? $data[4] : null;
        
     }
 
