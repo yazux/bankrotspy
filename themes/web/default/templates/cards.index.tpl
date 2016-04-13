@@ -500,15 +500,12 @@
                         actionid: action,
                         formid: engine_formid
                     },
-                    function(data) {
-                        if(data == 'ok')
-                            create_notify('Лот был удален из изранного!');
-                        else
-                        {
-                            create_notify('Ошибка! Только для зарегистрированных пользователей!');
+                    function( data ) {
+                        if( data.error ) {
                             $(item).find('i').attr('class', 'icon-star-clicked');
                             $('#fav_info').text('Удалить лот из избранного');
                         }
+                        create_notify( data.message );
                     }
             );
         } else {
@@ -520,15 +517,12 @@
                         actionid: action,
                         formid: engine_formid
                     },
-                    function(data) {
-                        if(data == 'ok')
-                            create_notify('Лот был добавлен в избранное!');
-                        else
-                        {
-                            create_notify('Ошибка! Только для зарегистрированных пользователей!');
+                    function( data ) {
+                        if( data.error ) {
                             $(item).find('i').attr('class', 'icon-star-empty');
                             $('#fav_info').text('Добавить лот в избранное');
                         }
+                        create_notify( data.message );
                     }
             );
         }

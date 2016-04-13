@@ -307,28 +307,24 @@ function action_favorite(lot, action, item, hide) {
     if(action == 1) {
         //Удаляем из избранного
         $.post("/tabledata/favorite", data, function(data) {
-            if (data == 'ok') {
-                create_notify('Лот был удален из избранного!');
-                if(hide == true) {
-                    
-                    $('.data_table').find('[data-lotid='+lot+']').remove();
-                }
-            } else {
-                create_notify('Данная функция доступна на платной подписке!');
+            if ( data.error ) {
                 $(item).find('i').attr('class', 'icon-star-clicked');
                 $(item).find('i').attr('title', 'Удалить лот из избранного');
+            } else {
+                if(hide == true) {
+                    $('.data_table').find('[data-lotid='+lot+']').remove();
+                }
             }
+            create_notify( data.message );
         });
     } else {
         //добавляем в избранное
         $.post("/tabledata/favorite", data, function(data) {
-            if (data == 'ok') {
-                create_notify('Лот был добавлен в избранное!');
-            } else {
-                create_notify('Данная функция доступна на платной подписке!');
+            if ( data.error ) {
                 $(item).find('i').attr('class', 'icon-star-empty');
                 $(item).find('i').attr('title', 'Добавить лот в избранное');
             }
+            create_notify( data.message );
         });
     }
 }
