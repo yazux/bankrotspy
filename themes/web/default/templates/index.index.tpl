@@ -88,11 +88,11 @@
                                <input style="width: 37px;" onmouseover="toolTip('Число или интервал,<br/> например: 2-5<hr/>Нельзя одновременно использовать Дату подачи и эту функцию.')" onmouseout="toolTip()" type="text" name="altintconf"/>
                                <span style="font-size: 13px">Дней до подачи</span>
                                <input type="checkbox" name="hide" value="1" style="margin-left: 9px;"/> <span style="font-size: 13px">Мусор</span>
-                               <!--input type="checkbox" name="favorite" value="1"/> <span style="font-size: 13px">Избранные</span-->
                                <br/>
                                
                                <label>
                                    <input type="checkbox" name="new_lots" <?= !empty($new_lots) ? 'checked' : '' ?>/>&nbsp;&nbsp;Новые лоты за 72 час.
+                                    &nbsp;&nbsp;<input type="checkbox" name="more" value="1" style="margin-left: 9px;"/> <span style="font-size: 13px">Подробнее</span>
                                </label>
                                
                            </td>
@@ -474,7 +474,7 @@
         if(tab == '-1') {
             listen_to_hide(this, true);
         } else {
-            listen_to_hide(this, false);
+            listen_to_hide(this, true);
         }
     });
     

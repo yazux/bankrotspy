@@ -55,6 +55,8 @@ class defaultset {
             'new_lots' => 0,
             'inn' => '',
             'au' => '',
+            'hide' => 0,
+            'more' => 1,
             'case_number' => '',
             'trade_number' => '',
             'search_type' => '',
