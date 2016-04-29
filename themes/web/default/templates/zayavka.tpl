@@ -5,16 +5,29 @@
                 <div class="conthead">
 					<?
 					$titleplusone='';
-					if(isset($_GET['step']) AND $_GET['step']==2)
+					if(isset($_GET['dann']))
+					{
+						$titleplusone=' / Ваши данные';
+					}
+					elseif(isset($_GET['step']) AND $_GET['step']==1)
+					{
+						$titleplusone=' / Опросный лист';
+					}
+					elseif(isset($_GET['step']) AND $_GET['step']==2)
 					{
 						$titleplusone=' / Просмотр документа';
+					}
+					elseif(isset($_GET['step']) AND $_GET['step']==3)
+					{
+						$titleplusone=' / Скачать';
 					}
 					?>
                     <h2><i class="icon-key"></i>Сервис заполнения заявки<?=$titleplusone?></h2>
 					<?
-					if($myid==1378)
+					if($myid==1573)
 					{
 					//echo ''.$array_for_zaya['sqli'].'';
+					//echo core::$user_id;
 					}
 					?>
                 </div>
@@ -61,8 +74,36 @@ if(isset($_GET['files']) AND 2==1)
 	    echo '<br><br>Вы не загружали файлы!';
 	}
 }
+elseif(isset($_GET['docs']) AND function_orevel_search(array())==100)
+{
+
+	//print_r($ressw);
+	//echo '<br>111';
+	if(!empty($array_for_zaya['ressw']))
+	{
+		?>
+		<form method="POST" action="<? echo $array_for_zaya['page'].'?docs'; ?>">
+		<? temp::formid() ?>
+		<input type="hidden" name="router" value="mydocs">
+		<div style="display:inline-block; padding-right:10px; vertical-align:top;">
+		<?
+		foreach($array_for_zaya['ressw'] as $ress_k => $ress_v)
+		{
+		?>
+			<span class="under">Документ №<?=$ress_v['id']?></span><br>
+			<input type="text" name="doc<?=$ress_v['id']?>" value="<?=$ress_v['title']?>"><br>
+		<?
+		}
+		?>
+		</div>
+		<br><input type="submit" value="Обновить данные по документам">
+		</form>
+		<?
+	}
+}
 elseif(isset($_GET['dann']))
 {
+	//echo core::$user_id->rights;
 	?>
 	<form method="POST" action="<? echo $array_for_zaya['page'].'?dann'; ?>">
 	<? temp::formid() ?>
@@ -244,7 +285,7 @@ elseif(isset($_GET['step']) AND $_GET['step']==1)
 		<select id="s1" name="field31" style="width:520px;" placeholder="Ваш вариант">
 		<option class="jecEditableOption" value=""></option>
 		<option value="Конкурсному управляющему" selected>Конкурсному управляющему</option>
-		<option value="бщество с ограниченной ответственностью">Общество с ограниченной ответственностью</option>
+		<option value="Общество с ограниченной ответственностью">Общество с ограниченной ответственностью</option>
 		
 		</select>
 		<script language="javascript">
@@ -273,10 +314,21 @@ elseif(isset($_GET['step']) AND $_GET['step']==2)
 	//$_POST['field11'] - IP/FL/UL
 	//$_POST['field21'] - AU/PA/PP
 	
-	$doc = function_doc_search(array('doc'=>$_POST['field21'],'opf'=>$_POST['field11'],));
-	//echo '<br>-'.$doc['id'].'-';
 	
-	if(1==1)
+	$iddocument=0;
+	if(isset($_GET['id']))
+	{
+		$iddocument=$_GET['id'];
+	}
+	//
+	
+	//echo '<br>-'.$iddocument.'-';
+	$doc = function_doc_search(array('doc'=>$_POST['field21'],'opf'=>$_POST['field11'],'iddocument'=>$iddocument,));
+	//print_r($doc);
+	
+	
+	//echo '<br>-'.$doc['id'].'-';
+	if(isset($doc['id']) AND $doc['id']>0)
 	{
 	//замена в текстблоке полей
 	$lots = function_doc_lots(array('lots'=>$_POST['field34'],));
@@ -324,7 +376,8 @@ elseif(isset($_GET['step']) AND $_GET['step']==2)
 	$doc['textblock']=implode($array_for_zaya['mydann']['myu9'],explode('{myu9}',$doc['textblock']));
 	$doc['textblock']=implode($array_for_zaya['mydann']['myu0'],explode('{myu0}',$doc['textblock']));
 	
-	$pag = function_doc_draw(array('doc'=>$doc,'num'=>$_POST['field21'],'opf'=>$_POST['field11'],));
+	//echo '<br>-'.$doc['id'].'-';
+	$pag = function_doc_draw(array('doc'=>$doc,'num'=>$_POST['field21'],'opf'=>$_POST['field11'],'iddocument'=>$iddocument,));
 	//echo ''.$pag.'';
 	}
 }
@@ -340,7 +393,9 @@ elseif(isset($_GET['step']) AND $_GET['step']==3)
 		    <tr>
 			    <th colattr="" style="max-width: 200px; min-width: 0px;">Название</th>
 				<th colattr="" style="max-width: 200px; min-width: 0px;">Время</th>
-				<th colattr="" style="max-width: 200px; min-width: 0px;">PDF</th>
+				<th colattr="" style="max-width: 200px; min-width: 0px;">
+					PDF
+				</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -349,14 +404,32 @@ elseif(isset($_GET['step']) AND $_GET['step']==3)
 			{
 			?>
 		    <tr>
-			    <td style="text-align:center;"><?=$array_for_zaya_mydoc_v['title']?></td>
+			    <td style="text-align:center;">
+					<?
+						if(!empty($array_for_zaya_mydoc_v['title_user']))
+						{
+							echo $array_for_zaya_mydoc_v['title_user'];
+						}
+						else
+						{
+							echo $array_for_zaya_mydoc_v['title'];
+						}
+					?>
+				</td>
 				<td style="text-align:center;"><? echo date("d-m-Y H:i",$array_for_zaya_mydoc_v['datatime']); ?></td>
 				<td style="text-align:center;">
 					<!--
 					http://sergey.bankrot-spy.ru/pdfpage?doc=
 					http://sergey.bankrot-spy.ru/zayavka?doc=
 					-->
-				    <a target="_blank" href="<? echo implode('pdfpage',explode('zayavka',$array_for_zaya['page_l1'])); ?>?doc=<?=$array_for_zaya_mydoc_v['id']?>">Перейти</a>
+				    <a style="padding:0px 20px 0px 0px;" target="_blank" href="<? echo implode('pdfpage',explode('zayavka',$array_for_zaya['page_l1'])); ?>?doc=<?=$array_for_zaya_mydoc_v['id']?>">Скачать</a>
+					
+					
+						<a tyle="display:inline-block; padding:3px 0px 3px 45px;" title="Редактировать" href="<?=$array_for_zaya['page']?>?step=2&id=<?=$array_for_zaya_mydoc_v['id']?>"><i class="icon-edit"></i></a>
+					
+					
+						<a style="display:inline-block; padding:3px 0px 3px 5px;" title="Удалить" href="<?=$array_for_zaya['page']?>?step=3&did=<?=$array_for_zaya_mydoc_v['id']?>"><i class="icon-delete"></i></a>
+					
 				</td>
 			</tr>
 			<?
@@ -400,6 +473,14 @@ else
 				<div class="elmenu"><a href="<?=$array_for_zaya['page']?>?step=1">Шаг 1. Опросный лист</a></div>
 				<div class="elmenu"><a href="<?=$array_for_zaya['page']?>?step=2">Шаг 2. Просмотр документа</a></div>
 				<div class="elmenu"><a href="<?=$array_for_zaya['page']?>?step=3">Шаг 3. Ваши заявки (скачать)</a></div>
+				<?
+				if(function_orevel_search(array())==100 AND 1==1)
+				{
+				?>
+				<div class="elmenu"><a href="<?=$array_for_zaya['page']?>?docs">Названия документов</a></div>
+				<?
+				}
+				?>
                 <div class="down_rmenu"> </div>
             </div>
         </td>
