@@ -10,6 +10,28 @@ $array_for_zaya['mydann'] = array();
 $array_for_zaya['page'] = 'http://bankrot-spy.ru/zayavka';//http://sergey.bankrot-spy.ru/zayavka
 $array_for_zaya['page_l1'] = 'http://bankrot-spy.ru/pdfpage';//http://sergey.bankrot-spy.ru/pdfpage
 
+if(isset($_GET['did']))
+{
+	$sql="DELETE FROM `ds_textblock` WHERE `id`='".$_GET['did']."' AND `user_id`='".$myid."'";
+	core::$db->query($sql);
+}
+
+function function_orevel_search($param)
+{
+	global $myid;
+	$sql="SELECT `rights` FROM `ds_users` WHERE `id`='".$myid."'";
+	$result=0;
+	$resultx = core::$db->query($sql);
+	if(!empty($resultx))
+	{
+		foreach($resultx as $resultx_k => $resultx_v)
+		{
+			$result = $resultx_v['rights'];
+		}
+	}
+	return $result;
+}
+
 function function_file_in_url_join($param){
 	$return='';
 	$string_to_search='';
@@ -73,8 +95,11 @@ function function_file_in_url_join($param){
 //FUNC
 function function_doc_search($param)
 {
-    $result = '';
-	if(!empty($param['doc']))
+	global $myid;
+    //print_r($param);
+	
+	$result = '';
+	if(!empty($param['doc']) OR (isset($param['iddocument']) AND $param['iddocument']!=0))
 	{
 		
 	    //$result = $param['doc'];
@@ -108,8 +133,30 @@ function function_doc_search($param)
 		{
 			$id+=2;
 		}
-		
 		$sql1 = "SELECT * FROM `ds_textblock` WHERE `id`='".$id."'";
+		
+		if(isset($param['iddocument']) AND $param['iddocument']!=0)
+		{
+			$id=$param['iddocument'];
+			
+			$sql1 = "
+				SELECT
+				`t2`.`id`,
+				`t1`.`user_id`,
+				`t1`.`razdel`,
+				`t1`.`title`,
+				`t1`.`textblock`,
+				`t1`.`datatime`
+				FROM
+				`ds_textblock` as `t1`
+				LEFT JOIN `ds_textblock` as `t2` ON `t1`.`title`=`t2`.`id`
+				WHERE
+				`t1`.`id`='".$id."' AND `t1`.`user_id`='".$myid."'
+			";
+		}
+
+		//print_r($sql1);
+		
 	    $res1 = core::$db->query($sql1);
 	    if(!empty($res1))
 	    {
@@ -135,6 +182,12 @@ function function_doc_draw($param)
 	// - modules/ckeditor/
 	// - dscore/libs/ckeditor/
 	
+	$olddocument=0;
+	if(isset($param['iddocument']))
+	{
+		$olddocument=$param['iddocument'];
+	}
+	
 	echo '
 	<div style="margin:00px -10px 00px -10px;">
 	<form method="POST" action="'.$array_for_zaya['page'].'?step=3">
@@ -143,6 +196,12 @@ function function_doc_draw($param)
 	echo '
 	<input type="hidden" name="router" value="step3">
 	<input type="hidden" name="doc" value="'.$param['doc']['id'].'">
+	<input type="hidden" name="olddocument" value="'.$olddocument.'">
+	
+	<br><span class="under">Название документа</span><br>
+    <input type="text" name="title_user" value="" placeholder="Название документа">
+	<br><br>
+	
 	<script type="text/javascript" src="./dscore/libs/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="./dscore/libs/ckeditor/adapters/jquery.js"></script>
 	<script type="text/javascript">$(\'#editor1\').ckeditor(function( textarea ){$(textarea).val();});</script>
@@ -260,11 +319,17 @@ if(
 	AND $myid>0
 )
 {
-    $sqli="
+    if(isset($_POST['olddocument']))
+	{
+		$sqld="DELETE FROM `ds_textblock` WHERE `id`='".$_POST['olddocument']."' AND `user_id`='".$myid."'";
+		core::$db->query($sqld);
+	}
+	
+	$sqli="
 		INSERT INTO `ds_textblock`
-		(`user_id`,`razdel`,`title`,`textblock`,`datatime`)
+		(`user_id`,`razdel`,`title`,`title_user`,`textblock`,`datatime`)
 		VALUES
-		('".$myid."','1','".htmlspecialchars($_POST['doc'])."','".htmlspecialchars($_POST['editor1'])."','".time()."')
+		('".$myid."','1','".htmlspecialchars($_POST['doc'])."','".htmlspecialchars($_POST['title_user'])."','".htmlspecialchars($_POST['editor1'])."','".time()."')
 	";
     //core::$db->query($sqli);
 	$array_for_zaya['sqli']=$sqli;
@@ -290,6 +355,29 @@ if(isset($_POST['router']) AND $_POST['router']=='mydann')
 	core::$db->query($sqli);
 }
 
+//POST
+if(isset($_POST['router']) AND $_POST['router']=='mydocs')
+{
+	//print_r($_POST);
+	//echo '<br>-проход 0';
+	foreach($_POST as $post_k => $post_v)
+	{
+		if(substr($post_k,0,3)=='doc')
+		{
+			//echo '<br>+'.$post_v.'+';
+			$sqlf="UPDATE `ds_textblock` SET `title`='".htmlspecialchars($post_v)."' WHERE `id`='".trim(substr($post_k,3,5))."'";
+			//echo '<br>-'.$sqlf.'-';
+			core::$db->query($sqlf);
+		}
+		else
+		{
+			//echo '<br>-'.$post_v.'-';
+		}
+		
+	}
+	
+}
+
 //ROU
 if(isset($_GET['files']))
 {
@@ -301,6 +389,28 @@ if(isset($_GET['files']))
 	$array_for_zaya['myfilesthis'] = function_file_in_url_join(array('url'=>$userdirs,));
 	//$array_for_zaya['myfilesthis'] = array();
 }
+
+
+if(isset($_GET['docs']))
+{
+    $sqld = "SELECT * FROM `ds_textblock` WHERE `user_id`='0' AND `razdel`='0'";
+	$ressw = core::$db->query($sqld);
+	//print_r($ressw);
+	
+	if(($ressw->num_rows)>0)
+	{
+		$array_for_zaya['ressw']=$ressw;
+		/*
+		foreach($ressw as $ress_k => $ress_v)
+		{
+			print_r($ress_v);
+		}
+		*/
+	}
+	
+	
+}
+
 
 if(isset($_GET['dann']))
 {
@@ -335,6 +445,7 @@ if(isset($_GET['step']) AND $_GET['step']==3)
 		SELECT
 			`t1`.`id`,
 			`t2`.`title`,
+			`t1`.`title_user`,
 			`t1`.`datatime`
 		FROM `ds_textblock` as `t1`
 		LEFT JOIN `ds_textblock` as `t2` ON `t1`.`title`=`t2`.`id`
