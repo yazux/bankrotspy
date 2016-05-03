@@ -6,6 +6,7 @@ if(!$id)
   denied();
 
 $access = false;
+$realPriceIsNumeric = false;
         
 if(in_array(core::$rights, [10,11,100])) {
     $access = true;
@@ -132,6 +133,8 @@ if($data['cat_id'] != 0 AND $data['cat_id'] != 4 AND $data['cat_id'] != 8 AND $d
     $needshow_add_price = 1;
     $realprice = $tabledata->marketprice($data['market_price'], $access);
 
+    $realPriceIsNumeric = $realprice['isNumeric'];
+    var_dump($realprice);
     $realprice = $realprice['col'];
   
     $profitrub = $tabledata->profitrub($data['profit_rub'],  $data['platform_id'], $data['type'], $access, $data['grafik1']);
@@ -220,6 +223,7 @@ temp::HTMassign('lotdescr', $lotname);
 if(isset($needshow_add_price)) {
     temp::assign('needshow_add_price', $needshow_add_price);
     temp::HTMassign('realprice', $realprice);
+    temp::HTMassign('realPriceIsNumeric', $realPriceIsNumeric);
     temp::HTMassign('profitrub', $profitrub);
     temp::HTMassign('profitproc', $profitproc);
 }
