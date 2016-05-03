@@ -29,6 +29,12 @@
         <td class="right_back_menu_index_set">
             <span id="on_load_new_page"></span>
             
+            <? if ( $main_adv_text ) : ?>
+            <div class="right_panel_conf" style="margin-bottom: 20px; text-align: justify;">
+                <div style="margin: 0px 20px; padding: 10px 0px; text-align: justify;"><?=$main_adv_text?></div>
+            </div>
+            <? endif ?>
+            
             <div class="right_panel_conf">
                 <div class="menu_rt_index">
                     Настройки поиска:
@@ -73,7 +79,7 @@
                                    </tr>
                                </table>
                            </td>
-                           <td valign="top">
+                           <td valign="top" style="position: relative;">
                                <i class="icon-calendar"></i> Дата подачи:<br/>
                                <table class="nomarginnews">
                                    <tr>
@@ -85,23 +91,23 @@
                                </table>
 
                                <hr/>
-                               <input style="width: 37px;" onmouseover="toolTip('Число или интервал,<br/> например: 2-5<hr/>Нельзя одновременно использовать Дату подачи и эту функцию.')" onmouseout="toolTip()" type="text" name="altintconf"/>
-                               <span style="font-size: 13px">Дней до подачи</span>
-                               <input type="checkbox" name="hide" value="1" style="margin-left: 9px;"/> <span style="font-size: 13px">Мусор</span>
-                               <br/>
                                
-                               <label>
-                                   <input type="checkbox" name="new_lots" <?= !empty($new_lots) ? 'checked' : '' ?>/>&nbsp;&nbsp;Новые лоты за 72 час.
-                                    &nbsp;&nbsp;<input type="checkbox" name="more" value="1" style="margin-left: 9px;"/> <span style="font-size: 13px">Подробнее</span>
-                               </label>
-                               
+                                <div style="position: absolute; left: 10px; top: 100px; width: 260px;">
+                                    <input style="width: 37px;" onmouseover="toolTip('Число или интервал,<br/> например: 2-5<hr/>Нельзя одновременно использовать Дату подачи и эту функцию.')" onmouseout="toolTip()" type="text" name="altintconf"/>
+                                    <span style="font-size: 13px">Дней до подачи</span>
+                                    <input type="checkbox" name="hide" value="1" style="margin-left: 10px;"/> <span style="font-size: 13px">Мусор</span>
+                                </div>
+                                <div style="position: absolute; left: 10px; top: 135px; width: 260px;">
+                                    <input type="checkbox" name="new_lots" <?= !empty($new_lots) ? 'checked' : '' ?>/><span style="font-size: 13px">Новые лоты за 72 часа</span>
+                                    <input type="checkbox" name="more" value="1" style="margin-left: 17px;"/> <span style="font-size: 13px">Подробнее</span>
+                               </div>
                            </td>
                            
                            <td valign="top" id="extend_td" style="display: none; width: 320px;">
                                <i class="icon-search"></i> Дополнительные поля:<br/>
                                <table class="nomarginnews">
                                    <tr>
-                                       <td style="width: 90px;">Должник: </td><td style="white-space: nowrap;"><input type="text" name="inn"/></td>
+                                       <td style="width: 90px;">Банкрот: </td><td style="white-space: nowrap;"><input type="text" name="inn"/></td>
                                    </tr>
                                    <tr>
                                        <td style="width: 90px;">Арбитр. управ. и Организатор: </td><td style="white-space: nowrap;"><input type="text" name="au"/></td>

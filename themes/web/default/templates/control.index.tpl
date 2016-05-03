@@ -29,6 +29,11 @@
         <?=func::tagspanel('messarea');?>
         <div class="texta"><textarea id="messarea" name="mess" rows="5"><?=$text?></textarea></div>
     </div>
+    <div class="contbody_forms">
+        <b>Рекламный текст на главной:</b><br/>
+        <?=func::tagspanel('main_adv_text');?>
+        <div class="texta"><textarea id="main_adv_text" name="main_adv_text" rows="5"><?=$main_adv_text?></textarea></div>
+    </div>
     <div class="contfin_forms">
         <input name="submit" type="submit" value="<?=lang('save')?>" />
     </div>
