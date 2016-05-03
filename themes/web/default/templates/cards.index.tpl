@@ -163,7 +163,7 @@
                             <td style="width: 300px;"><b> Задаток:</b><br/></td>
                             <td>10%</td>
                         </tr>
-                        <?if(($categoryId == 5) || ($categoryId == 6)):?>
+                        <?if((($categoryId == 5) || ($categoryId == 6)) && $realPriceIsNumeric):?>
                         <tr>
                             <td colspan="2">
                                 <p style="color: #ff0000; margin: 10px 30px 10px 30px; text-align: center;">
