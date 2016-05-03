@@ -1275,3 +1275,55 @@ a.get_lot_price:hover {
     height:20px;
     width:20px;
 }
+
+// slider
+.scroll-text {
+  border: 1px solid red;
+  width: 400px;
+  height: 4.5em;
+  overflow: hidden;
+}
+.scroll-text ul {
+  width: 800px;
+  height: 140px;
+  overflow: hidden;
+  margin: 0;
+}
+.scroll-text ul li {
+  height: 1.5em;
+}
+.scroll-img {
+//  border: 1px solid gray;
+  max-width: 1003px;
+  height: 120px;
+  overflow: hidden;
+  font-size: 0;
+}
+.scroll-img ul {
+  width: 5700px;
+  /*height: 600px;*/
+  margin: 0;
+}
+.scroll-img ul li {
+  display: inline-block;
+  margin: 10px 0 10px 10px;
+}
+
+.scroll-img ul li img{
+  width: 132px;
+}
+#demo4.scroll-img ul,
+#demo5.scroll-img ul {
+    width: 5700px;
+  /*width: 100%;*/
+}
+#demo5-btn {
+  width: 100%;
+  padding-top: 10px;
+  text-align: center;
+}
+.btn{
+    padding: 5px;
+    border-radius: 5px;
+}
+// end slider

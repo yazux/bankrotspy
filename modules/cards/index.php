@@ -34,8 +34,9 @@ $twr = core::$db->query('SELECT
     LEFT JOIN `ds_maindata_hint` ON `ds_maindata`.`id` = `ds_maindata_hint`.`id`
     WHERE `ds_maindata`.`id` = "'.$id.'"
     ;');
+
 if(!$twr->num_rows)
-  denied();
+    denied();
 
 $data = $twr->fetch_assoc();
 
@@ -63,6 +64,15 @@ if($countLot > 1 ) {
             $row['average'] = $data['market_price'];
         }
         $similarDataPrice[] = $row;
+    }
+}
+
+// Получение фотографий лота если есть
+$fotos = null;
+$req = core::$db->query('SELECT * FROM `lot_fotos` WHERE `lotid` = "'.core::$db->res($data['id']).'"');
+if( $req->num_rows ) {
+    while( $foto = $req->fetch_assoc() ) {
+        $fotos[] = 'http://foto.bankrot-spy.ru' . $foto['link'];
     }
 }
 
@@ -134,7 +144,7 @@ if($data['cat_id'] != 0 AND $data['cat_id'] != 4 AND $data['cat_id'] != 8 AND $d
     $realprice = $tabledata->marketprice($data['market_price'], $access);
 
     $realPriceIsNumeric = $realprice['isNumeric'];
-    var_dump($realprice);
+    //var_dump($realprice);
     $realprice = $realprice['col'];
   
     $profitrub = $tabledata->profitrub($data['profit_rub'],  $data['platform_id'], $data['type'], $access, $data['grafik1']);
@@ -298,7 +308,12 @@ if (isset($data_org['org_name'])) {
     }
 }
 
+if ( $fotos ) {
+    temp::HTMassign('fotos', $fotos);
+}
+
 temp::assign('case_number', $data['case_number']);
+temp::assign('reportLink', $data['reportlink']);
 temp::HTMassign('nowprice', $nowprice);
 temp::assign('isCalculated', $isCalculated);
 temp::assign('lotnumber', $data['code']);

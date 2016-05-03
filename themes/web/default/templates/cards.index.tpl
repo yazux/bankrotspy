@@ -8,6 +8,38 @@
                         Помощь и участие в торгах
                     </a>
                 </div>
+                
+                <? if ($fotos) : ?>
+                    <script src="/themes/web/default/js/jquery.scrollbox.min.js"></script>
+                    <div id="demo5" class="scroll-img">
+                        <ul>
+                        <? 
+                        foreach( $fotos as $foto ) {
+                            echo '<li><img src="'.$foto.'"></li>';
+                        } 
+                        ?>
+                        </ul>
+                    </div>
+                    <div id="demo5-btn">
+                        <a class="button" id="demo5-backward">Назад</a>
+                        <a class="button" id="demo5-forward">Вперед</a>
+                    </div>
+                    <script>
+                        $(document).ready(function(){
+                            //alert('kkkk');
+                            $('#demo5').scrollbox({
+                                direction: 'h',
+                                distance: 134
+                            });
+                            $('#demo5-backward').click(function () {
+                                $('#demo5').trigger('backward');
+                            });
+                            $('#demo5-forward').click(function () {
+                                $('#demo5').trigger('forward');
+                            });
+                        });
+                    </script>
+                <? endif ?>
 
                 <div class="contbody_forms">
                     <b>Название лота:</b><br/>
@@ -60,7 +92,6 @@
                      </table>
                  </div>
                  <style>
-
                     .fa {
                         color:#d27600;
                     }
@@ -376,6 +407,15 @@
                             <td>
                             <center>Информация доступна на тарифном плане VIP</center>
                             </td>
+                        </tr>
+                    </table>
+                    <? endif; ?>
+                    
+                    <? if (strlen($reportLink) > 5) : ?>
+                    <table class="lottable">
+                        <tr>
+                            <td style="width: 300px;"><b>Отчет оценщика:</b></td>
+                            <td><i class="icon-globe-table"></i> <a href="<?=$reportLink?>" target="_blank">Отчет</a></td>
                         </tr>
                     </table>
                     <? endif; ?>
