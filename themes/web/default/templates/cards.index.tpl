@@ -250,10 +250,12 @@
                                 <?endif?>
                             </td>
                         </tr>
+                        <? if ( strlen($case_number) > 5 ) : ?>
                         <tr>
                             <td style="width: 300px;"><b>Дело №:</b><br/></td>
                             <td><?=$case_number?></td>
                         </tr>
+                        <? endif ?>
                         <tr>
                             <td style="width: 300px;"><b>ИНН банкрота:</b><br/></td>
                             <td><?if($debtor_inn):?><?=$debtor_inn?><?else:?><span style="color:#95968d">нет</span><?endif?></td>
