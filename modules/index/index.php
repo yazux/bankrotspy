@@ -190,6 +190,7 @@ temp::HTMassign('categories', $categories);
 // Вывод рекламного блока
 if ( isset(core::$set['main_adv_text']) && (core::$set['main_adv_text'] != '') ) {
     temp::HTMassign('main_adv_text', text::out(core::$set['main_adv_text'], 0));
+//    temp::HTMassign('main_adv_text', core::$set['main_adv_text']);
 }
 
 if(isset($now_profile_id)) {
