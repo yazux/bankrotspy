@@ -2,5 +2,7 @@
     <div class="menu_rt">Админпанель:</div>
     <div class="elmenu"><a href="<?=$home?>/control/categories">Категории</a></div>
     <div class="elmenu"><a href="<?=$home?>/control/categoryfix">Пересортировка</a></div>
+    <div class="elmenu"><a href="<?=$home?>/control/regions">Новые регионы</a></div>
+    <div class="elmenu"><a href="<?=$home?>/control/regionsfix">Определение регионов</a></div>
     <div class="down_rmenu"> </div>
 </div>

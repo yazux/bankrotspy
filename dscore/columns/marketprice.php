@@ -36,6 +36,7 @@ class column_marketprice
         $price = $this->price;
         $access = $this->access;
         $addition = '';
+        $isNumeric = false;
         
         if($price && $access) {
             $price = strrev($price);
@@ -57,7 +58,8 @@ class column_marketprice
             if(!empty($this->hint)) {
                 $addition = ' onmouseover="toolTip(\''.$this->hint.'\')" onmouseout="toolTip()" ';
             }
-            
+            $isNumeric = true;
+
         } elseif(!$price && $access) { 
             if ($this->getPrice) {
                 $out_price = '<a class="get_lot_price"><span>Узнать</span></a>';
@@ -74,7 +76,8 @@ class column_marketprice
         return array(
             'col' => $out_price,
             'style' => 'text-align:center;',
-            'addition' => $addition
+            'addition' => $addition,
+            'isNumeric' => $isNumeric
         );
     }
 }

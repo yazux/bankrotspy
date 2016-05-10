@@ -187,6 +187,12 @@ temp::HTMassign('types_set', $types);
 temp::HTMassign('types_def', $types_def);
 temp::HTMassign('categories', $categories);
 
+// Вывод рекламного блока
+if ( isset(core::$set['main_adv_text']) && (core::$set['main_adv_text'] != '') ) {
+    temp::HTMassign('main_adv_text', text::out(core::$set['main_adv_text'], 0));
+//    temp::HTMassign('main_adv_text', core::$set['main_adv_text']);
+}
+
 if(isset($now_profile_id)) {
     temp::assign('now_profile_id', $now_profile_id);
     temp::assign('now_profile_name', $now_profile_name);

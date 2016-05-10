@@ -8,6 +8,38 @@
                         Помощь и участие в торгах
                     </a>
                 </div>
+                
+                <? if ($fotos) : ?>
+                    <script src="/themes/web/default/js/jquery.scrollbox.min.js"></script>
+                    <div id="demo5" class="scroll-img">
+                        <ul>
+                        <? 
+                        foreach( $fotos as $foto ) {
+                            echo '<li><img src="'.$foto.'"></li>';
+                        } 
+                        ?>
+                        </ul>
+                    </div>
+                    <div id="demo5-btn">
+                        <a class="button" id="demo5-backward">Назад</a>
+                        <a class="button" id="demo5-forward">Вперед</a>
+                    </div>
+                    <script>
+                        $(document).ready(function(){
+                            //alert('kkkk');
+                            $('#demo5').scrollbox({
+                                direction: 'h',
+                                distance: 134
+                            });
+                            $('#demo5-backward').click(function () {
+                                $('#demo5').trigger('backward');
+                            });
+                            $('#demo5-forward').click(function () {
+                                $('#demo5').trigger('forward');
+                            });
+                        });
+                    </script>
+                <? endif ?>
 
                 <div class="contbody_forms">
                     <b>Название лота:</b><br/>
@@ -60,7 +92,6 @@
                      </table>
                  </div>
                  <style>
-
                     .fa {
                         color:#d27600;
                     }
@@ -134,10 +165,10 @@
                             <td style="width: 300px;"><b>Текущая цена:</b><br/></td>
                             <td>
                                 <? 
-                                    if ($nowprice == 'Уточните цену на площадке'){
-                                        echo "<span style=\"color: #ff0000;\">";
-                                        echo "ВНИМАНИЕ! Расчетная цена, уточните цену на площадке";
-                                        echo "</span>";
+                                    if ($isCalculated == 1){
+                                        echo "<span style=\"color: #ff0000;\">ВНИМАНИЕ! Расчетная цена, уточните цену на площадке</span>";
+                                    } elseif ($isCalculated == 2) {
+                                        echo "<i class=\"icon-rouble\"></i> " . $nowprice . " <span style=\"color: #ff0000;\">ВНИМАНИЕ! Расчетная цена, уточните цену на площадке</span>";
                                     } else {
                                         echo "<i class=\"icon-rouble\"></i> " . $nowprice;
                                     }
@@ -163,7 +194,7 @@
                             <td style="width: 300px;"><b> Задаток:</b><br/></td>
                             <td>10%</td>
                         </tr>
-                        <?if(($categoryId == 5) || ($categoryId == 6)):?>
+                        <?if((($categoryId == 5) || ($categoryId == 6)) && $realPriceIsNumeric):?>
                         <tr>
                             <td colspan="2">
                                 <p style="color: #ff0000; margin: 10px 30px 10px 30px; text-align: center;">
@@ -250,10 +281,12 @@
                                 <?endif?>
                             </td>
                         </tr>
+                        <? if ( strlen($case_number) > 5 ) : ?>
                         <tr>
                             <td style="width: 300px;"><b>Дело №:</b><br/></td>
                             <td><?=$case_number?></td>
                         </tr>
+                        <? endif ?>
                         <tr>
                             <td style="width: 300px;"><b>ИНН банкрота:</b><br/></td>
                             <td><?if($debtor_inn):?><?=$debtor_inn?><?else:?><span style="color:#95968d">нет</span><?endif?></td>
@@ -374,6 +407,15 @@
                             <td>
                             <center>Информация доступна на тарифном плане VIP</center>
                             </td>
+                        </tr>
+                    </table>
+                    <? endif; ?>
+                    
+                    <? if (strlen($reportLink) > 5) : ?>
+                    <table class="lottable">
+                        <tr>
+                            <td style="width: 300px;"><b>Отчет оценщика:</b></td>
+                            <td><i class="icon-globe-table"></i> <a href="<?=$reportLink?>" target="_blank">Отчет</a></td>
                         </tr>
                     </table>
                     <? endif; ?>
@@ -500,15 +542,12 @@
                         actionid: action,
                         formid: engine_formid
                     },
-                    function(data) {
-                        if(data == 'ok')
-                            create_notify('Лот был удален из изранного!');
-                        else
-                        {
-                            create_notify('Ошибка! Только для зарегистрированных пользователей!');
+                    function( data ) {
+                        if( data.error ) {
                             $(item).find('i').attr('class', 'icon-star-clicked');
                             $('#fav_info').text('Удалить лот из избранного');
                         }
+                        create_notify( data.message );
                     }
             );
         } else {
@@ -520,15 +559,12 @@
                         actionid: action,
                         formid: engine_formid
                     },
-                    function(data) {
-                        if(data == 'ok')
-                            create_notify('Лот был добавлен в избранное!');
-                        else
-                        {
-                            create_notify('Ошибка! Только для зарегистрированных пользователей!');
+                    function( data ) {
+                        if( data.error ) {
                             $(item).find('i').attr('class', 'icon-star-empty');
                             $('#fav_info').text('Добавить лот в избранное');
                         }
+                        create_notify( data.message );
                     }
             );
         }

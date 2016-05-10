@@ -16,7 +16,8 @@ class loader_place
     $res = core::$db->query('SELECT * FROM  `ds_maindata_regions` WHERE `number` != "-1" ORDER BY `id` DESC ;');
     while($data = $res->fetch_array())
     {
-      $allplaces[$data['number']] = $data['genitive'];
+      $allplaces[$data['number']] = $data['name'];
+//      $allplaces[$data['number']] = $data['genitive'];
     }
     return $allplaces;
   }

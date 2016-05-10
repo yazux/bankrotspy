@@ -307,28 +307,24 @@ function action_favorite(lot, action, item, hide) {
     if(action == 1) {
         //Удаляем из избранного
         $.post("/tabledata/favorite", data, function(data) {
-            if (data == 'ok') {
-                create_notify('Лот был удален из избранного!');
-                if(hide == true) {
-                    
-                    $('.data_table').find('[data-lotid='+lot+']').remove();
-                }
-            } else {
-                create_notify('Данная функция доступна на платной подписке!');
+            if ( data.error ) {
                 $(item).find('i').attr('class', 'icon-star-clicked');
                 $(item).find('i').attr('title', 'Удалить лот из избранного');
+            } else {
+                if(hide == true) {
+                    $('.data_table').find('[data-lotid='+lot+']').remove();
+                }
             }
+            create_notify( data.message );
         });
     } else {
         //добавляем в избранное
         $.post("/tabledata/favorite", data, function(data) {
-            if (data == 'ok') {
-                create_notify('Лот был добавлен в избранное!');
-            } else {
-                create_notify('Данная функция доступна на платной подписке!');
+            if ( data.error ) {
                 $(item).find('i').attr('class', 'icon-star-empty');
                 $(item).find('i').attr('title', 'Добавить лот в избранное');
             }
+            create_notify( data.message );
         });
     }
 }
@@ -376,6 +372,9 @@ function action_hide(lot, action, item, hide) {
         $.post("/tabledata/hide", data, function(data) {
             if (data == 'ok') {
                 create_notify('Лот отправлен в мусор!');
+                if( hide == true ) {
+                    $('.data_table').find('[data-lotid='+lot+']').remove();
+                }
             } else {
                 create_notify('Данная функция доступна на платной подписке!');
                 $(item).find('i').attr('class', 'icon-delete');
@@ -481,6 +480,7 @@ function load_table() {
         new_lots: engine_settings.new_lots,
         favorite: engine_settings.favorite,
         hide: engine_settings.hide,
+        more: engine_settings.more,
         inn: engine_settings.inn,
         au: engine_settings.au,
         case_number: engine_settings.case_number,
@@ -551,6 +551,11 @@ function search_listener() {
     engine_settings.hide = 0;
     if($('[name="hide"]').prop('checked')) {
         engine_settings.hide = 1;
+    }
+      
+    engine_settings.more = 0;
+    if($('[name="more"]').prop('checked')) {
+        engine_settings.more = 1;
     }
       
     engine_settings.begin_date = begin_d;
@@ -642,6 +647,14 @@ function restore_settings() {
 
     $('[name="altintconf"]').val(engine_settings.altint);
 
+    if ( engine_settings.hide == 1 ) {
+        $('[name="hide"]').prop('checked', true);
+    }
+    
+    if ( engine_settings.more == 1 ) {
+        $('[name="more"]').prop('checked', true);
+    }
+    
     $('[name="inn"]').val(engine_settings.inn);
     $('[name="au"]').val(engine_settings.au);
     $('[name="case_number"]').val(engine_settings.case_number);
@@ -696,6 +709,9 @@ function clean_set_listener() {
   
     $('[name="hide"]').prop('checked',false);
     engine_settings.hide = 0;
+  
+    $('[name="more"]').prop('checked',false);
+    engine_settings.more = 0;
   
     $('[name="altintconf"]').val('');
     engine_settings.altint = '';

@@ -53,6 +53,7 @@ class column_nowprice {
         $out_price = strrev($out_price);
         // Стиль отображения цены
         $style = 'text-align: center;';
+        $isCalculated = 0;
         
         $man_plf = func::get_manual_platforms();
         
@@ -60,12 +61,15 @@ class column_nowprice {
             $out_price = "Уточните цену на площадке";
             //$out_price = "<span onmouseout=\"toolTip()\" onmouseover=\"toolTip('Уточните цену на площадке')\">Определяется вручную</span>";
             $style .= ' color: #d27600;';
+            $isCalculated = 1;
         } elseif( ($this->type == 2) && ($this->calcNTime > 0) ) {
             $out_price = "<span onmouseout=\"toolTip()\" onmouseover=\"toolTip('Расчетная цена, уточните на площадке')\">" . $out_price . "</span>";
             $style .= ' color: #d27600;';
+            $isCalculated = 2;
         }
 
         return array(
+            'isCalculated' => $isCalculated,
             'col' => $out_price,
             'style' => $style
         );

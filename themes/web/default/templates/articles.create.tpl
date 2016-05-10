@@ -1,7 +1,6 @@
 <table>
     <tr>
         <td valign="top">
-
             <?if ($error):?>
             <div class="error">
                 <?foreach($error as $error): ?>
@@ -11,52 +10,45 @@
             <?endif?>
 
             <div class="content">
-                <div class="conthead"><h2><i class="icon-newspaper"></i> Новая статья</h2></div>
-
-
-
+            <div class="conthead"><h2><i class="icon-newspaper"></i> Новая статья</h2></div>
   
 <?if($preview):?>
-
-
-  <div class="conthead" style="border-bottom: 1px dotted #E4E4E4;background: white">
-       <table>
-          <tr>
-            <td width="50px">
-              <?if ($arr['avatar']):?>
-                <a title="<?=lang('us_create')?> <?=$arr['user']?>" href="<?=$home?>/user/profile?id=<?=$arr['userid']?>"><img class="avatar" src="<?=$home?><?=$arr['avatar']?>"/></a>
-              <?else:?>
-                   <a href="<?=$home?>/user/profile?id=<?=$arr['userid']?>"><img class="avatar" src="<?=$themepath?>/images/user.png"/></a>
-              <?endif?>
-            </td>
-            <td>
-              <b><?=$arr['name']?></b><br/>
-               <?if($arr['keys']):?>
-               <?$a=0;?>  
-                <?foreach ($arr['keys'] AS $ot_key=>$ot_value):?>
-                  <?=$ot_value?><?if(count($arr['keys']) != ($a+1)):?>,<?endif?>
-                  <?$a++;?>
-                <?endforeach?>
-               <?endif?>
-             </td>
-          </tr>
-       </table>
-  </div>
-  <div class="contbodytext" style="border-bottom: 0px;"><div class="image_resizer"><?=$arr['text']?></div></div>
-  <div class="contfintext" style="border-top: 1px dotted #E4E4E4;border-bottom: 1px solid #E4E4E4;background: white">
-    <table>
-      <tr>
-        <td width="100%"> </td>
-        <td title="<?=lang('stat_autor')?>"><a href="<?=$home?>/user/profile?id=<?=$arr['userid']?>"><i class="icon-user-1"></i><?=$arr['user']?></a></td>
-      </tr>
-    </table>
-  </div>
-                <div class="conthead">
-                    <h2><i class="icon-newspaper"></i> Редактирование:</h2>
-                </div>
-
+    <div class="conthead" style="border-bottom: 1px dotted #E4E4E4;background: white">
+        <table>
+            <tr>
+                <td width="50px">
+                    <?if ($arr['avatar']):?>
+                        <a title="<?=lang('us_create')?> <?=$arr['user']?>" href="<?=$home?>/user/profile?id=<?=$arr['userid']?>"><img class="avatar" src="<?=$home?><?=$arr['avatar']?>"/></a>
+                    <?else:?>
+                        <a href="<?=$home?>/user/profile?id=<?=$arr['userid']?>"><img class="avatar" src="<?=$themepath?>/images/user.png"/></a>
+                    <?endif?>
+                </td>
+                <td>
+                    <b><?=$arr['name']?></b><br/>
+                    <?if($arr['keys']):?>
+                    <?$a=0;?>  
+                        <?foreach ($arr['keys'] AS $ot_key=>$ot_value):?>
+                            <?=$ot_value?><?if(count($arr['keys']) != ($a+1)):?>,<?endif?>
+                            <?$a++;?>
+                        <?endforeach?>
+                    <?endif?>
+                 </td>
+            </tr>
+        </table>
+    </div>
+    <div class="contbodytext" style="border-bottom: 0px;"><div class="image_resizer"><?=$arr['text']?></div></div>
+    <div class="contfintext" style="border-top: 1px dotted #E4E4E4;border-bottom: 1px solid #E4E4E4;background: white">
+      <table>
+        <tr>
+          <td width="100%"> </td>
+          <td title="<?=lang('stat_autor')?>"><a href="<?=$home?>/user/profile?id=<?=$arr['userid']?>"><i class="icon-user-1"></i><?=$arr['user']?></a></td>
+        </tr>
+      </table>
+    </div>
+    <div class="conthead">
+        <h2><i class="icon-newspaper"></i> Редактирование:</h2>
+    </div>
 <?endif?>  
-  
 
 <form name="mess" action="<?=$home?>/articles/create" method="post" enctype="multipart/form-data">
 <? temp::formid() /* ЭТА ФУНКЦИЯ ОБЯЗАТЕЛЬНА ДЛЯ ВСЕХ ФОРМ!!! */?>

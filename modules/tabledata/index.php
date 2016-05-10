@@ -22,6 +22,14 @@ $favoriteFlag = (int)POST('favorite');
 //exit($favoriteFlag);
 $hideFlag = (int)POST('hide');
 
+// Показывать расширенное имя лота или нет
+$moreFlag = (int)POST('more');
+if ( isset($moreFlag) && ( $moreFlag == 1) ) {
+    $nameLenght = 350;
+} else {
+    $nameLenght = 80;
+}
+
 $first_alt = 0;
 $second_alt = 0;
 
@@ -460,7 +468,7 @@ if ($res->num_rows) {
         $loc['loadtime'] = $data['loadtime'] * 1000;
         $loc['last_update'] = $data['last_update'] * 1000;
         //$loc['number'] = $tabledata->number($data['code'], $data['id']);
-        $loc['name'] = $tabledata->name($data['name'], 80, $data['id'], $item_arr, $data['description'], $data['loadtime']);
+        $loc['name'] = $tabledata->name($data['name'], $nameLenght, $data['id'], $item_arr, $data['description'], $data['loadtime']);
         $loc['type'] = $tabledata->type($data['type']);
         $loc['place'] = $tabledata->place($data['place']);
         $loc['begindate'] = $tabledata->begindate($data['start_time']);

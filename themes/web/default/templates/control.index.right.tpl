@@ -6,7 +6,7 @@
     <div class="elmenu"><a href="<?=$home?>/control/pnews">Новости площадок</a></div>
     <div class="elmenu"><a href="<?=$home?>/control/rights">Группы и доступ</a></div>
     <div class="elmenu"><a href="<?=$home?>/control/pages">Страницы</a></div>
-    <div class="elmenu"><a href="<?=$home?>/control/categories">Категории лотов</a></div>
+    <div class="elmenu"><a href="<?=$home?>/control/categories">Инструменты для работы с лотами</a></div>
     <div class="elmenu"><a href="<?=$home?>/control/tset">Настройки тарифов и оплаты</a></div>
     <div class="elmenu"><a href="<?=$home?>/control/pays">Платежи</a></div>
     <div class="elmenu"><a href="<?=$home?>/control/allusers">Пользователи сайта</a></div>
