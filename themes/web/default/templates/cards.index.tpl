@@ -7,8 +7,8 @@
                     <a href="<?= core::$home ?>/assistance?lotid=<?= $id ?>" class="button aright">
                         Помощь и участие в торгах
                     </a>
-                    <a href="<?= core::$home ?>/zayavka?dann" class="button aright1">
-                        Оформить заявку на КУ
+                    <a href="<?= core::$home ?>/zayavka?dann&id=<?= $id ?>" class="button aright1">
+                        Оформить заявку для КУ
                     </a>
                 </div>
                 
