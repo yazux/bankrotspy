@@ -8,7 +8,7 @@
                         Помощь и участие в торгах
                     </a>
                     <a href="<?= core::$home ?>/zayavka?dann&id=<?= $id ?>" class="button aright1">
-                        Оформить заявку для КУ
+                        Оформить заявку для Орг.Торг
                     </a>
                 </div>
                 
