@@ -27,7 +27,22 @@ class loaditem
       $new_drarr[$kkey] = $vval;
     }
     $dataarr = $new_drarr;
-
+    
+    $manager=$dataarr[15];
+    $pieces = explode(" ", $manager);
+    $cc = count($pieces); 
+    $inn = $pieces[$cc-1]; 
+    if ( is_numeric($inn) == true ) {
+        unset($pieces[$cc-1]);
+        $manager = implode(' ', $pieces);
+    } else {
+        $inn = $dataarr[21];
+    }
+    
+//    $f = fopen('manager_test.txt', 'a+');
+//    fwrite($f, 'Manager: ' . $manager . '; INN:' . $inn);
+//    fclose($f);
+    
     //Для лучшего понимания
     $sourse = array();
     $sourse['lotname']         = $dataarr[2];
@@ -43,13 +58,13 @@ class loaditem
     $sourse['deblor_card']     = $dataarr[12];
     $sourse['organizer']       = $dataarr[13];
     $sourse['contact_person']  = $dataarr[14];
-    $sourse['manager']         = $dataarr[15];
+    $sourse['manager']         = $manager;
     $sourse['manager_card']    = $dataarr[16];
     $sourse['code']            = $dataarr[17];
     $sourse['auct_link']       = $dataarr[18];
     $sourse['case_number']     = $dataarr[19];
     $sourse['lot_number']      = $dataarr[20];
-    $sourse['inn']             = $dataarr[21];
+    $sourse['inn']             = $inn;
     $sourse['key']             = $dataarr[22];
     $sourse['platform_id']     = $dataarr[23];
     
