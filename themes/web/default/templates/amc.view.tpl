@@ -11,23 +11,53 @@
                 <div class="contbody_forms">
                     <? if ($access == 1): ?>
                     <form style="display:block;margin-bottom:20px;">
-                        <input type="text" name="search" placeholder="Название, ИНН, E-mail, Телефон">&nbsp;
+                        <input type="text" name="search" value="<?=$search?>" placeholder="Название, ИНН, E-mail, Телефон">&nbsp;
                         <input type="submit" class="urlbutton_index button_no_top_index" value="Найти">
                         <a class="urlbutton_index button_no_top_index" href="/amc/">Очистить</a>
                     </form>
                     <? endif; ?>
                     
                     <div class="results">
-                        <? if(!$search): ?>
                         Показаны результаты: <?= $start ?>-<?= $end ?> из <?= $total ?>
-                        <? else: ?>
-                        Всего найдено: <?= $search ?>
-                        <? endif; ?>
                     </div>
                     <table class="table">
                         <tr>
-                            <th>Арбитражный управляющий</th>
-                            <th>Рейтинг</th>
+                            <th>
+                                Арбитражный управляющий 
+                                <?if($sortField=='name'):?>
+                                    <?if($sortOrder == 'DESC'):?>
+                                        <a href="?sortField=name&sortOrder=ASC">
+                                            <img src="/themes/web/default/images/table/desc.png">
+                                        </a>
+                                    <?else:?>
+                                        <a href="?sortField=name&sortOrder=DESC">
+                                            <img src="/themes/web/default/images/table/asc.png">
+                                        </a>
+                                    <?endif;?>
+                                <?else:?>
+                                    <a href="?sortField=name&sortOrder=ASC">
+                                        <img src="/themes/web/default/images/table/bg.png">
+                                    </a>
+                                <?endif;?>
+                            </th>
+                            <th>
+                                Рейтинг
+                                <?if($sortField=='bal'):?>
+                                    <?if($sortOrder == 'DESC'):?>
+                                        <a href="?sortField=bal&sortOrder=ASC">
+                                            <img src="/themes/web/default/images/table/desc.png">
+                                        </a>
+                                    <?else:?>
+                                        <a href="?sortField=bal&sortOrder=DESC">
+                                            <img src="/themes/web/default/images/table/asc.png">
+                                        </a>
+                                    <?endif;?>
+                                <?else:?>
+                                    <a href="?sortField=bal&sortOrder=ASC">
+                                        <img src="/themes/web/default/images/table/bg.png">
+                                    </a>
+                                <?endif;?>
+                            </th>
                             <th>Документы судов</th>
                             <th>Документы ФАС</th>
                             <th>E-mail</th>
@@ -50,7 +80,7 @@
                         </tr>
                         <? endforeach; ?>
                     </table>
-                    <?= $pagination ?>
+                    <?if($navigation):?><div class="navig"><?=$navigation?></div><?endif?>
                 </div>
             </div>
         </td>

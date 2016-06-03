@@ -2,51 +2,56 @@
 
 defined('DS_ENGINE') or die('web_demon laughs');
 
-$search = GET('search');
+new nav(50); 
 
-$sql_calc = 'SQL_CALC_FOUND_ROWS ';
+$where = '1';
 
+$search = trim(strip_tags(GET('search')));
 
-// поиск
-if (!empty($search) && strlen($search) >= 4 && $access === true) {
-    $s = core::$db->res(GET('search'));
-    
-    $select = '* ';
-    $order = '`bal` DESC';
-    if(is_numeric($s)) {
-        $where = '`inn` = "'.$s.'" OR phone = "'.$s.'"';
-    } elseif (filter_var($s, FILTER_VALIDATE_EMAIL)) {
-        $where = 'mail = "'.$s.'"';
+if ( isset($search) && !empty($search)) {
+    if (is_numeric($search) ) {
+        $where .= " AND `ds_maindata_organizers`.`inn` LIKE '%".$search."%'";
     } else {
-        $select = '*, MATCH (`ds_maindata_organizers`.`org_name`, `ds_maindata_organizers`.`contact_person`, `ds_maindata_organizers`.`manager`) AGAINST ("»' . $s . '»" IN BOOLEAN MODE) as `rel` ';
-        $where = ' MATCH (`ds_maindata_organizers`.`org_name`, `ds_maindata_organizers`.`contact_person`, `ds_maindata_organizers`.`manager`) AGAINST ("»' . $s . '»" IN BOOLEAN MODE) ';
-        $order = '`rel` DESC, `bal` DESC';
+        $where .= " AND `ds_maindata_organizers`.`org_name` LIKE '%".$search."%'";
     }
-    
-    $query = core::$db->query('SELECT ' . $sql_calc . $select .' FROM `ds_maindata_organizers` WHERE 
-                                '.$where.'
-                                ORDER BY ' . $order);
-    $total = $query->num_rows;
-    
-    
+} 
+
+$sortOrder = GET('sortOrder');
+$sortField = GET('sortField');
+
+if ( isset($sortOrder) && ($sortOrder == 'DESC') ) {
+    $sortOrder = 'DESC';
 } else {
-
-    $id = intval(GET('id'));
-
-    $page = !empty($_GET['page']) ? intval($_GET['page']) : 1; //current page
-    $limit = 50;//perpage
-    $offset = !empty($limit) ? ($limit * ($page - 1)) : 0;
-    
-    $query = core::$db->query('SELECT ' . $sql_calc . ' * FROM `ds_maindata_organizers` ORDER BY bal DESC LIMIT '.$limit.' OFFSET ' . core::$db->res($offset));
-    
-    $_SESSION['hash'] = md5($query->num_rows);
+    $sortOrder = 'ASC';
 }
+
+if ( isset($sortField) && ($sortField == 'bal') ) {
+    $sortField = 'bal';
+    $order = '`ds_maindata_organizers`.`bal`';
+} else {
+    $sortField = 'name';
+    $order = '`ds_maindata_organizers`.`org_name`';
+}
+
+$order .= ' ' . $sortOrder . ', `ds_maindata_organizers`.`totaldoc` DESC';
+
+$cntQuery = 'SELECT COUNT(*) AS cnt FROM `ds_maindata_organizers` WHERE ' . $where;
+$query = 'SELECT * FROM `ds_maindata_organizers` '
+        . ' WHERE ' . $where
+        . ' ORDER BY ' . $order 
+        . ' LIMIT ' . nav::$start . ', ' . nav::$kmess;
+
+//var_dump($cntQuery);die();
+
+$cntQuery = core::$db->query($cntQuery);
+$total = $cntQuery->fetch_assoc()['cnt'];
+$res = core::$db->query( $query);
 
 $data = [];
 $i = 0;
 
-while($row = $query->fetch_assoc()) {
-    
+while($row = $res->fetch_assoc()) {
+
     if ($row['totaldoc'] > 0 && $row['totaldoc'] < 3) {
         $rating = 'Мало данных';
     } elseif($row['totaldoc'] == 0) {
@@ -68,8 +73,6 @@ while($row = $query->fetch_assoc()) {
     } else {
         $fasdocs = 'Нет данных';
     }
-    
-    
  
     $data[$i]['id'] = $row['id'];
     $data[$i]['name'] = str_replace(['ИП ', 'ИП'], '', $row['org_name']);
@@ -83,61 +86,28 @@ while($row = $query->fetch_assoc()) {
     $data[$i]['email'] = ($access === true) ? $row['mail'] : $access;
 
     $i++;
-    
-}
-
-
-if (empty($total)) {
-    $queryCalc = core::$db->query('SELECT FOUND_ROWS () AS total');
-    $p = $queryCalc->fetch_assoc();
-    $total = $p['total'];
-}
-
-if (empty($search)) {
-    $pagination = new pagination($page, $total, $limit);
-    $pagination = $pagination->createLinks();
 }
 
 $textQuery = core::$db->query('SELECT * FROM `ds_pages` WHERE `id` = "9" LIMIT 1;');
 $textData =  $textQuery->fetch_assoc();
-
 engine_head($textData['name'], $textData['keywords'], $textData['description']);
-
 temp::assign('title', $textData['name']);
 
-if(!empty($search)) {
-
-    temp::assign('search', $total);
-} else {
-    if ($offset == 0) {
-        $start = 1;
-    } else {
-        $start = $offset;
-    }
-    $end = $offset + 50;
-    
-    if($end > $total) {
-        $end = $start + $query->num_rows;
-    }
-}
-
-
-
-
-
-temp::HTMassign('textData', text::out($textData['text'], 0));
+$start = nav::$start;
+$finish = $start + nav::$kmess;
 temp::assign('start', $start);
-temp::assign('end', $end);
+temp::assign('end', $finish);
 temp::assign('total', $total);
 
+temp::HTMassign('textData', text::out($textData['text'], 0));
+temp::assign('sortOrder', $sortOrder);
+temp::assign('sortField', $sortField);
+temp::assign('search', $search);
 temp::assign('access', $access);
 
-temp::HTMassign('pagination', $pagination);
+temp::HTMassign('navigation', nav::display($total, core::$home.'/amc/?', '', '', array('search'=>$search,'sortOrder'=>$sortOrder,'sortField'=>$sortField)));
 temp::HTMassign('data', $data);
 
-if ($query->num_rows > 0) {
-    temp::display('amc.view');
-} else {
-    temp::display('amc.notfound');
-}
+temp::display('amc.view');
+
 engine_fin();

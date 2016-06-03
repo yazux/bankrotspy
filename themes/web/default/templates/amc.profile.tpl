@@ -45,6 +45,11 @@
                             <?= $data['arbitr_profile'] ?>
                             </td>
                         </tr>
+                        <tr>
+                            <td colspan="2">
+                                <a href="/amc/" style="color: #FF0000">Смотреть все рейтинки АУ</a>
+                            </td>
+                        </tr>
                     </table>
                 
                     <div id="myChart"></div>
