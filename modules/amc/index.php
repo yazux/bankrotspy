@@ -26,18 +26,18 @@ if ( isset($search) && !empty($search)) {
 $sortOrder = GET('sortOrder');
 $sortField = GET('sortField');
 
-if ( isset($sortOrder) && ($sortOrder == 'DESC') ) {
-    $sortOrder = 'DESC';
-} else {
+if ( isset($sortOrder) && ($sortOrder == 'ASC') ) {
     $sortOrder = 'ASC';
+} else {
+    $sortOrder = 'DESC';
 }
 
-if ( isset($sortField) && ($sortField == 'bal') ) {
+if ( isset($sortField) && ($sortField == 'name') ) {
+    $sortField = 'name';
+    $order = '`ds_maindata_organizers`.`org_name`';    
+} else {
     $sortField = 'bal';
     $order = '`ds_maindata_organizers`.`bal`';
-} else {
-    $sortField = 'name';
-    $order = '`ds_maindata_organizers`.`org_name`';
 }
 
 $order .= ' ' . $sortOrder . ', `ds_maindata_organizers`.`totaldoc` DESC';
