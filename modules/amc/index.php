@@ -10,9 +10,16 @@ $search = trim(strip_tags(GET('search')));
 
 if ( isset($search) && !empty($search)) {
     if (is_numeric($search) ) {
-        $where .= " AND `ds_maindata_organizers`.`inn` LIKE '%".$search."%'";
+        $where .= " AND (`ds_maindata_organizers`.`inn` LIKE '%".$search."%' OR `ds_maindata_organizers`.`phone` LIKE '%".$search."%') ";
     } else {
-        $where .= " AND `ds_maindata_organizers`.`org_name` LIKE '%".$search."%'";
+        $where .= " AND ("
+                . "`ds_maindata_organizers`.`org_name`  LIKE '%".$search."%' OR "
+                . "`ds_maindata_organizers`.`phone` LIKE '%".$search."%' OR "
+                . "`ds_maindata_organizers`.`mail` LIKE '%".$search."%' OR "
+                . "`ds_maindata_organizers`.`inn` LIKE '%".$search."%' OR "
+                . "`ds_maindata_organizers`.`contact_person` LIKE '%".$search."%' OR "
+                . "`ds_maindata_organizers`.`manager` LIKE '%".$search."%'"
+                . ")";
     }
 } 
 
@@ -95,6 +102,10 @@ temp::assign('title', $textData['name']);
 
 $start = nav::$start;
 $finish = $start + nav::$kmess;
+if ($total < $finish ) {
+    $finish = $total;
+}
+
 temp::assign('start', $start);
 temp::assign('end', $finish);
 temp::assign('total', $total);
