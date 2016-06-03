@@ -4,10 +4,10 @@
             <div class="content">
                 <div class="conthead">
                     <h2><i class="icon-newspaper"></i> Лот №<?=$lotnumber?></h2>
-                    <a href="<?= core::$home ?>/assistance?lotid=<?= $id ?>" class="button aright">
+                    <a href="<?= core::$home ?>/assistance?lotid=<?= $id ?>" class="button aright" target="_blank">
                         Помощь и участие в торгах
                     </a>
-                    <a href="<?= core::$home ?>/zayavka?dann&id=<?= $id ?>" class="button aright1">
+                    <a href="<?= core::$home ?>/zayavka?dann&id=<?= $id ?>" class="button aright1" target="_blank">
                         Оформить заявку для Орг.Торг
                     </a>
                 </div>
