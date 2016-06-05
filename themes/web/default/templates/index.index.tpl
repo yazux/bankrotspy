@@ -101,8 +101,8 @@
                                 </div>
                                 <div style="position: absolute; left: 10px; top: 135px; width: 260px;">
                                     <input type="checkbox" name="new_lots" <?= !empty($new_lots) ? 'checked' : '' ?>/><span style="font-size: 13px">Новые лоты</span>
-                                    <input type="checkbox" name="more" value="1" style="margin-left: 15px;"/> <span style="font-size: 13px">Подробнее</span>
-                                    <input type="checkbox" name="hasPhoto" value="1" style="margin-left: 15px;"/> <span style="font-size: 13px">Фото</span>
+                                    <input type="checkbox" name="more" value="1" style="margin-left: 10px;"/> <span style="font-size: 13px">Подробнее</span>
+                                    <input type="checkbox" name="hasPhoto" value="1" style="margin-left: 10px;"/> <span style="font-size: 13px">Фото</span>
                                </div>
                            </td>
                            
