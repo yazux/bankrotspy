@@ -143,7 +143,7 @@ class column_name
         }
         
         if ( $this->cntPhoto > 1 ) {
-            $foto = '<span title="Есть фотографии имущества ('.$this->cntPhoto.' шт.)" style="color:#FEAB2E">(есть фото)</span>';
+            $foto = '<span title="Есть фотографии имущества ('.$this->cntPhoto.' шт.)" style="color:#FEAB2E">(фото)</span>';
         } else {
             $foto = '';
         }
