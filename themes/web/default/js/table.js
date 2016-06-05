@@ -481,6 +481,7 @@ function load_table() {
         favorite: engine_settings.favorite,
         hide: engine_settings.hide,
         more: engine_settings.more,
+        hasPhoto: engine_settings.hasPhoto,
         inn: engine_settings.inn,
         au: engine_settings.au,
         case_number: engine_settings.case_number,
@@ -556,6 +557,11 @@ function search_listener() {
     engine_settings.more = 0;
     if($('[name="more"]').prop('checked')) {
         engine_settings.more = 1;
+    }
+      
+    engine_settings.hasPhoto = 0;
+    if($('[name="hasPhoto"]').prop('checked')) {
+        engine_settings.hasPhoto = 1;
     }
       
     engine_settings.begin_date = begin_d;
@@ -655,6 +661,10 @@ function restore_settings() {
         $('[name="more"]').prop('checked', true);
     }
     
+    if ( engine_settings.hasPhoto == 1 ) {
+        $('[name="hasPhoto"]').prop('checked', true);
+    }
+    
     $('[name="inn"]').val(engine_settings.inn);
     $('[name="au"]').val(engine_settings.au);
     $('[name="case_number"]').val(engine_settings.case_number);
@@ -712,6 +722,9 @@ function clean_set_listener() {
   
     $('[name="more"]').prop('checked',false);
     engine_settings.more = 0;
+  
+    $('[name="hasPhoto"]').prop('checked',false);
+    engine_settings.hasPhoto = 0;
   
     $('[name="altintconf"]').val('');
     engine_settings.altint = '';

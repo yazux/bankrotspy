@@ -215,16 +215,23 @@ if ( $queryStr != '' ) {
     }
 }
 
+$hasPhotoFlag = (int)POST('hasPhoto');
+if ( isset($hasPhotoFlag) && ( $hasPhotoFlag == 1) ) {
+    $conditions['cntPhoto'] = "`ds_maindata`.`cntPhoto` > 0";;
+}
+
 // Номер дела
 $caseNumber = trim(strip_tags(POST('case_number')));
 if ( isset($caseNumber) && ($caseNumber != '') ) {
-    $conditions['case_number'] = " `ds_maindata`.`case_number` = '" . core::$db->res($caseNumber) . "'"; 
+//    var_dump(core::$db->res($caseNumber));
+    $conditions['case_number'] = " `ds_maindata`.`case_number` LIKE '%" . core::$db->res($caseNumber) . "%'"; 
 }
 
 // Номер торгов
 $tradeNumber = trim(strip_tags(POST('trade_number')));
 if ( isset($tradeNumber) && ($tradeNumber != '') ) {
-    $conditions['code'] = " `ds_maindata`.`code` = '" . core::$db->res($tradeNumber) . "'"; 
+//    var_dump(core::$db->res($tradeNumber));
+    $conditions['code'] = " `ds_maindata`.`code` LIKE '%" . core::$db->res($tradeNumber) . "%'"; 
 }
 
 // ИНН или ФИО должника
@@ -410,9 +417,9 @@ if( $selects )
     $select_cond = ' , '.implode(' , ', $selects);
 
 //Счетчик
-$count = core::$db->query('
-    SELECT COUNT(*)
-    FROM `ds_maindata`
+$count = core::$db->query(
+    ' SELECT COUNT(*)' .
+    ' FROM `ds_maindata`
     ' . $join_cond . '
     ' . $where_cond . '
     ORDER BY `ds_maindata`.`id`
@@ -420,15 +427,15 @@ $count = core::$db->query('
 
 //Основной запрос
 $main_sql = '
-    SELECT `ds_maindata`.* ' . $select_cond . '
-    FROM `ds_maindata`
+    SELECT `ds_maindata`.* ' . $select_cond .
+    ' FROM `ds_maindata`
     ' . $join_cond . '
     ' . $where_cond . '
     ' . $order_cond . '
     LIMIT '.$start.', '.$kmess.' ;';
 
 $res = core::$db->query($main_sql);
-
+//var_dump($main_sql);
 //echo core::$db->debugRawQuery();die();
 
 $item_arr = [];
@@ -463,12 +470,13 @@ if ($res->num_rows) {
     }
 
     foreach ($out AS $key => $data) {
+        
         $loc = array();
         $loc['id'] = $data['id'];
         $loc['loadtime'] = $data['loadtime'] * 1000;
         $loc['last_update'] = $data['last_update'] * 1000;
         //$loc['number'] = $tabledata->number($data['code'], $data['id']);
-        $loc['name'] = $tabledata->name($data['name'], $nameLenght, $data['id'], $item_arr, $data['description'], $data['loadtime']);
+        $loc['name'] = $tabledata->name($data['name'], $nameLenght, $data['id'], $item_arr, $data['description'], $data['loadtime'], $data['cntPhoto']);
         $loc['type'] = $tabledata->type($data['type']);
         $loc['place'] = $tabledata->place($data['place']);
         $loc['begindate'] = $tabledata->begindate($data['start_time']);

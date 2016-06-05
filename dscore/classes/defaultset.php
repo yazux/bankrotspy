@@ -57,6 +57,7 @@ class defaultset {
             'au' => '',
             'hide' => 0,
             'more' => 1,
+            'hasPhoto' => 0,
             'case_number' => '',
             'trade_number' => '',
             'search_type' => '',

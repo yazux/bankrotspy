@@ -10,6 +10,7 @@ class column_name
     private $item_arr;
     private $replaced = 0;
     private $descr;
+    private $cntPhoto;
 
     public function __construct($params)
     {
@@ -19,6 +20,7 @@ class column_name
         $this->item_arr = isset($params[3]) ? $params[3] : array();
         $this->descr = isset($params[4]) ? trim($params[4]) : '';
         $this->date = isset($params[5]) ?  trim($params[5]) : '';
+        $this->cntPhoto = isset($params[6]) ?  $params[6] : 0;
     }
 
     public function before_load()
@@ -139,9 +141,15 @@ class column_name
                 $addition = '<hr/><span style="color:gray;font-size: 11px">...'.$sub_text.'...</span>';
             }
         }
+        
+        if ( $this->cntPhoto > 1 ) {
+            $foto = '<span title="Есть фотографии имущества ('.$this->cntPhoto.' шт.)" style="color:#FEAB2E">(есть фото)</span>';
+        } else {
+            $foto = '';
+        }
 
         return array(
-            'col' => '<span class="added">Добавлен: '.date('d.m.Y', intval($this->date)).'</span><br/><a target="_blank" class="namelink" href="'.core::$home.'/card/'.$this->attr.'"><i class="icon-share"></i><span id="min_name_'.$this->attr.'">'.$this->replace_onbr($name).'</span><span style="display: none;" id="max_name_'.$this->attr.'">'.$this->replace_onbr(text::st($full_name)).'</span></a>'.($cutted ? '<br/><span attr="'.$this->attr.'" class="show_span">Показать</span>' : '' ).(isset($addition)? $addition : '' ),
+            'col' => '<span class="added">Добавлен: '.date('d.m.Y', intval($this->date)).'</span> '.$foto.' <br/><a target="_blank" class="namelink" href="'.core::$home.'/card/'.$this->attr.'"><i class="icon-share"></i><span id="min_name_'.$this->attr.'">'.$this->replace_onbr($name).'</span><span style="display: none;" id="max_name_'.$this->attr.'">'.$this->replace_onbr(text::st($full_name)).'</span></a>'.($cutted ? '<br/><span attr="'.$this->attr.'" class="show_span">Показать</span>' : '' ).(isset($addition)? $addition : '' ),
             'onlydata' => $this->replace_onbr(text::st($full_name)),
             'style' => 'max-width: 300px;'
         );
