@@ -10,6 +10,9 @@
                     <a href="<?= core::$home ?>/zayavka?dann&id=<?= $id ?>" class="button aright1" target="_blank">
                         Оформить заявку для Орг.Торг
                     </a>
+                    <a href="<?= core::$home ?>/request?lotid=<?= $id ?>" class="button aright2" target="_blank">
+                        Заказать ЭЦП/КЦП
+                    </a>
                 </div>
                 
                 <? if ($fotos) : ?>

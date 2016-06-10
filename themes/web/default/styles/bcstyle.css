@@ -197,6 +197,12 @@ a.button:hover, button.button:hover {
     bottom:4px;
 }
 
+.aright2{
+    position:absolute;
+    right:440px;
+    bottom:4px;
+}
+
 .grback {
     background: url("../images/gr_back.png") repeat-x scroll center bottom transparent;
     height: 30px;

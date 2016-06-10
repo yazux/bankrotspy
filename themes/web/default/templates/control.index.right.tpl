@@ -11,5 +11,7 @@
     <div class="elmenu"><a href="<?=$home?>/control/pays">Платежи</a></div>
     <div class="elmenu"><a href="<?=$home?>/control/allusers">Пользователи сайта</a></div>
     <div class="elmenu"><a href="<?=$home?>/parserstat">Статистика парсеров</a></div>
+    <div class="elmenu"><a href="<?=$home?>/zayavka?stat">Заявки для Орг. Торг</a></div>
+    <div class="elmenu"><a href="<?=$home?>/control/requests">Заявки на ЭЦП/КЦП</a></div>
     <div class="down_rmenu"> </div>
 </div>
