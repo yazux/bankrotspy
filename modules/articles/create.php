@@ -2,7 +2,7 @@
 defined('DS_ENGINE') or die('web_demon laughs');
 
 if(!CAN('stats_create', 0) AND !CAN('add_stats_moderate', 0))
-  denied();
+    denied();
 
 $error = array();
 
@@ -12,11 +12,11 @@ $save_data['art_text'] = POST('art_text');
 $save_data['art_keys'] = POST('art_keywords');
 
 new fload(
-  $save_data,                           //Указываем что сохранять
-  core::$module,                        // Модуль 'articles'
-  core::$module . '-' . core::$action,  //uid по нему восстанавливаются данные.
-  core::$home . '/articles/create',     // Устанавливаем куда возвращаться
-  'create'
+    $save_data,                           //Указываем что сохранять
+    core::$module,                        // Модуль 'articles'
+    core::$module . '-' . core::$action,  //uid по нему восстанавливаются данные.
+    core::$home . '/articles/create',     // Устанавливаем куда возвращаться
+    'create'
 );
 
 if(isset($_POST['add_attachment']))
@@ -281,10 +281,8 @@ elseif(POST('submit'))
       //Сообщаем что все прошло удачно
       func::notify(lang('create_stat'), lang('stat_added_onmoder'), core::$home . '/articles/allarticles');
     }
-  }
-  else
-  {
-    fload::save_data();
+  } else {
+        fload::save_data();
   }
 }
 

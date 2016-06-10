@@ -1,10 +1,8 @@
 <?php
 defined('DS_ENGINE') or die('web_demon laughs');
 
-
-
-class fload
-{
+class fload {
+    
     private static $out_files = array();
     public static $return_link;
     public static $save_data = array();
@@ -27,17 +25,13 @@ class fload
         self::$att = uscache::get('att');
         self::$save_data = $save_data;
         
-        if($mode == 'create')
-        {
-            if(!self::$att)
-            {
+        if($mode == 'create') {
+            if(!self::$att) {
                 self::$att = intval(file_get_contents('data/cache/post_count.dat')) + 1;
                 file_put_contents('data/cache/post_count.dat', self::$att, LOCK_EX);
                 uscache::rem('att', self::$att);
             }
-        }
-        elseif($mode == 'edit')
-        {
+        } elseif($mode == 'edit') {
             self::$stat_id = intval(abs($id_stat));  
         }
     }

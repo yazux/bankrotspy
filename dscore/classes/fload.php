@@ -1,42 +1,37 @@
 <?php
 defined('DS_ENGINE') or die('web_demon laughs');
 
-class fload
-{
-   private static $out_files = array();
-   public static $return_link;
-   public static $save_data = array();
-   public static $att;
-   public static $stat_id;
-   public static $max_file_size = 5000;
-   public static $max_files = 30;
-   public static $module;
-   public static $un_id;
+class fload {
+    
+    private static $out_files = array();
+    public static $return_link;
+    public static $save_data = array();
+    public static $att;
+    public static $stat_id;
+    public static $max_file_size = 5000;
+    public static $max_files = 30;
+    public static $module;
+    public static $un_id;
 
-   private static $max_width_web = 950; //px
-   private static $max_height_web = 950; //px
+    private static $max_width_web = 950; //px
+    private static $max_height_web = 950; //px
     
    
-   function __construct($save_data, $module, $un_id, $return_link, $mode, $id_stat = 0)
-   {
-      self::$module = $module;
-      self::$un_id = $un_id;
-      self::$return_link = $return_link;
-      self::$att = uscache::get('att');
-      self::$save_data = $save_data;
-      if($mode == 'create')
-      {
-        if(!self::$att)
-        {
-          self::$att = intval(file_get_contents('data/cache/post_count.dat')) + 1;
-          file_put_contents('data/cache/post_count.dat', self::$att, LOCK_EX);
-          uscache::rem('att', self::$att);
+    function __construct($save_data, $module, $un_id, $return_link, $mode, $id_stat = 0) {
+        self::$module = $module;
+        self::$un_id = $un_id;
+        self::$return_link = $return_link;
+        self::$att = uscache::get('att');
+        self::$save_data = $save_data;
+        if($mode == 'create') {
+            if(!self::$att) {
+                self::$att = intval(file_get_contents('data/cache/post_count.dat')) + 1;
+                file_put_contents('data/cache/post_count.dat', self::$att, LOCK_EX);
+                uscache::rem('att', self::$att);
+            }
+        } elseif( $mode == 'edit' ) {
+            self::$stat_id = intval(abs($id_stat));  
         }
-      }
-      elseif($mode == 'edit')
-      {
-        self::$stat_id = intval(abs($id_stat));  
-      }
    }
    
    public static function save_data()
@@ -286,28 +281,28 @@ class fload
      return $out_fil; 
    }
 
-   static function load_file()
-   {
+   static function load_file( $file = null ) {
      ///////////////////////////////////////////////
      // Загружем файл
      ///////////////////////////////////////////////  
-     $file=$_FILES['file']['name'];
-     if($file)
-     {   
-         $fname=self::gename($file);
+    if ( !$file ) {
+        $file=$_FILES['file']['name'];
+    }
+    
+    if ( $file ) {   
+        $fname=self::gename($file);
          
-         if(ceil($_FILES['file']['size']/1024) > self::$max_file_size)
-           self::message('Файл слишком большой, максимум <b>'.self::$max_file_size.'</b> килобайт');  //файл слишком большой
+        if(ceil($_FILES['file']['size']/1024) > self::$max_file_size)
+            self::message('Файл слишком большой, максимум <b>'.self::$max_file_size.'</b> килобайт');  //файл слишком большой
        
-         $loaded_files =  self::files_att();
-         if(in_array($fname,$loaded_files))
-           self::message('Файл <b>'.htmlentities($fname, ENT_QUOTES, 'UTF-8').'</b> уже загружен!');  //файл существует
+        $loaded_files =  self::files_att();
+        if(in_array($fname,$loaded_files))
+            self::message('Файл <b>'.htmlentities($fname, ENT_QUOTES, 'UTF-8').'</b> уже загружен!');  //файл существует
          
-         if(count($loaded_files) >= self::$max_files)
-           self::message('Слишком много файлов! Разрешено максимум  <b>'.self::$max_files.'</b> файлов(а).');  //Слишком много файлов
+        if(count($loaded_files) >= self::$max_files)
+            self::message('Слишком много файлов! Разрешено максимум  <b>'.self::$max_files.'</b> файлов(а).');  //Слишком много файлов
        
-         if(self::$stat_id)
-         {
+        if(self::$stat_id) {
            core::$db->query('INSERT INTO `ds_post_files` SET
             `userload` = "'.core::$user_id.'",
             `module` = "'.self::$module.'",
@@ -316,25 +311,22 @@ class fload
             `time` = "'.time().'",
             `name` = "'.core::$db->res(htmlentities($fname, ENT_QUOTES, 'UTF-8')).'",
             `count` = "0"');
-         }
-         else
-         {
-           core::$db->query('INSERT INTO `ds_post_files` SET
-            `userload` = "'.core::$user_id.'",
-            `module` = "'.self::$module.'",
-            `attach` = "'.self::$att.'",
-            `time` = "'.time().'",
-            `name` = "'.core::$db->res(htmlentities($fname, ENT_QUOTES, 'UTF-8')).'",
-            `count` = "0"');
-         }
+        } else {
+            core::$db->query('INSERT INTO `ds_post_files` SET
+                `userload` = "'.core::$user_id.'",
+                `module` = "'.self::$module.'",
+                `attach` = "'.self::$att.'",
+                `time` = "'.time().'",
+                `name` = "'.core::$db->res(htmlentities($fname, ENT_QUOTES, 'UTF-8')).'",
+                `count` = "0"'
+            );
+        }
           
-         $filename = core::$db->insert_id;
-         move_uploaded_file($_FILES['file']['tmp_name'], 'data/att_post/'.$filename.'.dat');
-         self::message('Файл загружен');   
-  
-     }
-     else
-       self::message('Нет файла!');
+        $filename = core::$db->insert_id;
+        move_uploaded_file($_FILES['file']['tmp_name'], 'data/att_post/'.$filename.'.dat');
+        self::message('Файл загружен');   
+    } else
+        self::message('Нет файла!');
    }
 
    static function del_file($file_del)
