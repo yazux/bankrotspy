@@ -387,6 +387,14 @@
                                 <? endif; ?>
                             </td>
                         </tr>
+                        
+                        <? if (strlen($reportLink) > 5) : ?>
+                            <tr>
+                                <td style="width: 300px;"><b>Отчет оценщика:</b></td>
+                                <td><i class="icon-globe-table"></i> <a href="<?=$reportLink?>" target="_blank">Отчет</a></td>
+                            </tr>
+                        <? endif; ?>
+                        
                     </table>
                     <? if(!empty($similarDataPrice) && $similarDataPrice !== 'access'): ?>
                     <table class="lottable">
@@ -413,15 +421,6 @@
                             <td>
                             <center>Информация доступна на тарифном плане VIP</center>
                             </td>
-                        </tr>
-                    </table>
-                    <? endif; ?>
-                    
-                    <? if (strlen($reportLink) > 5) : ?>
-                    <table class="lottable">
-                        <tr>
-                            <td style="width: 300px;"><b>Отчет оценщика:</b></td>
-                            <td><i class="icon-globe-table"></i> <a href="<?=$reportLink?>" target="_blank">Отчет</a></td>
                         </tr>
                     </table>
                     <? endif; ?>
