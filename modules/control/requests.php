@@ -11,6 +11,22 @@ $where = "1";
 //}
 //$where .= " AND EXTRACT(YEAR_MONTH FROM FROM_UNIXTIME(paytime))=EXTRACT(YEAR_MONTH FROM '$date')";
 
+$companyId = (int)GET('companyId');
+$companyEmail = GET('email');
+
+//var_dump($companyEmail);
+//var_dump($_POST);
+//die('sss');
+if ( isset($companyId) && $companyId > 0 && isset($companyEmail) ) {
+    $companyStatus = GET('status');
+    if ( isset($companyStatus) && ($companyStatus==1) ) {
+        $companyStatus = 1;
+    } else {
+        $companyStatus = 0;
+    }
+    core::$db->query("UPDATE `companies` SET `email`='".core::$db->res($companyEmail)."', status=".core::$db->res($companyStatus)." WHERE id=" . $companyId);
+}
+
 // Перехватываем поисковый запрос
 if(isset($_GET['search']) && !empty(trim(strip_tags($_GET['search'])))) {
     // Обрабатываем поисковую фразу

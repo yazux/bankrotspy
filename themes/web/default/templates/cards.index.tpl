@@ -11,7 +11,7 @@
                         Оформить заявку для Орг.Торг
                     </a>
                     <a href="<?= core::$home ?>/request?lotid=<?= $id ?>" class="button aright2" target="_blank">
-                        Заказать ЭЦП/КЦП
+                        Заказать ЭЦП/КЦП 
                     </a>
                 </div>
                 

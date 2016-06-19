@@ -7,6 +7,34 @@
                 </div>
                 
                 <div class="contbody_forms">
+                    <b>Настройки операторов</b>
+                </div>
+                
+                <div class="contbody_forms">
+                    <? foreach( $companies as $company ) :?>
+                    <div style="width: 550px; margin-top: 20px;">
+                        <form method="get" action="<?=$home?>/control/requests">
+                            <div style="float:left; width: 120px; vertical-align: middle;">
+                                <input type="hidden" name="companyId" value="<?=$company['id']?>">
+                                <?=$company['name']?>:
+                            </div>
+                            <div style="float:left; width: 300px;">
+                                <input type="text" name="email" value="<?=$company['email']?>" style="height: 15px;">
+                            </div>
+                            <div style="float:left; width: 50px;">
+                                <input type="checkbox" name="status" value="1" style="height: 15px;" <? if ($company['status']==1) echo "checked";?> >
+                            </div>
+                            <div style="float:left; width: 80px;">
+                                <input class="button_no_top_index" type="submit" value="Установить">
+                            </div>
+                        </form>
+                    </div>
+                    <? endforeach; ?>
+                    <br style="clear: both;"/>
+                </div>
+                
+                <div class="contbody_forms">
+                    <b>Поиск</b>
                     <form style="display:block;margin-bottom:20px;" method="get" id="searchForm">
                         <input type="text" placeholder="email, ФИО, город, телефон" name="search" value="<?=$search?>" style="height: 15px;">
                         <!--input type="text" name="date" value="<?=$date?>" style="margin-left: 10px; margin-right: 10px;width:100px; height: 15px;"-->

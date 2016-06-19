@@ -11,7 +11,7 @@ if ( !$lotid ) {
 }
 
 $companies = array();
-$resQuery = core::$db->query('SELECT * FROM `companies` WHERE 1');
+$resQuery = core::$db->query('SELECT * FROM `companies` WHERE status=1');
 while ( $company =  $resQuery->fetch_assoc() ) {
     $companies[$company['id']] = $company;
 }
@@ -89,7 +89,7 @@ if ( isset($act) && ($act == 'send') ) {
         
         $mail->setSubject(lang('success_head'), $subject);
         $mail->setBody('request', $body);
-//        $mail->addAddress('sales@i-tt.ru');
+        $mail->addAddress('sales@i-tt.ru');
         $mail->addAddress('rlopatkin@gmail.com');
 //        $mail->addAddress($companies[$company]['email']);
         $mail->send();
