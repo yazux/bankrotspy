@@ -155,9 +155,11 @@ $weights = array();
 $sort = $tabledata->get_sort_order();
 if($sort)
   $order_conditions['sort'] = $sort;
+//var_dump($sort);
 
 if ( $queryStr != '' ) {
     
+    // Подготавливаем запрос
 //    $newQuery = '';
     
     $queryStr = str_replace ( array('~', '>', '<', '?', ')', '(', '}', '{', '&', '^', '$', '#', '|', '_', '/', '\\'), " ", $queryStr );
@@ -172,7 +174,7 @@ if ( $queryStr != '' ) {
 //    }
     
 //    var_dump($queryStr);
-//    var_dump($newQuery);
+//    var_dump($searchType);
 //    die();
     
     // Запоминаем запрос
@@ -181,38 +183,60 @@ if ( $queryStr != '' ) {
         core::$db->query("INSERT INTO search_queries VALUES(0, '".core::$db->res($queryStr)."')");
     }
     
-    $sphinx = SphinxQL::create($conn);
-    
     // Какой тип запроса? 
     $searchType = POST('search_type');
-    //var_dump($searchType);die();
+    // Отрабатываем азпрос на FULLTEXT
     if ( $searchType == 'all' ) {
         // All
-        $query = $sphinx->query("SELECT id, WEIGHT() AS w FROM bs WHERE MATCH('" . $queryStr . "') LIMIT 0,1000000 OPTION max_matches=100000");
+        $arr = explode(' ', $queryStr);
+        $queryStr1 = '+' . implode(' +', $arr);
+        $selects['searchQuery'] = " MATCH (name,description) AGAINST ('" . $queryStr1 . "') AS rel";
+        $conditions['searchQuery'] = " MATCH (name,description) AGAINST ('" . $queryStr1 . "' IN BOOLEAN MODE)";
+        $order_conditions['searchQuery'] = "rel DESC";
     } elseif ( $searchType == 'phrase' ) {
         // Phrase
-        $query = $sphinx->query("SELECT id, WEIGHT() AS w FROM bs WHERE MATCH('\"" . $queryStr . "\"') LIMIT 0,1000000 OPTION max_matches=100000");
+        $conditions['searchQuery'] = " CONCAT(name,description) LIKE '% " . $queryStr . " %'";
+//        var_dump('ddd');die();
     } else {
         // ANY
-        $query = $sphinx->query("SELECT id, WEIGHT() AS w FROM bs WHERE MATCH('\"" . $queryStr . "\"/1') LIMIT 0,1000000 OPTION max_matches=100000");
+        $selects['searchQuery'] = " MATCH (name,description) AGAINST ('" . $queryStr . "') AS rel";
+        $conditions['searchQuery'] = " MATCH (name,description) AGAINST ('" . $queryStr . "')";
+        $order_conditions['searchQuery'] = "rel DESC";
     }
     
-    // Массив с полученными результатами
-    $result = $query->execute();
-    core::$db->query("CREATE TEMPORARY TABLE `weights` (`id` INT(11), `w` INT(11))");
-    if(!empty($result)) {
-        foreach($result as $key => $item) {
-            $items[] = $item['id'];
-            $weights[$item['id']] = $item['w'];
-            core::$db->query("INSERT INTO `weights` VALUES (".$item['id'].",".$item['w'].")");
-        }
-        $items = implode(', ', $items);
-        $conditions['search'] = '`ds_maindata`.`id` IN ('.$items.') ';
-        $join_conditions['weight']= 'LEFT JOIN `weights` ON `weights`.`id` = `ds_maindata`.`id`';
-        $selects['weight'] = ' `weights`.`w` AS `weight`';
-    } else {
-        $conditions['search'] = '`ds_maindata`.`id` IN (0) ';
-    }
+//    // Отрабатываем запрос На Сфинксе
+//    $sphinx = SphinxQL::create($conn);
+//    
+//    // Какой тип запроса? 
+//    $searchType = POST('search_type');
+//    //var_dump($searchType);die();
+//    if ( $searchType == 'all' ) {
+//        // All
+//        $query = $sphinx->query("SELECT id, WEIGHT() AS w FROM bs WHERE MATCH('" . $queryStr . "') LIMIT 0,1000000 OPTION max_matches=100000");
+//    } elseif ( $searchType == 'phrase' ) {
+//        // Phrase
+//        $query = $sphinx->query("SELECT id, WEIGHT() AS w FROM bs WHERE MATCH('\"" . $queryStr . "\"') LIMIT 0,1000000 OPTION max_matches=100000");
+//    } else {
+//        // ANY
+//        $query = $sphinx->query("SELECT id, WEIGHT() AS w FROM bs WHERE MATCH('\"" . $queryStr . "\"/1') LIMIT 0,1000000 OPTION max_matches=100000");
+//    }
+//    
+//    // Массив с полученными результатами
+//    $result = $query->execute();
+//    core::$db->query("CREATE TEMPORARY TABLE `weights` (`id` INT(11), `w` INT(11))");
+//    if(!empty($result)) {
+//        foreach($result as $key => $item) {
+//            $items[] = $item['id'];
+//            $weights[$item['id']] = $item['w'];
+//            core::$db->query("INSERT INTO `weights` VALUES (".$item['id'].",".$item['w'].")");
+//        }
+//        $items = implode(', ', $items);
+//        $conditions['search'] = '`ds_maindata`.`id` IN ('.$items.') ';
+//        $join_conditions['weight']= 'LEFT JOIN `weights` ON `weights`.`id` = `ds_maindata`.`id`';
+//        $selects['weight'] = ' `weights`.`w` AS `weight`';
+//    } else {
+//        $conditions['search'] = '`ds_maindata`.`id` IN (0) ';
+//    }
 }
 
 $hasPhotoFlag = (int)POST('hasPhoto');
@@ -354,7 +378,7 @@ if ( isset($hideFlag) && ($hideFlag == 1) ) {
     $conditions['hide'] = " `ds_maindata_hide`.`user_id` = " . core::$user_id;
 } else {
     $selects['hide'] = ' `ds_maindata_hide`.`hidetime` AS `hidetime`';
-    $join_conditions['hide']= 'LEFT JOIN `ds_maindata_hide` ON `ds_maindata_hide`.`item` = `ds_maindata`.`id`';
+    $join_conditions['hide']= "LEFT JOIN `ds_maindata_hide` ON `ds_maindata_hide`.`item` = `ds_maindata`.`id` AND `ds_maindata_hide`.`user_id` = " . core::$user_id;
     $conditions['hide'] = " `hidetime` IS NULL ";
 }
 
@@ -435,6 +459,7 @@ $main_sql = '
     LIMIT '.$start.', '.$kmess.' ;';
 
 $res = core::$db->query($main_sql);
+//var_dump($order_cond);
 //var_dump($main_sql);
 //echo core::$db->debugRawQuery();die();
 

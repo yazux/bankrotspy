@@ -188,7 +188,7 @@
                                     <div class="set_button_cont">
                                         <select name="search_type" id="search_type" class="search_type_style">
                                             <option value="any">Любое из слов</option>
-                                            <option value="all">Все слова</option>
+                                            <!--option value="all">Все слова</option-->
                                             <option value="phrase">Точная фраза</option>
                                       </select>
                                         &nbsp; 
