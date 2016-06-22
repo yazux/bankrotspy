@@ -7,12 +7,14 @@ if( POST('submit') ) {
     $site_keywords = text::st(POST('site_keywords'));
     $site_description = text::st(POST('site_description'));
     $main_adv_text = text::st(POST('main_adv_text'));
+    $private_attention = text::st(POST('private_attention'));
 
     $query = 'UPDATE `ds_settings` SET `val` = "'.core::$db->res($site_domain).'" WHERE `key` = "site_name";';
     $query .= 'UPDATE `ds_settings` SET `val` = "'.core::$db->res($site_name).'" WHERE `key` = "site_name_main";';
     $query .= 'UPDATE `ds_settings` SET `val` = "'.core::$db->res($site_description).'" WHERE `key` = "description";';
     $query .= 'UPDATE `ds_settings` SET `val` = "'.core::$db->res($site_keywords).'" WHERE `key` = "keywords";';
     $query .= 'UPDATE `ds_settings` SET `val` = "'.core::$db->res($main_adv_text).'" WHERE `key` = "main_adv_text";';
+    $query .= 'UPDATE `ds_settings` SET `val` = "'.core::$db->res($private_attention).'" WHERE `key` = "private_attention";';
 
     core::$db->multi_query($query);
     core::$db->multi_free();
@@ -36,6 +38,7 @@ temp::HTMassign('site_name', core::$set['site_name_main']);
 temp::HTMassign('site_keywords', core::$set['keywords']);
 temp::HTMassign('site_description', core::$set['description']);
 temp::HTMassign('main_adv_text', core::$set['main_adv_text']);
+temp::HTMassign('private_attention', core::$set['private_attention']);
 temp::assign('text',$data['text']);
 temp::display('control.index');
 engine_fin();
