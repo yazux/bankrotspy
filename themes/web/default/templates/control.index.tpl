@@ -34,6 +34,11 @@
         <?=func::tagspanel('main_adv_text');?>
         <div class="texta"><textarea id="main_adv_text" name="main_adv_text" rows="5"><?=$main_adv_text?></textarea></div>
     </div>
+    <div class="contbody_forms">
+        <b>Предупреждение при заказе ЭЦП:</b><br/>
+        <?=func::tagspanel('private_attention');?>
+        <div class="texta"><textarea id="main_adv_text" name="private_attention" rows="5"><?=$private_attention?></textarea></div>
+    </div>
     <div class="contfin_forms">
         <input name="submit" type="submit" value="<?=lang('save')?>" />
     </div>

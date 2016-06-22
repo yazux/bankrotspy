@@ -53,7 +53,14 @@
     <b><?=lang('inn')?></b><br/>
     <input type="text" name="inn" value="<?= $inn ?>" />
   </div>
-   <input type="hidden" name="lotid" value="<?= $lotid ?>"/>
+    
+    <? if ( $private_attention ) : ?>
+    <div class="contbody_forms">
+        <div style="margin: 0px 20px; padding: 10px 0px; text-align: justify;"><?=$private_attention?></div>
+    </div>
+    <? endif ?>
+
+  <input type="hidden" name="lotid" value="<?= $lotid ?>"/>
   <div class="contfin_forms">
     <input type="submit" value="<?=lang('send')?>" />
   </div>

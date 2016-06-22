@@ -124,6 +124,10 @@ engine_head($textData['name'], $textData['keywords'], $textData['description']);
 
 temp::assign('title', $textData['name']);
 
+if ( isset(core::$set['private_attention']) && (core::$set['private_attention'] != '') ) {
+    temp::HTMassign('private_attention', text::out(core::$set['private_attention'], 0));
+}
+
 temp::HTMassign('error',$error);
 temp::HTMassign('page_text', text::out($textData['text'], 0));
 

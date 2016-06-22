@@ -12,16 +12,16 @@
                 
                 <div class="contbody_forms">
                     <? foreach( $companies as $company ) :?>
-                    <div style="width: 550px; margin-top: 20px;">
+                    <div style="width: 600px; margin-top: 20px;">
                         <form method="get" action="<?=$home?>/control/requests">
-                            <div style="float:left; width: 120px; vertical-align: middle;">
+                            <div style="float:left; width: 120px; margin-top: 7px;">
                                 <input type="hidden" name="companyId" value="<?=$company['id']?>">
                                 <?=$company['name']?>:
                             </div>
                             <div style="float:left; width: 300px;">
                                 <input type="text" name="email" value="<?=$company['email']?>" style="height: 15px;">
                             </div>
-                            <div style="float:left; width: 50px;">
+                            <div style="float:left; width: 50px; margin-top: 10px;">
                                 <input type="checkbox" name="status" value="1" style="height: 15px;" <? if ($company['status']==1) echo "checked";?> >
                             </div>
                             <div style="float:left; width: 80px;">
@@ -29,8 +29,9 @@
                             </div>
                         </form>
                     </div>
-                    <? endforeach; ?>
                     <br style="clear: both;"/>
+                    <? endforeach; ?>
+                    
                 </div>
                 
                 <div class="contbody_forms">
@@ -73,6 +74,16 @@
                         <table class="pays_t">
 
                         <?if($month):?>
+                            <tr>
+                                <th>№</th>
+                                <th>Оператор</th>
+                                <th>Заказчик</th>
+                                <th>Телефон</th>
+                                <th>e-mail</th>
+                                <th>Город</th>
+                                <th>ИНН</th>
+                                <th>Создана</th>
+                            </tr>
                             <?foreach($month as $id => $data): ?>
                             <tr id="<?=$data['id']?>">
                                 <td width="10" style="text-align:center; pading:0 3px;"><?= $id+1 ?></td>
@@ -81,7 +92,7 @@
                                 <td style="text-align:left;"><?=$data['phone']?></td>
                                 <td style="text-align:left;"><?=$data['email']?></td>
                                 <td style="text-align:left;"><?=$data['city']?></td>
-                                <td style="text-align:left;"><a href="<?=core::$home?>/card/<?=$data['lotid']?>"><?=$data['lotid']?></a></td>
+                                <td style="text-align:left;"><?=$data['inn']?></td>
                                 <td style="text-align:left;"><?=$data['created']?></td>
                             </tr>
                             <?endforeach?>
