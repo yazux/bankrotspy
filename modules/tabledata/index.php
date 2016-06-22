@@ -195,7 +195,7 @@ if ( $queryStr != '' ) {
         $order_conditions['searchQuery'] = "rel DESC";
     } elseif ( $searchType == 'phrase' ) {
         // Phrase
-        $conditions['searchQuery'] = " CONCAT(name,description) LIKE '% " . $queryStr . " %'";
+        $conditions['searchQuery'] = " CONCAT(name,description) LIKE '%" . $queryStr . "%'";
 //        var_dump('ddd');die();
     } else {
         // ANY
