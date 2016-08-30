@@ -24,7 +24,7 @@
     
 <input type="hidden" name="search_form_extend" id="search_form_extend" value="0">
 
-<? if ( $main_adv_text ) : ?>
+<? if ( $main_adv_text && !$user_id ) : ?>
 <div class="adv-text-wrap">
     <div class="adv-text" style="margin-bottom: 10px; text-align: justify;">
         <div style="margin: 0px 20px; padding: 10px 0px; text-align: justify;"><?=$main_adv_text?></div>
