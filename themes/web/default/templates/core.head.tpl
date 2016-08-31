@@ -171,6 +171,14 @@
                                             <?endif?>
 
                                        </a>
+                                       <? $link = core::$home.'/amc'?>
+                                       <?if ($rmenu['link'] == $link):?>
+                                        <ul class="subnav">
+                                            <li><a href="/amc">Арб. управляющие</a></li>
+                                            <li><a href="/platforms">Торговые площадки</a></li>
+                                            <li><a href="/debtors">Должники</a></li>
+                                        </ul>
+                                        <?endif?>
                                    </td>
 
                                 <?endforeach?>

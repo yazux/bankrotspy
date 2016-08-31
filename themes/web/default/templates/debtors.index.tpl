@@ -8,20 +8,19 @@
                     <div class="contbody_forms_link"><a href="/platforms">Торговые площадки</a></div>
                     <div class="contbody_forms_link"><a href="/debtors">Должники</a></div>
                 </div>
-
                 <? if(!empty($textData)): ?>
                 <div class="contbody_forms">
                     <?= $textData ?>
                 </div>
                 <? endif; ?>
                 <div class="contbody_forms">
-                    <? if ($access == 1): ?>
+                    
                     <form style="display:block;margin-bottom:20px;">
-                        <input type="text" name="search" value="<?=$search?>" placeholder="Название, ИНН, E-mail, Телефон">&nbsp;
+                        <input type="text" name="search" value="<?=$search?>" placeholder="Название, ИНН">&nbsp;
                         <input type="submit" class="urlbutton_index button_no_top_index" value="Найти">
                         <a class="urlbutton_index button_no_top_index" href="/amc/">Очистить</a>
                     </form>
-                    <? endif; ?>
+                    
                     
                     <div class="results">
                         Показаны результаты: <?= $start ?>-<?= $end ?> из <?= $total ?>
@@ -29,7 +28,7 @@
                     <table class="table">
                         <tr>
                             <th>
-                                Арбитражный управляющий 
+                                Должник  
                                 <?if($sortField=='name'):?>
                                     <?if($sortOrder == 'DESC'):?>
                                         <a href="?sortField=name&sortOrder=ASC">
@@ -44,45 +43,14 @@
                                     <a href="?sortField=name&sortOrder=ASC">
                                         <img src="/themes/web/default/images/table/bg.png">
                                     </a>
-                                <?endif;?>
+                                <?endif;?>           
                             </th>
-                            <th>
-                                Рейтинг
-                                <?if($sortField=='bal'):?>
-                                    <?if($sortOrder == 'DESC'):?>
-                                        <a href="?sortField=bal&sortOrder=ASC">
-                                            <img src="/themes/web/default/images/table/desc.png">
-                                        </a>
-                                    <?else:?>
-                                        <a href="?sortField=bal&sortOrder=DESC">
-                                            <img src="/themes/web/default/images/table/asc.png">
-                                        </a>
-                                    <?endif;?>
-                                <?else:?>
-                                    <a href="?sortField=bal&sortOrder=ASC">
-                                        <img src="/themes/web/default/images/table/bg.png">
-                                    </a>
-                                <?endif;?>
-                            </th>
-                            <th>Документы судов</th>
-                            <th>Документы ФАС</th>
-                            <th>E-mail</th>
-                            <th>Телефон</th>
+                            <th>ИНН</th>
                         </tr>
                         <? foreach($data as $item): ?>
                         <tr>
-                            <td width="400"><a class="namelink" href="<?= core::$home ?>/amc/<?= $item['id'] ?>" target="_blank"><?= $item['name'] ?></a></td>
-                            <td align="center" width="150">
-                                <?= $item['rating'] ?>
-                            </td>
-                            <td align="center" width="150">
-                            <?= $item['linkdocs'] ?>
-                            </td>
-                            <td align="center" width="150">
-                                <?= $item['fasdocs'] ?>
-                            </td>
-                            <td align="center" width="150"><?= $item['email'] ?></td>
-                            <td align="center" width="150"><?= !empty($item['phone']) ? $item['phone'] : ''; ?></td>
+                            <td width="575"><a class="namelink" href="<?=  $item['debt_profile'] ?>" target="_blank"><?= $item['dept_name'] ?></a></td>
+                            <td align="center" width="575"><?= $item['inn'] ?></td>
                         </tr>
                         <? endforeach; ?>
                     </table>
