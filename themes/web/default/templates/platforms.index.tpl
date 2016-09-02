@@ -27,15 +27,34 @@
                     </div>
                     <table class="table">
                         <tr>
+                            <th>№</th>
                             <th>
-                                №             
+                                Наименование 
+                                <?if($sortField=='name'):?>
+                                    <?if($sortOrder == 'DESC'):?>
+                                        <a href="?sortField=name&sortOrder=ASC">
+                                            <img src="/themes/web/default/images/table/desc.png">
+                                        </a>
+                                    <?else:?>
+                                        <a href="?sortField=name&sortOrder=DESC">
+                                            <img src="/themes/web/default/images/table/asc.png">
+                                        </a>
+                                    <?endif;?>
+                                <?else:?>
+                                    <a href="?sortField=name&sortOrder=ASC">
+                                        <img src="/themes/web/default/images/table/bg.png">
+                                    </a>
+                                <?endif;?>
                             </th>
-                            <th>Ресурс</th>
+                            <th>Адрес</th>
+                            <th>Собственник</th>
                         </tr>
                         <? foreach($data as $item): ?>
                         <tr>
-                            <td align="center" width="150"><?= $item['id'] ?></td>
-                            <td align="center" width="1000"><a class="namelink" href="<?=  'http://'.$item['platform_url'] ?>" target="_blank"><?= $item['platform_url'] ?></a></td>
+                            <td align="center" width="40"><?= $item['id'] ?></td>
+                            <td align="center" width="430"><?= $item['nazva'] ?></td>
+                            <td align="center" width="250"><a class="namelink" href="<?=  'http://'.$item['link'] ?>" target="_blank"><?= $item['link'] ?></a></td>
+                            <td align="center" width="430"><?= $item['ovner'] ?></td>
                         </tr>
                         <? endforeach; ?>
                     </table>
