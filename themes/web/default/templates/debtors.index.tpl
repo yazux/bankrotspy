@@ -46,15 +46,11 @@
                                 <?endif;?>           
                             </th>
                             <th>ИНН</th>
-                            <th>Регион</th>
-                            <th>Адрес</th>
                         </tr>
                         <? foreach($data as $item): ?>
                         <tr>
-                            <td width="400"><a class="namelink" href="<?=  $item['link'] ?>" target="_blank"><?= $item['fio'] ?></a></td>
-                            <td align="center" width="150"><?= $item['inn'] ?></td>
-                            <td align="center" width="250"><?= $item['region'] ?></td>
-                            <td align="center" width="350"><?= $item['adres'] ?></td>
+                            <td width="575"><a class="namelink" href="<?=  $item['debt_profile'] ?>" target="_blank"><?= $item['dept_name'] ?></a></td>
+                            <td align="center" width="575"><?= $item['inn'] ?></td>
                         </tr>
                         <? endforeach; ?>
                     </table>

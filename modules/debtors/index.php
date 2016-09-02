@@ -10,17 +10,17 @@ $search = trim(strip_tags(GET('search')));
 
 if ( isset($search) && !empty($search)) {
     if (is_numeric($search) ) {
-        $where .= " AND (`reestr_debtor`.`inn` LIKE '%".$search."%') ";
+        $where .= " AND (`ds_maindata_debtors`.`inn` LIKE '%".$search."%') ";
     } else {
         $where .= " AND ("
-                . "`reestr_debtor`.`fio`  LIKE '%".$search."%' OR "
-                . "`reestr_debtor`.`inn` LIKE '%".$search."%'"
+                . "`ds_maindata_debtors`.`dept_name`  LIKE '%".$search."%' OR "
+                . "`ds_maindata_debtors`.`inn` LIKE '%".$search."%'"
                 . ")";
     }
 }
 
 $sortOrder = GET('sortOrder');
-$sortField = GET('sortField');
+$sortField = 'name';
 
 if ( isset($sortOrder) && ($sortOrder == 'DESC') ) {
     $sortOrder = 'DESC';
@@ -28,16 +28,12 @@ if ( isset($sortOrder) && ($sortOrder == 'DESC') ) {
     $sortOrder = 'ASC';
 }
 
-if ( isset($sortField) && ($sortField == 'name') ) {
-    $order = '`reestr_debtor`.`fio`';    
-} else {
-    $order = '`reestr_debtor`.`id`';
-}
+$order = '`ds_maindata_debtors`.`dept_name`';    
 
 $order .= ' ' . $sortOrder;
 
-$cntQuery = 'SELECT COUNT(*) AS cnt FROM `reestr_debtor` WHERE ' . $where;
-$query = 'SELECT * FROM `reestr_debtor` '
+$cntQuery = 'SELECT COUNT(*) AS cnt FROM `ds_maindata_debtors` WHERE ' . $where;
+$query = 'SELECT * FROM `ds_maindata_debtors` '
         . ' WHERE ' . $where
         . ' ORDER BY ' . $order 
         . ' LIMIT ' . nav::$start . ', ' . nav::$kmess;
@@ -52,12 +48,11 @@ $data = [];
 $i = 0;
 
 while($row = $res->fetch_assoc()) {
+
     $data[$i]['id'] = $row['id'];
-    $data[$i]['fio'] = str_replace(['ИП ', 'ИП'], '', $row['fio']);
+    $data[$i]['dept_name'] = str_replace(['ИП ', 'ИП'], '', $row['dept_name']);
     $data[$i]['inn'] = $row['inn'];
-    $data[$i]['region'] = $row['region'];
-    $data[$i]['adres'] = $row['adres'];
-    $data[$i]['link'] = $row['link'];
+    $data[$i]['debt_profile'] = $row['debt_profile'];
     $i++;
 }
 
@@ -80,6 +75,7 @@ temp::HTMassign('textData', text::out($textData['text'], 0));
 temp::assign('sortOrder', $sortOrder);
 temp::assign('sortField', $sortField);
 temp::assign('search', $search);
+temp::assign('access', $access);
 
 temp::HTMassign('navigation', nav::display($total, core::$home.'/debtors/?', '', '', array('search'=>$search,'sortOrder'=>$sortOrder,'sortField'=>$sortField)));
 temp::HTMassign('data', $data);
