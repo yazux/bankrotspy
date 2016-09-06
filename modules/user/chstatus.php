@@ -2,7 +2,7 @@
 defined('DS_ENGINE') or die('web_demon laughs');
 
 // Проверка на доступ к скрипту только админа
-if( core::$rights < 100 ) {
+if( core::$rights != 100 ) {
     exit('Отказано в доступе');
 }
 

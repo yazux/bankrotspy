@@ -3,9 +3,17 @@
         <td valign="top">
 
             <div class="content">
-                <div class="conthead"><h2><i class="icon-docs"></i> <?=$name?></h2> <a class="button aright" href="/assistance"> Помощь и участие в торгах </a></div>
+                <div class="conthead">
+                    <h2><i class="icon-docs"></i> <?=$name?></h2>
+                    <a class="button" style="float:right; margin-top: -25px; margin-left: 10px;" href="/assistance">
+                        Помощь в торгах
+                    </a>
+                    <a href="<?= core::$home ?>/request" class="button" style="float:right; margin-top: -25px;" target="_blank">
+                        Заказать ЭЦП/КЦП 
+                    </a>
+                </div>
                 <div class="contbody_forms">
-                    <?=$text?>
+                    !<?=$text?>
                 </div>
             </div>
 
@@ -13,7 +21,7 @@
         <td class="right_back_menu">
             <div class="right_panel_conf">
                 <div class="menu_rt">Меню</div>
-                <?if(core::$rights>=100):?>
+                <?if(core::$rights==100):?>
                 <div class="elmenu"><a href="<?=$home?>/control/pages">Все страницы</a></div>
                 <?endif?>
                 <?if($r_edit):?>
