@@ -30,7 +30,7 @@ if (!core::$user_id) {
                 $user = $req->fetch_array();
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_pass'] = md5(md5($pass));
-         
+         		$_SESSION['lefts'] = $user['rights'];
                 if (POST('mem')) {
                     $cuid = base64_encode($user['id']);
                     $cups = md5($pass);

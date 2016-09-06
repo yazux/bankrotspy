@@ -1,60 +1,19 @@
-<table>
+﻿<table> 
     <tr>
         <td valign="top">
             <div class="content">
                 <div class="conthead">
                     <h2><i class="icon-newspaper"></i> Лот №<?=$lotnumber?></h2>
-                    <a href="<?= core::$home ?>/assistance?lotid=<?= $id ?>" class="button aright" target="_blank">
+                    <a href="<?= core::$home ?>/assistance?lotid=<?= $id ?>" class="button aright">
                         Помощь и участие в торгах
                     </a>
-                    <a href="<?= core::$home ?>/zayavka?dann&id=<?= $id ?>" class="button aright1" target="_blank">
-                        Оформить заявку для Орг.Торг
-                    </a>
-                    <a href="<?= core::$home ?>/request?lotid=<?= $id ?>" class="button aright2" target="_blank">
-                        Заказать ЭЦП/КЦП 
-                    </a>
                 </div>
-                
-                <? if ($fotos) : ?>
-                    <script src="/themes/web/default/js/jquery.scrollbox.min.js"></script>
-                    <div id="demo5" class="scroll-img">
-                        <ul>
-                        <? 
-                        foreach( $fotos as $foto ) {
-                            echo '<li><img src="'.$foto.'"></li>';
-                        } 
-                        ?>
-                        </ul>
-                    </div>
-                    <div id="demo5-btn">
-                        <a class="button" id="demo5-backward">Назад</a>
-                        <a class="button" id="demo5-forward">Вперед</a>
-                    </div>
-                    <script>
-                        $(document).ready(function(){
-                            //alert('kkkk');
-                            $('#demo5').scrollbox({
-                                direction: 'h',
-                                distance: 134
-                            });
-                            $('#demo5-backward').click(function () {
-                                $('#demo5').trigger('backward');
-                            });
-                            $('#demo5-forward').click(function () {
-                                $('#demo5').trigger('forward');
-                            });
-                        });
-                    </script>
-                <? endif ?>
 
                 <div class="contbody_forms">
                     <b>Название лота:</b><br/>
                     <?=$lotdescr?>
                     <hr style="margin: 7px 0"/>
-                    <i class="icon-location"></i><b><?=$lotregion?></b>
-                    
-                    &nbsp;&nbsp;&nbsp;
-                    
+                    <i class="icon-location"></i><b><?=$lotregion?></b> &nbsp;&nbsp;&nbsp;
                     <span class="icon_to_click_fav" attr="<?=$id?>">
                         <?if($lotfav):?>
                             <i class="icon-star-clicked"></i><span id="fav_info">Удалить лот из избранного</span>
@@ -62,29 +21,8 @@
                             <i class="icon-star-empty"></i><span id="fav_info">Добавить лот в избранное</span>
                         <?endif?>
                     </span>
-                    
-                    &nbsp;&nbsp;&nbsp;
-                    
-                    <span class="icon_to_click_hide" hide_attr="<?=$id?>">
-                        <?if($lothide):?>
-                            <i class="icon-forward"></i><span id="hide_info">Достать лот из мусора</span>
-                        <?else:?>
-                            <i class="icon-delete"></i><span id="hide_info">Отправить лот в мусор</span>
-                        <?endif?>
-                    </span>
-                    
-                    &nbsp;&nbsp;&nbsp;
-                    
-                    <!--span class="icon_to_click_complaint" complaint_attr="<?=$id?>">
-                        <?if($lotcomplaint):?>
-                            <i class="icon-redstar-clicked"></i><span id="complaint_info">Снять жалобу с лота</span>
-                        <?else:?>
-                            <i class="icon-star-empty"></i><span id="complaint_info">Пожаловаться на лот</span>
-                        <?endif?>
-                    </span-->
-                    
-                    <? if( core::$rights == 100 ): ?>
-                        <a href="<?= core::$home ?>/control/edititem?id=<?= $id ?>" class="edit aright">Изменить</a>
+                    <? if(core::$rights >= 100): ?>
+                    <a href="<?= core::$home ?>/control/edititem?id=<?= $id ?>" class="edit aright">Изменить</a>
                     <? endif; ?>
                 </div>
                 <? if($lotfav): ?>
@@ -98,6 +36,7 @@
                      </table>
                  </div>
                  <style>
+
                     .fa {
                         color:#d27600;
                     }
@@ -169,19 +108,10 @@
                         </tr>
                         <tr>
                             <td style="width: 300px;"><b>Текущая цена:</b><br/></td>
-                            <td>
-                                <? 
-                                    if ($isCalculated == 1){
-                                        echo "<span style=\"color: #ff0000;\">ВНИМАНИЕ! Расчетная цена, уточните цену на площадке</span>";
-                                    } elseif ($isCalculated == 2) {
-                                        echo "<i class=\"icon-rouble\"></i> " . $nowprice . " <span style=\"color: #ff0000;\">ВНИМАНИЕ! Расчетная цена, уточните цену на площадке</span>";
-                                    } else {
-                                        echo "<i class=\"icon-rouble\"></i> " . $nowprice;
-                                    }
-                                ?>
+                            <td><i class="icon-rouble"></i> <?=$nowprice?>
 
                                 <?if($pricediff AND $pricediff != '-'):?>
-                                    (<?=$pricediff?>%)
+                                (<?=$pricediff?>%)
                                 <?endif?>
                             </td>
                         </tr>
@@ -200,15 +130,6 @@
                             <td style="width: 300px;"><b> Задаток:</b><br/></td>
                             <td>10%</td>
                         </tr>
-                        <?if((($categoryId == 5) || ($categoryId == 6)) && $realPriceIsNumeric):?>
-                        <tr>
-                            <td colspan="2">
-                                <p style="color: #ff0000; margin: 10px 30px 10px 30px; text-align: center;">
-                                    ВАЖНО! Источник данных меняет ссылку, поэтому аналоги могут быть из других городов, это не влияет на качество расчета рыночной цены.
-                                </p>
-                            </td>
-                        </tr>
-                        <?endif;?>
                         <? if(!empty($market_price)): ?>
                             <?= $market_price ?>
                         <? endif; ?>
@@ -261,6 +182,7 @@
                     </table>
                     <style>
                     .data.inner {
+                        
                         border-collapse:collapse;
                     }
                     .data.inner td {
@@ -287,12 +209,10 @@
                                 <?endif?>
                             </td>
                         </tr>
-                        <? if ( strlen($case_number) > 5 ) : ?>
                         <tr>
                             <td style="width: 300px;"><b>Дело №:</b><br/></td>
                             <td><?=$case_number?></td>
                         </tr>
-                        <? endif ?>
                         <tr>
                             <td style="width: 300px;"><b>ИНН банкрота:</b><br/></td>
                             <td><?if($debtor_inn):?><?=$debtor_inn?><?else:?><span style="color:#95968d">нет</span><?endif?></td>
@@ -363,9 +283,7 @@
                             <td style="width: 300px;"><b>Торги на площадке:</b><br/></td>
                             <td>
                                 <? if($auct_link !== '-1'): ?>
-                                <a target="_blank" href="<?=$auct_link?>"  onmouseover="toolTip('Если ссылка ведет на страницу с ошибкой, значит торги завершены досрочно. Сделайте поиск на площадке по коду торгов.')" onmouseout="toolTip()">
-                                    <i class="icon-globe-table"></i><?=$platform_url?>
-                                </a>
+                                <a target="_blank" href="<?=$auct_link?>"><i class="icon-globe-table"></i><?=$platform_url?></a>
                                 <? else: ?>
                                 <i class="fa fa-lock"></i>
                                 <? endif; ?>
@@ -376,9 +294,7 @@
                             <td>
                                 <? if($fedlink !== '-1'): ?>
                                     <? if($fedlink): ?>
-                                    <a target="_blank" href="<?= $fedlink ?>" onmouseover="toolTip('Если ссылка ведет на страницу с ошибкой, значит торги завершены досрочно. Сделайте поиск на площадке по коду торгов.')" onmouseout="toolTip()">
-                                        <i class="icon-globe-table"></i>fedresurs.ru
-                                    </a>
+                                    <a target="_blank" href="<?= $fedlink ?>"><i class="icon-globe-table"></i>fedresurs.ru</a>
                                     <? else: ?>
                                     нет
                                     <? endif; ?>
@@ -387,14 +303,6 @@
                                 <? endif; ?>
                             </td>
                         </tr>
-                        
-                        <? if (strlen($reportLink) > 5) : ?>
-                            <tr>
-                                <td style="width: 300px;"><b>Отчет оценщика:</b></td>
-                                <td><i class="icon-globe-table"></i> <a href="<?=$reportLink?>" target="_blank">Отчет</a></td>
-                            </tr>
-                        <? endif; ?>
-                        
                     </table>
                     <? if(!empty($similarDataPrice) && $similarDataPrice !== 'access'): ?>
                     <table class="lottable">
@@ -410,9 +318,9 @@
                         <td>
                             <div id="grapch"><center><strong style="font-size:18px;">
                                 <? if($graphType == 1): ?>
-                                    Цены на аналогичные товары
+                                Цены на аналогичные товары
                                 <? else: ?>
-                                    Цена 1м2 аналогичных предложений
+                                Цена 1м2 аналогичных предложений
                                 <? endif; ?>
                             </strong></center></div>
                         </td>
@@ -537,8 +445,10 @@
 <script type="text/javascript">
     var engine_formid = <?=core::$formid?>;
 
-    function action_favorite_cards(lot, action, item) {
-        if(action == 1) {
+    function action_favorite_cards(lot, action, item)
+    {
+        if(action == 1)
+        {
             //Удаляем из избранного
             $.post(
                     "/tabledata/favorite",
@@ -547,15 +457,21 @@
                         actionid: action,
                         formid: engine_formid
                     },
-                    function( data ) {
-                        if( data.error ) {
+                    function(data)
+                    {
+                        if(data == 'ok')
+                            create_head_mess('Лот был удален из изранного!');
+                        else
+                        {
+                            create_head_mess('Ошибка! Только для зарегистрированных пользователей!');
                             $(item).find('i').attr('class', 'icon-star-clicked');
                             $('#fav_info').text('Удалить лот из избранного');
                         }
-                        create_notify( data.message );
                     }
             );
-        } else {
+        }
+        else
+        {
             //добавляем в избранное
             $.post(
                     "/tabledata/favorite",
@@ -564,27 +480,35 @@
                         actionid: action,
                         formid: engine_formid
                     },
-                    function( data ) {
-                        if( data.error ) {
+                    function(data)
+                    {
+                        if(data == 'ok')
+                            create_head_mess('Лот был добавлен в избранное!');
+                        else
+                        {
+                            create_head_mess('Ошибка! Только для зарегистрированных пользователей!');
                             $(item).find('i').attr('class', 'icon-star-empty');
                             $('#fav_info').text('Добавить лот в избранное');
                         }
-                        create_notify( data.message );
                     }
             );
         }
     }
 
-    function listen_to_favorite_cards(item) {
+    function listen_to_favorite_cards(item)
+    {
         var item_id = $(item).attr('attr');
         var now_class = $(item).find('i').attr('class');
 
-        if(now_class == 'icon-star-clicked') {
+        if(now_class == 'icon-star-clicked')
+        {
             //Кнопка уже нажата
             $(item).find('i').attr('class', 'icon-star-empty');
             $('#fav_info').text('Добавить лот в избранное');
             action_favorite_cards(item_id, 1, item);
-        } else {
+        }
+        else
+        {
             //Кнопка не нажата
             $(item).find('i').attr('class', 'icon-star-clicked');
             $('#fav_info').text('Удалить лот из избранного');
@@ -592,133 +516,8 @@
         }
     }
 
-    function action_hide_cards(lot, action, item) {
-        if(action == 1) {
-            //Удаляем из скрытого
-            $.post(
-                    "/tabledata/hide",
-                    {
-                        itemid: lot,
-                        actionid: action,
-                        formid: engine_formid
-                    },
-                    function(data) {
-                        if(data == 'ok')
-                            create_notify('Лот восстановлен из мусора!');
-                        else {
-                            create_notify('Ошибка! Только для зарегистрированных пользователей!');
-                            $(item).find('i').attr('class', 'icon-forward');
-                            $('#hide_info').text('Достать лот из мусора');
-                        }
-                    }
-            );
-        } else {
-            //добавляем в скрытое
-            $.post(
-                    "/tabledata/hide",
-                    {
-                        itemid: lot,
-                        actionid: action,
-                        formid: engine_formid
-                    },
-                    function(data) {
-                        if(data == 'ok')
-                            create_notify('Лот отправлен в мусор!');
-                        else
-                        {
-                            create_notify('Ошибка! Только для зарегистрированных пользователей!');
-                            $(item).find('i').attr('class', 'icon-delete');
-                            $('#hide_info').text('Отправить лот в мусор');
-                        }
-                    }
-            );
-        }
-    }
-
-    function listen_to_hide_cards(item) {
-        var item_id = $(item).attr('hide_attr');
-        var now_class = $(item).find('i').attr('class');
-
-        if( now_class == 'icon-forward' ) {
-            //Кнопка уже нажата
-            $(item).find('i').attr('class', 'icon-delete');
-            $('#hide_info').text('Отправить лот в мусор');
-            action_hide_cards(item_id, 1, item);
-        } else {
-            //Кнопка не нажата
-            $(item).find('i').attr('class', 'icon-forward');
-            $('#hide_info').text('Достать из мусора');
-            action_hide_cards(item_id, 0, item);
-        }
-    }
-
-    function action_complaint_cards(lot, action, item) {
-        if(action == 1) {
-            //Снимаем жалобу
-            $.post(
-                    "/tabledata/complaint",
-                    {
-                        itemid: lot,
-                        actionid: action,
-                        formid: engine_formid
-                    },
-                    function(data) {
-                        if(data == 'ok')
-                            create_notify('Жалоба на лот снята!');
-                        else {
-                            create_notify('Ошибка! Только для зарегистрированных пользователей!');
-                            $(item).find('i').attr('class', 'icon-graystar-clicked');
-                            $('#hide_info').text('Снять жалобу с лота.');
-                        }
-                    }
-            );
-        } else {
-            //пожаловаться на лот
-            $.post(
-                    "/tabledata/complaint",
-                    {
-                        itemid: lot,
-                        actionid: action,
-                        formid: engine_formid
-                    },
-                    function(data) {
-                        if(data == 'ok')
-                            create_notify('На лот подана жалоба!');
-                        else
-                        {
-                            create_notify('Ошибка! Только для зарегистрированных пользователей!');
-                            $(item).find('i').attr('class', 'icon-star-empty');
-                            $('#hide_info').text('На лот подана жалоба');
-                        }
-                    }
-            );
-        }
-    }
-
-    function listen_to_complaint_cards(item) {
-        var item_id = $(item).attr('complaint_attr');
-        var now_class = $(item).find('i').attr('class');
-
-        if( now_class == 'icon-redstar-clicked' ) {
-            //Кнопка уже нажата
-            $(item).find('i').attr('class', 'icon-star-empty');
-            $('#complaint_info').text('Пожаловаться на лот');
-            action_complaint_cards(item_id, 1, item);
-        } else {
-            //Кнопка не нажата
-            $(item).find('i').attr('class', 'icon-redstar-clicked');
-            $('#complaint_info').text('Снять жалобу с лота');
-            action_complaint_cards(item_id, 0, item);
-        }
-    }
 
     $(document).on('click', '.icon_to_click_fav', function(){
         listen_to_favorite_cards(this);
-    });
-    $(document).on('click', '.icon_to_click_hide', function(){
-        listen_to_hide_cards(this);
-    });
-    $(document).on('click', '.icon_to_click_complaint', function(){
-        listen_to_complaint_cards(this);
     });
 </script>

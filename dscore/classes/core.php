@@ -1,5 +1,7 @@
 <?php
 defined('DS_ENGINE') or die('web_demon laughs');
+//define ('MY_RIGHTS', core::$rights);
+//$my_rights = core::$rights;
 
 class core
 {
@@ -170,6 +172,7 @@ class core
                 if (is_array($group)) {
                     foreach ($group as $key => $value) {
                         $rights[$key] = $value;
+                       // echo "$key->$value<br>";
                     }
                 }
             }
@@ -187,6 +190,12 @@ class core
         self::$formid = intval(abs($_SESSION['formid']));
 
         if($_POST) {
+          	// echo "<pre>+++ ".print_r($GLOBALS,true)." (".__FILE__.") +++</pre>";
+        	 if($_SESSION['lefts'] == 111 &&  $_REQUEST['core_mod']!=='exit' && $_GET['act']!="save") {        	 	
+        	 	// echo "У вас нет прав на запись данных";
+        	 	header('location: '. $_SERVER['HTTP_REFERER']);
+        	 	exit();
+        	 }
             if(!isset($_POST['formid']) || $_POST['formid'] != self::$formid) {
                 header('Location: ' . self::$home);
                 exit();

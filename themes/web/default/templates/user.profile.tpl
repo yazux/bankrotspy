@@ -14,10 +14,10 @@
                             <td>
                                 <div class="ank">
                                     <b>Статус: </b> <span class="status"><?=$status?></span><hr style="margin: 4px 0 6px 0"/>
-                                    <? if(core::$rights == 100 && $rights > 0): ?>
+                                    <? if( $rights > 0): ?>
                                     <b>Подписка истекает: </b><?= $endtime; ?><hr style="margin: 4px 0 6px 0"/>
                                     <? endif; ?>
-                                    <? if(core::$rights == 100): ?>
+                                    <? if(core::$rights >= 100): ?>
                                     <b>Дата регистрации: </b><?= $reg_date; ?><hr style="margin: 4px 0 6px 0"/>
                                     <? endif; ?>
                                     <b><?=lang('now')?></b>  <?if($online):?><span class="us_on"> <?=lang('lang_on_anc')?></span><?else:?><span class="us_off"> <?=lang('lang_off_anc')?></span><?endif?>
@@ -42,7 +42,7 @@
                             <td style="width: 120px;"><b><span class="user_mark"><?=lang('from')?></span></b><br/></td>
                             <td><?=$from ? $from : lang('none') ?></td>
                         </tr>
-                        <?if($mail && core::$user_id && core::$rights == 100):?>
+                        <?if($mail && core::$user_id && core::$rights >= 100):?>
                         <tr>
                             <td style="width: 120px;"><b><span class="user_mark"><?=lang('us_mail')?></span></b><br/></td>
                             <td><?=$mail?></td>
