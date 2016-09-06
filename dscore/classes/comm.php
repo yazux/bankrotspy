@@ -81,7 +81,7 @@ class comm
 
     $visible = ' AND `ds_comm`.`visible` = "1" ';
     
-    if(core::$rights == 100) {
+    if(core::$rights >= 100) {
        $visible = ''; 
     }
     
