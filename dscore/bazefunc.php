@@ -1,4 +1,7 @@
 <?php
+
+
+
 defined('DS_ENGINE') or die('web_demon laughs');
 
 spl_autoload_register('autoload');
@@ -59,10 +62,10 @@ function denied()
   $file_r = str_replace($_SERVER['DOCUMENT_ROOT'],'',$file_r);
   echo '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru"><body>';
   
-  if(core::$rights == 100) {
+  if(core::$rights >= 100) {
     echo '<b>ACCESS ERROR!</b> Denied() called in "'.$file_r.'" <b>on line</b> '.$file_error['line'].'</body></html>';
   } else {
-    echo 'Доступ запрещен';
+    echo 'Доступ запрещен!';
   }
   exit();
 

@@ -24,7 +24,7 @@ if ( core::$user_id && (core::$user_active == 0) ) {
 $query = 'SELECT COUNT(*) FROM `ds_users` WHERE `lastvisit` > "' . (time() - core::$set['onlinetime']) . '";';
 $query .= 'SELECT COUNT(*) FROM `ds_guests` WHERE `lastdate` > "' . (time() - core::$set['onlinetime']) . '";';
 $query .= 'SELECT * FROM `ds_menu` ORDER BY `sort`;';
-if(core::$rights == 100)
+if(core::$rights >= 100) 
   $query .= 'SELECT * FROM `ds_feedback_comm_rdm` WHERE `modid` = "1" AND `userid` = "'.core::$user_id.'";';
 
 core::$db->multi_query($query);
@@ -66,7 +66,7 @@ if(core::$user_id)
   temp::assign('head_avatar', $avatar);
 }
 
-if(core::$rights == 100)
+if(core::$rights >= 100)  
 {
   core::$db->next_result();
   $res = core::$db->store_result();
@@ -75,27 +75,26 @@ if(core::$rights == 100)
 
 //Счетчики
 //Техподержка
+/*
+if(CAN('tech_support', 0))
+  counts::cnew('unread_support','SELECT COUNT(*) FROM `ds_support` WHERE `read` = "0" AND `closed` = "0" ;','/support');
+*/
 
-if (CAN('tech_support', 0)){
-    counts::cnew('unread_support','SELECT COUNT(*) FROM `ds_support` WHERE `read` = "0" AND `closed` = "0" ;','/support');
-} elseif(core::$user_id) {
-    counts::cnew('unread_support','SELECT COUNT(*) FROM `ds_support` WHERE `read` = "1" AND `usread` = "0" AND `userid` = "'.core::$user_id.'" ;','/support');
-}
-
+if(core::$user_id)
+  counts::cnew('unread_support','SELECT COUNT(*) FROM `ds_support` WHERE `read` = "1" AND `usread` = "0" AND `userid` = "'.core::$user_id.'" ;','/support');
 //Новости
 counts::cnew('unread_news' ,'SELECT COUNT(*) FROM `ds_news` LEFT JOIN `ds_news_rdm` ON `ds_news`.`id` = `ds_news_rdm`.`artid` AND `ds_news_rdm`.`userid` = "' . core::$user_id . '" WHERE `ds_news_rdm`.`userid` IS NULL AND `ds_news`.`time` > "'.(time() - (3 * 24 * 3600)).'";',  '/news');
 //counts::cnew('unread_art_comms' ,'SELECT COUNT(*) FROM `ds_article` LEFT JOIN `ds_art_comm_rdm` ON `ds_article`.`id` = `ds_art_comm_rdm`.`modid` AND `ds_art_comm_rdm`.`userid` = "' . core::$user_id . '" WHERE (`ds_art_comm_rdm`.`userid` IS NULL OR `ds_art_comm_rdm`.`rdmtime` < `ds_article`.`comtime`) AND `ds_article`.`type` = "0" AND `ds_article`.`comtime` > "'.(time() - (3 * 24 * 3600)).'";', '/articles/newcomm');
 //
-if (core::$rights == 100) {
-    counts::cnew('unread_feedback','SELECT COUNT(*) FROM `ds_comm` WHERE `module`="feedback" AND `mid` = "1" AND  `time` > "'.$dta['rdmtime'].'" AND `time` > '.(time() - (3 * 24 * 3600)).';','/feedback');
-}
-
+if (core::$rights >= 100)
+  counts::cnew('unread_feedback','SELECT COUNT(*) FROM `ds_comm` WHERE `module`="feedback" AND `mid` = "1" AND  `time` > "'.$dta['rdmtime'].'" AND `time` > '.(time() - (3 * 24 * 3600)).';','/feedback');
 counts::cnew('unread_articles' ,'SELECT COUNT(*) FROM `ds_article` LEFT JOIN `ds_art_rdm` ON `ds_article`.`id` = `ds_art_rdm`.`artid` AND `ds_art_rdm`.`userid` = "' . core::$user_id . '" WHERE `ds_art_rdm`.`userid` IS NULL AND `ds_article`.`type` = "0" AND `ds_article`.`time` > "'.(time() - (3 * 24 * 3600)).'";',  '/articles/new');
 counts::cnew('unread_art_comms' ,'SELECT COUNT(*) FROM `ds_article` LEFT JOIN `ds_art_comm_rdm` ON `ds_article`.`id` = `ds_art_comm_rdm`.`modid` AND `ds_art_comm_rdm`.`userid` = "' . core::$user_id . '" WHERE (`ds_art_comm_rdm`.`userid` IS NULL OR `ds_art_comm_rdm`.`rdmtime` < `ds_article`.`comtime`) AND `ds_article`.`type` = "0" AND `ds_article`.`comtime` > "'.(time() - (3 * 24 * 3600)).'";', '/articles/newcomm');
 
-if (CAN('stats_moderate', 0)) {
-    counts::cnew('onmoder_articles' ,'SELECT COUNT(*) FROM `ds_article` WHERE `type` = "2";', '/articles/onmoder');
-}
+/*
+if(CAN('stats_moderate', 0))
+  counts::cnew('onmoder_articles' ,'SELECT COUNT(*) FROM `ds_article` WHERE `type` = "2";', '/articles/onmoder');
+*/
 
 //Смотрим, если ли сообщения
 if(uscache::ex('mess_head'))
