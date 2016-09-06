@@ -80,18 +80,23 @@ while($row = $res->fetch_assoc()) {
     } else {
         $fasdocs = 'Нет данных';
     }
- 
+    
+    if(!empty($row['org_profile'])) {
+        $org_profile = '<a class="namelink" href="' . $row['org_profile'] .'" target="_blank">Смотреть</a>';
+    } else {
+        $org_profile = 'Нет данных';
+    }
+
+
     $data[$i]['id'] = $row['id'];
     $data[$i]['name'] = str_replace(['ИП ', 'ИП'], '', $row['org_name']);
     $data[$i]['phone'] = ($access === true) ? intval($row['phone']) : $access;
     $data[$i]['rating'] = ($access === true) ? $rating : $access;
     $data[$i]['fasdocs'] = ($access === true) ? $fasdocs : $access;
     $data[$i]['linkdocs'] = ($access === true) ? $linkdocs : $access;
-    
+    $data[$i]['org_profile'] = ($access === true) ? $org_profile : $access;
     $data[$i]['totaldoc'] = ($access === true)? $row['totaldoc'] : $access;
-
     $data[$i]['email'] = ($access === true) ? $row['mail'] : $access;
-
     $i++;
 }
 

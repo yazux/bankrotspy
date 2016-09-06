@@ -66,23 +66,27 @@
                             </th>
                             <th>Документы судов</th>
                             <th>Документы ФАС</th>
+                            <th>Федресурс</th>
                             <th>E-mail</th>
                             <th>Телефон</th>
                         </tr>
                         <? foreach($data as $item): ?>
                         <tr>
-                            <td width="400"><a class="namelink" href="<?= core::$home ?>/amc/<?= $item['id'] ?>" target="_blank"><?= $item['name'] ?></a></td>
-                            <td align="center" width="150">
+                            <td width="350"><a class="namelink" href="<?= core::$home ?>/amc/<?= $item['id'] ?>" target="_blank"><?= $item['name'] ?></a></td>
+                            <td align="center" width="125">
                                 <?= $item['rating'] ?>
                             </td>
-                            <td align="center" width="150">
+                            <td align="center" width="125">
                             <?= $item['linkdocs'] ?>
                             </td>
-                            <td align="center" width="150">
+                            <td align="center" width="125">
                                 <?= $item['fasdocs'] ?>
                             </td>
-                            <td align="center" width="150"><?= $item['email'] ?></td>
-                            <td align="center" width="150"><?= !empty($item['phone']) ? $item['phone'] : ''; ?></td>
+                            <td align="center" width="125">
+                                <?= $item['org_profile'] ?>
+                            </td>
+                            <td align="center" width="125"><?= $item['email'] ?></td>
+                            <td align="center" width="125"><?= !empty($item['phone']) ? $item['phone'] : ''; ?></td>
                         </tr>
                         <? endforeach; ?>
                     </table>
