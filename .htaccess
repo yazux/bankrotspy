@@ -25,6 +25,9 @@ RewriteRule ^debtors/([0-9]+)$ ?core_mod=debtors&core_act=profile&id=$1 [QSA]
 RewriteRule ^platforms/$ ?core_mod=platforms&core_act=index&id=$1 [QSA]
 RewriteRule ^platforms/([0-9]+)$ ?core_mod=platforms&core_act=profile&id=$1 [QSA]
 
+RewriteRule ^stats/$ ?core_mod=stats&core_act=index&id=$1 [QSA]
+RewriteRule ^stats/([0-9]+)$ ?core_mod=stats&core_act=profile&id=$1 [QSA]
+
 RewriteRule ^card/([0-9]{1,11})$ ?core_mod=cards&core_act=index&id=$1 [QSA]
 ## forum subforum rewrite ##
 RewriteRule ^forum/subforum([0-9]{1,11})$ ?core_mod=forum&core_act=subforum&id=$1 [QSA]

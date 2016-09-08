@@ -161,7 +161,73 @@
 
                 </div>
                 <div class="contbody_forms">
+                    <? if($contact_person_phone !== '-1'): ?>
+                    <div class="contact_wrapper">
+                        <?if($contact_person_phone):?>
+                        <div class="button_wrapper phone_button">
+                            <div class="ico_phone"></div>
+                            <a href="skype:+<?=$contact_person_phone?>?call"><?=$contact_person_phone?></a>
+                        </div>
+                        <?endif?>
+                        <?if($contact_person_email):?>
+                        <div class="button_wrapper email_button">
+                            <div class="ico_email"></div>
+                            <a href="mailto:<?=$contact_person_email?>"><?=$contact_person_email?></a>
+                        </div>
+                        <?endif?>
+                    </div>
+                    <? endif; ?>
+                    
+                    <style>
+                        .contact_wrapper{
+                            position: absolute;
+                            right: 0px;
+                            overflow: auto;
+                        }
+                        .ico_phone, .ico_email{
+                            margin-top: 5px;
+                            margin-right: 5px;
+                            height: 20px;
+                            width: 20px;
+                            float: left;
+                            background-repeat: no-repeat;
+                            background-position: center center;
+                            background-size: 100% 100%;
+                        }
+                        .ico_phone{
+                            background-image: url("../themes/web/default/images/phone-link.png");
+                        }
+                        .ico_email{
+                            background-image: url("../themes/web/default/images/email-link.png");
+                        }
+                        .button_wrapper{
+                            float: left;
+                            text-align: right;
+                            margin-right: 10px;
+                            padding: 0px 7px;
+                            line-height: 30px;
+                            border-radius: 5px;
+                            cursor: pointer;
+                        }
+                        .button_wrapper a{
+                            color: #fff;
+                            text-decoration: none;
+                            font-weight: bold;
+                        }
+                        .phone_button{
+                            background: rgba(71, 184, 11, 0.75);
+                        }
+                        .email_button{
+                            background: rgba(184, 147, 110, 0.75);
+                        }
 
+                        .phone_button:hover{
+                            background: rgba(71, 184, 11, 1);
+                        }
+                        .email_button:hover{
+                            background: rgba(184, 147, 110, 1);
+                        }
+                    </style>
                     <table class="lottable">
                         <tr>
                             <td style="width: 300px;"><b>Цена лота:</b><br/></td>
@@ -319,6 +385,33 @@
                         <tr>
                             <td style="width: 300px;"><b>Контактное лицо организатора торгов:</b><br/></td>
                             <td><?if($contact_person):?><?=$contact_person?><?else:?><span style="color:#95968d">нет</span><?endif?></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 300px;"><b>Телефон:</b><br/></td>
+                            <? if($contact_person_phone !== '-1'): ?>
+                                <td><?if($contact_person_phone):?>
+                                    <?=$contact_person_phone?>
+                                    <?else:?>
+                                    <span style="color:#95968d">нет</span>
+                                    <?endif?>
+                                </td>
+                            <? else: ?>
+                                <td><i class="fa fa-lock"></i></td>
+                            <? endif; ?>
+                        </tr>
+                        <tr>
+                            <td style="width: 300px;"><b>Email:</b><br/></td>
+                            <? if($contact_person_email !== '-1'): ?>
+                                <td>
+                                    <?if($contact_person_email):?>
+                                    <?=$contact_person_email?>
+                                    <?else:?>
+                                    <span style="color:#95968d">нет</span>
+                                    <?endif?>
+                                </td>
+                            <? else: ?>
+                                <td><i class="fa fa-lock"></i></td>
+                            <? endif; ?>
                         </tr>
                         <tr>
                             <td style="width: 300px; background:#eee;"><b>Арбитражный управляющий:</b><br/></td>

@@ -284,9 +284,19 @@ if(isset($data_debt['dept_name']))
     temp::assign('debtor_profile', $data_debt['debt_profile']);
 }
 
+if($access) {
+    $contact_person_phone = $data_org['phone'];
+    $contact_person_email = $data_org['mail'];
+} else {
+    $contact_person_phone = $data_org['phone'] = -1;
+    $contact_person_email = $data_org['email'] = -1;
+}
+
 if (isset($data_org['org_name'])) {
     temp::assign('organizer', $data_org['org_name']);
     temp::assign('contact_person', $data_org['contact_person']);
+    temp::assign('contact_person_phone', $contact_person_phone);
+    temp::assign('contact_person_email', $contact_person_email);
     temp::assign('manager', $data_org['manager']);
     temp::assign('inn_orgname', $data_org['inn']);
   
