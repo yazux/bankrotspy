@@ -64,6 +64,23 @@
                                     </a>
                                 <?endif;?>
                             </th>
+                            <th>Кол-во лотов
+                                 <?if($sortField=='cnt'):?>
+                                    <?if($sortOrder == 'DESC'):?>
+                                        <a href="?sortField=cnt&sortOrder=ASC">
+                                            <img src="/themes/web/default/images/table/desc.png">
+                                        </a>
+                                    <?else:?>
+                                        <a href="?sortField=cnt&sortOrder=DESC">
+                                            <img src="/themes/web/default/images/table/asc.png">
+                                        </a>
+                                    <?endif;?>
+                                <?else:?>
+                                    <a href="?sortField=cnt&sortOrder=ASC">
+                                        <img src="/themes/web/default/images/table/bg.png">
+                                    </a>
+                                <?endif;?>
+                            </th>
                             <th>Документы судов</th>
                             <th>Документы ФАС</th>
                             <th>Федресурс</th>
@@ -72,17 +89,20 @@
                         </tr>
                         <? foreach($data as $item): ?>
                         <tr>
-                            <td width="350"><a class="namelink" href="<?= core::$home ?>/amc/<?= $item['id'] ?>" target="_blank"><?= $item['name'] ?></a></td>
-                            <td align="center" width="125">
+                            <td width="255"><a class="namelink" href="<?= core::$home ?>/amc/<?= $item['id'] ?>" target="_blank"><?= $item['name'] ?></a></td>
+                            <td align="center" width="120">
                                 <?= $item['rating'] ?>
                             </td>
-                            <td align="center" width="125">
+                            <td align="center" width="120">
+                                <?= $item['cnt'] ?>
+                            </td>
+                            <td align="center" width="120">
                             <?= $item['linkdocs'] ?>
                             </td>
-                            <td align="center" width="125">
+                            <td align="center" width="120">
                                 <?= $item['fasdocs'] ?>
                             </td>
-                            <td align="center" width="125">
+                            <td align="center" width="120">
                                 <?= $item['org_profile'] ?>
                             </td>
                             <td align="center" width="125"><?= $item['email'] ?></td>

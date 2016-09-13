@@ -10,15 +10,15 @@ $search = trim(strip_tags(GET('search')));
 
 if ( isset($search) && !empty($search)) {
     if (is_numeric($search) ) {
-        $where .= " AND (`ds_maindata_organizers`.`inn` LIKE '%".$search."%' OR `ds_maindata_organizers`.`phone` LIKE '%".$search."%') ";
+        $where .= " AND (org.inn LIKE '%".$search."%' OR org.phone LIKE '%".$search."%') ";
     } else {
         $where .= " AND ("
-                . "`ds_maindata_organizers`.`org_name`  LIKE '%".$search."%' OR "
-                . "`ds_maindata_organizers`.`phone` LIKE '%".$search."%' OR "
-                . "`ds_maindata_organizers`.`mail` LIKE '%".$search."%' OR "
-                . "`ds_maindata_organizers`.`inn` LIKE '%".$search."%' OR "
-                . "`ds_maindata_organizers`.`contact_person` LIKE '%".$search."%' OR "
-                . "`ds_maindata_organizers`.`manager` LIKE '%".$search."%'"
+                . "org.org_name  LIKE '%".$search."%' OR "
+                . "org.phone LIKE '%".$search."%' OR "
+                . "org.mail LIKE '%".$search."%' OR "
+                . "org.inn LIKE '%".$search."%' OR "
+                . "org.contact_person LIKE '%".$search."%' OR "
+                . "org.manager LIKE '%".$search."%'"
                 . ")";
     }
 } 
@@ -34,21 +34,30 @@ if ( isset($sortOrder) && ($sortOrder == 'ASC') ) {
 
 if ( isset($sortField) && ($sortField == 'name') ) {
     $sortField = 'name';
-    $order = '`ds_maindata_organizers`.`org_name`';    
+    $order = 'org.org_name';    
+} elseif (isset($sortField) && ($sortField == 'cnt')) {
+    $sortField = 'cnt';
+    $order = 'cnt';    
 } else {
     $sortField = 'bal';
-    $order = '`ds_maindata_organizers`.`bal`';
+    $order = 'org.bal';
 }
 
-$order .= ' ' . $sortOrder . ', `ds_maindata_organizers`.`totaldoc` DESC';
+$order .= ' ' . $sortOrder . ', org.totaldoc DESC';
 
-$cntQuery = 'SELECT COUNT(*) AS cnt FROM `ds_maindata_organizers` WHERE ' . $where;
-$query = 'SELECT * FROM `ds_maindata_organizers` '
+$cntQuery = 'SELECT COUNT(*) AS cnt FROM ds_maindata_organizers AS org WHERE ' . $where;
+
+$query = "SELECT org.*, ifnull(lot.cnt, 0) AS cnt"
+    . " FROM"
+        . " ds_maindata_organizers AS org"
+        . " LEFT JOIN"
+        . " (select organizer, count(*) AS cnt FROM ds_maindata WHERE status = '3' group by organizer) AS lot"
+            . " ON org.id = lot.organizer"
         . ' WHERE ' . $where
         . ' ORDER BY ' . $order 
         . ' LIMIT ' . nav::$start . ', ' . nav::$kmess;
 
-//var_dump($cntQuery);die();
+$str3 = $query;
 
 $cntQuery = core::$db->query($cntQuery);
 $total = $cntQuery->fetch_assoc()['cnt'];
@@ -69,6 +78,12 @@ while($row = $res->fetch_assoc()) {
         $rating = '<a class="minus" href="' . core::$home . '/amc/' . $row['id'] . '" target="_blank">' . $row['bal'] . '</a>';
     }
     
+    if($row['cnt']) {
+        $cnt = $row['cnt'];
+    } else {
+        $cnt = 0;
+    }
+
     if (!empty($row['totaldoc'])) {
         $linkdocs = '<a class="namelink" href="' . $row['linkdocs'] . '" target="_blank">Смотреть</a>';
     } else {
@@ -87,11 +102,11 @@ while($row = $res->fetch_assoc()) {
         $org_profile = 'Нет данных';
     }
 
-
     $data[$i]['id'] = $row['id'];
     $data[$i]['name'] = str_replace(['ИП ', 'ИП'], '', $row['org_name']);
     $data[$i]['phone'] = ($access === true) ? intval($row['phone']) : $access;
     $data[$i]['rating'] = ($access === true) ? $rating : $access;
+    $data[$i]['cnt'] = ($access === true) ? $cnt : $access;
     $data[$i]['fasdocs'] = ($access === true) ? $fasdocs : $access;
     $data[$i]['linkdocs'] = ($access === true) ? $linkdocs : $access;
     $data[$i]['org_profile'] = ($access === true) ? $org_profile : $access;
@@ -100,7 +115,7 @@ while($row = $res->fetch_assoc()) {
     $i++;
 }
 
-$textQuery = core::$db->query('SELECT * FROM `ds_pages` WHERE `id` = "9" LIMIT 1;');
+$textQuery = core::$db->query('SELECT * FROM ds_pages WHERE id = "9" LIMIT 1;');
 $textData =  $textQuery->fetch_assoc();
 engine_head($textData['name'], $textData['keywords'], $textData['description']);
 temp::assign('title', $textData['name']);
