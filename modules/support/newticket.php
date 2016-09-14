@@ -29,8 +29,15 @@ if(POST('submit'))
       exit();
    } 
 }  
-  
+
+//если нажали кнопку пожаловатся на лот, тогда вставляем заранее сообщение о каком именно жалуются
+$lot_message = "";
+if (!empty(GET('lot_id'))){
+   $lot_message = "Добрый день. Я хочу пожаловаться на лот %s/card/".GET('lot_id')."\r\n";
+}
+
 engine_head(lang('support'));
-temp::HTMassign('error', $error); 
+temp::HTMassign('error', $error);
+temp::HTMassign('lot_message', $lot_message);
 temp::display('support.newticket');
 engine_fin();

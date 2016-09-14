@@ -22,7 +22,7 @@
                     </div>
                     <div class="contbody_forms">
                         <?=func::tagspanel('messarea');?>
-                        <div class="texta"><textarea id="messarea" name="mess" rows="5"></textarea></div>
+                        <div class="texta"><textarea id="messarea" name="mess" rows="5"><?= sprintf($lot_message,$home) ?></textarea></div>
                     </div>
 
                     <div class="contfin_forms">

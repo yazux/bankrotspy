@@ -72,7 +72,11 @@
                             <i class="icon-delete"></i><span id="hide_info">Отправить лот в мусор</span>
                         <?endif?>
                     </span>
-                    
+
+                    &nbsp;&nbsp;&nbsp;
+
+                    <span class="icon_compl"><a class="link_compl" href="<?=$home?>/support/newticket?lot_id=<?=$id?>">Пожаловаться на лот</a></span>
+
                     &nbsp;&nbsp;&nbsp;
                     
                     <!--span class="icon_to_click_complaint" complaint_attr="<?=$id?>">

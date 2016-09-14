@@ -585,6 +585,19 @@ text-decoration: underline;
     color: #ee9400;
 }
 
+.link_compl {
+    color: #ee9400;
+}
+.icon_compl {
+    width: 14px;
+    height: 14px;
+    background: url("../images/attention.svg");
+    background-size: 14px 14px;
+    background-repeat: no-repeat;
+    padding-left: 18px;
+    background-position: left 2px;
+}
+
 .icon_to_click_fav:hover {
     text-decoration: underline;
     cursor: pointer;
