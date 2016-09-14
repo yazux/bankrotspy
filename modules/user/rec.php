@@ -19,13 +19,15 @@ if(!$res->num_rows) {
     $data = $res->fetch_assoc();
 
     $pay_date = time();
-    $query = core::$db->query('SELECT * FROM `ds_tariffs` WHERE `id` = "7"');
+    $query = core::$db->query('SELECT * FROM `ds_tariffs` WHERE `id` = "9"');
     $tariff = $query->fetch_assoc();
 
     if ($tariff['typetime'] == 0) {
         $end_date = $pay_date + $tariff['longtime'] *24*3600;
     } elseif ($tariff['typetime'] == 1){
         $end_date = $pay_date + $tariff['longtime'] * 31*24*3600;
+    } elseif ($tariff['typetime'] == 2){
+        $end_date = $pay_date + $tariff['longtime'] *3600;
     }
     
   
