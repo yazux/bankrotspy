@@ -73,7 +73,7 @@ class core
         @ini_set('session.use_trans_sid', '0');
         @ini_set('arg_separator.output', '&amp;');
         mb_internal_encoding('UTF-8');
-        date_default_timezone_set('Europe/London');
+        date_default_timezone_set('Europe/Moscow');
 
         //стартуем сессию
         session_name('DSID');
