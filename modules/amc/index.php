@@ -57,8 +57,6 @@ $query = "SELECT org.*, ifnull(lot.cnt, 0) AS cnt"
         . ' ORDER BY ' . $order 
         . ' LIMIT ' . nav::$start . ', ' . nav::$kmess;
 
-$str3 = $query;
-
 $cntQuery = core::$db->query($cntQuery);
 $total = $cntQuery->fetch_assoc()['cnt'];
 $res = core::$db->query( $query);

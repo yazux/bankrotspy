@@ -18,7 +18,7 @@
                     <form style="display:block;margin-bottom:20px;">
                         <input type="text" name="search" value="<?=$search?>" placeholder="Название, ИНН">&nbsp;
                         <input type="submit" class="urlbutton_index button_no_top_index" value="Найти">
-                        <a class="urlbutton_index button_no_top_index" href="/amc/">Очистить</a>
+                        <a class="urlbutton_index button_no_top_index" href="/debtors/">Очистить</a>
                     </form>
                     
                     

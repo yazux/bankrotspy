@@ -174,7 +174,9 @@
                                        <? $link = core::$home.'/amc'?>
                                        <?if ($rmenu['link'] == $link):?>
                                         <ul class="subnav">
+                                            <li><a href="/toplots">Топ лотов</a></li>
                                             <li><a href="/stats">Статистика лотов</a></li>
+                                            <li><a href="/winners">Рейтинг победителей</a></li>
                                             <li><a href="/amc">Арб. управляющие</a></li>
                                             <li><a href="/platforms">Торговые площадки</a></li>
                                             <li><a href="/debtors">Должники</a></li>

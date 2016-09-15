@@ -322,6 +322,15 @@ if ( $fotos ) {
     temp::HTMassign('fotos', $fotos);
 }
 
+if ($data['status'] == 1 || $data['status'] == 2){
+    core::$db->query('INSERT INTO `lot_views` SET
+       `lot_id` = "'.$id.'",
+       `view_date` = "'.time().'"
+       ;');
+}
+
+
+
 temp::assign('case_number', $data['case_number']);
 temp::assign('reportLink', $data['reportlink']);
 temp::HTMassign('nowprice', $nowprice);
